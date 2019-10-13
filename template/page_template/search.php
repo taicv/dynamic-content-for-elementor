@@ -56,9 +56,9 @@ $dce_col_xs = $dce_default_options[$dce_block_template.'_col_xs'];
 
             <?php else : ?>
                  <header class="page-header">
-                    <span class="search-page-title"><?php printf( __( 'Search for: %s', DCE_TEXTDOMAIN.'_texts'), '<span>' . get_search_query() . '</span>' ); ?></span>
+                    <span class="search-page-title"><?php printf( __( 'Search for: %s', 'dynamic-content-for-elementor'.'_texts'), '<span>' . get_search_query() . '</span>' ); ?></span>
                 </header><!-- .page-header -->
-                 <h3 class="no-results"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <?php echo __('Sorry, but nothing matched your search terms. Please try again with different keywords.', DCE_TEXTDOMAIN.'_texts') ?></h3>
+                 <h3 class="no-results"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <?php echo __('Sorry, but nothing matched your search terms. Please try again with different keywords.', 'dynamic-content-for-elementor'.'_texts') ?></h3>
                  <div class="search-page-form" id="ss-search-page-form">
                     <?php get_search_form(); ?>
                       

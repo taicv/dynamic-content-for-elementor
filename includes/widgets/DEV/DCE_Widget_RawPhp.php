@@ -25,10 +25,10 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('PHP Raw', DCE_TEXTDOMAIN);
+        return __('PHP Raw', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('If you think about it, applying PHP code directly from a widget would have no limits and you could build anything as a template. This widget is dedicated to developers who want the utmost control directly from Elementor', DCE_TEXTDOMAIN);
+        return __('If you think about it, applying PHP code directly from a widget would have no limits and you could build anything as a template. This widget is dedicated to developers who want the utmost control directly from Elementor', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/php-raw/';
@@ -41,7 +41,7 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
         
         $this->start_controls_section(
             'section_rawphp', [
-                'label' => __('PHP Raw', DCE_TEXTDOMAIN),
+                'label' => __('PHP Raw', 'dynamic-content-for-elementor'),
             ]
         );
         
@@ -60,7 +60,7 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
             $this->add_control(
               'custom_php',
               [
-                 'label'   => __( 'Custom PHP', DCE_TEXTDOMAIN ),
+                 'label'   => __( 'Custom PHP', 'dynamic-content-for-elementor' ),
                  'type'    => Controls_Manager::CODE,
                  'language' => 'php',
                  'description' => '<div style="display: none;" class="alert notice warning dce-notice-phpraw dce-notice dce-error dce-notice-error"><strong>ALERT</strong>: php code seem to be in error, please check it before save, or your page will be corrupted by fatal error!</div>',
@@ -72,7 +72,7 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
                   'html_avviso',
                   [
                      'type'    => Controls_Manager::RAW_HTML,
-                     'raw' => __( '<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', DCE_TEXTDOMAIN ),
+                     'raw' => __( '<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', 'dynamic-content-for-elementor' ),
                      'content_classes' => 'avviso',
                   ]
                 );
@@ -105,13 +105,13 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
             if ($evalError) {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                     echo '<strong>';
-                    _e( 'Please check your PHP code', DCE_TEXTDOMAIN );
+                    _e( 'Please check your PHP code', 'dynamic-content-for-elementor' );
                     echo '</strong><br>';
                     echo 'ERROR: ',  $e->getMessage(), "\n";
                 }
             }
         }else{
-            _e( 'Add Custom PHP Code', DCE_TEXTDOMAIN );
+            _e( 'Add Custom PHP Code', 'dynamic-content-for-elementor' );
         }
     }
     

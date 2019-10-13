@@ -14,7 +14,27 @@
             $grid_dce_posts.imagesLoaded().progress(function () {
                 $grid_dce_posts.masonry('layout');
             });
-        } else if (elementSettingsACFGallery.gallery_type == 'diamond') {
+        }else if(elementSettingsACFGallery.gallery_type == 'justified') {
+            $scope.find('.justified-grid').imagesLoaded().progress(function () {
+                
+            });
+
+            $scope.find('.justified-grid').justifiedGallery({
+                rowHeight : Number(elementSettingsACFGallery.justified_rowHeight.size) || 170,
+                maxRowHeight : -1,
+                //sort: true,
+                selector: 'figure, div:not(.spinner)',
+                imgSelector: '> img, > a > img, > div > a > img, > div > img',
+                margins: Number(elementSettingsACFGallery.justified_margin.size) || 0,
+                lastRow: elementSettingsACFGallery.justified_lastRow
+            });
+            /*
+            rowHeight : 70,
+            lastRow : 'nojustify',
+            margins : 3
+            */
+
+        }else if (elementSettingsACFGallery.gallery_type == 'diamond') {
             var $size_d = elementSettingsACFGallery.size_diamond;
             var column_d = elementSettingsACFGallery.column_diamond;
             /*if( $(window).width() < 992){
@@ -27,7 +47,7 @@
                 size: $size_d.size || 240, // Size of the squares
                 gap: elementSettingsACFGallery.gap_diamond || 0, // Pixels between squares
                 itemSelector: ".acfgallery-item",
-                hideIncompleteRow: 'yes' === elementSettingsACFGallery.hideIncompleteRow,
+                hideIncompleteRow: Boolean( elementSettingsACFGallery.hideIncompleteRow ),
                 autoRedraw: true,
                 minDiamondsPerRow: column_d,
             });
@@ -76,7 +96,7 @@
          });*/
 
         // ======================================================================================
-        if (elementSettingsACFGallery.enabled_wow == 'yes') {
+        if (elementSettingsACFGallery.enabled_wow) {
             var wow = new WOW(
                     {
                         boxClass: 'wow', // animated element css class (default is wow)

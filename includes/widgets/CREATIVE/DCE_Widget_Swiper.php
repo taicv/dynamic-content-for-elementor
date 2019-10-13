@@ -28,7 +28,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         return false;
     }    
     public function get_title() {
-        return __('Swiper', DCE_TEXTDOMAIN);
+        return __('Swiper', 'dynamic-content-for-elementor');
     }
     public function get_icon() {
         return 'icon-dyn-carousel';
@@ -42,12 +42,12 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_swiper_slides', [
-                'label' => __('Swiper', DCE_TEXTDOMAIN),
+                'label' => __('Swiper', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'height', [
-                'label' => __('Height', DCE_TEXTDOMAIN),
+                'label' => __('Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 500,
@@ -82,7 +82,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'spaceV', [
-                'label' => __('Spazio Vericale', DCE_TEXTDOMAIN),
+                'label' => __('Spazio Vericale', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 50,
@@ -117,7 +117,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'spaceH', [
-                'label' => __('Spazio Orizzontale', DCE_TEXTDOMAIN),
+                'label' => __('Spazio Orizzontale', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 0,
@@ -150,19 +150,19 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
 
         $repeater->start_controls_tabs('swiper_repeater');
 
-        $repeater->start_controls_tab('tab_content', [ 'label' => __('Item', DCE_TEXTDOMAIN)]);
+        $repeater->start_controls_tab('tab_content', [ 'label' => __('Item', 'dynamic-content-for-elementor')]);
         $repeater->add_control(
             'id_name', [
-                'label' => __('Name', DCE_TEXTDOMAIN),
-                'description' => __('Il nome LABEL della sezione.', DCE_TEXTDOMAIN),
+                'label' => __('Name', 'dynamic-content-for-elementor'),
+                'description' => __('Il nome LABEL della sezione.', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'Section',
             ]
         );
         $repeater->add_control(
             'slug_name', [
-                'label' => __('Slug', DCE_TEXTDOMAIN),
-                'description' => __('Lo SLUG della slide, usato nell\'indirizzo URL e negli identificativi interni. (deve essere univoco)', DCE_TEXTDOMAIN),
+                'label' => __('Slug', 'dynamic-content-for-elementor'),
+                'description' => __('Lo SLUG della slide, usato nell\'indirizzo URL e negli identificativi interni. (deve essere univoco)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'section-fp',
             ]
@@ -171,31 +171,39 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         //
 		$repeater->add_control(
             'colorbg_section', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
            ]
         );
         $repeater->add_control(
             'bg_image', [
-                'label' => __('Image', DCE_TEXTDOMAIN),
+                'label' => __('Image', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::MEDIA,
                 'default' => [
                     'url' => '',
                 ],
             ]
         );
-        $repeater->add_control(
+        /*$repeater->add_control(
             'template', [
-                'label' => __('Select Template', DCE_TEXTDOMAIN),
+                'label' => __('Select Template', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 //'options' => get_post_taxonomies( $post->ID ),
                 'options' => DCE_Helper::get_all_template(),
                 'default' => '',
             ]
+        );*/
+        $repeater->add_control(
+                'template',
+                [
+                    'label' => __('Select Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                ]
         );
         //
 
@@ -204,13 +212,13 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
 
         $repeater->end_controls_tab();
 
-        /* $repeater->start_controls_tab( 'tab_media', [ 'label' => __( 'Media', DCE_TEXTDOMAIN ) ] );
+        /* $repeater->start_controls_tab( 'tab_media', [ 'label' => __( 'Media', 'dynamic-content-for-elementor' ) ] );
 
 
 
           $repeater->end_controls_tab(); */
 
-        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', DCE_TEXTDOMAIN)]);
+        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', 'dynamic-content-for-elementor')]);
 
         // Single Slide Style ......
 
@@ -221,7 +229,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
 
         $this->add_control(
             'swiper', [
-                'label' => __('Slides', DCE_TEXTDOMAIN),
+                'label' => __('Slides', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::REPEATER,
                 'default' => [
                 ],
@@ -235,17 +243,17 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------- Base Settings, Slides grid, Grab Cursor
         $this->start_controls_section(
             'section_swiper_settings', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'direction', [
-                'label' => __('Direzione', DCE_TEXTDOMAIN),
-                'description' => __('La direzione dello slider', DCE_TEXTDOMAIN),
+                'label' => __('Direzione', 'dynamic-content-for-elementor'),
+                'description' => __('La direzione dello slider', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'horizontal' => __('Horizontal', DCE_TEXTDOMAIN),
-                    'vertical' => __('Vertical', DCE_TEXTDOMAIN),
+                    'horizontal' => __('Horizontal', 'dynamic-content-for-elementor'),
+                    'vertical' => __('Vertical', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'horizontal',
                 'frontend_available' => true
@@ -253,8 +261,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'speed', [
-                'label' => __('Velocità', DCE_TEXTDOMAIN),
-                'description' => __('Durata della transizione tra diapositive (in ms)', DCE_TEXTDOMAIN),
+                'label' => __('Velocità', 'dynamic-content-for-elementor'),
+                'description' => __('Durata della transizione tra diapositive (in ms)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 300,
                 'min' => 0,
@@ -265,16 +273,16 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'effects', [
-                'label' => __('Effect of transition', DCE_TEXTDOMAIN),
-                'description' => __('L\'effetto di transizione tra le slides', DCE_TEXTDOMAIN),
+                'label' => __('Effect of transition', 'dynamic-content-for-elementor'),
+                'description' => __('L\'effetto di transizione tra le slides', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'slide' => __('Slide', DCE_TEXTDOMAIN),
-                    'fade' => __('Fade', DCE_TEXTDOMAIN),
-                    'cube' => __('Cube', DCE_TEXTDOMAIN),
-                    'coverflow' => __('Coverflow', DCE_TEXTDOMAIN),
-                    'flip' => __('Flip', DCE_TEXTDOMAIN),
-                    'custom1' => __('Custom1', DCE_TEXTDOMAIN),
+                    'slide' => __('Slide', 'dynamic-content-for-elementor'),
+                    'fade' => __('Fade', 'dynamic-content-for-elementor'),
+                    'cube' => __('Cube', 'dynamic-content-for-elementor'),
+                    'coverflow' => __('Coverflow', 'dynamic-content-for-elementor'),
+                    'flip' => __('Flip', 'dynamic-content-for-elementor'),
+                    'custom1' => __('Custom1', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'slide',
                 'frontend_available' => true,
@@ -282,91 +290,91 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'centeredSlides', [
-                'label' => __('Centered Slides', DCE_TEXTDOMAIN),
-                'description' => __('Se è vero, la diapositiva attiva sarà centrata, non sul lato sinistro.', DCE_TEXTDOMAIN),
+                'label' => __('Centered Slides', 'dynamic-content-for-elementor'),
+                'description' => __('Se è vero, la diapositiva attiva sarà centrata, non sul lato sinistro.', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'special_options', [
-                'label' => __('Specials options', DCE_TEXTDOMAIN),
+                'label' => __('Specials options', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
         );
         $this->add_control(
             'setWrapperSize', [
-                'label' => __('Set Wrapper Size', DCE_TEXTDOMAIN),
-                'description' => __('imposta la larghezza / altezza sul wrapper swiper pari alla dimensione totale di tutte le diapositive. Principalmente dovrebbe essere utilizzato come opzione di backup di compatibilità per il browser che non supporta bene il layout di flessibilità', DCE_TEXTDOMAIN),
+                'label' => __('Set Wrapper Size', 'dynamic-content-for-elementor'),
+                'description' => __('imposta la larghezza / altezza sul wrapper swiper pari alla dimensione totale di tutte le diapositive. Principalmente dovrebbe essere utilizzato come opzione di backup di compatibilità per il browser che non supporta bene il layout di flessibilità', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'virtualTranslate', [
-                'label' => __('Virtual Translate', DCE_TEXTDOMAIN),
-                'description' => __('Utile quando è necessario creare una transizione personalizzata (vedi effects)', DCE_TEXTDOMAIN),
+                'label' => __('Virtual Translate', 'dynamic-content-for-elementor'),
+                'description' => __('Utile quando è necessario creare una transizione personalizzata (vedi effects)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'autoHeight', [
-                'label' => __('Auto Height', DCE_TEXTDOMAIN),
-                'description' => __('Impostato su SI e lo slider wrapper adotterà la sua altezza all\'altezza della diapositiva attualmente attiva', DCE_TEXTDOMAIN),
+                'label' => __('Auto Height', 'dynamic-content-for-elementor'),
+                'description' => __('Impostato su SI e lo slider wrapper adotterà la sua altezza all\'altezza della diapositiva attualmente attiva', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'roundLengths', [
-                'label' => __('Round Lengths', DCE_TEXTDOMAIN),
-                'description' => __('Impostare valori veraci a valori rotondi della larghezza e dell\'altezza delle diapositive per evitare testi sfocati sulle schermate di risoluzione usuali (se si dispone di tali)', DCE_TEXTDOMAIN),
+                'label' => __('Round Lengths', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare valori veraci a valori rotondi della larghezza e dell\'altezza delle diapositive per evitare testi sfocati sulle schermate di risoluzione usuali (se si dispone di tali)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'nested', [
-                'label' => __('Nidificato', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su SI su Swiper nidificato, per intercettazioni corrette degli eventi di tocco. Utilizzare solo su spazzole annidate che utilizzano la stessa direzione del genitore', DCE_TEXTDOMAIN),
+                'label' => __('Nidificato', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su SI su Swiper nidificato, per intercettazioni corrette degli eventi di tocco. Utilizzare solo su spazzole annidate che utilizzano la stessa direzione del genitore', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'grabCursor', [
-                'label' => __('Grab Cursor', DCE_TEXTDOMAIN),
-                'description' => __('Questa opzione può un po\' migliorare l\'usabilità del desktop. Se è vero , l\'utente vedrà il cursore afferrare quando si trova su Swiper', DCE_TEXTDOMAIN),
+                'label' => __('Grab Cursor', 'dynamic-content-for-elementor'),
+                'description' => __('Questa opzione può un po\' migliorare l\'usabilità del desktop. Se è vero , l\'utente vedrà il cursore afferrare quando si trova su Swiper', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
@@ -376,7 +384,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------- Grid: Slide $ Flip
         $this->start_controls_section(
             'section_swiper_grid', [
-                'label' => __('Slider/Coveflow Grid', DCE_TEXTDOMAIN),
+                'label' => __('Slider/Coveflow Grid', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'effects' => ['slide', 'coverflow'],
                 ]
@@ -384,15 +392,15 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'more_options', [
-                'label' => __('Slides Grid', DCE_TEXTDOMAIN),
+                'label' => __('Slides Grid', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
         );
         $this->add_responsive_control(
             'spaceBetween', [
-                'label' => __('Space Between', DCE_TEXTDOMAIN),
-                'description' => __('Distanza tra diapositive in px.', DCE_TEXTDOMAIN),
+                'label' => __('Space Between', 'dynamic-content-for-elementor'),
+                'description' => __('Distanza tra diapositive in px.', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 0,
                 'tablet_default' => '',
@@ -405,8 +413,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'slidesPerView', [
-                'label' => __('Slides Per View', DCE_TEXTDOMAIN),
-                'description' => __('Numero di diapositive per visualizzazione (diapositive visibili allo stesso tempo sul contenitore) Se il valore è 0 indica "auto" (NOTA: auto non è compatibile con: slidesPerColumn > 1). Se viene impostato "auto" e anche "loop", è necessario impostare "loopedSlides".', DCE_TEXTDOMAIN),
+                'label' => __('Slides Per View', 'dynamic-content-for-elementor'),
+                'description' => __('Numero di diapositive per visualizzazione (diapositive visibili allo stesso tempo sul contenitore) Se il valore è 0 indica "auto" (NOTA: auto non è compatibile con: slidesPerColumn > 1). Se viene impostato "auto" e anche "loop", è necessario impostare "loopedSlides".', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => '',
                 //'tablet_default' => '',
@@ -419,8 +427,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'slidesPerGroup', [
-                'label' => __('Slides Per Group', DCE_TEXTDOMAIN),
-                'description' => __('Nmposta i numeri di diapositive per definire e abilitare la scorrimento del gruppo. Utile da utilizzare con diapositivePerView > 1', DCE_TEXTDOMAIN),
+                'label' => __('Slides Per Group', 'dynamic-content-for-elementor'),
+                'description' => __('Nmposta i numeri di diapositive per definire e abilitare la scorrimento del gruppo. Utile da utilizzare con diapositivePerView > 1', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 1,
                 'tablet_default' => '',
@@ -436,13 +444,13 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------- Autoplay
         $this->start_controls_section(
             'section_swiper_autoplay', [
-                'label' => __('Autoplay', DCE_TEXTDOMAIN),
+                'label' => __('Autoplay', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'autoplay', [
-                'label' => __('Auto Play', DCE_TEXTDOMAIN),
-                'description' => __('Ritardo tra transizioni (in ms). Se questo parametro non è specificato (di default), la riproduzione automatica sarà disattivata', DCE_TEXTDOMAIN),
+                'label' => __('Auto Play', 'dynamic-content-for-elementor'),
+                'description' => __('Ritardo tra transizioni (in ms). Se questo parametro non è specificato (di default), la riproduzione automatica sarà disattivata', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => '',
                 'min' => 0,
@@ -453,24 +461,24 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'autoplayStopOnLast', [
-                'label' => __('Autoplay stop on last slide', DCE_TEXTDOMAIN),
-                'description' => __('Abilitare questo parametro e l\'autoplay verrà interrotto quando raggiunge l\'ultima diapositiva (non ha alcun effetto in modalità loop/ciclico)', DCE_TEXTDOMAIN),
+                'label' => __('Autoplay stop on last slide', 'dynamic-content-for-elementor'),
+                'description' => __('Abilitare questo parametro e l\'autoplay verrà interrotto quando raggiunge l\'ultima diapositiva (non ha alcun effetto in modalità loop/ciclico)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'autoplayDisableOnInteraction', [
-                'label' => __('Autoplay Disable on interaction', DCE_TEXTDOMAIN),
-                'description' => __('Impostato su NO e l\'autoplay non verrà disattivato dopo le interazioni utente (swipes), verrà riavviato ogni volta dopo l\'interazione', DCE_TEXTDOMAIN),
+                'label' => __('Autoplay Disable on interaction', 'dynamic-content-for-elementor'),
+                'description' => __('Impostato su NO e l\'autoplay non verrà disattivato dopo le interazioni utente (swipes), verrà riavviato ogni volta dopo l\'interazione', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => 'yes',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
@@ -479,29 +487,29 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------- Progress
         $this->start_controls_section(
             'section_swiper_progress', [
-                'label' => __('Progress', DCE_TEXTDOMAIN),
+                'label' => __('Progress', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'watchSlidesProgress', [
-                'label' => __('Watch Slides Progress', DCE_TEXTDOMAIN),
-                'description' => __('Attiva questa funzionalità per calcolare ogni progresso delle diapositive', DCE_TEXTDOMAIN),
+                'label' => __('Watch Slides Progress', 'dynamic-content-for-elementor'),
+                'description' => __('Attiva questa funzionalità per calcolare ogni progresso delle diapositive', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'watchSlidesVisibility', [
-                'label' => __('Watch Slides Visibility', DCE_TEXTDOMAIN),
-                'description' => __('Abilita questa opzione e le diapositive che sono in visualizzazione avranno una classe visibile supplementare', DCE_TEXTDOMAIN),
+                'label' => __('Watch Slides Visibility', 'dynamic-content-for-elementor'),
+                'description' => __('Abilita questa opzione e le diapositive che sono in visualizzazione avranno una classe visibile supplementare', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
                 'condition' => [
@@ -513,29 +521,29 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------- Freemode
         $this->start_controls_section(
             'section_swiper_freemode', [
-                'label' => __('Freemode', DCE_TEXTDOMAIN),
+                'label' => __('Freemode', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'freeMode', [
-                'label' => __('Free Mode', DCE_TEXTDOMAIN),
-                'description' => __('Se true, le diapositive non avranno posizioni fisse', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode', 'dynamic-content-for-elementor'),
+                'description' => __('Se true, le diapositive non avranno posizioni fisse', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true
             ]
         );
         $this->add_control(
             'freeModeMomentum', [
-                'label' => __('Free Mode Momentum', DCE_TEXTDOMAIN),
-                'description' => __('Se è vero, allora la diapositiva continuerà a muoversi per un po\' dopo averlo rilasciato', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum', 'dynamic-content-for-elementor'),
+                'description' => __('Se è vero, allora la diapositiva continuerà a muoversi per un po\' dopo averlo rilasciato', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
                 'condition' => [
@@ -545,8 +553,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeMomentumRatio', [
-                'label' => __('Free Mode Momentum Ratio', DCE_TEXTDOMAIN),
-                'description' => __('Il valore più elevato produce distanza più grande di slancio dopo aver rilasciato il dispositivo di scorrimento', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum Ratio', 'dynamic-content-for-elementor'),
+                'description' => __('Il valore più elevato produce distanza più grande di slancio dopo aver rilasciato il dispositivo di scorrimento', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 1,
                 'min' => 0,
@@ -561,8 +569,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeMomentumVelocityRatio', [
-                'label' => __('Free Mode Momentum Velocity Ratio', DCE_TEXTDOMAIN),
-                'description' => __('Il valore più elevato produce una velocità di slancio maggiore dopo aver rilasciato il dispositivo di scorrimento', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum Velocity Ratio', 'dynamic-content-for-elementor'),
+                'description' => __('Il valore più elevato produce una velocità di slancio maggiore dopo aver rilasciato il dispositivo di scorrimento', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 1,
                 'min' => 0,
@@ -577,12 +585,12 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeMomentumBounce', [
-                'label' => __('Free Mode Momentum Bounce', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su false se si desidera disattivare il rimbalzo della moto in modalità libera', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum Bounce', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su false se si desidera disattivare il rimbalzo della moto in modalità libera', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => 'yes',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
                 'condition' => [
@@ -592,8 +600,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeMomentumBounceRatio', [
-                'label' => __('Free Mode Momentum Bounce Ratio', DCE_TEXTDOMAIN),
-                'description' => __('Il valore più elevato produce un effetto di rimbalzo più grande del momento', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum Bounce Ratio', 'dynamic-content-for-elementor'),
+                'description' => __('Il valore più elevato produce un effetto di rimbalzo più grande del momento', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 1,
                 'min' => 0,
@@ -608,8 +616,8 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeMinimumVelocity', [
-                'label' => __('Free Mode Momentum Velocity Ratio', DCE_TEXTDOMAIN),
-                'description' => __('Velocità di spostamento minima necessaria per attivare la mossa di modalità libera', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Momentum Velocity Ratio', 'dynamic-content-for-elementor'),
+                'description' => __('Velocità di spostamento minima necessaria per attivare la mossa di modalità libera', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 0.02,
                 'min' => 0,
@@ -623,12 +631,12 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'freeModeSticky', [
-                'label' => __('Free Mode Sticky', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su true per abilitare lo snap a scorrimento delle posizioni in modalità libera', DCE_TEXTDOMAIN),
+                'label' => __('Free Mode Sticky', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su true per abilitare lo snap a scorrimento delle posizioni in modalità libera', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
                 'condition' => [
@@ -642,7 +650,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_tarallax',
           [
-          'label'         => __( 'Parallax', DCE_TEXTDOMAIN),
+          'label'         => __( 'Parallax', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
@@ -650,7 +658,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_touch',
           [
-          'label'         => __( 'Touches & Touch Resistance', DCE_TEXTDOMAIN),
+          'label'         => __( 'Touches & Touch Resistance', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
@@ -658,7 +666,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_swiping',
           [
-          'label'         => __( 'Swiping / No swiping', DCE_TEXTDOMAIN),
+          'label'         => __( 'Swiping / No swiping', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
@@ -666,36 +674,36 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_navigation',
           [
-          'label'         => __( 'Navigation', DCE_TEXTDOMAIN),
+          'label'         => __( 'Navigation', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
         // ------------------------------------------------------------------------------- Keyboard / Mousewheel
         $this->start_controls_section(
             'section_swiper_keyboardMousewheel', [
-                'label' => __('Keyboard / Mousewheel', DCE_TEXTDOMAIN),
+                'label' => __('Keyboard / Mousewheel', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'keyboardControl', [
-                'label' => __('Keyboard Control', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su true per abilitare lo scorrimento da tastiera', DCE_TEXTDOMAIN),
+                'label' => __('Keyboard Control', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su true per abilitare lo scorrimento da tastiera', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             ]
         );
         $this->add_control(
             'mousewheelControl', [
-                'label' => __('Mousewheel Control', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su true per abilitare lo scorrimento con la rotella del mouse', DCE_TEXTDOMAIN),
+                'label' => __('Mousewheel Control', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su true per abilitare lo scorrimento con la rotella del mouse', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             ]
@@ -705,7 +713,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_hashHistory',
           [
-          'label'         => __( 'Hash/History Navigation', DCE_TEXTDOMAIN),
+          'label'         => __( 'Hash/History Navigation', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
@@ -713,24 +721,24 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_images',
           [
-          'label'         => __( 'Images', DCE_TEXTDOMAIN),
+          'label'         => __( 'Images', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
         // ------------------------------------------------------------------------------- Loop
         $this->start_controls_section(
             'section_swiper_loop', [
-                'label' => __('Loop', DCE_TEXTDOMAIN),
+                'label' => __('Loop', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'loop', [
-                'label' => __('Loop', DCE_TEXTDOMAIN),
-                'description' => __('Impostare su true per abilitare la modalità di ciclo continuo', DCE_TEXTDOMAIN),
+                'label' => __('Loop', 'dynamic-content-for-elementor'),
+                'description' => __('Impostare su true per abilitare la modalità di ciclo continuo', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             ]
@@ -740,7 +748,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_zoom',
           [
-          'label'         => __( 'Zoom', DCE_TEXTDOMAIN),
+          'label'         => __( 'Zoom', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */
@@ -748,7 +756,7 @@ class DCE_Widget_Swiper extends DCE_Widget_Prototype {
         /* $this->start_controls_section(
           'section_swiper_controller',
           [
-          'label'         => __( 'Controller', DCE_TEXTDOMAIN),
+          'label'         => __( 'Controller', 'dynamic-content-for-elementor'),
           ]
           );
           $this->end_controls_section(); */

@@ -108,28 +108,28 @@
             //------------------- Base Settings
             direction: String(elementSettings.direction) || 'horizontal',
             speed: Number(elementSettings.speed) || 300,
-            //setWrapperSize: 'yes' === elementSettings.setWrapperSize,
-            //virtualTranslate:  'yes' === elementSettings.virtualTranslate,
-            autoHeight: 'yes' === elementSettings.autoHeight,
-            roundLengths: 'yes' === elementSettings.roundLengths,
-            nested: 'yes' === elementSettings.nested,
-            grabCursor: 'yes' === elementSettings.grabCursor,
+            //setWrapperSize: Boolean( elementSettings.setWrapperSize ),
+            //virtualTranslate:  Boolean( elementSettings.virtualTranslate ),
+            autoHeight: Boolean( elementSettings.autoHeight ),
+            roundLengths: Boolean( elementSettings.roundLengths ),
+            nested: Boolean( elementSettings.nested ),
+            grabCursor: Boolean( elementSettings.grabCursor ),
             //------------------- Autoplay
-            autoplay: 'yes' === elementSettings.autoplay,
-            autoplayStopOnLast: 'yes' === elementSettings.autoplayStopOnLast,
-            autoplayDisableOnInteraction: 'yes' === elementSettings.autoplayDisableOnInteraction,
+            autoplay: Boolean( elementSettings.autoplay ),
+            autoplayStopOnLast: Boolean( elementSettings.autoplayStopOnLast ),
+            autoplayDisableOnInteraction: Boolean( elementSettings.autoplayDisableOnInteraction ),
             //------------------- Progress
-            watchSlidesProgress: 'yes' === elementSettings.watchSlidesProgress,
-            watchSlidesVisibility: 'yes' === elementSettings.watchSlidesVisibility,
+            watchSlidesProgress: Boolean( elementSettings.watchSlidesProgress ),
+            watchSlidesVisibility: Boolean( elementSettings.watchSlidesVisibility ),
             //------------------- Freemode
-            freeMode: 'yes' === elementSettings.freeMode,
-            freeModeMomentum: 'yes' === elementSettings.freeModeMomentum,
+            freeMode: Boolean( elementSettings.freeMode ),
+            freeModeMomentum: Boolean( elementSettings.freeModeMomentum ),
             freeModeMomentumRatio: Number(elementSettings.freeModeMomentumRatio) || 1,
             freeModeMomentumVelocityRatio: Number(elementSettings.freeModeMomentumVelocityRatio) || 1,
-            freeModeMomentumBounce: 'yes' === elementSettings.freeModeMomentumBounce,
+            freeModeMomentumBounce: Boolean( elementSettings.freeModeMomentumBounce ),
             freeModeMomentumBounceRatio: Number(elementSettings.speed) || 1,
             freeModeMinimumVelocity: Number(elementSettings.speed) || 0.02,
-            freeModeSticky: 'yes' === elementSettings.freeModeSticky,
+            freeModeSticky: Boolean( elementSettings.freeModeSticky ),
             //------------------- Effects
             effect: swpEffect,
             coverflow: {
@@ -140,7 +140,7 @@
                 slideShadows: true
             },
             //------------------- Grid Swiper
-            centeredSlides: 'yes' === elementSettings.centeredSlides,
+            centeredSlides: Boolean( elementSettings.centeredSlides ),
 
             spaceBetween: Number(elementSettings.spaceBetween) || 0,
             slidesPerView: Number(elementSettings.slidesPerView) || 'auto',
@@ -167,12 +167,12 @@
             //------------------- Swiping / No
             //------------------- Navigation
             //------------------- Keyboard / Mousewheel
-            keyboardControl: 'yes' === elementSettings.keyboardControl,
-            mousewheelControl: 'yes' === elementSettings.mousewheelControl,
+            keyboardControl: Boolean( elementSettings.keyboardControl ),
+            mousewheelControl: Boolean( elementSettings.mousewheelControl ),
             //------------------- Hash/History
             //------------------- Images
             //------------------- Loop
-            loop: 'yes' === elementSettings.loop,
+            loop: Boolean( elementSettings.loop ),
             //------------------- Zoom
 
 

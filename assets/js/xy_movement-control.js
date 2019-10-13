@@ -155,7 +155,7 @@ jQuery( window ).on( 'elementor:init', function() {
 			} );
 			//
 			//alert(currentValue['x']+' '+currentValue['x']);
-			console.log(currentValue);
+			//console.log(currentValue);
 			this.setValue( currentValue );
 		},
 

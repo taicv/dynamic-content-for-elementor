@@ -41,21 +41,29 @@ class DCE_Widget_Prototype extends Widget_Base {
     }
 
     public function get_title() {
-        return __('Prototype', DCE_TEXTDOMAIN);
+        return __('Prototype', 'dynamic-content-for-elementor');
     }
     
     public function get_description() {
-        return __('Another Dynamic Widget', DCE_TEXTDOMAIN);
+        return __('Another Dynamic Widget', 'dynamic-content-for-elementor');
     }
     
     public function get_docs() {
         return $this->docs;
     }
+    
+    public function get_help_url() {
+        return 'https://docs.dynamic.ooo';
+    }
+    
+    public function get_custom_help_url() {
+        return $this->get_docs();
+    }
 
     public function get_icon() {
         return 'eicon-animation';
     }
-    
+
     static public function is_enabled() {
         return false;
     }
@@ -113,7 +121,11 @@ class DCE_Widget_Prototype extends Widget_Base {
                     if (!$ret) {
                         return false;
                     }
-                    $depsDisabled[] = $pkey;
+                    if (is_numeric($pkey)) {
+                        $depsDisabled[] = $plugin;
+                    } else {
+                        $depsDisabled[] = $pkey;
+                    }
                 }
             }
         }
@@ -140,35 +152,14 @@ class DCE_Widget_Prototype extends Widget_Base {
         if ($original) {
             return $settings;
         }
-        if (!empty($settings)) {
-            foreach ($settings as $key => $value) {
-                if (is_string($value)) {
-                    $value = \DynamicContentForElementor\DCE_Tokens::do_tokens($value);
-                    $settings[$key] = $value;
-                }
-                // repeater
-                if (is_array($value)) {
-
-                    foreach ($value as $akey => $avalue) {
-                        if (is_array($avalue)) {
-                            foreach ($avalue as $rkey => $rvalue) {
-                                if (is_string($rvalue)) {
-                                    $rvalue = \DynamicContentForElementor\DCE_Tokens::do_tokens($rvalue);
-                                    $settings[$key][$akey][$rkey] = $rvalue;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        $settings = DCE_Helper::get_dynamic_value($settings);
         return $settings;
     }
     
     protected function _register_controls() {
         $this->start_controls_section(
             'section_prototype', [
-                'label' => __('Prototype', DCE_TEXTDOMAIN),
+                'label' => __('Prototype', 'dynamic-content-for-elementor'),
             ]
         );
         // Raw HTML - Display HTML content in the panel
@@ -177,7 +168,7 @@ class DCE_Widget_Prototype extends Widget_Base {
           'html_trototype',
           [
              'type'    => Controls_Manager::RAW_HTML,
-             'raw' => __( 'Prototype raggruppa un esempio di tutti i widget elementor, utile allo sviluppo dei futuri.', DCE_TEXTDOMAIN ),
+             'raw' => __( 'Prototype raggruppa un esempio di tutti i widget elementor, utile allo sviluppo dei futuri.', 'dynamic-content-for-elementor' ),
              'content_classes' => 'prototype-class',
           ]
         );
@@ -185,7 +176,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== TEXT ==============================================
         $this->start_controls_section(
             'section_Text', [
-                'label' => __('Prototype TEXT', DCE_TEXTDOMAIN),
+                'label' => __('Prototype TEXT', 'dynamic-content-for-elementor'),
             ]
         );
 
@@ -194,10 +185,10 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_text',
           [
-             'label'       => __( 'Text', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Text', 'dynamic-content-for-elementor' ),
              'type'        => Controls_Manager::TEXT,
-             'default'     => __( 'Default title text', DCE_TEXTDOMAIN ),
-             'placeholder' => __( 'Type your title text here', DCE_TEXTDOMAIN ),
+             'default'     => __( 'Default title text', 'dynamic-content-for-elementor' ),
+             'placeholder' => __( 'Type your title text here', 'dynamic-content-for-elementor' ),
              
           ]
         );
@@ -207,9 +198,9 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_textarea',
           [
-             'label'   => __( 'TextArea', DCE_TEXTDOMAIN ),
+             'label'   => __( 'TextArea', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::TEXTAREA,
-             'default' => __( 'Default description', DCE_TEXTDOMAIN ),
+             'default' => __( 'Default description', 'dynamic-content-for-elementor' ),
           ]
         );
 
@@ -218,22 +209,22 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_TinyMCE',
           [
-             'label'   => __( 'TinyMCE WYSIWYG', DCE_TEXTDOMAIN ),
+             'label'   => __( 'TinyMCE WYSIWYG', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::WYSIWYG,
-             'default' => __( 'Default description', DCE_TEXTDOMAIN ),
+             'default' => __( 'Default description', 'dynamic-content-for-elementor' ),
           ]
         );
         $this->end_controls_section();
         // ===================================================== NUMBERS 
         $this->start_controls_section(
             'section_numbers', [
-                'label' => __('Prototype NUMBERS', DCE_TEXTDOMAIN),
+                'label' => __('Prototype NUMBERS', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'numbers_heading',
             [
-                'label' => __( 'Numbers', DCE_TEXTDOMAIN ),
+                'label' => __( 'Numbers', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -243,7 +234,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_number',
           [
-             'label'   => __( 'Number', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Number', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::NUMBER,
              'default' => 10,
              'min'     => 5,
@@ -255,7 +246,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_responsive_control(
           'widget_responsive_number',
           [
-            'label'   => __( 'Responsive Number', DCE_TEXTDOMAIN ),
+            'label'   => __( 'Responsive Number', 'dynamic-content-for-elementor' ),
             'type'    => Controls_Manager::NUMBER,
             
             'default' => 10,
@@ -278,7 +269,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_slider',
             [
-                'label' => __( 'Slider', DCE_TEXTDOMAIN ),
+                'label' => __( 'Slider', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -303,7 +294,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_responsive_control(
             'widget_responsive_slider',
             [
-                'label' => __( 'Responsive Slider', DCE_TEXTDOMAIN ),
+                'label' => __( 'Responsive Slider', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'em', '%' ],
                 'default' => [
@@ -342,7 +333,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_dimension',
           [
-             'label' => __( 'Dimension', DCE_TEXTDOMAIN ),
+             'label' => __( 'Dimension', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::DIMENSIONS,
              'size_units' => [ 'px', '%', 'em' ],
              'selectors' => [
@@ -353,7 +344,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_limit_dimension',
           [
-             'label' => __( 'Limited Dimension', DCE_TEXTDOMAIN ),
+             'label' => __( 'Limited Dimension', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::DIMENSIONS,
              'size_units' => [ 'px', '%', 'em' ],
              'selectors' => [
@@ -365,7 +356,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_responsive_control(
           'widget_responsive_dimension',
           [
-             'label' => __( 'Responsive Dimension', DCE_TEXTDOMAIN ),
+             'label' => __( 'Responsive Dimension', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::DIMENSIONS,
              'size_units' => [ 'px', 'em', '%' ],
                 'default' => [
@@ -401,7 +392,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== MEDIA ==============================================
         $this->start_controls_section(
             'section_media', [
-                'label' => __('Prototype MEDIA', DCE_TEXTDOMAIN),
+                'label' => __('Prototype MEDIA', 'dynamic-content-for-elementor'),
             ]
         );
         // URL - Text field to add link + button to open the link in an external tab (target=_blank)
@@ -409,7 +400,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_link',
           [
-             'label' => __( 'Website URL', DCE_TEXTDOMAIN ),
+             'label' => __( 'Website URL', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::URL,
              'default' => [
                 'url' => 'http://',
@@ -422,7 +413,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'media_heading',
             [
-                'label' => __( 'Media Image', DCE_TEXTDOMAIN ),
+                'label' => __( 'Media Image', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -432,7 +423,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_image',
           [
-             'label' => __( 'Choose Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Choose Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'default' => [
                 'url' => Utils::get_placeholder_image_src(),
@@ -443,7 +434,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'gallery_heading',
             [
-                'label' => __( 'Gallery', DCE_TEXTDOMAIN ),
+                'label' => __( 'Gallery', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -453,7 +444,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_gallery',
           [
-             'label' => __( 'Add Images', DCE_TEXTDOMAIN ),
+             'label' => __( 'Add Images', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::GALLERY,
           ]
         );
@@ -468,7 +459,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'background_heading',
             [
-                'label' => __( 'Background', DCE_TEXTDOMAIN ),
+                'label' => __( 'Background', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -492,13 +483,13 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== CONTROLS 
         $this->start_controls_section(
             'section_controls', [
-                'label' => __('Prototype CONTROLS', DCE_TEXTDOMAIN),
+                'label' => __('Prototype CONTROLS', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'controls_heading',
             [
-                'label' => __( 'Controls', DCE_TEXTDOMAIN ),
+                'label' => __( 'Controls', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -508,15 +499,15 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_select',
           [
-             'label'       => __( 'Select', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Select', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT,
              'default' => 'solid',
              'options' => [
-                'solid'  => __( 'Solid', DCE_TEXTDOMAIN ),
-                'dashed' => __( 'Dashed', DCE_TEXTDOMAIN ),
-                'dotted' => __( 'Dotted', DCE_TEXTDOMAIN ),
-                'double' => __( 'Double', DCE_TEXTDOMAIN ),
-                'none'   => __( 'None', DCE_TEXTDOMAIN ),
+                'solid'  => __( 'Solid', 'dynamic-content-for-elementor' ),
+                'dashed' => __( 'Dashed', 'dynamic-content-for-elementor' ),
+                'dotted' => __( 'Dotted', 'dynamic-content-for-elementor' ),
+                'double' => __( 'Double', 'dynamic-content-for-elementor' ),
+                'none'   => __( 'None', 'dynamic-content-for-elementor' ),
              ],
              'selectors' => [ // You can use the selected value in an auto-generated css rule.
                 '{{WRAPPER}} .your-element' => 'border-style: {{VALUE}}',
@@ -528,11 +519,11 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_switcher',
             [
-                'label' => __( 'Switcher', DCE_TEXTDOMAIN ),
+                'label' => __( 'Switcher', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
             ]
         );
@@ -541,19 +532,19 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_choose',
             [
-                'label' => __( 'Choose', DCE_TEXTDOMAIN ),
+                'label' => __( 'Choose', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left'    => [
-                        'title' => __( 'Left', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Left', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __( 'Center', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Center', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __( 'Right', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Right', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-right',
                     ],
                 ],
@@ -564,12 +555,12 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_select2',
           [
-             'label' => __( 'Select2', DCE_TEXTDOMAIN ),
+             'label' => __( 'Select2', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT2,
              'options' => [
-                'title' => __( 'Title', DCE_TEXTDOMAIN ),
-                'description' => __( 'Description', DCE_TEXTDOMAIN ),
-                'button' => __( 'Button', DCE_TEXTDOMAIN ),
+                'title' => __( 'Title', 'dynamic-content-for-elementor' ),
+                'description' => __( 'Description', 'dynamic-content-for-elementor' ),
+                'button' => __( 'Button', 'dynamic-content-for-elementor' ),
              ],
              'multiple' => true,
           ]
@@ -579,7 +570,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'widget_date',
           [
-             'label' => __( 'Date', DCE_TEXTDOMAIN ),
+             'label' => __( 'Date', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::DATE_TIME,
           ]
         );
@@ -587,13 +578,13 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== TYPOGRAPY 
         $this->start_controls_section(
             'section_typpograpy', [
-                'label' => __('Prototype TYPOGRAPY', DCE_TEXTDOMAIN),
+                'label' => __('Prototype TYPOGRAPY', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'typograpy_heading',
             [
-                'label' => __( 'Typography', DCE_TEXTDOMAIN ),
+                'label' => __( 'Typography', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -602,7 +593,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_fontfamily',
             [
-                'label' => __( 'Font Family', DCE_TEXTDOMAIN ),
+                'label' => __( 'Font Family', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::FONT,
                 'default' => "'Open Sans', sans-serif",
                 'selectors' => [
@@ -613,7 +604,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_group_control(
           Group_Control_Typography::get_type(), [
             'name' => 'widget_typography',
-            'label' => __('Typography numeri', DCE_TEXTDOMAIN),
+            'label' => __('Typography numeri', 'dynamic-content-for-elementor'),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
             'selector' => '{{WRAPPER}} .your-element',
           ]
@@ -631,13 +622,13 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== DESIGN 
         $this->start_controls_section(
             'section_design ', [
-                'label' => __('Prototype DESIGN', DCE_TEXTDOMAIN),
+                'label' => __('Prototype DESIGN', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'color_heading',
             [
-                'label' => __( 'Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -647,7 +638,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_color',
             [
-                'label' => __( 'Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => Scheme_Color::get_type(),
@@ -661,7 +652,7 @@ class DCE_Widget_Prototype extends Widget_Base {
          $this->add_control(
             'icons_heading',
             [
-                'label' => __( 'Icons', DCE_TEXTDOMAIN ),
+                'label' => __( 'Icons', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -671,14 +662,14 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'widget_all_icon',
             [
-                'label' => __( 'Icons', DCE_TEXTDOMAIN ),
+                'label' => __( 'Icons', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::ICON,
             ]
         );
         $this->add_control(
             'widget_social_icon',
             [
-                'label' => __( 'Social Icon', DCE_TEXTDOMAIN ),
+                'label' => __( 'Social Icon', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::ICON,
                 'include' => [
                     'fa fa-facebook',
@@ -698,7 +689,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'border_heading',
             [
-                'label' => __( 'Border', DCE_TEXTDOMAIN ),
+                'label' => __( 'Border', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -706,7 +697,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'widget_border',
-                'label' => __('Borders', DCE_TEXTDOMAIN),
+                'label' => __('Borders', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .your-element',
                 'condition' => [
                     'use_bg' => '0',
@@ -716,7 +707,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'boxshadow_heading',
             [
-                'label' => __( 'Box Shadow', DCE_TEXTDOMAIN ),
+                'label' => __( 'Box Shadow', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -724,7 +715,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'box_shadow',
             [
-                'label' => __( 'Box Shadow', DCE_TEXTDOMAIN ),
+                'label' => __( 'Box Shadow', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::BOX_SHADOW,
                 'default' => [
                     'color' => '',
@@ -750,14 +741,14 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== CODE 
         $this->start_controls_section(
             'section_code ', [
-                'label' => __('Prototype CODE', DCE_TEXTDOMAIN),
+                'label' => __('Prototype CODE', 'dynamic-content-for-elementor'),
             ]
         );
 
         $this->add_control(
             'code_html_heading',
             [
-                'label' => __( 'HTML Code', DCE_TEXTDOMAIN ),
+                'label' => __( 'HTML Code', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -765,7 +756,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'custom_html',
           [
-             'label'   => __( 'Custom HTML', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Custom HTML', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::CODE,
              'language' => 'html',
           ]
@@ -773,7 +764,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         /*$this->add_control(
             'code_css_heading',
             [
-                'label' => __( 'CSS Code', DCE_TEXTDOMAIN ),
+                'label' => __( 'CSS Code', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -781,7 +772,7 @@ class DCE_Widget_Prototype extends Widget_Base {
          $this->add_control(
           'custom_css',
           [
-             'label'   => __( 'Custom CSS', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Custom CSS', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::CODE,
              'language' => 'css',
           ]
@@ -789,7 +780,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'code_javascript_heading',
             [
-                'label' => __( 'JS Code', DCE_TEXTDOMAIN ),
+                'label' => __( 'JS Code', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -797,7 +788,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'custom_javascript',
           [
-             'label'   => __( 'Custom JS', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Custom JS', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::CODE,
              'language' => 'javascript',
           ]
@@ -805,7 +796,7 @@ class DCE_Widget_Prototype extends Widget_Base {
          /*$this->add_control(
             'code_php_heading',
             [
-                'label' => __( 'JS Code', DCE_TEXTDOMAIN ),
+                'label' => __( 'JS Code', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -813,7 +804,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
           'custom_php',
           [
-             'label'   => __( 'Custom PHP', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Custom PHP', 'dynamic-content-for-elementor' ),
              'type'    => Controls_Manager::CODE,
              'language' => 'php',
           ]
@@ -826,13 +817,13 @@ class DCE_Widget_Prototype extends Widget_Base {
         // ===================================================== REPEATER 
         $this->start_controls_section(
             'section_repeater ', [
-                'label' => __('Prototype REPEATER', DCE_TEXTDOMAIN),
+                'label' => __('Prototype REPEATER', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'repeater_heading',
             [
-                'label' => __( 'Repeater', DCE_TEXTDOMAIN ),
+                'label' => __( 'Repeater', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -842,31 +833,31 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->add_control(
             'prototype_tabs',
             [
-                'label' => __( 'Repeater List', DCE_TEXTDOMAIN ),
+                'label' => __( 'Repeater List', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::REPEATER,
                 'default' => [
                     [
-                        'list_title' => __( 'Title #1', DCE_TEXTDOMAIN ),
-                        'list_content' => __( 'Item content. Click the edit button to change this text.', DCE_TEXTDOMAIN ),
+                        'list_title' => __( 'Title #1', 'dynamic-content-for-elementor' ),
+                        'list_content' => __( 'Item content. Click the edit button to change this text.', 'dynamic-content-for-elementor' ),
                     ],
                     [
-                        'list_title' => __( 'Title #2', DCE_TEXTDOMAIN ),
-                        'list_content' => __( 'Item content. Click the edit button to change this text.', DCE_TEXTDOMAIN ),
+                        'list_title' => __( 'Title #2', 'dynamic-content-for-elementor' ),
+                        'list_content' => __( 'Item content. Click the edit button to change this text.', 'dynamic-content-for-elementor' ),
                     ],
                 ],
                 'fields' => [
                     [
                         'name' => 'list_title',
-                        'label' => __( 'Title', DCE_TEXTDOMAIN ),
+                        'label' => __( 'Title', 'dynamic-content-for-elementor' ),
                         'type' => Controls_Manager::TEXT,
-                        'default' => __( 'List Title' , DCE_TEXTDOMAIN ),
+                        'default' => __( 'List Title' , 'dynamic-content-for-elementor' ),
                         'label_block' => true,
                     ],
                     [
                         'name' => 'list_content',
-                        'label' => __( 'Content', DCE_TEXTDOMAIN ),
+                        'label' => __( 'Content', 'dynamic-content-for-elementor' ),
                         'type' => Controls_Manager::WYSIWYG,
-                        'default' => __( 'List Content' , DCE_TEXTDOMAIN ),
+                        'default' => __( 'List Content' , 'dynamic-content-for-elementor' ),
                         'show_label' => false,
                     ],
                 ],
@@ -880,10 +871,10 @@ class DCE_Widget_Prototype extends Widget_Base {
 
         $repeater->start_controls_tabs('tabs_repeater');
 
-        $repeater->start_controls_tab('tab_content', [ 'label' => __('Item', DCE_TEXTDOMAIN)]);
+        $repeater->start_controls_tab('tab_content', [ 'label' => __('Item', 'dynamic-content-for-elementor')]);
         
         $repeater->end_controls_tab();
-        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', DCE_TEXTDOMAIN)]);       
+        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', 'dynamic-content-for-elementor')]);       
 
         $repeater->end_controls_tab();
 
@@ -891,7 +882,7 @@ class DCE_Widget_Prototype extends Widget_Base {
 
         $this->add_control(
             'prototype_tabs_2', [
-                'label' => __('Tabs Repeater', DCE_TEXTDOMAIN),
+                'label' => __('Tabs Repeater', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::REPEATER,
                 'default' => [
                 ],
@@ -904,7 +895,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->start_controls_section(
             'section_tabs',
             [
-                'label' => __( 'Tabs Prototype', DCE_TEXTDOMAIN ),
+                'label' => __( 'Tabs Prototype', 'dynamic-content-for-elementor' ),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -914,7 +905,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->start_controls_tab(
             "xxxxx",
             [
-                'label' => __('xxxxx', DCE_TEXTDOMAIN),
+                'label' => __('xxxxx', 'dynamic-content-for-elementor'),
             ]
         );
 
@@ -923,7 +914,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->start_controls_tab(
             "yyyyy",
             [
-                'label' => __('yyyyy', DCE_TEXTDOMAIN),
+                'label' => __('yyyyy', 'dynamic-content-for-elementor'),
             ]
         );
 
@@ -938,7 +929,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->start_controls_section(
             'section_elementorGroups',
             [
-                'label' => __( 'Elementor Groups fields', DCE_TEXTDOMAIN ),
+                'label' => __( 'Elementor Groups fields', 'dynamic-content-for-elementor' ),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -954,7 +945,7 @@ class DCE_Widget_Prototype extends Widget_Base {
         $this->start_controls_section(
             'section_dceGroups',
             [
-                'label' => __( 'DCE Groups fields', DCE_TEXTDOMAIN ),
+                'label' => __( 'DCE Groups fields', 'dynamic-content-for-elementor' ),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -1019,5 +1010,26 @@ class DCE_Widget_Prototype extends Widget_Base {
         
         $this->set_settings($key, $value);
     }
+    
+    /*
+    public function add_wpml_support() {
+            add_filter( 'wpml_elementor_widgets_to_translate', [ $this, 'wpml_widgets_to_translate_filter' ] );
+    }
+    public function wpml_widgets_to_translate_filter( $widgets ) {
+        
+            $stack = $this->get_controls();
+            $widgets[ $this->get_name() ] = [
+                    'conditions' => [ 'widgetType' => $this->get_name() ],
+                    'fields'     => [
+                            [
+                                    'field'       => 'title',
+                                    'type'        => __( 'Hello World Title', 'hello-world' ),
+                                    'editor_type' => 'LINE'
+                            ],
+                    ],
+            ];
+            return $widgets;
+    }
+    */
 
 }

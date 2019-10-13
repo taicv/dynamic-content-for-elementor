@@ -24,21 +24,21 @@ class DCE_Group_Control_Outline extends Group_Control_Base {
 		$fields = [];
 
 		$fields['outline'] = [
-			'label' => _x( 'Outline Type', 'Outline Control', DCE_TEXTDOMAIN ),
+			'label' => _x( 'Outline Type', 'Outline Control', 'dynamic-content-for-elementor' ),
 			'type' => Controls_Manager::SELECT,
 			'options' => [
-				'' => __( 'None', DCE_TEXTDOMAIN ),
-				'solid' => _x( 'Solid', 'Outline Control', DCE_TEXTDOMAIN ),
-				'double' => _x( 'Double', 'Outline Control', DCE_TEXTDOMAIN ),
-				'dotted' => _x( 'Dotted', 'Outline Control', DCE_TEXTDOMAIN ),
-				'dashed' => _x( 'Dashed', 'Outline Control', DCE_TEXTDOMAIN ),
+				'' => __( 'None', 'dynamic-content-for-elementor' ),
+				'solid' => _x( 'Solid', 'Outline Control', 'dynamic-content-for-elementor' ),
+				'double' => _x( 'Double', 'Outline Control', 'dynamic-content-for-elementor' ),
+				'dotted' => _x( 'Dotted', 'Outline Control', 'dynamic-content-for-elementor' ),
+				'dashed' => _x( 'Dashed', 'Outline Control', 'dynamic-content-for-elementor' ),
 			],
 			'selectors' => [
 				'{{SELECTOR}}' => 'outline-style: {{VALUE}};',
 			],
 		];
 		$fields['width'] = [
-                'label' => __( 'Width', DCE_TEXTDOMAIN ),
+                'label' => __( 'Width', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'unit' => 'px'
@@ -59,7 +59,7 @@ class DCE_Group_Control_Outline extends Group_Control_Base {
 				],
             ];
       	$fields['offset'] = [
-            'label' => _x( 'Offset', 'Outline Control', DCE_TEXTDOMAIN ),
+            'label' => _x( 'Offset', 'Outline Control', 'dynamic-content-for-elementor' ),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'unit' => 'px'
@@ -80,7 +80,7 @@ class DCE_Group_Control_Outline extends Group_Control_Base {
 			],
         ];
 		$fields['color'] = [
-			'label' => _x( 'Color', 'Outline Control', DCE_TEXTDOMAIN ),
+			'label' => _x( 'Color', 'Outline Control', 'dynamic-content-for-elementor' ),
 			'type' => Controls_Manager::COLOR,
 			'selectors' => [
 				'{{SELECTOR}}' => 'outline-color: {{VALUE}};',
@@ -97,7 +97,7 @@ class DCE_Group_Control_Outline extends Group_Control_Base {
 		return [
 			//'popover' => true,
 			'popover' => [
-				'starter_title' => _x( 'Outline', 'Outline Control', DCE_TEXTDOMAIN ),
+				'starter_title' => _x( 'Outline', 'Outline Control', 'dynamic-content-for-elementor' ),
 				'starter_name' => 'outline_wgt',
 			],
 		];

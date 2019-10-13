@@ -105,11 +105,24 @@ class DCE_Widgets {
         return $grouped_widgets;
     }
     
+    static public function get_active_widgets() {
+        $widgets = self::get_widgets();
+        self::includes();
+        $active_widgets = array();
+        foreach ($widgets as $ckey => $className) {
+            $myWdgtClass = self::$namespace . $className;
+            if ($myWdgtClass::is_enabled()) {
+                $active_widgets[$ckey] = $className;
+            }
+        }
+        return $active_widgets;
+    }
+    
     static public function get_active_widgets_by_group() {
         $grouped_widgets = self::get_widgets_by_group();
         self::includes();
         $active_grouped_widgets = array();
-        foreach (DCE_Widgets::get_widgets_by_group() as $key => $value) {    
+        foreach ($grouped_widgets as $key => $value) {    
             foreach ($value as $ckey => $className) {
                 $myWdgtClass = self::$namespace . $className;
                 if ($myWdgtClass::is_enabled()) {
@@ -227,6 +240,8 @@ class DCE_Widgets {
                         if ($aWidgetObj->satisfy_dependencies()) { // controllo se non è soddisfatta qualche dipendenza di plugin
                             \Elementor\Plugin::instance()->widgets_manager->register_widget_type($aWidgetObj);
                         }
+                        
+                        //$aWidgetObj->add_wpml_support();
                     }
                 }
             }
@@ -247,13 +262,13 @@ class DCE_Widgets {
         
         // categoria di default per i widget per cui non è stato definito un gruppo tramite il nome della classe
         $elements->add_category('dynamic-content-for-elementor', array(
-            'title' => __('Dynamic Content', DCE_TEXTDOMAIN),
+            'title' => __('Dynamic Content', 'dynamic-content-for-elementor'),
         ));
         
         // creo le categorie per cui voglio personalizzare il nome
         foreach (self::$group as $gkey => $agroup) {
             $elements->add_category('dynamic-content-for-elementor-'.  strtolower($gkey), array(
-                'title' => __('Dynamic Content - '.$agroup, DCE_TEXTDOMAIN),
+                'title' => __('Dynamic Content - '.$agroup, 'dynamic-content-for-elementor'),
             ));
         }
 
@@ -266,7 +281,7 @@ class DCE_Widgets {
                 $agroup = ucfirst($gkey);
                 //var_dump($gkey); die();
                 $elements->add_category('dynamic-content-for-elementor-'.  strtolower($gkey), array(
-                    'title' => __('Dynamic Content - '.$agroup, DCE_TEXTDOMAIN),
+                    'title' => __('Dynamic Content - '.$agroup, 'dynamic-content-for-elementor'),
                 ));
             }
         }

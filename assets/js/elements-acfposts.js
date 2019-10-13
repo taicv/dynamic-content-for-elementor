@@ -24,7 +24,6 @@ var isAdminBar = false,
     }
 
     var WidgetElementsPostsDCEHandler = function ($scope, $) {
-        //console.log( 'pppppppppppppppp '+$scope );
         var infScroll = null;
         //imagesloaded
         //alert('acfPosts');
@@ -32,13 +31,12 @@ var isAdminBar = false,
         var elementSettings = get_Dyncontel_ElementSettings($scope),
                 id_scope = $scope.attr('data-id'),
                 elementorElement = '.elementor-element-' + id_scope,
-                is_history = 'yes' === elementSettings.infiniteScroll_enable_history ? 'replace' : false
+                is_history = Boolean( elementSettings.infiniteScroll_enable_history ) ? 'replace' : false
         $block_acfposts = '.acfposts-grid',
                 $objBlock_acfposts = $scope.find($block_acfposts);
-        //alert('aaaaaaa');
+
         /*if(elementSettings.ajax_page_enabled){
          ajaxPage_init(elementSettings.ajax_page_template, id_scope);
-         
          }*/
         //alert( $objBlock_acfposts.data('style') );
         //
@@ -52,7 +50,7 @@ var isAdminBar = false,
 
             // ------------ [ Isotope ] -----------
             $layoutMode = 'masonry';
-            if ($objBlock_acfposts.data('fitrow') == 'yes')
+            if ($objBlock_acfposts.data('fitrow'))
                 $layoutMode = 'fitRows';
             var $grid_dce_posts = $objBlock_acfposts.isotope({
                 //columnWidth: 200,
@@ -97,23 +95,39 @@ var isAdminBar = false,
             // alert( 'tablet: '+elementSettings.slides_to_show_tablet+' '+elementSettings.slides_to_scroll_tablet );
             // alert( 'mobile: '+elementSettings.slides_to_show_mobile+' '+elementSettings.slides_to_scroll_mobile );
 
-            var slidesToShow = +elementSettings.slides_to_show || 3,
+            var slidesToShow = elementSettings.slides_to_show || 3,
                     isSingleSlide = 1 === slidesToShow,
-                    centro = true;
+                    centro = true,
+                    cicloInfinito = false;;
             //alert($objBlock_acfposts.children().length+' '+centro);
-            if ($objBlock_acfposts.children().length > 1)
-                //alert(elementSettings.carousel_center_enable);
-                centro = 'yes' === elementSettings.carousel_center_enable;
+            //if ($objBlock_acfposts.children().length > 1)    
+              //  centro = 'yes' === elementSettings.carousel_center_enable;
+            
+            var slideNum = $scope.find('.dce-post-item').length;
+            // 
+            if (slideNum < Number(elementSettings.slides_to_show)) {
+                centroDiapo = true;
+                cicloInfinito = false;
+                slideInitNum = Math.ceil(slideNum / 2);
+                //slidesPerView = slideNum;
+
+            } else {
+                centro = Boolean( elementSettings.carousel_center_enable );
+                cicloInfinito = Boolean( elementSettings.carousel_infinite_enable );
+                //slidesPerView = Number(elementSettings.slidesPerView);
+            }
             //alert(elementSettings.slides_to_show);
             var slickOptions = {
-                dots: 'yes' === elementSettings.carousel_dots_enable,
-                arrows: 'yes' === elementSettings.carousel_arrow_enable,
+                dots: Boolean( elementSettings.carousel_dots_enable ),
+                arrows: Boolean( elementSettings.carousel_arrow_enable ),
                 prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></button>',
                 nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right" aria-hidden="true"></i></button>',
-                infinite: 'yes' === elementSettings.carousel_infinite_enable,
-                autoplay: 'yes' === elementSettings.carousel_autoplay_enable,
-                //centerPadding: '10px',
+                infinite: cicloInfinito,
+                autoplay: Boolean( elementSettings.carousel_autoplay_enable ),
+                centerPadding: false,
+                //rtl: false,
                 centerMode: Boolean(centro),
+                //variableWidth: true,
                 speed: elementSettings.carousel_speed || 500,
                 autoplaySpeed: elementSettings.carousel_autoplayspeed || 3000,
                 slidesToShow: Number(elementSettings.slides_to_show) || 4,
@@ -150,6 +164,7 @@ var isAdminBar = false,
             //alert($num_col+' '+$num_col_tablet+' '+$num_col_mobile);
             //alert(elementSettings.slides_to_show+' - '+elementSettings.slides_to_scroll)
             //alert(elementSettings.carousel_dots_enable);
+            //alert(Boolean(centro));
             $objBlock_acfposts.slick(slickOptions);
             
 
@@ -169,22 +184,23 @@ var isAdminBar = false,
             var cicloInfinito = false;
             var slideInitNum = 0;
             var slidesPerView = Number(elementSettings.slidesPerView);
-            ;
+
             var slideNum = $scope.find('.dce-post-item').length;
-            // 
+            //
+            /*
             if (slideNum < Number(elementSettings.slidesPerView)) {
                 centroDiapo = true;
                 cicloInfinito = false;
-                slideInitNum = Math.floor(slideNum / 2);
+                slideInitNum = Math.ceil(slideNum / 2)-1;
                 //slidesPerView = slideNum;
 
-            } else {
-                centroDiapo = 'yes' === elementSettings.centeredSlides;
-                cicloInfinito = 'yes' === elementSettings.loop;
+            }*/
+            centerDiapo = Boolean( elementSettings.centeredSlides );
+            cicloInfinito = Boolean( elementSettings.loop );
                 //slidesPerView = Number(elementSettings.slidesPerView);
-            }
+           
             //alert($scope.find('.dce-post-item').length+' '+Number(elementSettings.slidesPerView));
-
+            
             var swiperOptions = {
                 // Optional parameters
                 direction: 'horizontal', //String(elementSettings.direction_slider) || 'horizontal', //vertical
@@ -194,9 +210,9 @@ var isAdminBar = false,
                 speed: Number(elementSettings.speed_slider) || 300,
                 // setWrapperSize: false, // Enabled this option and plugin will set width/height on swiper wrapper equal to total size of all slides. Mostly should be used as compatibility fallback option for browser that don't support flexbox layout well
                 // virtualTranslate: false, // Enabled this option and swiper will be operated as usual except it will not move, real translate values on wrapper will not be set. Useful when you may need to create custom slide transition
-                // autoHeight: 'yes' === elementSettings.autoHeight, //false, // Set to true and slider wrapper will adopt its height to the height of the currently active slide
-                // roundLengths: 'yes' === elementSettings.roundLengths, //false, // Set to true to round values of slides width and height to prevent blurry texts on usual resolution screens (if you have such)
-                // nested : 'yes' === elementSettings.nested, //false, // Set to true on nested Swiper for correct touch events interception. Use only on nested swipers that use same direction as the parent one
+                autoHeight: Boolean( elementSettings.autoHeight ), //false, // Set to true and slider wrapper will adopt its height to the height of the currently active slide
+                roundLengths: Boolean( elementSettings.roundLengths ), //false, // Set to true to round values of slides width and height to prevent blurry texts on usual resolution screens (if you have such)
+                // nested : Boolean( elementSettings.nested ), //false, // Set to true on nested Swiper for correct touch events interception. Use only on nested swipers that use same direction as the parent one
                 // uniqueNavElements: true, // If enabled (by default) and navigation elements' parameters passed as a string (like ".pagination") then Swiper will look for such elements through child elements first. Applies for pagination, prev/next buttons and scrollbar elements
                 //
                 //effect: 'cube', //"slide", "fade", "cube", "coverflow" or "flip"
@@ -256,20 +272,21 @@ var isAdminBar = false,
                 slidesPerColumn: Number(elementSettings.slidesColumn) || 1, // 1, // Number of slides per column, for multirow layout
                 slidesPerColumnFill: 'row', // Could be 'column' or 'row'. Defines how slides should fill rows, by column or by row
 
-
+                centerInsufficientSlides: true,
+                watchOverflow: true,
                 centeredSlides: centroDiapo,
 
-                grabCursor: 'yes' === elementSettings.grabCursor, //true,
+                grabCursor: Boolean( elementSettings.grabCursor ), //true,
 
                 //------------------- Freemode
-                freeMode: 'yes' === elementSettings.freeMode,
-                freeModeMomentum: 'yes' === elementSettings.freeModeMomentum,
+                freeMode: Boolean( elementSettings.freeMode ),
+                freeModeMomentum: Boolean( elementSettings.freeModeMomentum ),
                 freeModeMomentumRatio: Number(elementSettings.freeModeMomentumRatio) || 1,
                 freeModeMomentumVelocityRatio: Number(elementSettings.freeModeMomentumVelocityRatio) || 1,
-                freeModeMomentumBounce: 'yes' === elementSettings.freeModeMomentumBounce,
+                freeModeMomentumBounce: Boolean( elementSettings.freeModeMomentumBounce ),
                 freeModeMomentumBounceRatio: Number(elementSettings.speed) || 1,
                 freeModeMinimumVelocity: Number(elementSettings.speed) || 0.02,
-                freeModeSticky: 'yes' === elementSettings.freeModeSticky,
+                freeModeSticky: Boolean( elementSettings.freeModeSticky ),
 
                 loop: cicloInfinito, // true,
                 //loopFillGroupWithBlank: true,
@@ -316,11 +333,11 @@ var isAdminBar = false,
                     /*renderBullet: function (index, className) {
                      return '<span class="' + className + '">' + (index + 1) + '</span>';
                      },*/
-                    /*renderFraction: function (swiper, currentClassName, totalClassName) {
-                     return '<span class="' + currentClassName + '"></span>' +
-                     '<span class="separator">' + String(elementSettings.fraction_separator) + '</span>' +
-                     '<span class="' + totalClassName + '"></span>';
-                     },*/
+                    renderFraction: function (currentClass, totalClass) {
+                                return '<span class="' + currentClass + '"></span>' +
+                                       '<span class="separator">' + String(elementSettings.fraction_separator) + '</span>' +
+                                       '<span class="' + totalClass + '"></span>';
+                                },
                     /*renderProgressbar: function (progressbarFillClass) {
                      return '<span class="' + progressbarFillClass + '"></span>';
                      },*/
@@ -336,8 +353,8 @@ var isAdminBar = false,
                     // progressbarFillClass:    'swiper-pagination-progressbar-fill', //    CSS class name of pagination progressbar fill element
                     // clickableClass:  'swiper-pagination-clickable', //   CSS class name set to pagination when it is clickable
                 },
-                // watchSlidesProgress:  'yes' === elementSettings.watchSlidesProgress, //false, // Enable this feature to calculate each slides progress
-                // watchSlidesVisibility:  'yes' === elementSettings.watchSlidesVisibility, // false, // watchSlidesProgress should be enabled. Enable this option and slides that are in viewport will have additional visible class
+                // watchSlidesProgress:  Boolean( elementSettings.watchSlidesProgress ), //false, // Enable this feature to calculate each slides progress
+                // watchSlidesVisibility:  Boolean( elementSettings.watchSlidesVisibility ), // false, // watchSlidesProgress should be enabled. Enable this option and slides that are in viewport will have additional visible class
                 /*scrollbar: {
                  
                  
@@ -347,7 +364,7 @@ var isAdminBar = false,
                  //snapOnRelease: false, // Set to true to snap slider position to slides when you release scrollbar
                  //dragSize: 'auto', //     string/number   Size of scrollbar draggable element in px
                  },*/
-                mousewheel: 'yes' === elementSettings.mousewheelControl, // true,
+                mousewheel: Boolean( elementSettings.mousewheelControl ), // true,
                 /*mousewheel: {
                     forceToAxis: false //   Set to true to force mousewheel swipes to axis. So in horizontal mode mousewheel will work only with horizontal mousewheel scrolling, and only with vertical scrolling in vertical mode.
                     releaseOnEdges: false // Set to true and swiper will release mousewheel event and allow page scrolling when swiper is on edge positions (in the beginning or in the end)
@@ -355,12 +372,12 @@ var isAdminBar = false,
                     sensitivity: 1, // Multiplier of mousewheel data, allows to tweak mouse wheel sensitivity
                     eventsTarged: 'container' // String with CSS selector or HTML element of the container accepting mousewheel events. By default it is swiper-container
                 },*/
-                //keyboard: 'yes' === elementSettings.keyboardControl,
+                //keyboard: Boolean( elementSettings.keyboardControl ),
                 
                  keyboard: {
-                    enabled: 'yes' === elementSettings.keyboardControl,
+                    enabled: Boolean( elementSettings.keyboardControl ),
                     //onlyInViewport: false,
-                  },
+                },
                 //     },
                 //------------------- Responsive Params
                 breakpoints: {
@@ -389,7 +406,7 @@ var isAdminBar = false,
                     },
                   }
             };
-            if ('yes' == elementSettings.useAutoplay) {
+            if (elementSettings.useAutoplay) {
                 swiperOptions = $.extend(swiperOptions, {autoplay: true});
 
 
@@ -397,17 +414,17 @@ var isAdminBar = false,
                     //delay: Number(elementSettings.autoplay) || 3000, // 2500, // Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled
                     swiperOptions = $.extend(swiperOptions, {autoplay: {delay: Number(elementSettings.autoplay)}});
                 }
-                if ('yes' === elementSettings.autoplayDisableOnInteraction) {
-                    //disableOnInteraction:  'yes' === elementSettings.autoplayDisableOnInteraction, // false, // Set to false and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction
-                    swiperOptions = $.extend(swiperOptions, {autoplay: {disableOnInteraction: 'yes' === elementSettings.autoplayDisableOnInteraction}});
+                if (elementSettings.autoplayDisableOnInteraction ) {
+                    //disableOnInteraction:  Boolean( elementSettings.autoplayDisableOnInteraction, // false, // Set to false and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction
+                    swiperOptions = $.extend(swiperOptions, {autoplay: {disableOnInteraction: Boolean( elementSettings.autoplayDisableOnInteraction )}});
                 }
-                if ('yes' === elementSettings.autoplayStopOnLast) {
-                    swiperOptions = $.extend(swiperOptions, {autoplay: {disableOnInteraction: 'yes' === elementSettings.autoplayStopOnLast}});
+                if (elementSettings.autoplayStopOnLast) {
+                    swiperOptions = $.extend(swiperOptions, {autoplay: {disableOnInteraction: Boolean( elementSettings.autoplayStopOnLast )}});
                 }
 
             }
-
-            if (slideNum > 1)
+            //alert(swiperOptions['watchOverflow']+' num: '+slideNum+' - sxv:'+swiperOptions['slidesPerView']);
+            
                 var mySwiper = new Swiper(elementSwiper, swiperOptions);
 
         }
@@ -500,8 +517,12 @@ var isAdminBar = false,
             for (var i = 0; i < this.blocks.length; i++) {
                 (function (i) {
                     if (self.blocks[i].getBoundingClientRect().top > window.innerHeight * self.offset) {
-                        self.images[i].classList.add("cd-is-hidden");
-                        self.contents[i].classList.add("cd-is-hidden");
+                        if (self.images[i]) {
+                            self.images[i].classList.add("cd-is-hidden");
+                        }
+                        if (self.contents[i]) {
+                            self.contents[i].classList.add("cd-is-hidden");
+                        }
                     }
                 })(i);
             }
@@ -512,16 +533,18 @@ var isAdminBar = false,
                 return;
             }
             var self = this;
-            for (var i = 0; i < this.blocks.length; i++) {
-                (function (i) {
-                    if (self.contents[i].classList.contains("cd-is-hidden") && self.blocks[i].getBoundingClientRect().top <= window.innerHeight * self.offset) {
-                        // add bounce-in animation
-                        self.images[i].classList.add("cd-timeline__img--bounce-in");
-                        self.contents[i].classList.add("cd-timeline__content--bounce-in");
-                        self.images[i].classList.remove("cd-is-hidden");
-                        self.contents[i].classList.remove("cd-is-hidden");
-                    }
-                })(i);
+            if (self.contents.length) {
+                for (var i = 0; i < this.blocks.length; i++) {
+                    (function (i) {
+                        if (self.contents[i].classList.contains("cd-is-hidden") && self.blocks[i].getBoundingClientRect().top <= window.innerHeight * self.offset) {
+                            // add bounce-in animation
+                            self.images[i].classList.add("cd-timeline__img--bounce-in");
+                            self.contents[i].classList.add("cd-timeline__content--bounce-in");
+                            self.images[i].classList.remove("cd-is-hidden");
+                            self.contents[i].classList.remove("cd-is-hidden");
+                        }
+                    })(i);
+                }
             }
         };
 

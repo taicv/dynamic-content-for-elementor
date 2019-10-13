@@ -44,7 +44,7 @@
             //alert(normalScroll);
         }
 
-        if (pagepilingSettings.enabled_tooltips == 'yes') {
+        if (pagepilingSettings.enabled_tooltips) {
             dyn_sections_tt = dyn_sections_nome;
         } else {
             dyn_sections_tt = [];
@@ -56,15 +56,15 @@
         }
 
         var hashUrl = pagepilingSettings.enabled_hash;
-        if (hashUrl != 'yes')
+        if (!hashUrl)
             dyn_sections_anchor = [];
 
-        if (pagepilingSettings.enabled_tooltips_label == 'yes') {
+        if (pagepilingSettings.enabled_tooltips_label) {
             dyn_tooltip_label = dyn_sections_nome;
         } else {
             dyn_tooltip_label = [];
         }
-        if (pagepilingSettings.navigation == 'yes') {
+        if (pagepilingSettings.navigation) {
             var navigation_dots = {
                 'textColor': pagepilingSettings.navigation_textColor || '#000',
                 'bulletsColor': pagepilingSettings.navigation_bulletsColor || '#000',
@@ -80,14 +80,14 @@
 
             menu: null,
             direction: 'vertical',
-            verticalCentered: 'yes' === pagepilingSettings.verticalCentered,
+            verticalCentered: Boolean( pagepilingSettings.verticalCentered ),
             sectionsColor: dyn_sections_color,
             anchors: dyn_sections_anchor,
             scrollingSpeed: pagepilingSettings.scrollingSpeed || 700,
             easing: pagepilingSettings.easing || 'swing',
-            loopBottom: 'yes' === pagepilingSettings.loopTop, //false,
-            loopTop: 'yes' === pagepilingSettings.loopBottom, //false,
-            css3: 'yes' === pagepilingSettings.css3, //true
+            loopBottom: Boolean( pagepilingSettings.loopTop ), //false,
+            loopTop: Boolean( pagepilingSettings.loopBottom ), //false,
+            css3: Boolean( pagepilingSettings.css3 ), //true
             navigation: navigation_dots,
             normalScrollElements: dyn_section_normalScroll_str, //dyn_section_normalScroll,
             normalScrollElementTouchThreshold: 5,
@@ -105,7 +105,7 @@
              // menu: '#menu',
              // lockAnchors: false,
              // anchors:['firstPage', 'secondPage'],
-             navigation: 'yes' === pagepilingSettings.navigation,
+             navigation: Boolean( pagepilingSettings.navigation ),
              navigationPosition: pagepilingSettings.navigationPosition || 'right', //'right',
              navigationTooltips: dyn_sections_tt, //['firstSlide', 'secondSlide'],
              showActiveTooltip: true,
@@ -113,12 +113,12 @@
              // slidesNavPosition: 'bottom',
              
              // //Scrolling
-             css3:  'yes' === pagepilingSettings.css3,
+             css3:  Boolean( pagepilingSettings.css3 ),
              easing: pagepilingSettings.easing || 'easeInOutCubic',
              easingcss3: pagepilingSettings.easing_css || 'ease',
              scrollingSpeed: pagepilingSettings.scrollingSpeed || 700,
              
-             autoScrolling:  'yes' === pagepilingSettings.autoScrolling,
+             autoScrolling:  Boolean( pagepilingSettings.autoScrolling ),
              // fitToSection: true,
              // fitToSectionDelay: 1000,
              // scrollBar: false,
@@ -128,7 +128,7 @@
              // loopTop: false,
              
              // loopHorizontal: true,
-             continuousVertical: 'yes' === pagepilingSettings.continuousVertical, //false
+             continuousVertical: Boolean( pagepilingSettings.continuousVertical, //false
              
              // continuousHorizontal: false,
              // scrollHorizontally: false,
@@ -153,8 +153,8 @@
              // recordHistory: true,
              
              // //Design
-             controlArrows: 'yes' === pagepilingSettings.controlArrows, //true
-             verticalCentered: 'yes' === pagepilingSettings.verticalCentered, //true
+             controlArrows: Boolean( pagepilingSettings.controlArrows ), //true
+             verticalCentered: Boolean( pagepilingSettings.verticalCentered ), //true
              sectionsColor : dyn_sections_color,
              // paddingTop: '3em',
              // paddingBottom: '10px',

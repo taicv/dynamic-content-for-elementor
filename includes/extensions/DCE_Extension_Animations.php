@@ -30,11 +30,11 @@ class DCE_Extension_Animations extends DCE_Extension_Prototype {
         
         $element->add_control(
                 'enabled_animations', [
-            'label' => __('Enable Animations', DCE_TEXTDOMAIN),
+            'label' => __('Enable Animations', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );

@@ -28,17 +28,17 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
 
         
         $fields['controls'] = [
-            'label' => __('', DCE_TEXTDOMAIN),
+            'label' => __('', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'default' => 'running',
             'toggle' => false,
             'options' => [
                 'running' => [
-                    'title' => __('Play', DCE_TEXTDOMAIN),
+                    'title' => __('Play', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-play',
                 ],
                 'paused' => [
-                    'title' => __('Pause', DCE_TEXTDOMAIN),
+                    'title' => __('Pause', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-pause',
                 ],
             //animation-play-state: paused; running
@@ -50,34 +50,34 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
         ];
 
         $fields['animation'] = [
-            'label' => _x('Animation Type', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Animation Type', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'galleggia',
             'options' => [
-                'galleggia' => _x('Float', 'Animation Control', DCE_TEXTDOMAIN),
-                'attraversa' => _x('Pass through', 'Animation Control', DCE_TEXTDOMAIN),
-                'pulsa' => _x('Pulse', 'Animation Control', DCE_TEXTDOMAIN),
-                'dondola' => _x('Swing', 'Animation Control', DCE_TEXTDOMAIN),
-                'cresci' => _x('Grow', 'Animation Control', DCE_TEXTDOMAIN),
-                'esplodi' => _x('Explode', 'Animation Control', DCE_TEXTDOMAIN),
-                'brilla' => _x('Shine', 'Animation Control', DCE_TEXTDOMAIN),
-                'risali-o-affonda' => _x('Up or Sink', 'Animation Control', DCE_TEXTDOMAIN),
-                'rotola' => _x('Spin', 'Animation Control', DCE_TEXTDOMAIN),
-                'gira' => _x('Runs', 'Animation Control', DCE_TEXTDOMAIN),
-                'saltella' => _x('Bounce', 'Animation Control', DCE_TEXTDOMAIN),
+                'galleggia' => _x('Float', 'Animation Control', 'dynamic-content-for-elementor'),
+                'attraversa' => _x('Pass through', 'Animation Control', 'dynamic-content-for-elementor'),
+                'pulsa' => _x('Pulse', 'Animation Control', 'dynamic-content-for-elementor'),
+                'dondola' => _x('Swing', 'Animation Control', 'dynamic-content-for-elementor'),
+                'cresci' => _x('Grow', 'Animation Control', 'dynamic-content-for-elementor'),
+                'esplodi' => _x('Explode', 'Animation Control', 'dynamic-content-for-elementor'),
+                'brilla' => _x('Shine', 'Animation Control', 'dynamic-content-for-elementor'),
+                'risali-o-affonda' => _x('Up or Sink', 'Animation Control', 'dynamic-content-for-elementor'),
+                'rotola' => _x('Spin', 'Animation Control', 'dynamic-content-for-elementor'),
+                'gira' => _x('Runs', 'Animation Control', 'dynamic-content-for-elementor'),
+                'saltella' => _x('Bounce', 'Animation Control', 'dynamic-content-for-elementor'),
             ],
             'selectors' => [
                 '{{SELECTOR}}' => 'animation-name: {{VALUE}}; -webkit-animation-name: {{VALUE}};',
             ],
         ];
         $fields['animation_variation'] = [
-            'label' => _x('Animation Variation', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Animation Variation', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => '',
             'options' => [
-                'short' => _x('Short', 'Animation Control', DCE_TEXTDOMAIN),
-                '' => _x('Medium', 'Animation Control', DCE_TEXTDOMAIN),
-                'long' => _x('Long', 'Animation Control', DCE_TEXTDOMAIN),
+                'short' => _x('Short', 'Animation Control', 'dynamic-content-for-elementor'),
+                '' => _x('Medium', 'Animation Control', 'dynamic-content-for-elementor'),
+                'long' => _x('Long', 'Animation Control', 'dynamic-content-for-elementor'),
             ],
             'condition' => [
                 'enabled_animations' => 'yes',
@@ -88,30 +88,30 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         $fields['transform_origin'] = [
-            'label' => _x('Transform origin', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Transform origin', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'center center',
             'options' => [
-                'top left' => _x('Top Left', 'Animation Control', DCE_TEXTDOMAIN),
-                'top center' => _x('Top Center', 'Animation Control', DCE_TEXTDOMAIN),
-                'top right' => _x('Top Right', 'Animation Control', DCE_TEXTDOMAIN),
-                'center left' => _x('Center Left', 'Animation Control', DCE_TEXTDOMAIN),
-                'center center' => _x('Center Center', 'Animation Control', DCE_TEXTDOMAIN),
-                'center right' => _x('Center Right', 'Animation Control', DCE_TEXTDOMAIN),
-                'bottom left' => _x('Bottom Left', 'Animation Control', DCE_TEXTDOMAIN),
-                'bottom center' => _x('Bottom Center', 'Animation Control', DCE_TEXTDOMAIN),
-                'bottom right' => _x('Bottom Right', 'Animation Control', DCE_TEXTDOMAIN),
+                'top left' => _x('Top Left', 'Animation Control', 'dynamic-content-for-elementor'),
+                'top center' => _x('Top Center', 'Animation Control', 'dynamic-content-for-elementor'),
+                'top right' => _x('Top Right', 'Animation Control', 'dynamic-content-for-elementor'),
+                'center left' => _x('Center Left', 'Animation Control', 'dynamic-content-for-elementor'),
+                'center center' => _x('Center Center', 'Animation Control', 'dynamic-content-for-elementor'),
+                'center right' => _x('Center Right', 'Animation Control', 'dynamic-content-for-elementor'),
+                'bottom left' => _x('Bottom Left', 'Animation Control', 'dynamic-content-for-elementor'),
+                'bottom center' => _x('Bottom Center', 'Animation Control', 'dynamic-content-for-elementor'),
+                'bottom right' => _x('Bottom Right', 'Animation Control', 'dynamic-content-for-elementor'),
             ],
             'selectors' => [
                 '{{SELECTOR}}' => 'transform-origin: {{VALUE}}; -webkit-transform-origin: {{VALUE}};',
             ],
         ];
         $fields['iteration_mode'] = [
-            'label' => __('Iteration Mode', DCE_TEXTDOMAIN),
+            'label' => __('Iteration Mode', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'infinite',
-            'label_on' => __('Infinite', DCE_TEXTDOMAIN),
-            'label_off' => __('Count', DCE_TEXTDOMAIN),
+            'label_on' => __('Infinite', 'dynamic-content-for-elementor'),
+            'label_off' => __('Count', 'dynamic-content-for-elementor'),
             'return_value' => 'infinite',
             'separator' => 'before',
             'selectors' => [
@@ -119,7 +119,7 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         $fields['iteration_count'] = [
-            'label' => __('Iteration Count', DCE_TEXTDOMAIN),
+            'label' => __('Iteration Count', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 1,
             'min' => 1,
@@ -133,7 +133,7 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         $fields['duration'] = [
-            'label' => _x('Duration', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Duration', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'unit' => 's',
@@ -152,7 +152,7 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         $fields['delay'] = [
-            'label' => _x('Delay', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Delay', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'unit' => 's',
@@ -172,7 +172,7 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
         ];
 
         $fields['timing_function'] = [
-            'label' => _x('Timing Function', 'Animation Control', DCE_TEXTDOMAIN),
+            'label' => _x('Timing Function', 'Animation Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'linear',
             'options' => DCE_Helper::get_anim_timingFunctions(),
@@ -181,16 +181,16 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         /* $fields['iteration_mode'] = [
-          'label' => __( 'Iteration Mode', DCE_TEXTDOMAIN ),
+          'label' => __( 'Iteration Mode', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::CHOOSE,
           'default' => 'counter',
           'options' => [
           'counter'    => [
-          'title' => __( 'Counter', DCE_TEXTDOMAIN ),
+          'title' => __( 'Counter', 'dynamic-content-for-elementor' ),
           'icon' => 'eicon-counter',
           ],
           'infinite' => [
-          'title' => __( 'Infinite', DCE_TEXTDOMAIN ),
+          'title' => __( 'Infinite', 'dynamic-content-for-elementor' ),
           'icon' => 'eicon-sync',
           ],
           'selectors' => [
@@ -201,24 +201,24 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
           ]; */
 
         $fields['direction'] = [
-            'label' => __('Direction', DCE_TEXTDOMAIN),
+            'label' => __('Direction', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'default' => 'normal',
             'options' => [
                 'normal' => [
-                    'title' => __('Normal', DCE_TEXTDOMAIN),
+                    'title' => __('Normal', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-arrow-right',
                 ],
                 'reverse' => [
-                    'title' => __('Reverse', DCE_TEXTDOMAIN),
+                    'title' => __('Reverse', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-arrow-left',
                 ],
                 'alternate' => [
-                    'title' => __('Alternate', DCE_TEXTDOMAIN),
+                    'title' => __('Alternate', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-refresh',
                 ],
                 'alternate-reverse' => [
-                    'title' => __('Alternate Reverse', DCE_TEXTDOMAIN),
+                    'title' => __('Alternate Reverse', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-retweet',
                 ],
             //normal|reverse|alternate|alternate-reverse|initial|inherit;
@@ -228,24 +228,24 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
             ],
         ];
         $fields['fill_mode'] = [
-            'label' => __('Fill Mode', DCE_TEXTDOMAIN),
+            'label' => __('Fill Mode', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'default' => 'none',
             'options' => [
                 'none' => [
-                    'title' => __('None', DCE_TEXTDOMAIN),
+                    'title' => __('None', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-close',
                 ],
                 'backwards' => [
-                    'title' => __('Backwards', DCE_TEXTDOMAIN),
+                    'title' => __('Backwards', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-h-align-right',
                 ],
                 'both' => [
-                    'title' => __('Both', DCE_TEXTDOMAIN),
+                    'title' => __('Both', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-h-align-center',
                 ],
                 'forwards' => [
-                    'title' => __('Forwards', DCE_TEXTDOMAIN),
+                    'title' => __('Forwards', 'dynamic-content-for-elementor'),
                     'icon' => 'eicon-h-align-left',
                 ],
             ],
@@ -297,7 +297,7 @@ class DCE_Group_Control_Animation_Element extends Group_Control_Base {
         return [
             'popover' => false,
                 /* 'popover' => [
-                  'starter_title' => _x( 'Animate', 'Animation Control', DCE_TEXTDOMAIN ),
+                  'starter_title' => _x( 'Animate', 'Animation Control', 'dynamic-content-for-elementor' ),
                   'starter_name' => 'animate_element',
                   ], */
         ];

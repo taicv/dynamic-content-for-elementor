@@ -94,13 +94,16 @@ $dce_col_xs = $dce_default_options[$dce_elementor_templates.'_col_xs'];
                 <div class="dce-container <?php if ($dce_default_template_base == 'boxed') { ?>container<?php } else { ?>container-fluid<?php } ?>">
                    
                     <?php
+                    // echo $dce_before_archive.'<br>';
+                    // echo $dce_default_options[$dce_elementor_templates].'<br>';
+                    // echo 'dyncontel_before_field_archive'. $dce_elementor_templates.'<br>';
                     //echo 't: '.$default_template;
-                    if( !$dce_before_archive && !$default_template ){
+                    /*if( !$dce_before_archive && !$default_template ){
                         // ------------------------------------------
                         
                         if ($dce_default_template_base != 'canvas') {
                             //
-                            $title = __('Title of post', DCE_TEXTDOMAIN);
+                            $title = __('Title of post', 'dynamic-content-for-elementor');
 
                             //echo 'T: '.single_term_title().' - ';
                             //echo 'H: '.get_the_title().' - ';
@@ -117,7 +120,7 @@ $dce_col_xs = $dce_default_options[$dce_elementor_templates.'_col_xs'];
                                 $label_t = $object_t->name;
                                 $title = $label_t;
                                 //echo ' H';
-                            } else if (is_archive()/* || $is_blocks == 1*/) {
+                            } else if (is_archive()) {
                                 //echo get_the_title();
                                 $title = post_type_archive_title('',false);
                                 if($title == '') $title = single_cat_title('', false); //get_the_archive_title($id_page);  //
@@ -138,12 +141,13 @@ $dce_col_xs = $dce_default_options[$dce_elementor_templates.'_col_xs'];
                             echo '</div>';
                             }
                         }
-                    }
+                    }*/
 
                     if (!empty($dce_default_template)) {
                       //echo 'connnnn'.$dce_default_template;
                       if ($dce_default_template > 1) {
-                          include DCE_PATH . '/template/template.php';
+                          //include DCE_PATH . '/template/template.php';
+                        //echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
                       }
                       //$tenpdyn = 'sono basato su default'.get_option( 'dyncontel_options' )['dyncontel_field_archive'.$cptype]; //dyncontel_field_single'.$cptype;
                       //
@@ -176,7 +180,7 @@ $dce_col_xs = $dce_default_options[$dce_elementor_templates.'_col_xs'];
                              
                              \DynamicContentForElementor\DCE_Helper::dce_numeric_posts_nav();
                              else: ?>
-                                <p><?php __('No posts by this author.',DCE_TEXTDOMAIN ); ?></p>
+                                <p><?php __('No posts by this author.','dynamic-content-for-elementor' ); ?></p>
                             <?php endif;
                         
                     }   

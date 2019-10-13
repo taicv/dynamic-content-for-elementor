@@ -62,12 +62,12 @@ class DCE_Group_Control_Transform_Element extends Group_Control_Base {
                 'style' => 'thick',
             ];
         /*$controls['perspective_heading'] = [
-                'label' => __( 'Perspective', DCE_TEXTDOMAIN ),
+                'label' => __( 'Perspective', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ];*/
         $controls['perspective'] = [
-            'label' => _x( 'Perspective', 'Perspective Control', DCE_TEXTDOMAIN ),
+            'label' => _x( 'Perspective', 'Perspective Control', 'dynamic-content-for-elementor' ),
             'type' => Controls_Manager::SLIDER,
             'responsive' => true,
             //'render_type' => 'template',
@@ -159,7 +159,7 @@ class DCE_Group_Control_Transform_Element extends Group_Control_Base {
         return [
             'popover' => false,
             /*'popover' => [
-                'starter_title' => _x( 'Transform', 'Transform Control', DCE_TEXTDOMAIN ),
+                'starter_title' => _x( 'Transform', 'Transform Control', 'dynamic-content-for-elementor' ),
                 'starter_name' => 'transform_element',
             ],*/
         ];

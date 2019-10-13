@@ -30,7 +30,7 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         return false;
     }
     public function get_title() {
-        return __('Infinite Posts', DCE_TEXTDOMAIN);
+        return __('Infinite Posts', 'dynamic-content-for-elementor');
     }
     public function get_icon() {
         return 'icon-dyn-infinite_posts todo';
@@ -51,13 +51,13 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Infinite Posts', DCE_TEXTDOMAIN)
+                'label' => __('Infinite Posts', 'dynamic-content-for-elementor')
             ]
         );
         
         $this->add_control(
             'article_selector', [
-                'label' => __('Main content selector', DCE_TEXTDOMAIN),
+                'label' => __('Main content selector', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'article',
                 'frontend_available' => true,
@@ -66,7 +66,7 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_widget_id', [
-            'label' => __('Automatic', DCE_TEXTDOMAIN),
+            'label' => __('Automatic', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HIDDEN,
             'default' => $this->get_id(),
             'frontend_available' => true,
@@ -75,10 +75,10 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_on_scroll', [
-            'label' => __('Automatic', DCE_TEXTDOMAIN),
+            'label' => __('Automatic', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'description' => 'Append automatically next post on scrolling to the end of page',
             'frontend_available' => true,
@@ -87,7 +87,7 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_button_label', [
-                'label' => __('Next button label', DCE_TEXTDOMAIN),
+                'label' => __('Next button label', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'See next post',
                 'condition' => [
@@ -98,23 +98,23 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_block', [
-                'label' => __('Next block show', DCE_TEXTDOMAIN),
+                'label' => __('Next block show', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     /*'noshow' => [
-                        'title' => __('No show', DCE_TEXTDOMAIN),
+                        'title' => __('No show', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-ban',
                     ],*/
                     'button' => [
-                        'title' => __('Only button', DCE_TEXTDOMAIN),
+                        'title' => __('Only button', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-hand-pointer-o',
                     ],
                     'widget' => [
-                        'title' => __('In widget position', DCE_TEXTDOMAIN),
+                        'title' => __('In widget position', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-cube',
                     ],
                     'fixed' => [
-                        'title' => __('Fixed', DCE_TEXTDOMAIN),
+                        'title' => __('Fixed', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-bookmark',
                     ],
                 ],
@@ -130,19 +130,19 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_block_align', [
-                'label' => __('Next block alignment', DCE_TEXTDOMAIN),
+                'label' => __('Next block alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                 ],
@@ -156,19 +156,19 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'next_block_valign', [
-                'label' => __('Next block vertical alignment', DCE_TEXTDOMAIN),
+                'label' => __('Next block vertical alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'bottom' => [
-                        'title' => __('Bottom', DCE_TEXTDOMAIN),
+                        'title' => __('Bottom', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-angle-down',
                     ],
                     'middle' => [
-                        'title' => __('Middle', DCE_TEXTDOMAIN),
+                        'title' => __('Middle', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-arrows-v',
                     ],
                     'top' => [
-                        'title' => __('Top', DCE_TEXTDOMAIN),
+                        'title' => __('Top', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-angle-up',
                     ],
                 ],
@@ -183,10 +183,10 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         /*$this->add_control(
             'wp_next', [
-                'label' => __('Use default WP Next', DCE_TEXTDOMAIN),
+                'label' => __('Use default WP Next', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'description' => 'Use native Wordpress function to detect next post, otherwise you can filter and decide what posts show.'
             ]
@@ -194,7 +194,7 @@ class DCE_Widget_InfinitePosts extends DCE_Widget_Prototype {
         
         $this->add_control(
             'taxonomy_type', [
-                'label' => __('Taxonomy Type', DCE_TEXTDOMAIN),
+                'label' => __('Taxonomy Type', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => DCE_Helper::get_taxonomies(),
                 'default' => '',

@@ -24,11 +24,11 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Remote Content', DCE_TEXTDOMAIN);
+        return __('Remote Content', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Dynamically read every type of content from the web, incorporate text blocks, pictures and more from external sources. Compatible with REST APIs, including the native ones from WordPress, and allows to format the resulting value in JSON', DCE_TEXTDOMAIN);
+        return __('Dynamically read every type of content from the web, incorporate text blocks, pictures and more from external sources. Compatible with REST APIs, including the native ones from WordPress, and allows to format the resulting value in JSON', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -42,7 +42,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_remotecontent', [
-            'label' => __('Remote Content', DCE_TEXTDOMAIN),
+            'label' => __('Remote Content', 'dynamic-content-for-elementor'),
                 ]
         );
 
@@ -50,8 +50,8 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'url', [
-                'label' => __('Page URL', DCE_TEXTDOMAIN),
-                'description' => __('The full URL of page to include', DCE_TEXTDOMAIN),
+                'label' => __('Page URL', 'dynamic-content-for-elementor'),
+                'description' => __('The full URL of page to include', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'frontend_available' => true,
                 'placeholder' => 'https://www.dynamic.ooo/widget/remote-content/',
@@ -61,12 +61,10 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'incorporate', [
-                'label' => __('Incorporate in page', DCE_TEXTDOMAIN),
+                'label' => __('Incorporate in page', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'default' => 'yes',
-                'description' => __('Insert remote content in page html or simply add as iframe.', DCE_TEXTDOMAIN),
+                'description' => __('Insert remote content in page html or simply add as iframe.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'url!' => '',
                 ],
@@ -75,10 +73,10 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'connect_timeout', [
-                'label' => __('Connection Timeout', DCE_TEXTDOMAIN),
+                'label' => __('Connection Timeout', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 5,
-                'description' => __('Max time in seconds your server wait response from target server.', DCE_TEXTDOMAIN),
+                'description' => __('Max time in seconds your server wait response from target server.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'incorporate!' => '',
                     'url!' => '',
@@ -88,7 +86,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             /*$this->add_control(
                     'iframe_height', [
-                'label' => __('Iframe Height', DCE_TEXTDOMAIN),
+                'label' => __('Iframe Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 320,
                 'frontend_available' => true,
@@ -101,7 +99,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             $this->add_responsive_control(
               'iframe_height',
               [
-                  'label' => __( 'height', DCE_TEXTDOMAIN ),
+                  'label' => __( 'height', 'dynamic-content-for-elementor' ),
                   'type' => Controls_Manager::SLIDER,
                   'default' => [
                     'size' => '80',
@@ -143,12 +141,9 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             );
             $this->add_control(
                     'data_json', [
-                'label' => __('Data is JSON formatted', DCE_TEXTDOMAIN),
+                'label' => __('Data is JSON formatted', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'default' => '',
-                'description' => __('If it is the result from an API call probably is formatted in json language.', DCE_TEXTDOMAIN),
+                'description' => __('If it is the result from an API call probably is formatted in json language.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'incorporate!' => '',
                     'url!' => '',
@@ -158,8 +153,8 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'tag_id', [
-                'label' => __('Tag, ID or Class', DCE_TEXTDOMAIN),
-                'description' => __('To include only subcontent of remote page. Use like jQuery selector (footer, #element, h2.big, etc).', DCE_TEXTDOMAIN),
+                'label' => __('Tag, ID or Class', 'dynamic-content-for-elementor'),
+                'description' => __('To include only subcontent of remote page. Use like jQuery selector (footer, #element, h2.big, etc).', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'frontend_available' => true,
                 'placeholder' => 'body',
@@ -174,11 +169,11 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'limit_tags', [
-                'label' => __('Limit elements', DCE_TEXTDOMAIN),
+                'label' => __('Limit elements', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'frontend_available' => true,
-                'placeholder' => __('Set negative, 0 or empty for unlimited', DCE_TEXTDOMAIN),
-                'description' => __('Limit results for a specific amount.', DCE_TEXTDOMAIN),
+                'placeholder' => __('Set negative, 0 or empty for unlimited', 'dynamic-content-for-elementor'),
+                'description' => __('Limit results for a specific amount.', 'dynamic-content-for-elementor'),
                 'default' => -1,
                 'condition' => [
                     'incorporate!' => '',
@@ -189,23 +184,10 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             );
 
             $this->add_control(
-                    'fix_links', [
-                'label' => __('Fix links', DCE_TEXTDOMAIN),
-                'type' => Controls_Manager::SWITCHER,
-                'description' => __('Enable if remote page contain relative link.', DCE_TEXTDOMAIN),
-                'condition' => [
-                    'incorporate!' => '',
-                    'url!' => '',
-                ],
-                    ]
-            );
-
-
-            $this->add_control(
                     'data_template', [
-                'label' => __('Tokens', DCE_TEXTDOMAIN),
+                'label' => __('Tokens', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::WYSIWYG,
-                'default' => '<div class="dce-remote-content"><h3 class="dce-remote-content-title">[title.rendered]<h3><div class="dce-remote-content-body">[excerpt.rendered]</div><a class="btn btn-primary" href="[link]">Read more</a></div>',
+                'default' => '<div class="dce-remote-content"><h3 class="dce-remote-content-title">[DATA:title:rendered]<h3><div class="dce-remote-content-body">[DATA:excerpt:rendered]</div><a class="btn btn-primary" href="[DATA:link]">Read more</a></div>',
                 'description' => 'Add a specific format to data elements. Use token to rapresent json fields.',
                 'condition' => [
                     'incorporate!' => '',
@@ -219,12 +201,12 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'single_or_archive', [
-                'label' => __('Single or Archive', DCE_TEXTDOMAIN),
+                'label' => __('Single or Archive', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Archive', DCE_TEXTDOMAIN),
-                'label_on' => __('Single', DCE_TEXTDOMAIN),
+                'label_off' => __('Archive', 'dynamic-content-for-elementor'),
+                'label_on' => __('Single', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                //'description' => __('Is a Single element o an Archive?', DCE_TEXTDOMAIN),
+                //'description' => __('Is a Single element o an Archive?', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'incorporate!' => '',
                     'url!' => '',
@@ -235,10 +217,10 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'archive_path', [
-                'label' => __('Archive Array path', DCE_TEXTDOMAIN),
+                'label' => __('Archive Array path', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
-                'description' => __('Leave empty if json result is a direct array (like in WP Api). For web service usually might use "results". You can browse sub arrays separate them by comma like "data.people"', DCE_TEXTDOMAIN),
+                'description' => __('Leave empty if json result is a direct array (like in WP Api). For web service usually might use "results". You can browse sub arrays separate them by comma like "data.people"', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'incorporate!' => '',
                     'url!' => '',
@@ -250,11 +232,27 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'limit_contents', [
-                'label' => __('Limit elements', DCE_TEXTDOMAIN),
+                'label' => __('Limit elements', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'frontend_available' => true,
-                'placeholder' => __('Set negative, 0 or empty for unlimited', DCE_TEXTDOMAIN),
-                'description' => __('Limit results for a specific amount.', DCE_TEXTDOMAIN),
+                'placeholder' => __('Set negative, 0 or empty for unlimited', 'dynamic-content-for-elementor'),
+                'description' => __('Limit results for a specific amount.', 'dynamic-content-for-elementor'),
+                'default' => -1,
+                'condition' => [
+                    'incorporate!' => '',
+                    'url!' => '',
+                    'single_or_archive' => '',
+                ],
+                    ]
+            );
+            
+            $this->add_control(
+                    'offset_contents', [
+                'label' => __('Start from', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 0,
+                'frontend_available' => true,
+                'description' => __('0 or empty for start from the first', 'dynamic-content-for-elementor'),
                 'default' => -1,
                 'condition' => [
                     'incorporate!' => '',
@@ -266,12 +264,12 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             /* $this->add_control(
               'data_anchors', [
-              'label' => __('Correct link', DCE_TEXTDOMAIN),
+              'label' => __('Correct link', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
-              'label_off' => __('Off', DCE_TEXTDOMAIN),
-              'label_on' => __('On', DCE_TEXTDOMAIN),
+              'label_off' => __('Off', 'dynamic-content-for-elementor'),
+              'label_on' => __('On', 'dynamic-content-for-elementor'),
               'default' => '',
-              'description' => __('Fix anchors if there are relative paths.', DCE_TEXTDOMAIN),
+              'description' => __('Fix anchors if there are relative paths.', 'dynamic-content-for-elementor'),
               'condition' => [
               'incorporate!' => '',
               'url!' => '',
@@ -282,12 +280,9 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
             $this->add_control(
                     'data_cache', [
-                'label' => __('Enable Cache', DCE_TEXTDOMAIN),
+                'label' => __('Enable Cache', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Off', DCE_TEXTDOMAIN),
-                'label_on' => __('On', DCE_TEXTDOMAIN),
-                'default' => '',
-                'description' => __('If linked sites are slow or not reachable is better enable cache. To force refresh it, disable, save and re-enable.', DCE_TEXTDOMAIN),
+                'description' => __('If linked sites are slow or not reachable is better enable cache. To force refresh it, disable, save and re-enable.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'incorporate!' => '',
                     'url!' => '',
@@ -296,7 +291,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             );
             $this->add_control(
                     'data_cache_maxage', [
-                'label' => __('Cache Max-age', DCE_TEXTDOMAIN),
+                'label' => __('Cache Max-age', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 86400,
                 'description' => 'How long cache is valid? Set it in seconds. (86400 is a day, so every day it will be refreshed.)',
@@ -310,7 +305,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             );
             $this->add_control(
                     'data_cache_refresh', [
-                'label' => __('Last time Cache rebuilt', DCE_TEXTDOMAIN),
+                'label' => __('Last time Cache rebuilt', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'default' => '',
                 'type' => Controls_Manager::TEXT,
@@ -325,8 +320,8 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             );
             $this->add_control(
                     'data_cache_content', [
-                'label' => __('Cache content', DCE_TEXTDOMAIN),
-                //'description' => __('Here what is saved in cache. Empty it to refresh.', DCE_TEXTDOMAIN),
+                'label' => __('Cache content', 'dynamic-content-for-elementor'),
+                //'description' => __('Here what is saved in cache. Empty it to refresh.', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'description' => '<style>.elementor-control-data_cache_content{display:none !important;}</style>',
                 'type' => Controls_Manager::TEXTAREA,
@@ -342,11 +337,46 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
             $this->add_control(
                     'html_avviso', [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => __('<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', DCE_TEXTDOMAIN),
+                'raw' => __('<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', 'dynamic-content-for-elementor'),
                 'content_classes' => 'avviso',
                     ]
             );
         }
+        
+        $this->end_controls_section();
+        
+        
+        $this->start_controls_section(
+                'section_html_manipulation', [
+            'label' => __('Html Manipulation', 'dynamic-content-for-elementor'),
+            'condition' => [
+                'incorporate!' => '',
+                'url!' => '',
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'fix_links', [
+            'label' => __('Fix Relative links', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'description' => __('Enable if remote page contain relative link.', 'dynamic-content-for-elementor'),
+                ]
+        );
+        $this->add_control(
+                'blank_links', [
+            'label' => __('Target Blank links', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'description' => __('Enable if you want open links in new page.', 'dynamic-content-for-elementor'),
+                ]
+        );
+        $this->add_control(
+                'lazy_images', [
+            'label' => __('Fix Lazy Images src', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'description' => __('Enable if you want show lazy images without use specific javascript.', 'dynamic-content-for-elementor'),
+                ]
+        );
 
 
         $this->end_controls_section();
@@ -436,20 +466,49 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
                         }
 
                         echo '<div class="dynamic-remote-content">';
+                        $showed = 0;
                         foreach ($pageBody as $key => $aElem) {
-                            if ($settings['limit_contents'] <= 0 || $key < $settings['limit_contents']) {
-                                echo '<div class="dynamic-remote-content-element">';
-                                if (isset($settings['fix_links']) && $settings['fix_links']) {
-                                  $aElem = str_replace('href="/', 'href="'.$host.'/', $aElem);
+                            if ($settings['limit_contents'] <= 0 || $showed <= $settings['limit_contents']) {
+                                if ($key >= $settings['offset_contents']) {
+                                    echo '<div class="dynamic-remote-content-element">';
+
+                                    if (isset($settings['fix_links']) && $settings['fix_links']) {
+                                      $aElem = str_replace('href="/', 'href="'.$host.'/', $aElem);
+                                    }
+
+                                    if (isset($settings['lazy_images']) && $settings['lazy_images']) {
+                                      $imgs = explode('<img ', $aElem);
+                                      foreach ($imgs as $ikey => $aimg) {
+                                          if( strpos( $aimg, 'data-lazy-src' ) !== false) {
+                                            $imgs[$ikey] = str_replace(' src="', 'data-placeholder-src="', $imgs[$ikey]);
+                                            $imgs[$ikey] = str_replace('data-lazy-src="', 'src="', $imgs[$ikey]);
+                                            $imgs[$ikey] = str_replace('data-lazy-srcset="', 'srcset="', $imgs[$ikey]);
+                                            $imgs[$ikey] = str_replace('data-lazy-sizes="', 'sizes="', $imgs[$ikey]);
+                                          }
+                                      }
+                                      $aElem = implode('<img ', $imgs);
+                                    }
+
+                                    if (isset($settings['blank_links']) && $settings['blank_links']) {
+                                        $anchors = explode('<a ', $aElem);
+                                        foreach ($anchors as $akey => $anchor) {
+                                            if( strpos( $anchor, ' target="_' ) !== false) {
+                                              $anchors[$akey] = 'target="_blank" '.$anchors[$akey];
+                                            }
+                                        }
+                                        $aElem = implode('<a ', $anchors);
+                                    }
+
+                                    echo $aElem;
+                                    echo '</div>';
                                 }
-                                echo $aElem;
-                                echo '</div>';
+                                $showed++;
                             }
                         }
                         echo '</div>';
                     } else {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            _e('Can\'t fetch remote content. Please check url', DCE_TEXTDOMAIN);
+                            _e('Can\'t fetch remote content. Please check url', 'dynamic-content-for-elementor');
                         }
                     }
                 } else {
@@ -458,12 +517,12 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
                 }
             } else {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    _e('The url is not valid', DCE_TEXTDOMAIN);
+                    _e('The url is not valid', 'dynamic-content-for-elementor');
                 }
             }
         } else {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                _e('Add a remote url to begin', DCE_TEXTDOMAIN);
+                _e('Add remote url to begin', 'dynamic-content-for-elementor');
             }
         }
     }
@@ -475,6 +534,7 @@ class DCE_Widget_RemoteContent extends DCE_Widget_Prototype {
 
     public function replaceTemplateTokens($text, $content) {
         // /wp-admin/options.php
+        $text = \DynamicContentForElementor\DCE_Tokens::replace_var_tokens($text, 'DATA', $content);
         $pezzi = explode('[', $text);
         if (count($pezzi) > 1) {
             foreach ($pezzi as $key => $avalue) {

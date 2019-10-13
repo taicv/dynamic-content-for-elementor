@@ -1,8 +1,9 @@
-.dce-list .hidden{
+.dce-list .dce-hidden{
     display:none;
 }
 .dce-list .block{
-    display:block;
+    display: flex;
+    align-items: center;
 }
 .dce-list .block:after{
     content: '';

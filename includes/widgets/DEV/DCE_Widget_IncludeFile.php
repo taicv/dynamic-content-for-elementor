@@ -25,10 +25,10 @@ class DCE_Widget_IncludeFile extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('File Include', DCE_TEXTDOMAIN);
+        return __('File Include', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-      return __('Directly include files from a path in root as if you were writing in a theme. Ideal for developers who know no limits', DCE_TEXTDOMAIN);
+      return __('Directly include files from a path in root as if you were writing in a theme. Ideal for developers who know no limits', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/file-include/';
@@ -40,14 +40,14 @@ class DCE_Widget_IncludeFile extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_includefile', [
-            'label' => __('File Include', DCE_TEXTDOMAIN),
+            'label' => __('File Include', 'dynamic-content-for-elementor'),
                 ]
         );
         if( current_user_can('administrator') || !\Elementor\Plugin::$instance->editor->is_edit_mode()) {
             $this->add_control(
               'file', [
-                  'label' => __('Path of file', DCE_TEXTDOMAIN),
-                  'description' => __('The path of file to include (ex: folder/file.html) ', DCE_TEXTDOMAIN),
+                  'label' => __('Path of file', 'dynamic-content-for-elementor'),
+                  'description' => __('The path of file to include (ex: folder/file.html) ', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::TEXT,
                   'frontend_available' => true,
                   'default' => '',
@@ -59,7 +59,7 @@ class DCE_Widget_IncludeFile extends DCE_Widget_Prototype {
               'html_avviso',
               [
                  'type'    => Controls_Manager::RAW_HTML,
-                 'raw' => __( '<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', DCE_TEXTDOMAIN ),
+                 'raw' => __( '<div class="dce-notice dce-error dce-notice-error">You must be admin to set this widget.</div>', 'dynamic-content-for-elementor' ),
                  'content_classes' => 'avviso',
               ]
             );

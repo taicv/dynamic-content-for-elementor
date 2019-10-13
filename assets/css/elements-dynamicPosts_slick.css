@@ -28,9 +28,13 @@
     margin: 0;
     padding: 0;
 }
+.elementor-widget-dyncontel-acfposts.no-masking-yes .slick-list{
+    overflow: visible;
+}
 .elementor-widget-dyncontel-acfposts .slick-list:focus
 {
     outline: none;
+    outline-width: 0;
 }
 .slick-list.dragging
 {
@@ -55,8 +59,7 @@
     left: 0;
 
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    
 }
 .elementor-widget-dyncontel-acfposts .slick-track:before,
 .elementor-widget-dyncontel-acfposts .slick-track:after

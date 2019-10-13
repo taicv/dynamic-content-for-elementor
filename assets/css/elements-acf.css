@@ -32,7 +32,8 @@
 }
 /**/
 .elementor-widget-dyncontel-acf.forcewidth-yes img, 
-.elementor-widget-dyncontel-acf.forcewidth-yes .acf-image{
+.elementor-widget-dyncontel-acf.forcewidth-yes .acf-image,
+.elementor-widget-dyncontel-acf.forcewidth-yes .dynamic-content-for-elementor-acf{
     width: 100%;
     display: block;
 }
@@ -105,11 +106,27 @@
 .elementor-widget-dyncontel-acf.align-dce-justify .acf-bg-image{
   display: inline;
 }
+.elementor .elementor-widget.elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acfimage-bg{
+  width: 100%;
+  display: inline-block;
+  margin-bottom: -5px;
+}
+.elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acfimage-bg{
+  width: 100% !important;
+}
+
 .dynamic-content-for-elementor-acf{
   position: relative;
   transition: all 0.5s ease;
+  display: inline-block; /*NOTA: questo crea uno spazio sotto al widget*/
+  /*margin-bottom: -4px; NOTA: il floating annulla lo spazio sotto*/
+}
+.use-bg1  .dynamic-content-for-elementor-acf,
+.elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acf {
+  display: block;
 }
 .dynamic-content-for-elementor-acf .edc-acf{
+  display: inline;
   transition: all 0.5s ease;
 }
 .elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acf{

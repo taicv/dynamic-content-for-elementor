@@ -27,10 +27,10 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Breadcrumbs', DCE_TEXTDOMAIN);
+        return __('Breadcrumbs', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Insert breadcrumbs and generate paths inside your page automatically', DCE_TEXTDOMAIN);
+        return __('Insert breadcrumbs and generate paths inside your page automatically', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/breadcrumbs/';
@@ -47,18 +47,18 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
 
        $this->start_controls_section(
             'section_options', [
-                'label' => __('Options', DCE_TEXTDOMAIN),
+                'label' => __('Options', 'dynamic-content-for-elementor'),
             ]
         );
        if( !function_exists('yoast_breadcrumb') || !$this->is_yoast_breadcrumbs()){
            $this->add_control(
                 'enable_home_text', 
                 [
-                    'label'         => __( 'Enable Home text', DCE_TEXTDOMAIN ),
+                    'label'         => __( 'Enable Home text', 'dynamic-content-for-elementor' ),
                     'type'          => Controls_Manager::SWITCHER,
                     'default'       => 'yes',
-                    'label_on'      => __( 'Yes', DCE_TEXTDOMAIN ),
-                    'label_off'     => __( 'No', DCE_TEXTDOMAIN ),
+                    'label_on'      => __( 'Yes', 'dynamic-content-for-elementor' ),
+                    'label_off'     => __( 'No', 'dynamic-content-for-elementor' ),
                     'return_value'  => 'yes',
                     
                 ]
@@ -66,8 +66,8 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
 
            $this->add_control(
               'home-text', [
-                'label' => __('Home text', DCE_TEXTDOMAIN),
-                //'description' => __('Separator caracters.',DCE_TEXTDOMAIN),
+                'label' => __('Home text', 'dynamic-content-for-elementor'),
+                //'description' => __('Separator caracters.','dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'Homepage',
                 'condition' => [
@@ -77,8 +77,8 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
             );
             $this->add_control(
               'separator', [
-                'label' => __('Separator', DCE_TEXTDOMAIN),
-                //'description' => __('Separator caracters.',DCE_TEXTDOMAIN),
+                'label' => __('Separator', 'dynamic-content-for-elementor'),
+                //'description' => __('Separator caracters.','dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => ' > ',
               ]
@@ -87,7 +87,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
             $this->add_control(
                 'yoast_bc_alert',
                 [
-                    'raw' => __( 'Breadcrumbs Yoast SEO', DCE_TEXTDOMAIN ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), __( 'Go settings Panel', DCE_TEXTDOMAIN ) ),
+                    'raw' => __( 'Breadcrumbs Yoast SEO', 'dynamic-content-for-elementor' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), __( 'Go settings Panel', 'dynamic-content-for-elementor' ) ),
                     'type' => Controls_Manager::RAW_HTML,
                     'content_classes' => '',
                 ]
@@ -95,23 +95,23 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         }
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                     'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-justify',
                     ],
                 ],
@@ -123,7 +123,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'space', [
-                'label' => __('Space', DCE_TEXTDOMAIN),
+                'label' => __('Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 5,
@@ -151,21 +151,21 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         // ------------------------------------------------- STYLE
         $this->start_controls_section(
             'section_style_items', [
-                'label' => __('Items', DCE_TEXTDOMAIN),
+                'label' => __('Items', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_control(
             'breadcrums_items',
             [
-                'label' => __( 'Items', DCE_TEXTDOMAIN ),
+                'label' => __( 'Items', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
         );
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dce-breadcrumbs li, {{WRAPPER}} .dce-breadcrumbs a, {{WRAPPER}} .dce-breadcrumbs span:not(.dce-separator)' => 'color: {{VALUE}};',
@@ -174,7 +174,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'color_hover', [
-            'label' => __('Text Color Hover', DCE_TEXTDOMAIN),
+            'label' => __('Text Color Hover', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dce-breadcrumbs a:hover' => 'color: {{VALUE}};',
@@ -183,7 +183,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'final_color', [
-            'label' => __('Final text Color', DCE_TEXTDOMAIN),
+            'label' => __('Final text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dce-breadcrumbs .bread-current' => 'color: {{VALUE}};',
@@ -193,14 +193,14 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-breadcrumbs',
             ]
         );
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_final',
-                'label' => __('Typography of final', DCE_TEXTDOMAIN),
+                'label' => __('Typography of final', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-breadcrumbs .bread-current',
             ]
         );
@@ -211,7 +211,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_home', [
-                'label' => __('Home', DCE_TEXTDOMAIN),
+                'label' => __('Home', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'enable_home_text' => 'yes',
@@ -220,7 +220,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'home_color', [
-                'label' => __('Home text color', DCE_TEXTDOMAIN),
+                'label' => __('Home text color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => Scheme_Color::get_type(),
@@ -238,7 +238,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_hometext',
-                'label' => __('Typography home text', DCE_TEXTDOMAIN),
+                'label' => __('Typography home text', 'dynamic-content-for-elementor'),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 'selector' => '{{WRAPPER}} .dce-breadcrumbs li.item-home',
             ]
@@ -251,7 +251,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_separator', [
-                'label' => __('Separator', DCE_TEXTDOMAIN),
+                'label' => __('Separator', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'enable_home_text' => 'yes',
@@ -260,7 +260,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'separator_color', [
-                'label' => __('Separator Color', DCE_TEXTDOMAIN),
+                'label' => __('Separator Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => Scheme_Color::get_type(),
@@ -275,7 +275,7 @@ class DCE_Widget_Breadcrumbs extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_separator',
-                'label' => __('Typography separator', DCE_TEXTDOMAIN),
+                'label' => __('Typography separator', 'dynamic-content-for-elementor'),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 'selector' => '{{WRAPPER}} .dce-breadcrumbs .dce-separator',
             ]

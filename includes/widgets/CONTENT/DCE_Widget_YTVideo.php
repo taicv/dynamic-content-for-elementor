@@ -35,7 +35,7 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Youtube', DCE_TEXTDOMAIN);
+        return __('Youtube', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -364,18 +364,18 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         /**********************************************************************/
         $this->start_controls_section(
             'dce_section_dynamic_video', [
-                'label' => __('Dynamic', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic', 'dynamic-content-for-elementor'),
             ]
         );
         
         /*$this->add_control(
             'fullscreen', [
-                'label' => __('Fullscreen', DCE_TEXTDOMAIN),
+                'label' => __('Fullscreen', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => '',
-                'description' => __('Force video size to fullscreen', DCE_TEXTDOMAIN),
+                'description' => __('Force video size to fullscreen', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'selectors' => [
                     'iframe#dce-ytplayer-{{ID}}' => 'width: 100%;',
@@ -387,9 +387,9 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         
         $this->add_control(
             'fullwidth', [
-                'label' => __('FullWidth', DCE_TEXTDOMAIN),
+                'label' => __('FullWidth', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'description' => __('Force video size to widescreen', DCE_TEXTDOMAIN),
+                'description' => __('Force video size to widescreen', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'selectors' => [
                     'iframe#dce-ytplayer-{{ID}}' => 'width: 100%; display: block;',
@@ -403,7 +403,7 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'base_width', [
-                'label' => __('Default Width', DCE_TEXTDOMAIN),
+                'label' => __('Default Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '640',
                 'frontend_available' => true,
@@ -420,10 +420,10 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'proportion', [
-                'label' => __('Maintain proportions', DCE_TEXTDOMAIN),
+                'label' => __('Maintain proportions', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => 'yes',
-                'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 /*'condition' => [
                     'fullscreen' => ''
@@ -432,7 +432,7 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'base_height', [
-                'label' => __('Default Height', DCE_TEXTDOMAIN),
+                'label' => __('Default Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '320',
                 'frontend_available' => true,
@@ -450,9 +450,9 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         // https://developers.google.com/youtube/iframe_api_reference
         $this->add_control(
             'player_api', [
-                'label' => __('Use Player API', DCE_TEXTDOMAIN),
+                'label' => __('Use Player API', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
             ]
         );
@@ -460,12 +460,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         
         $this->add_control(
             'pause_on_scroll', [
-                'label' => __('Pause On scroll', DCE_TEXTDOMAIN),
+                'label' => __('Pause On scroll', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                'description' => __('Automatically pause video when user scroll beyond the video, he probably does not care about the video', DCE_TEXTDOMAIN),
+                'description' => __('Automatically pause video when user scroll beyond the video, he probably does not care about the video', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'condition' => [
                     'disable_native_interaction!' => '',
@@ -475,12 +475,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         /*$this->add_control(
             'custom_mute', [
-                'label' => __('Mute', DCE_TEXTDOMAIN),
+                'label' => __('Mute', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                'description' => __('Video will start mute', DCE_TEXTDOMAIN),
+                'description' => __('Video will start mute', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'condition' => [
                     'player_api!' => '',
@@ -489,12 +489,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );*/
         $this->add_control(
             'showinfo', [
-                'label' => __('Show info', DCE_TEXTDOMAIN),
+                'label' => __('Show info', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'label_off' => __( 'Hide', 'elementor' ),
                 'label_on' => __( 'Show', 'elementor' ),
                 'default' => '',
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'player_api!' => '',
                 ]
@@ -502,12 +502,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'disable_native_interaction', [
-                'label' => __('Disable native interaction', DCE_TEXTDOMAIN),
+                'label' => __('Disable native interaction', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'selectors' => [
                     '.elementor-element-{{ID}} .elementor-widget-container' => 'position: relative;',
@@ -521,12 +521,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'custom_play_pause', [
-                'label' => __('Play/Pause on Click', DCE_TEXTDOMAIN),
+                'label' => __('Play/Pause on Click', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'condition' => [
                     'controls' => '',
@@ -537,12 +537,12 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'custom_mute_toggle', [
-                'label' => __('Button Mute Toggle', DCE_TEXTDOMAIN),
+                'label' => __('Button Mute Toggle', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'condition' => [
                     'controls' => '',
@@ -553,16 +553,16 @@ class DCE_Widget_YTVideo extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'custom_mute_position', [
-                'label' => __('Button Mute Position', DCE_TEXTDOMAIN),
+                'label' => __('Button Mute Position', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'top_left' => __('Top Left', DCE_TEXTDOMAIN),
-                    'top_right' => __('Top Right', DCE_TEXTDOMAIN),
-                    'bottom_left' => __('Bottom Left', DCE_TEXTDOMAIN),
-                    'bottom_right' => __('Bottom Right', DCE_TEXTDOMAIN),
+                    'top_left' => __('Top Left', 'dynamic-content-for-elementor'),
+                    'top_right' => __('Top Right', 'dynamic-content-for-elementor'),
+                    'bottom_left' => __('Bottom Left', 'dynamic-content-for-elementor'),
+                    'bottom_right' => __('Bottom Right', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'bottom_right',
-                //'description' => __('Maintain orginal video proportions', DCE_TEXTDOMAIN),
+                //'description' => __('Maintain orginal video proportions', 'dynamic-content-for-elementor'),
                 'frontend_available' => true,
                 'condition' => [
                     'controls' => '',

@@ -27,7 +27,13 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('Tilt', DCE_TEXTDOMAIN);
+        return __('Tilt', 'dynamic-content-for-elementor');
+    }
+    public function get_description() {
+        return __('Parallax hover tilt effect applicated to a template', 'dynamic-content-for-elementor');
+    }
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/tilt/';
     }
     public function get_icon() {
         return 'icon-dyn-tilt';
@@ -41,26 +47,34 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_tilt', [
-              'label' => __('Tilt', DCE_TEXTDOMAIN),
+              'label' => __('Tilt', 'dynamic-content-for-elementor'),
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'template', [
-              'label' => __('Select Template', DCE_TEXTDOMAIN),
+              'label' => __('Select Template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT2,
               //'options' => get_post_taxonomies( $post->ID ),
               'options' => DCE_Helper::get_all_template(),
               'label_block' => true,
               'default' => '',
-                  /* 'condition' => [
-                    'templatemode_enable' => 'yes',
-                    ], */
             ]
+        );*/
+        $this->add_control(
+                'template',
+                [
+                    'label' => __('Select Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                ]
         );
         /* $this->add_control(
           'translatez_template',
           [
-          'label' => __( 'Translate Z', DCE_TEXTDOMAIN ),
+          'label' => __( 'Translate Z', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 100,
@@ -80,7 +94,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
           ); */
         $this->add_control(
             'translatez_template', [
-              'label' => __('Translate Z', DCE_TEXTDOMAIN),
+              'label' => __('Translate Z', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::NUMBER,
               'default' => 0,
               'min' => 0,
@@ -95,7 +109,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         /* $this->add_responsive_control(
           'height',
           [
-          'label' => __( 'Height', DCE_TEXTDOMAIN),
+          'label' => __( 'Height', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 400,
@@ -133,7 +147,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         /* $this->add_control(
           'tilt-maxTilt',
           [
-          'label' => __( 'Max Tilt', DCE_TEXTDOMAIN ),
+          'label' => __( 'Max Tilt', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::NUMBER,
           'default' => 100,
           'min'     => 0,
@@ -143,7 +157,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
           ); */
         $this->add_control(
                 'tilt_maxtilt', [
-            'label' => __('Max Tilt', DCE_TEXTDOMAIN),
+            'label' => __('Max Tilt', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 5,
@@ -159,7 +173,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'tilt_perspective', [
-            'label' => __('Perspective', DCE_TEXTDOMAIN),
+            'label' => __('Perspective', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 1000,
             'min' => 0,
@@ -171,7 +185,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         /* $this->add_control(
           'tilt_perspective',
           [
-          'label' => __( 'Perspective', DCE_TEXTDOMAIN ),
+          'label' => __( 'Perspective', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 1000,
@@ -188,7 +202,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         /* $this->add_control(
           'tilt_scale',
           [
-          'label' => __( 'Scale', DCE_TEXTDOMAIN ),
+          'label' => __( 'Scale', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 1,
@@ -203,7 +217,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
           ]
           ); */
         $this->add_control(
-            'tilt_scale', ['label' => __('Scale', DCE_TEXTDOMAIN),
+            'tilt_scale', ['label' => __('Scale', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::NUMBER,
               'default' => 1,
               'min' => 1,
@@ -213,7 +227,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'tilt_speed', [
-              'label' => __('Speed', DCE_TEXTDOMAIN),
+              'label' => __('Speed', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::NUMBER,
               'default' => 300,
               'min' => 0,
@@ -224,33 +238,33 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'tilt_transition', [
-            'label' => __('Transition', DCE_TEXTDOMAIN),
+            'label' => __('Transition', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'frontend_available' => true,
                 ]
         );
         $this->add_control(
                 'tilt_reset', [
-            'label' => __('Reset', DCE_TEXTDOMAIN),
+            'label' => __('Reset', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'frontend_available' => true,
                 ]
         );
         $this->add_control(
                 'tilt_glare', [
-            'label' => __('Glare', DCE_TEXTDOMAIN),
+            'label' => __('Glare', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'frontend_available' => true,
                 ]
@@ -258,7 +272,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
         /* $this->add_control(
           'tilt_maxGlare',
           [
-          'label' => __( 'Max Glare', DCE_TEXTDOMAIN ),
+          'label' => __( 'Max Glare', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 1,
@@ -274,7 +288,7 @@ class DCE_Widget_Tilt extends DCE_Widget_Prototype {
           ); */
         $this->add_control(
                 'tilt_maxGlare', [
-            'label' => __('Max Glare', DCE_TEXTDOMAIN),
+            'label' => __('Max Glare', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 1,
             'min' => 0,

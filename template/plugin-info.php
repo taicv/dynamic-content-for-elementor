@@ -20,9 +20,9 @@
                     
          
     <div class="wrap about-wrap full-width-layout">
-        <h1><?php _e("Introducing <strong>Dynamic Content for Elementor</strong>", DCE_TEXTDOMAIN); ?> <?php echo DCE_VERSION; ?></h1>
+        <h1><?php _e("Introducing <strong>Dynamic Content for Elementor</strong>", 'dynamic-content-for-elementor'); ?> <?php echo DCE_VERSION; ?></h1>
 
-        <p class="about-text"><?php _e("Your most useful widgets for Elementor", DCE_TEXTDOMAIN); ?></p>
+        <p class="about-text"><?php _e("Your most useful widgets for Elementor", 'dynamic-content-for-elementor'); ?></p>
 
                     <p class="about-text">
                  by <a href="https://www.dynamic.ooo" target="_blank">Dynamic.ooo</a>
@@ -609,10 +609,10 @@
             <div class="feature-section grid-page grid-col-md-1">
                 <div class="col item-page">
                     <div class="changelog point-releases">
-                    <h3><?php _e("Complete changelog", DCE_TEXTDOMAIN); ?></h3>
+                    <h3><?php _e("Complete changelog", 'dynamic-content-for-elementor'); ?></h3>
 
                         <a name="changelog"></a>
-                        <!--<p class="about-description"><?php printf(__("Here's the complete list of changes in %s.", DCE_TEXTDOMAIN), DCE_VERSION); ?></p>-->
+                        <!--<p class="about-description"><?php printf(__("Here's the complete list of changes in %s.", 'dynamic-content-for-elementor'), DCE_VERSION); ?></p>-->
                         <p>
                         <?php
                         //echo '--------------- ' . DCE_VERSION . ' ---------------';

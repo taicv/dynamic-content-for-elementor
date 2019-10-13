@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 class DCE_Document_Prototype {
     
-        public $name = "Document";
+    public $name = "Document";
 
 	/**
 	 * Is Common Document
@@ -206,7 +206,7 @@ class DCE_Document_Prototype {
 			$section_name,
 			[
 				'tab' 	=> Controls_Manager::TAB_SETTINGS,
-				'label' => __( 'Scrolling', DCE_TEXTDOMAIN ),
+				'label' => __( 'Scrolling', 'dynamic-content-for-elementor' ),
 			]
 		);	
 

@@ -24,10 +24,10 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('Panorama', DCE_TEXTDOMAIN);
+        return __('Panorama', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-      return __('Display a spherical picture in 360 grades through VR mode', DCE_TEXTDOMAIN);
+      return __('Display a spherical picture in 360 grades through VR mode', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/panorama/';
@@ -47,13 +47,13 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_panorama', [
-              'label' => __('Panorama', DCE_TEXTDOMAIN),
+              'label' => __('Panorama', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
           'panorama_image',
           [
-             'label' => __( 'Panorama Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Panorama Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'default' => [
                 'url' => DCE_Helper::get_placeholder_image_src(),
@@ -63,7 +63,7 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'height_scene',
             [
-                'label' => __( 'Scene height', DCE_TEXTDOMAIN ),
+                'label' => __( 'Scene height', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'px', 'rem', 'vh' ],
                 'default' => [
@@ -94,7 +94,7 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
          $this->add_control(
             'params_heading',
             [
-                'label' => __( 'Parameters', DCE_TEXTDOMAIN ),
+                'label' => __( 'Parameters', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -102,45 +102,45 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
          $this->add_control(
             'fullscreen_vr',
             [
-                'label' => __( 'Fullscreen', DCE_TEXTDOMAIN ),
+                'label' => __( 'Fullscreen', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
             ]
         );
         $this->add_control(
           'vr_mode_ui',
           [
-              'label' => __( 'VR mode UI', DCE_TEXTDOMAIN ),
+              'label' => __( 'VR mode UI', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
           ]
         );
         $this->add_control(
           'keyboard_shortcuts',
           [
-              'label' => __( 'Keyboard Shortcuts', DCE_TEXTDOMAIN ),
+              'label' => __( 'Keyboard Shortcuts', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
-              'description' => __('Enables the shortcut to press "F" to enter VR.',DCE_TEXTDOMAIN),
+              'description' => __('Enables the shortcut to press "F" to enter VR.','dynamic-content-for-elementor'),
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
           ]
         );
         $this->add_control(
           'reversemousecontrol',
           [
-              'label' => __( 'Reverse mouse control', DCE_TEXTDOMAIN ),
+              'label' => __( 'Reverse mouse control', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
           ]
         );

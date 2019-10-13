@@ -28,7 +28,7 @@ class DCE_Widget_Woo_Cart extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('View Cart', DCE_TEXTDOMAIN);
+        return __('View Cart', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -44,7 +44,7 @@ class DCE_Widget_Woo_Cart extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         
@@ -66,7 +66,7 @@ class DCE_Widget_Woo_Cart extends DCE_Widget_Prototype {
 
         global $global_ID;
         global $global_TYPE;
-        global $is_blocks;
+        global $in_the_loop;
         global $global_is;
         //
         global $product;

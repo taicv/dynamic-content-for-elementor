@@ -29,10 +29,16 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Title Taxonomy', DCE_TEXTDOMAIN);
+        return __('Title Taxonomy', 'dynamic-content-for-elementor');
     }
     public function get_icon() {
-        return 'eicon-type-tool';
+        return 'icon-dyn-title-taxonomy';
+    }
+    public function get_description() {
+        return __('Display the title of current term in an archive page');
+    }
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/title-taxonomy/';
     }
 
     protected function _register_controls() {
@@ -41,13 +47,13 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_titleTaxonomy', [
-                'label' => __('Taxonomy Title', DCE_TEXTDOMAIN),
+                'label' => __('Taxonomy Title', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'titleTaxonomy_text_before', [
-                'label' => __('Text Before', DCE_TEXTDOMAIN),
-                'description' => __('Un testo prima dell\'elemento', DCE_TEXTDOMAIN),
+                'label' => __('Text Before', 'dynamic-content-for-elementor'),
+                'description' => __('Un testo prima dell\'elemento', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
@@ -55,18 +61,18 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
         
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'h2',
             ]
@@ -74,23 +80,23 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                     'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-justify',
                     ],
                 ],
@@ -103,23 +109,23 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
 
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
                     'archive' => 'Archive URL',
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
 
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -134,19 +140,16 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Title', DCE_TEXTDOMAIN),
+                'label' => __('Title', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-title' => 'color: {{VALUE}};',
                     '{{WRAPPER}} .dynamic-content-for-elementor-title a' => 'color: {{VALUE}};',
@@ -164,7 +167,7 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'hover_animation', [
-            'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+            'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HOVER_ANIMATION,
                 ]
         );
@@ -237,7 +240,7 @@ class DCE_Widget_TitleTaxonomy extends DCE_Widget_Prototype {
         
         //$postTypeObj = get_post_type_object( $type_p );
         if ($settings['titleTaxonomy_text_before'] != "")
-            $title .= '<span>' . __($settings['titleTaxonomy_text_before'], DCE_TEXTDOMAIN.'_texts') . '</span>';
+            $title .= '<span>' . __($settings['titleTaxonomy_text_before'], 'dynamic-content-for-elementor'.'_texts') . '</span>';
         $title .= $titolo;
         
 

@@ -26,11 +26,17 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Dynamic Template', DCE_TEXTDOMAIN);
+        return __('Dynamic Template', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
         return 'icon-dyn-template';
+    }
+    public function get_description() {
+        return __('Include every element of your site in a template without having to redo it');
+    }
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/dynamic-template/';
     }
 
     /**
@@ -46,35 +52,46 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_dynamictemplate', [
-                'label' => __('Template', DCE_TEXTDOMAIN),
+                'label' => __('Template', 'dynamic-content-for-elementor'),
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
           'dynamic_template', [
-            'label' => __('Select Template', DCE_TEXTDOMAIN),
+            'label' => __('Select Template', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'label_block' => true,
             //'options' => get_post_taxonomies( $post->ID ),
             'options' => DCE_Helper::get_all_template(),
             'default' => ''
           ]
+        );*/
+        $this->add_control(
+                'dynamic_template',
+                [
+                    'label' => __('Select Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                ]
         );
         $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
               'separator' => 'before'
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select source from other post', DCE_TEXTDOMAIN),
+              'label' => __('Select source from other post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               
               'groups' => DCE_Helper::get_all_posts(get_the_ID(),true),
@@ -83,6 +100,19 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         $this->end_controls_section();
 
@@ -115,14 +145,17 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
 
         $dce_default_template = $settings[ 'dynamic_template' ];
         //echo $dce_default_template; 
+        if(\Elementor\Plugin::$instance->editor->is_edit_mode()){
+              $inlinecss = 'inlinecss="true"';
+          }else{
+              $inlinecss = '';
+          }
+
         ?>
         <div class="dce-template">
           <?php
           if (!empty($dce_default_template)) {
-              include DCE_PATH . 'template/template.php';
-              echo $pagina_temlate;
-
-              
+              echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '" '.$inlinecss.']');
           }
 
           ?>
@@ -132,5 +165,4 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
             $global_ID = $original_global_ID;
         }
     }
-
 }

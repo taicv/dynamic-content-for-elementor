@@ -81,9 +81,11 @@ class DCE_TemplateSystem {
         // manage template fulwidth
         $this->dce_template_init();
 
-        // per fare che la pagina dell'autore usi il loop su tutti i tipi non solo i post..
-        add_action('pre_get_posts', array($this, 'enfold_customization_author_archives'));
-
+        if (!is_admin()) { // necessary, if remove it will work also in admin result
+            // per fare che la pagina dell'autore usi il loop su tutti i tipi non solo i post..
+            add_action('pre_get_posts', array($this, 'enfold_customization_author_archives'));
+        }
+        
         DCE_Metabox::initTemplateSystem();
 
     }
@@ -216,28 +218,35 @@ class DCE_TemplateSystem {
             array(
                 'id' => '',
                 'post_id' => '',
+                'author_id' => '',
                 'inlinecss' => false,
             ),
             $atts,
             'dce-elementor-template'
         );
         if ($atts['id'] !== '') {
-            if ($atts['post_id'] !== '') {
+            if (!empty($atts['post_id'])) {
                 global $post;
                 $original_post = $post;
                 $post = get_post($atts['post_id']);
             }
+            if (!empty($atts['author_id'])) {
+                global $authordata;
+                $original_author = $authordata;
+                $authordata = get_user_by('ID', $atts['author_id']);
+            }
             //echo '..................... Inline CSS ...................';
             //var_dump($atts['inlinecss']);
-            if ($atts['inlinecss'] == 'true') {
-                $inlinecss = true;
-               
-            }
+            $inlinecss = ($atts['inlinecss'] == 'true');
             $dce_default_template = $atts['id'];
 
-            include DCE_PATH . 'template/template.php';
-            if ($atts['post_id'] !== '') {
+            $pagina_temlate = self::get_template($dce_default_template, $inlinecss);
+
+            if (!empty($atts['post_id'])) {
                 $post = $original_post;
+            }
+            if (!empty($atts['author_id'])) {
+                $authordata = $original_author;
             }
             return $pagina_temlate;
         }
@@ -283,7 +292,7 @@ class DCE_TemplateSystem {
 
         global $global_TYPE;
         global $global_is;
-        global $is_blocks;
+        global $in_the_loop;
         global $default_template;
 
         if ($post) {
@@ -347,7 +356,7 @@ class DCE_TemplateSystem {
                 echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
         } else {
 
-            //_e('Sorry, there are no posts in this taxonomy ', DCE_TEXTDOMAIN);
+            //_e('Sorry, there are no posts in this taxonomy ', 'dynamic-content-for-elementor');
             // empty archive template
             /*if ($empty_archive_template)
                 echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
@@ -362,7 +371,7 @@ class DCE_TemplateSystem {
         // 
         global $global_TYPE;
         global $global_is;
-        global $is_blocks;
+        global $in_the_loop;
         global $default_template;
         //
         if ($post) {
@@ -426,7 +435,7 @@ class DCE_TemplateSystem {
                 echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
         } else {
 
-            //_e('Sorry, there are no posts in this taxonomy ', DCE_TEXTDOMAIN);
+            //_e('Sorry, there are no posts in this taxonomy ', 'dynamic-content-for-elementor');
             // empty archive template
             /*if ($empty_archive_template)
                 echo do_shortcode('[dce-elementor-template id="' . $dce_default_template . '"]');
@@ -463,7 +472,15 @@ class DCE_TemplateSystem {
                 }
             }
         } else if (is_author()) {
-            if (isset($this->options['dyncontel_field_archiveuser_template']) && $this->options['dyncontel_field_archiveuser_template'] && isset($this->options['dyncontel_field_archiveuser']) && $this->options['dyncontel_field_archiveuser']) {
+            if ((isset($this->options['dyncontel_field_archiveuser_template']) && 
+                $this->options['dyncontel_field_archiveuser_template'] && 
+                isset($this->options['dyncontel_field_archiveuser']) && 
+                $this->options['dyncontel_field_archiveuser']) ||
+                (isset($this->options['dyncontel_before_field_archiveuser']) && 
+                $this->options['dyncontel_before_field_archiveuser']) ||
+                (isset($this->options['dyncontel_after_field_archiveuser']) && 
+                $this->options['dyncontel_after_field_archiveuser'])
+            ) {
                 $single_template = DCE_PATH . 'template/user.php';
             }
         }
@@ -481,7 +498,7 @@ class DCE_TemplateSystem {
 
 
             // 2 - verifico se una tassonomia associata ha il blank
-            $postTaxonomyes = DCE_Helper::get_post_taxonomies_associated($post->ID);
+            $postTaxonomyes = DCE_Helper::get_post_terms($post->ID);
             if (!empty($postTaxonomyes)) {
                 foreach ($postTaxonomyes as $tKey => $aTaxo) {
                     $aTaxName = $aTaxo->taxonomy;
@@ -623,14 +640,14 @@ class DCE_TemplateSystem {
         $tenpdyn = $content;
         
         /// Check if we're inside the main loop in a single post page.
-        if (in_the_loop() && is_main_query()) {
+        if (DCE_Helper::in_the_loop() && is_main_query()) {
 
             global $post;
 
             global $global_ID;
             global $global_TYPE;
             global $global_is;
-            global $is_blocks;
+            global $in_the_loop;
 
 
             if ($post) {
@@ -668,11 +685,7 @@ class DCE_TemplateSystem {
                         if ($datopagina > 1) {
                             $dce_default_template = $datopagina; //get_the_ID();
                             //echo 'il metabox è diverso da default oppure NO... '.$dce_default_template;
-                            include DCE_PATH . 'template/template.php';
-                            $tenpdyn = $pagina_temlate;
-
-
-
+                            $tenpdyn = self::get_template($dce_default_template);
                             $custom_template = true;
                         } else {
                             $custom_template = true;
@@ -696,12 +709,10 @@ class DCE_TemplateSystem {
                                     $dce_default_template = get_term_meta($term_single->term_id, 'dynamic_content_single', true);
                                     if (!empty($dce_default_template)) {
                                         if ($dce_default_template > 1) {
-                                            include DCE_PATH . 'template/template.php';
                                             // cisì li sommo -----------------
                                             //$tenpdyn .= $pagina_temlate;
                                             // così uso solo l'ultimo --------
-                                            $tenpdyn = $pagina_temlate;
-
+                                            $tenpdyn = self::get_template($dce_default_template);
                                             $custom_template = true;
                                         }
                                         //$tenpdyn = 'sono basato su default'.get_option( 'dyncontel_options' )['dyncontel_field_single'.$cptype]; //dyncontel_field_single'.$cptype;
@@ -726,13 +737,10 @@ class DCE_TemplateSystem {
                                     if (!empty($dce_default_template)) {
                                         //echo 'connnnn'.$dce_default_template;
                                         if ($dce_default_template > 1) {
-                                            include DCE_PATH . 'template/template.php';
-
                                             // così li sommo -----------------
                                             //$tenpdyn .= $pagina_temlate;
                                             // così uso solo l'ultimo --------
-                                            $tenpdyn = $pagina_temlate;
-
+                                            $tenpdyn = self::get_template($dce_default_template);
                                             $custom_template = true;
                                         }
                                     }
@@ -755,11 +763,8 @@ class DCE_TemplateSystem {
                             if ($cptype != 'product' || !function_exists('is_product')) {
                                 //
                                 if ($dce_default_template > 1) {
-
-                                    include DCE_PATH . 'template/template.php';
-
                                     //$tenpdyn = 'sono basato su default'.get_option( 'dyncontel_options' )['dyncontel_field_single'.$cptype]; //dyncontel_field_single'.$cptype;
-                                    $tenpdyn = $pagina_temlate;
+                                    $tenpdyn = self::get_template($dce_default_template);
                                     $custom_template = true;
                                 }
                             }
@@ -870,12 +875,10 @@ class DCE_TemplateSystem {
                         if (!empty($dce_default_template)) {
                             //echo 'connnnn'.$dce_default_template;
                             if ($dce_default_template > 1) {
-                                include DCE_PATH . 'template/template.php';
+                                $tenpdyn = self::get_template($dce_default_template);
                             }
                             //$tenpdyn = 'sono basato su default'.get_option( 'dyncontel_options' )['dyncontel_field_archive'.$cptype]; //dyncontel_field_single'.$cptype;
-                            //
-
-                            $tenpdyn = $pagina_temlate;
+                            //$tenpdyn = $pagina_temlate;
                         }
                         //echo $tenpdyn;
                     }
@@ -886,9 +889,9 @@ class DCE_TemplateSystem {
                     $dce_default_template = $this->options['dyncontel_field_singleattachment'];
                     if (!empty($dce_default_template)) {
                         if ($dce_default_template > 1) {
-                            include DCE_PATH . 'template/template.php';
+                            $tenpdyn = self::get_template($dce_default_template);
                         }
-                        $tenpdyn = $pagina_temlate;
+                        //$tenpdyn = $pagina_temlate;
                     }
                 }
                 if (is_author()) {
@@ -897,9 +900,9 @@ class DCE_TemplateSystem {
                     $dce_default_template = $this->options['dyncontel_field_archiveuser'];
                     if (!empty($dce_default_template)) {
                         if ($dce_default_template > 1) {
-                            include DCE_PATH . 'template/template.php';
+                            $tenpdyn = self::get_template($dce_default_template);
                         }
-                        $tenpdyn = $pagina_temlate;
+                        //$tenpdyn = $pagina_temlate;
                     }
                 }
                 if (is_search()) {
@@ -908,14 +911,42 @@ class DCE_TemplateSystem {
                     $dce_default_template = $this->options['dyncontel_field_archivesearch'];
                     if (!empty($dce_default_template)) {
                         if ($dce_default_template > 1) {
-                            include DCE_PATH . 'template/template.php';
+                            $tenpdyn = self::get_template($dce_default_template);
                         }
-                        $tenpdyn = $pagina_temlate;
+                        //$tenpdyn = $pagina_temlate;
                     }
                 }
             } // end/ se non sono in un "my template" Elementor oppure OceanWP
         }
 
         return $tenpdyn;
+    }
+
+
+
+
+    public static function get_template($template, $inline_css = false) {
+        $get_id = apply_filters( 'wpml_object_id', $template,'elementor_library', true );
+        // Check if the template is created with Elementor
+        $elementor = get_post_meta($get_id, '_elementor_edit_mode', true);
+        $pagina_template = '';
+        // If Elementor
+        if (class_exists('Elementor\Plugin') && $elementor) {
+
+            // Dalla versione 0.1.0 (consigliavano questo) .. ma ha dei limiti ..per tutti i siti fino ad oggi ho fatto così ... e funzione per i template, ma non per i contenuti diretti.
+            //$pagina_temlate = Elementor\Plugin::instance()->frontend->get_builder_content_for_display($get_id);
+            
+            // Dalla versione 0.6.0 dopo ore di ragionamenti vado ad usare questo per generare il contenuto di Elementor. Questo mi permette di usare un contenuto Elementor dentro a un contenuto nel template ... vedi (elementor/includes/frontend.php)
+            $pagina_template = \Elementor\Plugin::instance()->frontend->get_builder_content($get_id, $inline_css);
+        }else{
+            //echo '<div style="margin: 40px; font-size:50px;">contenuto nativo</div>';
+            //var_dump($get_id);
+            $post_n = get_post($get_id);
+            $content_n = apply_filters( 'the_content', $post_n->post_content );
+            echo $content_n;
+
+        }
+
+        return $pagina_template;
     }
 }

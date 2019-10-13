@@ -38,11 +38,18 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('TOOLSET Fields', DCE_TEXTDOMAIN);
+        return __('TOOLSET Fields', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
         return 'icon-dyn-acffields';
+    }
+
+    public function get_description() {
+        return __('Add a customized field realized with Toolset', 'dynamic-content-for-elementor');
+    }
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/toolset-fields/';
     }
 
     public function get_script_depends() {
@@ -63,13 +70,13 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         // ********************** Section BASE **********************
         $this->start_controls_section(
             'section_content', [
-            'label' => __('Toolset', DCE_TEXTDOMAIN)
+            'label' => __('Toolset', 'dynamic-content-for-elementor')
             ]
         );
 
         $this->add_control(
             'toolset_field_list', [
-            'label' => __('Fields list', DCE_TEXTDOMAIN),
+            'label' => __('Fields list', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'empty',
             'groups' =>  $this->get_toolset_fields(),
@@ -78,31 +85,31 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_field_type', [
-            'label' => __('Field type', DCE_TEXTDOMAIN),
+            'label' => __('Field type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 0,
             'options' => [
-                'empty' => __('Select for options', DCE_TEXTDOMAIN),
-                'textfield' => __('Textfield', DCE_TEXTDOMAIN),
-                'url' => __('URL', DCE_TEXTDOMAIN),
-                'phone' => __('Phone', DCE_TEXTDOMAIN),
-                'email' => __('Email', DCE_TEXTDOMAIN),
-                'textarea' => __('Textarea', DCE_TEXTDOMAIN),
-                'wysiwyg' => __('WYSIWYG', DCE_TEXTDOMAIN),
-                'image' => __('Image', DCE_TEXTDOMAIN),
-                'date' => __('Date', DCE_TEXTDOMAIN),
-                'numeric' => __('Numeric', DCE_TEXTDOMAIN),
-                'video' => __('Video', DCE_TEXTDOMAIN),
+                'empty' => __('Select for options', 'dynamic-content-for-elementor'),
+                'textfield' => __('Textfield', 'dynamic-content-for-elementor'),
+                'url' => __('URL', 'dynamic-content-for-elementor'),
+                'phone' => __('Phone', 'dynamic-content-for-elementor'),
+                'email' => __('Email', 'dynamic-content-for-elementor'),
+                'textarea' => __('Textarea', 'dynamic-content-for-elementor'),
+                'wysiwyg' => __('WYSIWYG', 'dynamic-content-for-elementor'),
+                'image' => __('Image', 'dynamic-content-for-elementor'),
+                'date' => __('Date', 'dynamic-content-for-elementor'),
+                'numeric' => __('Numeric', 'dynamic-content-for-elementor'),
+                'video' => __('Video', 'dynamic-content-for-elementor'),
                 ]
             ]
         );
 
         $this->add_control(
             'toolset_field_hide', [
-            'label' => __('Hide if empty', DCE_TEXTDOMAIN),
+            'label' => __('Hide if empty', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'description' => 'Hide the field in front end layer'
             ]
@@ -121,7 +128,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_text_before', [
-            'label' => __('Text before', DCE_TEXTDOMAIN),
+            'label' => __('Text before', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             // 'condition' => ['toolset_field_type' => ['textfield', 'url', 'phone', 'email', 'textarea','wysiwyg' ,'date', 'numeric']]
@@ -131,7 +138,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_text_after', [
-            'label' => __('Text after', DCE_TEXTDOMAIN),
+            'label' => __('Text after', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             // 'condition' => ['toolset_field_type' => ['textfield', 'url', 'phone', 'email', 'textarea','wysiwyg','date', 'numeric']]
@@ -142,17 +149,17 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_url_enable', [
-            'label' => __('Enable link', DCE_TEXTDOMAIN),
+            'label' => __('Enable link', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => ['toolset_field_type' => 'url']
             ]
         );
         $this->add_control(
             'toolset_url_custom_text', [
-            'label' => __('Custom URL text', DCE_TEXTDOMAIN),
+            'label' => __('Custom URL text', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['toolset_field_type' => 'url']
@@ -160,13 +167,13 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'toolset_url_target', [
-            'label' => __('Target type', DCE_TEXTDOMAIN),
+            'label' => __('Target type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                '_self' => __('_self', DCE_TEXTDOMAIN),
-                '_blank' => __('_blank', DCE_TEXTDOMAIN),
-                '_parent' => __('_parent', DCE_TEXTDOMAIN),
-                '_top' => __('_top', DCE_TEXTDOMAIN),
+                '_self' => __('_self', 'dynamic-content-for-elementor'),
+                '_blank' => __('_blank', 'dynamic-content-for-elementor'),
+                '_parent' => __('_parent', 'dynamic-content-for-elementor'),
+                '_top' => __('_top', 'dynamic-content-for-elementor'),
             ],
             'default' => '_self',
             'condition' => ['toolset_field_type' => 'url']
@@ -175,31 +182,31 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_date_format', [
-            'label' => __('Format', DCE_TEXTDOMAIN),
+            'label' => __('Format', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 0,
             'options' => [
-                'default' => __('Wordpress settings', DCE_TEXTDOMAIN),
-                '%Y%m%d' => __('YYYYMMDD', DCE_TEXTDOMAIN),
-                '%Y-%m-%d' => __('YYYY-MM-DD', DCE_TEXTDOMAIN),
-                '%d/%m/%Y' => __('DD/MM/YYYY', DCE_TEXTDOMAIN),
-                '%d-%m-%Y' => __('DD-MM-YYYY', DCE_TEXTDOMAIN),
-                '%Y-%m-%d %H:%M:%S' => __('YYYY-MM-DD H:M:S', DCE_TEXTDOMAIN),
-                '%d/%m/%Y %H:%M:%S' => __('DD/MM/YY H:M:S', DCE_TEXTDOMAIN),
-                '%d/%m/%y' => __('D/M/Y', DCE_TEXTDOMAIN),
-                '%d-%m-%y' => __('D-M-Y', DCE_TEXTDOMAIN),
-                '%I:%M %p' => __('H:M (12 hours)', DCE_TEXTDOMAIN),
-                '%A %m %B %Y' => __('Full date', DCE_TEXTDOMAIN),
-                '%A %m %B %Y at %H:%M' => __('Full date with hours', DCE_TEXTDOMAIN),
-                'timestamp' => __('Timestamp', DCE_TEXTDOMAIN),
-                'custom' => __('Custom', DCE_TEXTDOMAIN),
+                'default' => __('Wordpress settings', 'dynamic-content-for-elementor'),
+                '%Y%m%d' => __('YYYYMMDD', 'dynamic-content-for-elementor'),
+                '%Y-%m-%d' => __('YYYY-MM-DD', 'dynamic-content-for-elementor'),
+                '%d/%m/%Y' => __('DD/MM/YYYY', 'dynamic-content-for-elementor'),
+                '%d-%m-%Y' => __('DD-MM-YYYY', 'dynamic-content-for-elementor'),
+                '%Y-%m-%d %H:%M:%S' => __('YYYY-MM-DD H:M:S', 'dynamic-content-for-elementor'),
+                '%d/%m/%Y %H:%M:%S' => __('DD/MM/YY H:M:S', 'dynamic-content-for-elementor'),
+                '%d/%m/%y' => __('D/M/Y', 'dynamic-content-for-elementor'),
+                '%d-%m-%y' => __('D-M-Y', 'dynamic-content-for-elementor'),
+                '%I:%M %p' => __('H:M (12 hours)', 'dynamic-content-for-elementor'),
+                '%A %m %B %Y' => __('Full date', 'dynamic-content-for-elementor'),
+                '%A %m %B %Y at %H:%M' => __('Full date with hours', 'dynamic-content-for-elementor'),
+                'timestamp' => __('Timestamp', 'dynamic-content-for-elementor'),
+                'custom' => __('Custom', 'dynamic-content-for-elementor'),
                 ],
             'condition' => ['toolset_field_type' => 'date']
             ]
         );
         $this->add_control(
             'toolset_date_custom_format', [
-            'label' => __('Custom date format', DCE_TEXTDOMAIN),
+            'label' => __('Custom date format', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['toolset_date_format' => 'custom'],
@@ -211,7 +218,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Image_Size::get_type(), [
             'name' => 'size',
-            'label' => __('Image Size', DCE_TEXTDOMAIN),
+            'label' => __('Image Size', 'dynamic-content-for-elementor'),
             'default' => 'large',
             'condition' => ['toolset_field_type' => 'image']
             ]
@@ -219,23 +226,23 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
         'align', [
-            'label' => __('Alignment', DCE_TEXTDOMAIN),
+            'label' => __('Alignment', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'left' => [
-                    'title' => __('Left', DCE_TEXTDOMAIN),
+                    'title' => __('Left', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'center' => [
-                    'title' => __('Center', DCE_TEXTDOMAIN),
+                    'title' => __('Center', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-center',
                 ],
                 'right' => [
-                    'title' => __('Right', DCE_TEXTDOMAIN),
+                    'title' => __('Right', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-right',
                 ],
                 'justify' => [
-                    'title' => __('Justified', DCE_TEXTDOMAIN),
+                    'title' => __('Justified', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-justify',
                 ],
             ],
@@ -250,15 +257,15 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'use_bg', [
-            'label' => __('Background', DCE_TEXTDOMAIN),
+            'label' => __('Background', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 '1' => [
-                    'title' => __('Yes', DCE_TEXTDOMAIN),
+                    'title' => __('Yes', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-check',
                 ],
                 '0' => [
-                    'title' => __('No', DCE_TEXTDOMAIN),
+                    'title' => __('No', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-ban',
                 ]
             ],
@@ -271,20 +278,20 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'bg_position', [
-            'label' => __('Background position', DCE_TEXTDOMAIN),
+            'label' => __('Background position', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'top center',
             'options' => [
-                '' => __('Default', DCE_TEXTDOMAIN),
-                'top left' => __('Top Left', DCE_TEXTDOMAIN),
-                'top center' => __('Top Center', DCE_TEXTDOMAIN),
-                'top right' => __('Top Right', DCE_TEXTDOMAIN),
-                'center left' => __('Center Left', DCE_TEXTDOMAIN),
-                'center center' => __('Center Center', DCE_TEXTDOMAIN),
-                'center right' => __('Center Right', DCE_TEXTDOMAIN),
-                'bottom left' => __('Bottom Left', DCE_TEXTDOMAIN),
-                'bottom center' => __('Bottom Center', DCE_TEXTDOMAIN),
-                'bottom right' => __('Bottom Right', DCE_TEXTDOMAIN),
+                '' => __('Default', 'dynamic-content-for-elementor'),
+                'top left' => __('Top Left', 'dynamic-content-for-elementor'),
+                'top center' => __('Top Center', 'dynamic-content-for-elementor'),
+                'top right' => __('Top Right', 'dynamic-content-for-elementor'),
+                'center left' => __('Center Left', 'dynamic-content-for-elementor'),
+                'center center' => __('Center Center', 'dynamic-content-for-elementor'),
+                'center right' => __('Center Right', 'dynamic-content-for-elementor'),
+                'bottom left' => __('Bottom Left', 'dynamic-content-for-elementor'),
+                'bottom center' => __('Bottom Center', 'dynamic-content-for-elementor'),
+                'bottom right' => __('Bottom Right', 'dynamic-content-for-elementor'),
             ],
             'selectors' => [
                 '{{WRAPPER}} .dynamic-content-for-elementor-toolset-bg' => 'background-position: {{VALUE}};',
@@ -298,11 +305,11 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'bg_extend', [
-            'label' => __('Extend background', DCE_TEXTDOMAIN),
+            'label' => __('Extend background', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Show', DCE_TEXTDOMAIN),
-            'label_off' => __('Hide', DCE_TEXTDOMAIN),
+            'label_on' => __('Show', 'dynamic-content-for-elementor'),
+            'label_off' => __('Hide', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'condition' => [
                 'use_bg' => '1',
@@ -316,7 +323,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'height', [
-            'label' => __('Minimus height', DCE_TEXTDOMAIN),
+            'label' => __('Minimus height', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 200,
@@ -355,17 +362,17 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_phone_number_enable', [
-            'label' => __('Enable link', DCE_TEXTDOMAIN),
+            'label' => __('Enable link', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => ['toolset_field_type' => 'phone']
             ]
         );
         $this->add_control(
             'toolset_phone_number_custom_text', [
-            'label' => __('Custom phone number', DCE_TEXTDOMAIN),
+            'label' => __('Custom phone number', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['toolset_field_type' => 'phone']
@@ -374,20 +381,20 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_email_target', [
-            'label' => __('Link mailto', DCE_TEXTDOMAIN),
+            'label' => __('Link mailto', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('Off', DCE_TEXTDOMAIN),
-            'label_on' => __('On', DCE_TEXTDOMAIN),
+            'label_off' => __('Off', 'dynamic-content-for-elementor'),
+            'label_on' => __('On', 'dynamic-content-for-elementor'),
             'condition' => ['toolset_field_type' => 'email']
             ]
         );
 
         $this->add_control(
             'toolset_numeric_currency', [
-            'label' => __('Currency', DCE_TEXTDOMAIN),
+            'label' => __('Currency', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'no',
             'condition' => ['toolset_field_type' => 'numeric']
             ]
@@ -395,7 +402,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_currency_symbol', [
-            'label' => __('Currency symbol', DCE_TEXTDOMAIN),
+            'label' => __('Currency symbol', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['toolset_field_type' => 'numeric', 'toolset_numeric_currency' => 'yes']
@@ -404,11 +411,11 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
 
         $this->add_control(
             'toolset_currency_symbol_position', [
-            'label' => __('Symbol position', DCE_TEXTDOMAIN),
+            'label' => __('Symbol position', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
-                'before' => ['title' => __('Before', DCE_TEXTDOMAIN), 'icon' => 'fa fa-arrow-left'],
-                'after' => ['title' => __('After', DCE_TEXTDOMAIN), 'icon' => 'fa fa-arrow-right']],
+                'before' => ['title' => __('Before', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-arrow-left'],
+                'after' => ['title' => __('After', 'dynamic-content-for-elementor'), 'icon' => 'fa fa-arrow-right']],
             'default' => 'before',
             'toggle' => true,
             'condition' => ['toolset_field_type' => 'numeric', 'toolset_numeric_currency' => 'yes']
@@ -420,7 +427,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
  // ------------------------------------------------------------ [ OVERLAY Image ]
         $this->start_controls_section(
                 'section_overlay', [
-            'label' => __('Overlay Image', DCE_TEXTDOMAIN),
+            'label' => __('Overlay Image', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_CONTENT,
             'condition' => [
                 'toolset_field_type' => 'image',
@@ -429,7 +436,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'overlay_heading', [
-            'label' => __('Overlay', DCE_TEXTDOMAIN),
+            'label' => __('Overlay', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before',
             'condition' => [
@@ -439,11 +446,11 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'use_overlay', [
-            'label' => __('Overlay Image', DCE_TEXTDOMAIN),
+            'label' => __('Overlay Image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Show', DCE_TEXTDOMAIN),
-            'label_off' => __('Hide', DCE_TEXTDOMAIN),
+            'label_on' => __('Show', 'dynamic-content-for-elementor'),
+            'label_off' => __('Hide', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
@@ -463,14 +470,14 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
    // ********************** Section STYLE **********************
         $this->start_controls_section(
             'section_style', [
-            'label' => __('Style', DCE_TEXTDOMAIN),
+            'label' => __('Style', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => ['toolset_field_type' => ['textfield', 'url','image', 'phone', 'email', 'textarea','wysiwyg','date', 'numeric']]
             ]
         );
         $this->add_control(
             'tx_heading', [
-            'label' => __('Text', DCE_TEXTDOMAIN),
+            'label' => __('Text', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before',
             'condition' => ['toolset_field_type' => ['textfield', 'url','image', 'phone', 'email', 'textarea','wysiwyg','date', 'numeric']]
@@ -478,7 +485,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'color', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'scheme' => [ 'type' => Scheme_Color::get_type(), 'value' => Scheme_Color::COLOR_1],
             'selectors' => [
@@ -489,7 +496,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'bg_color', [
-            'label' => __('Background Color', DCE_TEXTDOMAIN),
+            'label' => __('Background Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'scheme' => ['type' => Scheme_Color::get_type(), 'value' => Scheme_Color::COLOR_1],
             'selectors' => ['{{WRAPPER}} .dynamic-content-for-elementor-toolset' => 'background-color: {{VALUE}};',],
@@ -498,7 +505,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'toolset_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%'],
             'selectors' => [
@@ -507,7 +514,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'toolset_space', [
-            'label' => __('Space', DCE_TEXTDOMAIN),
+            'label' => __('Space', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => ['size' => 0,],
             'range' => ['px' => ['max' => 100, 'min' => 0, 'step' => 1,],],
@@ -515,7 +522,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'toolset_shift', [
-            'label' => __('Shift', DCE_TEXTDOMAIN),
+            'label' => __('Shift', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'range' => ['px' => ['max' => 180, 'min' => -180, 'step' => 1,],],
             'selectors' => ['{{WRAPPER}} .dynamic-content-for-elementor-toolset' => 'left: {{SIZE}}{{UNIT}};'],]
@@ -523,7 +530,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'typography_tx',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
             'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-toolset',
             'condition' => ['toolset_field_type' => ['textfield', 'url','image', 'phone', 'email', 'textarea','wysiwyg','date', 'numeric']]
@@ -532,7 +539,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(), [
             'name' => 'text_shadow',
-            'label' => __('Text shadow', DCE_TEXTDOMAIN),
+            'label' => __('Text shadow', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-toolset',
             'condition' => ['toolset_field_type' => ['textfield', 'url','image', 'phone', 'email', 'textarea','wysiwyg','date', 'numeric']]
             ]
@@ -544,23 +551,26 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
     }
 
     protected function get_toolset_fields() {
-        $toolset_groups = wpcf_admin_fields_get_groups();
+        
         $fieldList = array();
         $fieldList[0] = 'Select the field';
-        foreach ($toolset_groups as $group){
-            $options = array();
-            $fields = wpcf_admin_fields_get_fields_by_group( $group['id'] );
-            if (!is_array($fields)) continue;
-            foreach ($fields as $field_key => $field) {
-                $a=array();
-                $a['group'] = $group['slug'];
-                $a['field'] = $field_key;
-                $a['type'] = $field['type'];
-                $index = json_encode($a);
-                $options[json_encode($a)] = $field['name'].' ('.$field['type'].')';
-                if (empty($options)) continue;
+        if (DCE_Helper::is_plugin_active('types')) {
+            $toolset_groups = wpcf_admin_fields_get_groups();
+            foreach ($toolset_groups as $group){
+                $options = array();
+                $fields = wpcf_admin_fields_get_fields_by_group( $group['id'] );
+                if (!is_array($fields)) continue;
+                foreach ($fields as $field_key => $field) {
+                    $a=array();
+                    $a['group'] = $group['slug'];
+                    $a['field'] = $field_key;
+                    $a['type'] = $field['type'];
+                    $index = json_encode($a);
+                    $options[json_encode($a)] = $field['name'].' ('.$field['type'].')';
+                    if (empty($options)) continue;
+                }
+                array_push($fieldList, ['label' => $group['name'], 'options' => $options]);
             }
-            array_push($fieldList, ['label' => $group['name'], 'options' => $options]);
         }
         return $fieldList;
     }
@@ -590,7 +600,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
                 $f->value = types_render_field($f->field);
                 $html = '<span class="edc-toolset">' . $f->value . '</span>';
                 if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
             break;
             case 'wysiwyg':
                 $f->value = types_render_field($f->field, array('suppress_filters' => true ));
@@ -610,7 +620,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
                 else
                     $html = $text_url;
                 if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
                 break;
 
             case 'phone':
@@ -622,14 +632,14 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
                     $html = '<a href="tel:' . preg_replace("/[^0-9]/", '', $f->value) . '"> ' . $text_number . '</a>';
                 else $html = $text_number;
                 if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
             break;
             case 'email':
                 $f->value = types_render_field($f->field);
                 if ($settings['toolset_email_target']) $html = $f->value;
                 elseif (preg_match('/href="mailto:(.*?)" /', $f->value, $match) == 1) $html = $match[1];
                 if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
             break;
             case 'image':
                 $img_size = $settings['size_size'];
@@ -664,7 +674,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
                         }
                     $html = '<span class="edc-toolset">' . $data . '</span>';
                     if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                        $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                        $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
                 endif;
                 break;
             case 'numeric':
@@ -678,7 +688,7 @@ class DCE_Widget_Toolset extends DCE_Widget_Prototype {
                 }
                 $html = '<span class="edc-toolset">' . $number . '</span>';
                 if ($settings['toolset_text_before'] != "" || $settings['toolset_text_after'] != "")
-                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], DCE_TEXTDOMAIN) . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                    $html = '<span class="tx-before">' . __($settings['toolset_text_before'], 'dynamic-content-for-elementor') . '</span>' . $html . '<span class="tx-after">' . __($settings['toolset_text_after'], 'dynamic-content-for-elementor') . '</span>';
                 break;
 
             case 'video':

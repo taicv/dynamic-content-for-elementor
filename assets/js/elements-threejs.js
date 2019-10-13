@@ -46,7 +46,7 @@
 
         // if Fog Enabled
         //alert(elementSettingsThreejs.enabled_fog);
-        if ('yes' == elementSettingsThreejs.enabled_fog) {
+        if (elementSettingsThreejs.enabled_fog) {
             scene.fog = new THREE.Fog(coloreSfondo, 500, 10000);
         }
         // camera

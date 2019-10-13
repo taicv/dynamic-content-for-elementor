@@ -27,13 +27,13 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
         return true;
     }
     public function get_description() {
-        return __('Add an icon for your post format and identify its type', DCE_TEXTDOMAIN);
+        return __('Add an icon for your post format and identify its type', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/icon-format/';
     }
     public function get_title() {
-        return __('Icon Format', DCE_TEXTDOMAIN);
+        return __('Icon Format', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -48,12 +48,12 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_cpt', [
-                'label' => __('Icon Format', DCE_TEXTDOMAIN),
+                'label' => __('Icon Format', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'icon_size', [
-                'label' => __('Icon Size', DCE_TEXTDOMAIN),
+                'label' => __('Icon Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 30,
@@ -72,7 +72,7 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'padding_size', [
-                'label' => __('Padding Size', DCE_TEXTDOMAIN),
+                'label' => __('Padding Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 10,
@@ -90,7 +90,7 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'color_icon', [
-            'label' => __('Color Icon', DCE_TEXTDOMAIN),
+            'label' => __('Color Icon', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dashicons:before' => 'color: {{VALUE}};',
@@ -99,7 +99,7 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'color_bg', [
-            'label' => __('Color Background', DCE_TEXTDOMAIN),
+            'label' => __('Color Background', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dashicons' => 'background-color: {{VALUE}};',
@@ -108,19 +108,19 @@ class DCE_Widget_IconFormat extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'icon_align', [
-            'label' => __('Alignment', DCE_TEXTDOMAIN),
+            'label' => __('Alignment', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'left' => [
-                    'title' => __('Left', DCE_TEXTDOMAIN),
+                    'title' => __('Left', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'center' => [
-                    'title' => __('Center', DCE_TEXTDOMAIN),
+                    'title' => __('Center', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-center',
                 ],
                 'right' => [
-                    'title' => __('Right', DCE_TEXTDOMAIN),
+                    'title' => __('Right', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-right',
                 ]
             ],

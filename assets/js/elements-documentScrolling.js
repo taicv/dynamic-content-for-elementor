@@ -1,16 +1,20 @@
+;
 ( function( $ ) {
 	
 	// Vars  ----------------------------------------
 	var settings_page = {};
     var sectionsAvailable = [];
+    var sezioni = '';
 
     is_pageScroll = false;
 	// ********* Scrollify
-	var is_scrollify = false;
+	var is_scrollify = false,
+		titleStyle = '',
+		navStyle = 'default';
 
     // ********* ScrollEffects
     var is_scrollEffects = false;
-
+    var currentPostId;
     var is_enable_dceScrolling,
 		is_enable_scrollify,
 		is_enable_scrollEffects,
@@ -46,22 +50,35 @@
         'data-lax-anchor'
     ]
     // ********* InertiaScroll
+
+    // Versione 1
     var is_inertiaScroll = false;
     var directionScroll = 'vertical';
 	var coefSpeed_inertiaScroll = 0.05;
 	var html = document.documentElement;
-	var body = document.body;
+	
 	var scroller = {};
 
+	// Versione 2
+	const body = document.body;
+	var main = {};
+	
+	
+	let sx = 0;
+	let sy = 0;
 
+	let dx = sx;
+	let dy = sy;
+
+	var requestId;
 
 	// INIT ----------------------------------------
 	var init_Scrollify = function( ) {
 		//console.log( $scope );
 		//alert('scrollify Handle');
 
-		//var sezioni = '.elementor-inner > .elementor-section-wrap > .elementor-section';
-		//var sezioni = '.elementor[data-elementor-type=post] > .elementor-inner > .elementor-section-wrap > .elementor-section';
+		//sezioni = '.elementor-inner > .elementor-section-wrap > .elementor-section';
+		//sezioni = '.elementor[data-elementor-type=post] > .elementor-inner > .elementor-section-wrap > .elementor-section';
 		$('body').addClass('dce-scrollify dce-scrolling');
 		// $("body").addClass('scrollify').append(scrollify_pagination);	
 
@@ -74,10 +91,10 @@
     	//sezioni = '.elementor-' + settings_page.scrollEffects_id_page + ' > .elementor-inner > .elementor-section-wrap > .elementor-section';
     	
     	//$target_sections = settings_page.scroll_target+' ';
-    	$target_sections = '.elementor-'+settings_page.scroll_id_page;
+    	$target_sections = '.elementor-'+currentPostId; //settings_page.scroll_id_page;
     	if(!$target_sections) $target_sections = '';
 
-    	var sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
+    	sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
     	
     	// Class direction
     	$($target_sections).addClass('scroll-direction-'+settings_page.directionScroll);
@@ -101,64 +118,141 @@
 		    section : sezioni,
 		    sectionName : 'id',
 		    interstitialSection : settings_page.interstitialSection, //"header, footer.site-footer",
-		    //easing: settings_page.ease_scrollify || "easeOutExpo",
+		    easing: "easeOutExpo", //settings_page.ease_scrollify || "easeOutExpo",
 		    scrollSpeed: Number(settings_page.scrollSpeed.size) || 1100, //1100,
 		    offset : Number(settings_page.offset.size) || 0, //0,
 		    
-		    //scrollbars:  'yes' === settings_page.scrollbars, //true,
+		    scrollbars:  Boolean( settings_page.scrollBars ), //true,
 		    
 		    // standardScrollElements: "",
 		    
-		    setHeights: 'yes' === settings_page.setHeights, //true,
-		    overflowScroll: 'yes' === settings_page.overflowScroll, //true,
-		    updateHash: 'yes' === settings_page.updateHash, //true,
-		    touchScroll: 'yes' === settings_page.touchScroll, //true,
+		    setHeights: Boolean( settings_page.setHeights ), //true,
+		    overflowScroll: Boolean( settings_page.overflowScroll ), //true,
+		    updateHash: Boolean( settings_page.updateHash ), //true,
+		    touchScroll: Boolean( settings_page.touchScroll ), //true,
 		    // before:function() {},
 		    // after:function() {},
 		    // afterResize:function() {},
 		    // afterRender:function() {}
 		    before:function(i,panels) {
  		      var ref = panels[i].attr("data-id");
- 		      //
-		      $(".dce-scrollify-pagination .active").removeClass("active");
-		      $(".dce-scrollify-pagination").find("a[href=\"#" + ref + "\"]").addClass("active");
+ 		      
 		      //
+		      $(".dce-scrollify-pagination .nav__item--current").removeClass("nav__item--current");
+		      $(".dce-scrollify-pagination").find("a[href=\"#" + ref + "\"]").addClass("nav__item--current");
+		      
 
 		    },
 		    afterRender:function() {
 		      is_scrollify = true;
 		      //
-		      //alert(settings_page.enable_scrollify_nav);
-		      if(settings_page.enable_scrollify_nav){
+		      //alert(Boolean(settings_page.enable_scrollify_nav) +' - '+ elementorFrontend.isEditMode());
+		      if(settings_page.enable_scrollify_nav || elementorFrontend.isEditMode()){
 		      	  //alert('pagination');
-			      var scrollify_pagination = "<ul class=\"dce-scrollify-pagination\">";
-			      var activeClass = "";
-			      $(sezioni).each(function(i) {
-			        activeClass = "";
-			        if(i===0) {
-			          activeClass = "active";
-			        }
-			        //<span class=\"hover-text\">"+$(this).attr("data-id")+"</span>
-			        scrollify_pagination += "<li><a class=\"" + activeClass + "\" href=\"#" + $(this).attr("data-id") + "\"></a></li>";
-			        //scrollify_pagination += "<li><a class=\"" + activeClass + "\" href=\"#" + $(this).attr("data-id") + "\"><span class=\"hover-text\">" + $(this).attr("data-id").charAt(0).toUpperCase() + $(this).attr("data-id").slice(1) + "</span></a></li>";
-			      });
-			      scrollify_pagination += "</ul>";
+			      //
+			      var scrollify_pagination = '';
+			      createNavigation(settings_page.snapscroll_nav_style);
 
-			      $("body").append(scrollify_pagination);		      
-
-			      //Tip: The two click events below are the same:
-			      
+			      		      
+				      
+			      // al click del pallino
 			      $("body").on("click",".dce-scrollify-pagination a",function() {
 			        $.scrollify.move($(this).attr("href"));
-			      });
-			      if(settings_page.enable_scrollEffects) handleScrollEffects (settings_page.enable_scrollEffects);
 
+			        return false;
+			      });
+			      
+			      if(!Boolean(settings_page.enable_scrollify_nav)){
+			      	handleScrollify_enablenavigation('');
+			      }
+			      if(Boolean(settings_page.enable_scrollEffects)){
+			      	handleScrollEffects (settings_page.enable_scrollEffects);
+			      }
 
 			  }
 		    }
 		  });
 		$.scrollify.update();
 	}
+	var createNavigationTitles = function($style, $reload = false){
+
+		titleStyle = $style;
+
+		if($reload){
+	    	createNavigation(settings_page.snapscroll_nav_style);
+		}
+	}
+	var createNavigation = function($style){
+		//alert('createNavigation');
+		
+		navStyle = $style;
+
+		if( $('.dce-scrollify-pagination').length > 0 ) $('.dce-scrollify-pagination').remove();
+
+		var newPagination = '';
+		var activeClass;
+		
+		var titleString;
+		createNavigationTitles(settings_page.snapscroll_nav_title_style);
+		
+	    newPagination = '<ul class="dce-scrollify-pagination nav--'+$style+'">';
+
+	    if($style == 'ayana'){
+			newPagination += '<svg class="hidden"><defs><symbol id="icon-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.215"></circle></symbol></defs></svg>';
+		}
+		if($style == 'desta'){
+			newPagination += '<svg class="hidden"><defs><symbol id="icon-triangle" viewBox="0 0 24 24"><path d="M4.5,19.8C4.5,19.8,4.5,19.8,4.5,19.8V4.2c0-0.3,0.2-0.5,0.4-0.7c0.2-0.1,0.5-0.1,0.8,0l13.5,7.8c0.2,0.1,0.4,0.4,0.4,0.7c0,0.3-0.2,0.5-0.4,0.7L5.7,20.4c-0.1,0.1-0.3,0.1-0.5,0.1C4.8,20.6,4.5,20.2,4.5,19.8z M6,5.6v12.8L17.2,12L6,5.6z"/></symbol></defs></svg>';
+		}
+		$(sezioni).each(function(i) {
+			activeClass = '';
+		    if(i===0) {
+		        activeClass = "nav__item--current";
+		    }
+
+		    if(titleStyle == 'number'){
+		    	var prefN = '';
+		    	if(i < 9){
+		    		prefN = '0';
+		    	}
+		    	titleString = prefN+(i+1);
+		    }else if(titleStyle == 'classid'){
+		    	titleString = $(this).attr("id") || 'no id';
+		    	titleString = titleString.replace(/_|-|\./g, ' ');
+		    }else{
+		    	titleString = '';
+		    }
+
+			if($style == 'default'){		   
+		    	//<span class=\"hover-text\">"+$(this).attr("data-id")+"</span>
+			    newPagination += '<li><a class="' + activeClass + '" href="#' + $(this).attr("data-id") + '"></a></li>';
+			    //newPagination += "<li><a class=\"" + activeClass + "\" href=\"#" + $(this).attr("data-id") + "\"><span class=\"hover-text\">" + $(this).attr("data-id").charAt(0).toUpperCase() + $(this).attr("data-id").slice(1) + "</span></a></li>";
+			}else{
+				$itemInner = '';
+				$itemTitle = '<span class="nav__item-title">'+titleString+'</span>';
+				//
+				if($style == 'etefu'){
+					$itemInner = '<span class="nav__item-inner"></span>';
+				}else if($style == 'ayana'){
+					$itemTitle = '<svg class="nav__icon"><use xlink:href="#icon-circle"></use></svg>';
+				}else if($style == 'totit'){
+					
+					var navIcon =  settings_page.scrollify_nav_icon.value;
+					if(navIcon) $itemInner = '<i class="nav__icon '+navIcon+'" aria-hidden="true"></i>';
+				
+				}else if($style == 'desta'){
+					$itemInner = '<svg class="nav__icon"><use xlink:href="#icon-triangle"></use></svg>';
+				}else if($style == 'magool' || $style == 'ayana' || $style == 'timiro'){
+					$itemTitle = '';
+				}
+			    newPagination += '<li><a href="#'+$(this).attr("data-id")+'" class="'+ activeClass +' nav__item" aria-label="'+(i+1)+'">'+$itemInner+$itemTitle+'</a></li>';
+			}
+		 });	
+		newPagination += "</ul>";
+
+		$("body").append(newPagination);
+	}
+
+
 	var init_ScrollEffects = function( ) {
 		
 		$('body').addClass('dce-pageScroll dce-scrolling');
@@ -171,13 +265,13 @@
 
         // Get the section widgets of frst level in content-page
         // settings_page.scrollEffects_id_page
-        //alert(settings_page.scroll_target);
-        $target_sections = settings_page.scroll_target + ' ';
-        $target_sections = '.elementor-' + settings_page.scroll_id_page;
+
+        //$target_sections = settings_page.scroll_target + ' ';
+        $target_sections = '.elementor-'+currentPostId; //settings_page.scroll_id_page;
         if (!$target_sections)
             $target_sections = '';
 
-        var sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
+        sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
         sectionsAvailable = $(sezioni);
 
         // Class direction
@@ -268,16 +362,18 @@
         const updateLax = () => {
             if (lax && typeof lax !== 'undefined')
                 lax.update(window.scrollY)
-            window.requestAnimationFrame(updateLax);
+            requestId = window.requestAnimationFrame(updateLax);
         }
 
-        window.requestAnimationFrame(updateLax)
+        requestId = window.requestAnimationFrame(updateLax)
 
         //if(settings_page.enable_scrollify) handleScrollify (settings_page.enable_scrollify);
         is_scrollEffects = true;
 	}
 	var init_InertiaScroll = function($dir) {
 		//alert($dir);
+		main = document.querySelector(settings_page.scroll_viewport) || document.querySelector('#outer-wrap');
+
 		$('body').addClass('dce-inertiaScroll dce-scrolling');
 		//$('body').prepend('<div class="trace"></div>');
 		
@@ -291,19 +387,16 @@
     	// DIRECTIONS
     	if(typeof(settings_page.directionScroll) !== 'undefined') directionScroll = settings_page.directionScroll || $dir;
     	if( typeof($dir) !== 'undefined' && ($dir == 'horizontal' || $dir == 'vertical')) directionScroll = $dir;
-    	//alert('sett: ' + directionScroll);
-
 
     	// SPEED
-    	if(typeof(settings_page.coefSpeed_inertiaScroll) !== 'undefined') coefSpeed_inertiaScroll = Number(settings_page.coefSpeed_inertiaScroll.size);
-
+    	if(typeof(settings_page.coefSpeed_inertiaScroll.size) !== 'undefined') coefSpeed_inertiaScroll = Number(settings_page.coefSpeed_inertiaScroll.size);
 
     	//$target_sections = settings_page.scroll_target+' ';
-    	$target_sections = '.elementor-'+settings_page.scroll_id_page;
+    	$target_sections = '.elementor-'+currentPostId; //settings_page.scroll_id_page;
     	if(!$target_sections) $target_sections = '';
 
     	// Get the section widgets of frst level in content-page
-		var sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;    	
+		sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;    	
 		sectionsAvailable = $(sezioni);
 
 		// Class direction
@@ -311,57 +404,61 @@
 
 		// configure
 		sectionsAvailable.addClass('inertia-scroll');
-		
 
 		$scrollContent = settings_page.scroll_contentScroll;
-		if(settings_page.scroll_target) $scrollContent = settings_page.scroll_target;
+		//if(settings_page.scroll_target) $scrollContent = settings_page.scroll_target;
 		
-		scroller = {
-		  viewport: document.querySelector(settings_page.scroll_viewport) || document.querySelector('#outer-wrap'),
-		  target: document.querySelector($scrollContent) || document.querySelector('#wrap'),
-		  ease:  coefSpeed_inertiaScroll || 0.05, // <= scroll speed ...  
-		  endY: 0,
-		  endX: 0,
-		  y: 0,
-		  x: 0,
-		  resizeRequest: 1,
-		  scrollRequest: 0,
-		};
-		//alert(coefSpeed_inertiaScroll);
-		var requestId = undefined;
+		// ************		
+		
+		heightAadminBar = 0;
+		if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
+	          heightAadminBar = 32;
+	    }
+		// ------------------------
+		var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		var cfc = h/w;
+		
+		
+		if( directionScroll == 'vertical' ) {
+			body.style.height = (main.clientHeight-heightAadminBar) + 'px';
+			main.style.width = '100%';
+		}else if( directionScroll == 'horizontal' ){
+	  		var totalWidth = 0;
+		 	var completeWidth = 0;
+		 	var count = 0;
 
-		TweenMax.set(scroller.target, {
-		  rotation: 0.01,
-		  force3D: true
-		});
+			sectionsAvailable.each(function(i, el){
+			  	//alert($(el).width());
+			  	completeWidth += $(el).width();
+
+			  	if( count > 0 ) totalWidth += $(el).width();
+			  	
+			  	$(el).css({'position':'absolute','width':'100%','height':'100vh','left':(i*100)+'vw'});
+			  	$(el).css({'float':'left','width':(100/sectionsAvailable.length)+'%','height':'100vh'});
+			  	 
+			  	count++;
+			});
+
+			main.style.width = completeWidth;
 			
-		// Viewoport 
-		/*TweenMax.set(scroller.viewport, {
-		  overflow: hidden;
-		  position: fixed;
-		  height: '100%';
-		  width: '100%';
-		  top: 0;
-		  left: 0;
-		  right: 0;
-		  bottom: 0;
-		});*/
-		TweenMax.set(scroller.viewport, {
-												  overflow: 'hidden',
-												  position: 'fixed',
-												  height: '100%',
-												  width: '100%',
-												  top: 0,
-												  left: 0,
-												  right: 0,
-												  bottom: 0,
-												});
-		 updateScroller();  
-		 window.focus();
-		 window.addEventListener("resize", onResize);
-		 document.addEventListener("scroll", onScroll); 
+			//totalWidth += h;
+			
+		    body.style.height = totalWidth + "px";
+		  }
 
-		 is_inertiaScroll = true;
+		main.style.position = 'fixed';
+		
+		main.style.top = 0;
+		main.style.left = 0;
+
+		window.addEventListener("resize", onResize);
+		document.addEventListener("scroll", onScroll); 
+		//requestAnimationFrame(render);
+
+		requestId = window.requestAnimationFrame(render);
+		//
+		is_inertiaScroll = true;
 	}
 
 
@@ -383,8 +480,10 @@
             sectionsAvailable.removeClass('lax');
         clearStyleEffects();
         //updateLax = null;
+        if (lax && typeof lax !== 'undefined')
         lax.removeElement();
 
+    	window.cancelAnimationFrame(requestId);
         is_scrollEffects = false;
     }
 	function setStyleEffects(effect) {
@@ -402,11 +501,11 @@
         //alert(sectionsAvailable.length);
         for (var i = 0; i < datalax.length; i++) {
             if (sectionsAvailable.length)
-                sectionsAvailable.removeAttr(datalax[i]);
-
-            if (lax && typeof lax !== 'undefined')
-                lax.updateElements();
+                sectionsAvailable.removeAttr(datalax[i]);  
         }
+        if (lax && typeof lax !== 'undefined')
+                lax.updateElements();
+
         if(sectionsAvailable.length) sectionsAvailable.removeAttr('style');
     }
     // UTIL Inertia ----------------------------------------
@@ -416,7 +515,7 @@
 		
 		
 		//TweenMax.kill( scroller.target );
-		TweenMax.set(scroller.target, {clearProps:"all"});
+		/*TweenMax.set(scroller.target, {clearProps:"all"});
 		TweenMax.set(scroller.viewport, {clearProps:"all"});
 		sectionsAvailable.each(function(i, el){
 				  	 TweenMax.set(el, {clearProps:"all"});
@@ -426,7 +525,11 @@
 		  y: 0,
 		  resizeRequest: 1,
 		  scrollRequest: 0,
-		};
+		};*/
+		
+		sectionsAvailable.each(function(i, el){
+				  	 $(el).removeAttr('style');
+				});
 
 		if (requestId) {
 	       window.cancelAnimationFrame(requestId);
@@ -437,103 +540,48 @@
 		document.removeEventListener("scroll", onScroll);
 
 		is_inertiaScroll = false;
+		
+		$(main).removeAttr('style').css('transform','translate(0,0)');
+
 	}
 	// EVENTS - Util InertiaScroll
-	function updateScroller() {
-	  
-		  var resized = scroller.resizeRequest > 0;
-		  
-		  var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		  var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		  var cfc = h/w;
-
-
-
-		  // qui sto elaborando la [ Y ]  -----------------------------------------------
-		  if( directionScroll == 'vertical' ) {
-
-			  
-			  if (resized) {    
-			    var height = scroller.target.clientHeight;
-			    body.style.height = height + "px";
-			    scroller.resizeRequest = 0;
-			  }
-
-			  var scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
-
-			  scroller.endY = scrollY;
-			  scroller.y += (scrollY - scroller.y) * scroller.ease;
-
-			  if (Math.abs(scrollY - scroller.y) < 0.05 || resized) {
-			    scroller.y = scrollY;
-			    scroller.scrollRequest = 0;
-			  }
-			  // ------------------------
-			  heightAadminBar = 0;
-			  if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
-		            heightAadminBar = 32;
-		        }
-			  // ------------------------
-			  TweenMax.set(scroller.target, { 
-			    y: -scroller.y+heightAadminBar 
-			  });
-
-		  }else if( directionScroll == 'horizontal' ){
-	  		  // qui invece elaboro la [ X ] -----------------------------------------------
-			  if (resized) {    
-			    var width = scroller.target.clientWidth;
-			    body.style.width = width + "px";
-			    scroller.resizeRequest = 0;
-			  }
-
-
-
-			  
-			  var scrollX = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
-
-			  scroller.endX = scrollY;
-			  scroller.y += (scrollX - scroller.x) * scroller.ease;
-
-			  if (Math.abs(scrollX - scroller.x) < 0.05 || resized) {
-			    scroller.x = scrollX;
-			    scroller.scrollRequest = 0;
-			  }
-			  // ------------------------
-			  heightAadminBar = 0;
-			  if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
-		            heightAadminBar = 32;
-		        }
-			  // ------------------------
-			  TweenMax.set(scroller.target, { 
-			    x: -scroller.x+heightAadminBar 
-			  });
-		  }
-
-		  //$('.trace').text(window.scrollY); //scroller.x
-		  requestId = scroller.scrollRequest > 0 ? requestAnimationFrame(updateScroller) : null;
-
-	}
-
 	function onScroll() {
-		  scroller.scrollRequest++;
+	  // We only update the scroll position variables
+	  sx = window.pageXOffset;
+	  sy = window.pageYOffset;
+	}
+	function onResize() {
+		body.style.height = main.clientHeight + 'px';
 		  if (!requestId) {
-		    requestId = requestAnimationFrame(updateScroller);
+		    requestId = requestAnimationFrame(render);
 		  }
-
 	}
 
-	function onResize() {
-		  scroller.resizeRequest++;
-		  if (!requestId) {
-		    requestId = requestAnimationFrame(updateScroller);
-		  }
+	function render() {
+
+	  dx = lerp(dx, sx, coefSpeed_inertiaScroll);
+	  dy = lerp(dy, sy, coefSpeed_inertiaScroll);
+	  
+	  dx = Math.floor(dx * 100) / 100;
+	  dy = Math.floor(dy * 100) / 100;
+	  
+	  // Finally we translate our container to its new positions.
+	  // Don't forget to add a minus sign because the container need to move in 
+	  // the opposite direction of the window scroll.
+	  main.style.transform = `translate(-${dx}px, -${dy}px)`;
+	  
+	  // And we loop again.
+	  requestId = window.requestAnimationFrame(render);
+	}
+
+	// This is our Linear Interpolation method.
+	function lerp(a, b, n) {
+	  return (1 - n) * a + n * b;
 	}
 
 	// Change CallBack - - - - - - - - - - - - - - - - - - - - - - - - -
 	function handlescroll_viewport ( newValue ) {
-		//elementor.reloadPreview();
-		settings_page = elementor.settings.page.model.attributes;
-		//alert('ssssss '+newValue);
+
 		if(newValue){
 			// SI
 			is_pageScroll = true;
@@ -557,11 +605,6 @@
 			// SI;
 			if(is_scrollify){
 				$.scrollify.enable();
-
-				
-			}else{
-				settings_page = elementor.settings.page.model.attributes;
-				
 			}
 
 			init_Scrollify();
@@ -603,6 +646,9 @@
 	function handleScrollify_touchScroll ( newValue ) {
 		$.scrollify.setOptions({touchScroll: newValue ? true : false });
 	}
+	function handleScrollify_scrollBars ( newValue ) {
+		$.scrollify.setOptions({scrollbars: newValue ? true : false });
+	}
 	function handleScrollify_enablenavigation ( newValue ) {
 		if(newValue){
 			$('body').addClass('dce-scrollify').find('.dce-scrollify-pagination').show();
@@ -610,7 +656,16 @@
 			$('body').removeClass('dce-scrollify').find('.dce-scrollify-pagination').hide();
 		}
 	}
-
+	function handleScrollify_navstyle( newValue ) {
+		if(newValue){
+			createNavigation(newValue);
+		}
+	}
+	function handleScrollify_titlestyle( newValue ) {
+		if(newValue){
+			createNavigationTitles(newValue,true);
+		}
+	}
 	// Change CallBack SCROLL-EFFECTS - - - - - - - - - - - - - - - - - - - - - - - - -
 	function handleScrollEffects(newValue) {
         if (newValue) {
@@ -618,8 +673,6 @@
             if (is_scrollEffects) {
                 removeScrollEffects();
 
-            } else {
-                settings_page = elementor.settings.page.model.attributes;
             }
             setTimeout(function () {
                 init_ScrollEffects();
@@ -638,8 +691,6 @@
 
             removeScrollEffects();
 
-            settings_page = elementor.settings.page.model.attributes;
-
             init_ScrollEffects();
             
             setStyleEffects(animationType_string);
@@ -655,10 +706,7 @@
     	if (newValue) {
             // SI
             
-        } else {
-            // NO
         }
-        settings_page = elementor.settings.page.model.attributes;
         removeScrollEffects();
         init_ScrollEffects();
     }
@@ -672,9 +720,8 @@
 			// SI
 			if(is_inertiaScroll){
 				removeInertiaScroll();
-			}else{
-				settings_page = elementor.settings.page.model.attributes;
 			}
+
 			setTimeout(function(){
 				if( settings_page.enable_inertiaScroll ) init_InertiaScroll(newValue);	
 			},100);
@@ -691,70 +738,73 @@
 
 	} );
 
-	window.onload = function() {
-		
-	}
  	$( document ).on( 'ready', function() {
 
 
 		if( typeof elementorFrontendConfig.settings.page !== 'undefined' ){
 			settings_page = elementorFrontendConfig.settings.page;
+			currentPostId = elementorFrontendConfig.post.id;
 
 			is_enable_dceScrolling = settings_page.enable_dceScrolling;
 			is_enable_scrollify = settings_page.enable_scrollify;
 			is_enable_scrollEffects = settings_page.enable_scrollEffects;
             is_enable_inertiaScroll = settings_page.enable_inertiaScroll;
 			
-            if (is_enable_scrollEffects && is_enable_dceScrolling) {
+			var responsive_scrollEffects = settings_page.responsive_scrollEffects;
+			var responsive_snapScroll = settings_page.responsive_snapScroll;
+			var responsive_inertiaScroll = settings_page.responsive_inertiaScroll;
+
+			var deviceMode = $('body').attr('data-elementor-device-mode');
+
+            if (is_enable_scrollEffects && is_enable_dceScrolling && $.inArray(deviceMode,responsive_scrollEffects) >= 0) {
                     init_ScrollEffects();
                 }
-            if( is_enable_scrollify && is_enable_dceScrolling ){
+            if( is_enable_scrollify && is_enable_dceScrolling && $.inArray(deviceMode,responsive_snapScroll) >= 0){
 					init_Scrollify();
 				}
 			
-			if( is_enable_inertiaScroll && is_enable_dceScrolling ){
+			if( is_enable_inertiaScroll && is_enable_dceScrolling && $.inArray(deviceMode,responsive_inertiaScroll) >= 0){
 					init_InertiaScroll(); 
 			}
 
-			//alert(settings_page.enable_scrollEffects);
-			//console.log($('.elementor').attr('data-elementor-settings'));
-			//alert(elementSettings.enable_scrollEffects);
-			if( settings_page ){
 
+			if ( elementorFrontend.isEditMode() ){
+				settings_page = elementor.settings.page.model.attributes;
+
+				/*elementor.once( 'preview:loaded', function() {
+					// questo è il callBack di fine loading della preview
+
+				} );*/
+				elementor.settings.page.addChangeCallback( 'enable_dceScrolling', handlescroll_viewport );
+				
+				// Scrollfy
+				elementor.settings.page.addChangeCallback( 'enable_scrollify', handleScrollify );
+				elementor.settings.page.addChangeCallback( 'scrollSpeed', handleScrollify_speed );
+				elementor.settings.page.addChangeCallback( 'offset', handleScrollify_offset );
+				elementor.settings.page.addChangeCallback( 'ease_scrollify', handleScrollify_ease );
+				elementor.settings.page.addChangeCallback( 'setHeights', handleScrollify_setHeights );
+				elementor.settings.page.addChangeCallback( 'overflowScroll', handleScrollify_overflowScroll );
+				elementor.settings.page.addChangeCallback( 'updateHash', handleScrollify_updateHash );
+				elementor.settings.page.addChangeCallback( 'scrollBars', handleScrollify_scrollBars );
+				elementor.settings.page.addChangeCallback( 'touchScroll', handleScrollify_touchScroll );
+				elementor.settings.page.addChangeCallback( 'enable_scrollify_nav', handleScrollify_enablenavigation );
+				elementor.settings.page.addChangeCallback( 'snapscroll_nav_style', handleScrollify_navstyle );
+				elementor.settings.page.addChangeCallback( 'snapscroll_nav_title_style', handleScrollify_titlestyle );
+				
+				// ScrollEffects
+				elementor.settings.page.addChangeCallback('enable_scrollEffects', handleScrollEffects);
+                elementor.settings.page.addChangeCallback('animation_effects', handleScrollEffects_animations);
+                elementor.settings.page.addChangeCallback('remove_first_scrollEffects', handleScrollEffects_removefirst);
+
+                // InertiaScroll
+				elementor.settings.page.addChangeCallback( 'enable_inertiaScroll', handleInertiaScroll );
+				elementor.settings.page.addChangeCallback( 'directionScroll', handleInertiaScroll );
+				//elementor.settings.page.addChangeCallback( 'scroll_target', handleInertiaScroll );
+				elementor.settings.page.addChangeCallback( 'coefSpeed_inertiaScroll', handleInertiaScroll );
 				
 
-				if ( elementorFrontend.isEditMode() ){
-					/*elementor.once( 'preview:loaded', function() {
-						// questo è il callBack di fine loading della preview
-
-					} );*/
-					elementor.settings.page.addChangeCallback( 'enable_dceScrolling', handlescroll_viewport );
-					
-					// Scrollfy
-					elementor.settings.page.addChangeCallback( 'enable_scrollify', handleScrollify );
-					elementor.settings.page.addChangeCallback( 'scrollSpeed', handleScrollify_speed );
-					elementor.settings.page.addChangeCallback( 'offset', handleScrollify_offset );
-					elementor.settings.page.addChangeCallback( 'ease_scrollify', handleScrollify_ease );
-					elementor.settings.page.addChangeCallback( 'setHeights', handleScrollify_setHeights );
-					elementor.settings.page.addChangeCallback( 'overflowScroll', handleScrollify_overflowScroll );
-					elementor.settings.page.addChangeCallback( 'updateHash', handleScrollify_updateHash );
-					elementor.settings.page.addChangeCallback( 'touchScroll', handleScrollify_touchScroll );
-					elementor.settings.page.addChangeCallback( 'enable_scrollify_nav', handleScrollify_enablenavigation );
-
-					// ScrollEffects
-					elementor.settings.page.addChangeCallback('enable_scrollEffects', handleScrollEffects);
-                    elementor.settings.page.addChangeCallback('animation_effects', handleScrollEffects_animations);
-                    elementor.settings.page.addChangeCallback('remove_first_scrollEffects', handleScrollEffects_removefirst);
-
-                    // InertiaScroll
-					elementor.settings.page.addChangeCallback( 'enable_inertiaScroll', handleInertiaScroll );
-					elementor.settings.page.addChangeCallback( 'directionScroll', handleInertiaScroll );
-					elementor.settings.page.addChangeCallback( 'scroll_target', handleInertiaScroll );
-					elementor.settings.page.addChangeCallback( 'coefSpeed_inertiaScroll', handleInertiaScroll );
-					
-
-				}
 			}
+			
 		}
 		
 		

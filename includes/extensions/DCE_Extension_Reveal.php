@@ -38,11 +38,11 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
 
         $element->add_control(
             'enabled_reveal', [
-                'label' => __('Enabled Reveal', DCE_TEXTDOMAIN),
+                'label' => __('Enabled Reveal', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             //            
@@ -51,15 +51,15 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
         $element->add_control(
             'reveal_direction',
             [
-                'label' => __( 'Direction', DCE_TEXTDOMAIN ),
+                'label' => __( 'Direction', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'c',
                 'options' => [
-                    'c' => __( 'Center', DCE_TEXTDOMAIN ),
-                    'lr' => __( 'Left to Right', DCE_TEXTDOMAIN ),
-                    'rl' => __( 'Right to Left', DCE_TEXTDOMAIN ),
-                    'tb' => __( 'Top to Bottom', DCE_TEXTDOMAIN ),
-                    'bt' => __( 'Bottom to top', DCE_TEXTDOMAIN ),
+                    'c' => __( 'Center', 'dynamic-content-for-elementor' ),
+                    'lr' => __( 'Left to Right', 'dynamic-content-for-elementor' ),
+                    'rl' => __( 'Right to Left', 'dynamic-content-for-elementor' ),
+                    'tb' => __( 'Top to Bottom', 'dynamic-content-for-elementor' ),
+                    'bt' => __( 'Bottom to top', 'dynamic-content-for-elementor' ),
                 ],
                 'frontend_available' => true,
                 'condition' => [
@@ -69,7 +69,7 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
         );
         $element->add_control(
             'reveal_speed', [
-                'label' => __('Speed', DCE_TEXTDOMAIN),
+                'label' => __('Speed', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -90,7 +90,7 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
         );
         $element->add_control(
             'reveal_delay', [
-                'label' => __('Delay', DCE_TEXTDOMAIN),
+                'label' => __('Delay', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -111,7 +111,7 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
         );
         $element->add_control(
             'reveal_bgcolor', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'frontend_available' => true,
                 'default' => '#ccc',

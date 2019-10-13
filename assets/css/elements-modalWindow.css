@@ -6,7 +6,10 @@ Modal Window
 .dce-modalwindow-section {
   display: inline-block;
 }
-
+.dce-modalwindow-section.modal-is-visible{
+  position: relative;
+  z-index: 10000;
+}
 
 .dce-modalwindow-section .cd-modal {
   position: fixed;

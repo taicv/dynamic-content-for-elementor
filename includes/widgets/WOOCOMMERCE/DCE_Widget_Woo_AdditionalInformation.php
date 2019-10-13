@@ -28,7 +28,7 @@ class DCE_Widget_Woo_AdditionalInformation extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('Additional Information', DCE_TEXTDOMAIN);
+        return __('Additional Information', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -44,24 +44,24 @@ class DCE_Widget_Woo_AdditionalInformation extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'addinfo_align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ]
                 ],
@@ -76,7 +76,7 @@ class DCE_Widget_Woo_AdditionalInformation extends DCE_Widget_Prototype {
         $this->add_control(
             'addinfo_space',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                         'size' => 0,

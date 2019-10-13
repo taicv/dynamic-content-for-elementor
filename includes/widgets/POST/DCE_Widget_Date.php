@@ -29,17 +29,17 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         return 4;
     }
     public function get_title() {
-        return __('Date', DCE_TEXTDOMAIN);
+        return __('Date', 'dynamic-content-for-elementor');
         /* $post_type_object = get_post_type_object( get_post_type() );
 
           return sprintf(
           //translators: %s: Post type singular name (e.g. Post or Page)
-          __( '%s Date', DCE_TEXTDOMAIN ),
+          __( '%s Date', 'dynamic-content-for-elementor' ),
           $post_type_object->labels->singular_name
           ); */
     }
     public function get_description() {
-        return __('Put a date on your article', DCE_TEXTDOMAIN);
+        return __('Put a date on your article', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/date/';
@@ -54,17 +54,17 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Date', DCE_TEXTDOMAIN)
+                'label' => __('Date', 'dynamic-content-for-elementor')
             ]
         );
 
         $this->add_control(
             'date_type', [
-                'label' => __('Date Type', DCE_TEXTDOMAIN),
+                'label' => __('Date Type', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'publish' => __('Publish Date', DCE_TEXTDOMAIN),
-                    'modified' => __('Last Modified Date', DCE_TEXTDOMAIN),
+                    'publish' => __('Publish Date', 'dynamic-content-for-elementor'),
+                    'modified' => __('Last Modified Date', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'publish',
             ]
@@ -72,39 +72,39 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
 
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'div',
             ]
         );
         $this->add_control(
             'format', [
-                'label' => __('Format date', DCE_TEXTDOMAIN),
+                'label' => __('Format date', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'l, j F, Y',
             ]
         );
         $this->add_control(
             'format2', [
-                'label' => __('2 - Format date', DCE_TEXTDOMAIN),
+                'label' => __('2 - Format date', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );
         $this->add_control(
             'format3', [
-                'label' => __('3 - Format date', DCE_TEXTDOMAIN),
+                'label' => __('3 - Format date', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
                 'condition' => [
@@ -114,7 +114,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'date_separator', [
-              'label' => __('Date text separator', DCE_TEXTDOMAIN),
+              'label' => __('Date text separator', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::TEXT,
               'frontend_available' => true,
               'default' => '',
@@ -123,25 +123,50 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
                 ],
           ]
         );
+        // --------------- Text Before
+        $this->add_control(
+            'date_text_before', [
+                'label' => __('Text before', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'default' => '',
+            ]
+        );
+        $this->add_responsive_control(
+            'date_text_before_block', [
+                'label' => __('Before - Inline or Block', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_off' => __('Inline', 'dynamic-content-for-elementor'),
+                'label_on' => __('Block', 'dynamic-content-for-elementor'),
+                'return_value' => 'block',
+                'selectors' => [
+                    '{{WRAPPER}} .dynamic-content-for-elementor-date span.tx-before' => 'display: {{VALUE}};',
+                ],
+                'condition' => [
+                    'date_text_before!' => '',
+                ]
+            ]
+        );
+
+        // --------------- Alignment
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                     'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-justify',
                     ],
             ],
@@ -154,23 +179,23 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
 
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
                     'post' => 'Post URL',
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
 
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -182,21 +207,21 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'float', [
-                'label' => __('Float left', DCE_TEXTDOMAIN),
+                'label' => __('Float left', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
             ]
         );
         $this->add_control(
             'block', [
-                'label' => __('Use Block', DCE_TEXTDOMAIN),
+                'label' => __('Use Block', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('block', DCE_TEXTDOMAIN),
-                'label_off' => __('span', DCE_TEXTDOMAIN),
+                'label_on' => __('block', 'dynamic-content-for-elementor'),
+                'label_off' => __('span', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
             ]
         );
@@ -204,7 +229,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Date', DCE_TEXTDOMAIN),
+                'label' => __('Date', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -213,14 +238,14 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         $this->add_control(
             'date_sec_1',
             [
-                'label' => __( 'Date', DCE_TEXTDOMAIN ),
+                'label' => __( 'Date', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
         );
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-date' => 'color: {{VALUE}};',
@@ -240,7 +265,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         $this->add_control(
             'date_sec_2',
             [
-                'label' => __( 'Date 2', DCE_TEXTDOMAIN ),
+                'label' => __( 'Date 2', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -250,7 +275,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'color2', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-date .d2' => 'color: {{VALUE}};'
@@ -275,7 +300,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         $this->add_control(
             'date_sec_3',
             [
-                'label' => __( 'Date 3', DCE_TEXTDOMAIN ),
+                'label' => __( 'Date 3', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -285,7 +310,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'color3', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-date .d3' => 'color: {{VALUE}};',
@@ -306,7 +331,43 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
                 ],
             ]
         );
-       
+        
+        /* ------------------ Text Before ------------ */
+        $this->add_control(
+            'txbefore_heading',
+            [
+                'label' => __( 'Text before', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::HEADING,
+                'separator' => 'before',
+                'condition' => [
+                    'date_text_before!' => '',
+                ]
+            ]
+        );
+        $this->add_control(
+            'tx_before_color', [
+                'label' => __('Text Before Color', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .dynamic-content-for-elementor-date span.tx-before' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .dynamic-content-for-elementor-date a span.tx-before' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'date_text_before!' => '',
+                ]
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Typography::get_type(), [
+                'name' => 'typography_tx_before',
+                'label' => __('Font Before', 'dynamic-content-for-elementor'),
+                'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-date span.tx-before',
+                'condition' => [
+                    'date_text_before!' => '',
+                ]
+            ]
+        );
+
         $this->end_controls_section();
     }
 
@@ -388,7 +449,11 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         $date_separator2 = '';
         if( $date2 != '' ) $date_separator1 = '<span class="d-separator">'.$settings['date_separator'].'</span>';
         if( $date3 != '' ) $date_separator2 = '<span class="d-separator">'.$settings['date_separator'].'</span>';
-        $allDate = '<'.$subtag.' class="d1">'.$date.'</'.$subtag.'>'.$date_separator1.'<'.$subtag.' class="d2">'.$date2.'</'.$subtag.'>'.$date_separator2.'<'.$subtag.' class="d3">'.$date3.'</'.$subtag.'>';
+
+        $textBefore = '';
+        if($settings['date_text_before']) $textBefore = '<span class="tx-before">'.__($settings['date_text_before'], 'dynamic-content-for-elementor'.'_texts').'</span>';
+
+        $allDate = $textBefore.'<'.$subtag.' class="d1">'.$date.'</'.$subtag.'>'.$date_separator1.'<'.$subtag.' class="d2">'.$date2.'</'.$subtag.'>'.$date_separator2.'<'.$subtag.' class="d3">'.$date3.'</'.$subtag.'>';
         $html = sprintf('<%1$s class="dynamic-content-for-elementor-date %2$s%3$s">', $settings['html_tag'], $animation_class, $floatDate);
         if ($link) {
             $html .= sprintf( '<a href="%1$s" %2$s>%3$s</a>', $link, $target, $allDate );

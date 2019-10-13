@@ -22,10 +22,10 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('Threesixty 360', DCE_TEXTDOMAIN);
+        return __('Threesixty 360', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-      return __('Generate a rotation through a series of images', DCE_TEXTDOMAIN);
+      return __('Generate a rotation through a series of images', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/threesixty-360/';
@@ -45,12 +45,12 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_threesixtyslider', [
-                'label' => __('ThreesixtySlider', DCE_TEXTDOMAIN),
+                'label' => __('ThreesixtySlider', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'height', [
-                'label' => __('Width', DCE_TEXTDOMAIN),
+                'label' => __('Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 400,
@@ -78,8 +78,8 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'pathimages', [
-                'label' => __('Path images', DCE_TEXTDOMAIN),
-                'description' => __('The absolute path of the images for the construction of the 360. ( Ex: https://www.SITE.ext/images360/ )<br>The images in the folder must be called with the sequential number (ex: 1.png, or 1.svg or 1.jpg.So 2.jpg, 3.jpg, 4.jpg etc.)', DCE_TEXTDOMAIN),
+                'label' => __('Path images', 'dynamic-content-for-elementor'),
+                'description' => __('The absolute path of the images for the construction of the 360. ( Ex: https://www.SITE.ext/images360/ )<br>The images in the folder must be called with the sequential number (ex: 1.png, or 1.svg or 1.jpg.So 2.jpg, 3.jpg, 4.jpg etc.)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => plugins_url('/assets/lib/threesixty-slider/imagesCube/', DCE__FILE__),
                 'frontend_available' => true,
@@ -88,13 +88,13 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         $this->add_control(
           'format_file',
           [
-             'label'       => __( 'Format files', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Format files', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT,
              'default' => 'svg',
              'options' => [
-                'png'  => __( 'PNG', DCE_TEXTDOMAIN ),
-                'jpg' => __( 'JPG', DCE_TEXTDOMAIN ),
-                'svg' => __( 'SVG', DCE_TEXTDOMAIN ),
+                'png'  => __( 'PNG', 'dynamic-content-for-elementor' ),
+                'jpg' => __( 'JPG', 'dynamic-content-for-elementor' ),
+                'svg' => __( 'SVG', 'dynamic-content-for-elementor' ),
              ],
              'frontend_available' => true,
           ]
@@ -102,7 +102,7 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         $this->add_control(
           'total_frame',
           [
-             'label'   => __( 'Total frames', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Total frames', 'dynamic-content-for-elementor' ),
              'description'=> 'Total no. of image you have for slider',
              'type'    => Controls_Manager::NUMBER,
              'default' => 36,
@@ -115,7 +115,7 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         $this->add_control(
           'end_frame',
           [
-             'label'   => __( 'End frame', DCE_TEXTDOMAIN ),
+             'label'   => __( 'End frame', 'dynamic-content-for-elementor' ),
              'description'=> 'End frame for the auto spin animation',
              'type'    => Controls_Manager::NUMBER,
              'default' => 36,
@@ -128,7 +128,7 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         /*$this->add_control(
           'current_frame',
           [
-             'label'   => __( 'Current frame', DCE_TEXTDOMAIN ),
+             'label'   => __( 'Current frame', 'dynamic-content-for-elementor' ),
              'description'=> 'This the start frame for auto spin',
              'type'    => Controls_Manager::NUMBER,
              'default' => 1,
@@ -140,22 +140,22 @@ class DCE_Widget_ThreesixtySlider extends DCE_Widget_Prototype {
         );*/
         $this->add_control(
             'navigation', [
-                'label' => __('Navigation', DCE_TEXTDOMAIN),
+                'label' => __('Navigation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             ]
         );
         $this->add_control(
             'responsive', [
-                'label' => __('Responsive', DCE_TEXTDOMAIN),
+                'label' => __('Responsive', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'frontend_available' => true,
             ]

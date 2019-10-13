@@ -27,9 +27,17 @@ button.dce-button-popoup{
   border: none;
 }
 .dce-button-popoup:not(.dce-button-hamburger):not(.dce-button-img){
-    padding: 7px 20px;
+    padding: 10px 20px;
+    transition: background-color 0.5s, color 0.5s;
     
-    transition: background-color 0.5s, color 0.5s
+}
+.elementor-element:not(.elementor-align-justify) .dce-button-popoup:not(.dce-button-hamburger):not(.dce-button-img){
+    display: inline-flex;
+    align-items: center;
+}
+.elementor-widget-dyncontel-popup.elementor-align-justify .dce-button-popoup:not(.dce-button-hamburger):not(.dce-button-img){
+    display: inline-block;
+    text-align: center;
 }
 .dce-button-hamburger{
   display: inline-block;

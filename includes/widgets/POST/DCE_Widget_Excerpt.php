@@ -32,11 +32,11 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Excerpt', DCE_TEXTDOMAIN);
+        return __('Excerpt', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Add your content in a shortener', DCE_TEXTDOMAIN);
+        return __('Add your content in a shortener', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -58,24 +58,24 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_content', [
-            'label' => __('Excerpt', DCE_TEXTDOMAIN),
+            'label' => __('Excerpt', 'dynamic-content-for-elementor'),
                 ]
         );
 
         $this->add_control(
                 'html_tag', [
-            'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+            'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                'h1' => __('H1', DCE_TEXTDOMAIN),
-                'h2' => __('H2', DCE_TEXTDOMAIN),
-                'h3' => __('H3', DCE_TEXTDOMAIN),
-                'h4' => __('H4', DCE_TEXTDOMAIN),
-                'h5' => __('H5', DCE_TEXTDOMAIN),
-                'h6' => __('H6', DCE_TEXTDOMAIN),
-                'p' => __('p', DCE_TEXTDOMAIN),
-                'div' => __('div', DCE_TEXTDOMAIN),
-                'span' => __('span', DCE_TEXTDOMAIN),
+                'h1' => __('H1', 'dynamic-content-for-elementor'),
+                'h2' => __('H2', 'dynamic-content-for-elementor'),
+                'h3' => __('H3', 'dynamic-content-for-elementor'),
+                'h4' => __('H4', 'dynamic-content-for-elementor'),
+                'h5' => __('H5', 'dynamic-content-for-elementor'),
+                'h6' => __('H6', 'dynamic-content-for-elementor'),
+                'p' => __('p', 'dynamic-content-for-elementor'),
+                'div' => __('div', 'dynamic-content-for-elementor'),
+                'span' => __('span', 'dynamic-content-for-elementor'),
             ],
             'default' => 'div',
                 ]
@@ -84,30 +84,30 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'excerpt_advanced',
                 [
-                    'label' => __('Advanced manipulation', DCE_TEXTDOMAIN),
+                    'label' => __('Advanced manipulation', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                 ]
         );
 
         $this->add_control(
                 'link_to', [
-            'label' => __('Link to', DCE_TEXTDOMAIN),
+            'label' => __('Link to', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'none',
             'options' => [
-                'none' => __('None', DCE_TEXTDOMAIN),
-                'home' => __('Home URL', DCE_TEXTDOMAIN),
-                'post' => __('Post URL', DCE_TEXTDOMAIN),
-                'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                'none' => __('None', 'dynamic-content-for-elementor'),
+                'home' => __('Home URL', 'dynamic-content-for-elementor'),
+                'post' => __('Post URL', 'dynamic-content-for-elementor'),
+                'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
             ],
                 ]
         );
 
         $this->add_control(
                 'link', [
-            'label' => __('Link', DCE_TEXTDOMAIN),
+            'label' => __('Link', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::URL,
-            'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+            'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
             'condition' => [
                 'link_to' => 'custom',
             ],
@@ -123,7 +123,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_advanced_excerpt', [
-            'label' => __('Advanced Manipulation', DCE_TEXTDOMAIN),
+            'label' => __('Advanced Manipulation', 'dynamic-content-for-elementor'),
             'condition' => [
                 'excerpt_advanced!' => '',
             ],
@@ -133,16 +133,16 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'excerpt_no_custom',
                 [
-                    'label' => __('Generate Excerpts', DCE_TEXTDOMAIN),
+                    'label' => __('Generate Excerpts', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Generate excerpts even if a post hasn\'t a custom excerpt attached.', DCE_TEXTDOMAIN),
+                    'description' => __('Generate excerpts even if a post hasn\'t a custom excerpt attached.', 'dynamic-content-for-elementor'),
                 ]
         );
 
         $this->add_control(
                 'excerpt_length',
                 [
-                    'label' => __('Excerpt Length', DCE_TEXTDOMAIN),
+                    'label' => __('Excerpt Length', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::NUMBER,
                     'min' => 1,
                     'default' => 40,
@@ -151,36 +151,36 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'excerpt_length_type',
                 [
-                    'label' => __('Length Unit', DCE_TEXTDOMAIN),
+                    'label' => __('Length Unit', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'words',
                     'options' => [
-                        'words' => __('Words', DCE_TEXTDOMAIN),
-                        'charachters' => __('Charachters', DCE_TEXTDOMAIN),
-                    //'sentences' => __('Sentences', DCE_TEXTDOMAIN),
+                        'words' => __('Words', 'dynamic-content-for-elementor'),
+                        'charachters' => __('Charachters', 'dynamic-content-for-elementor'),
+                    //'sentences' => __('Sentences', 'dynamic-content-for-elementor'),
                     ],
                 ]
         );
         $this->add_control(
                 'excerpt_ellipsis',
                 [
-                    'label' => __('Excerpt Ellipsis', DCE_TEXTDOMAIN),
+                    'label' => __('Excerpt Ellipsis', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::TEXT,
-                    'description' => __('Will substitute the part of the post that is omitted in the excerpt.', DCE_TEXTDOMAIN),
+                    'description' => __('Will substitute the part of the post that is omitted in the excerpt.', 'dynamic-content-for-elementor'),
                     'default' => '&hellip;',
                 ]
         );
         $this->add_control(
                 'excerpt_finish',
                 [
-                    'label' => __('Finish', DCE_TEXTDOMAIN),
+                    'label' => __('Finish', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'exact',
                     'options' => [
-                        'exact' => __('Exact', DCE_TEXTDOMAIN),
-                        'exact_w_spaces' => __('Exact (count spaces as well)', DCE_TEXTDOMAIN),
-                        'word' => __('Word', DCE_TEXTDOMAIN),
-                        'sentence' => __('Sentence', DCE_TEXTDOMAIN),
+                        'exact' => __('Exact', 'dynamic-content-for-elementor'),
+                        'exact_w_spaces' => __('Exact (count spaces as well)', 'dynamic-content-for-elementor'),
+                        'word' => __('Word', 'dynamic-content-for-elementor'),
+                        'sentence' => __('Sentence', 'dynamic-content-for-elementor'),
                     ],
                 ]
         );
@@ -188,7 +188,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'excerpt_no_shortcode',
                 [
-                    'label' => __('Remove Shortcode', DCE_TEXTDOMAIN),
+                    'label' => __('Remove Shortcode', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                 ]
         );
@@ -196,17 +196,17 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'excerpt_strip_tags',
                 [
-                    'label' => __('Strip Tags', DCE_TEXTDOMAIN),
+                    'label' => __('Strip Tags', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                 ]
         );
         $this->add_control(
                 'excerpt_allowed_tags',
                 [
-                    'label' => __('Remove all tags except the following', DCE_TEXTDOMAIN),
+                    'label' => __('Remove all tags except the following', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
                     'placeholder' => 'a,b,strong,i',
-                    'description' => __('Write a list of HTML tag to maintain separated by comma.', DCE_TEXTDOMAIN),
+                    'description' => __('Write a list of HTML tag to maintain separated by comma.', 'dynamic-content-for-elementor'),
                     'label_block' => true,
                     'condition' => [
                         'excerpt_strip_tags!' => '',
@@ -217,30 +217,30 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_style', [
-            'label' => __('Excerpt', DCE_TEXTDOMAIN),
+            'label' => __('Excerpt', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
 
         $this->add_responsive_control(
                 'align', [
-            'label' => __('Alignment', DCE_TEXTDOMAIN),
+            'label' => __('Alignment', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'left' => [
-                    'title' => __('Left', DCE_TEXTDOMAIN),
+                    'title' => __('Left', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'center' => [
-                    'title' => __('Center', DCE_TEXTDOMAIN),
+                    'title' => __('Center', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-center',
                 ],
                 'right' => [
-                    'title' => __('Right', DCE_TEXTDOMAIN),
+                    'title' => __('Right', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-right',
                 ],
                 'justify' => [
-                    'title' => __('Justified', DCE_TEXTDOMAIN),
+                    'title' => __('Justified', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-justify',
                 ],
             ],
@@ -253,7 +253,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'color', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'scheme' => [
                 'type' => Scheme_Color::get_type(),
@@ -276,7 +276,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         $this->add_control(
                 'rollhover_heading',
                 [
-                    'label' => __('Roll-Hover', DCE_TEXTDOMAIN),
+                    'label' => __('Roll-Hover', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
@@ -286,7 +286,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'hover_color', [
-            'label' => __('Hover Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Hover Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'scheme' => [
                 'type' => Scheme_Color::get_type(),
@@ -302,7 +302,7 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'hover_animation', [
-            'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+            'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HOVER_ANIMATION,
             'condition' => [
                 'link_to!' => 'none',
@@ -314,31 +314,44 @@ class DCE_Widget_Excerpt extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_dce_settings', [
-            'label' => __('Dynamic Content', DCE_TEXTDOMAIN),
+            'label' => __('Dynamic Content', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_SETTINGS,
                 ]
         );
         $this->add_control(
                 'data_source',
                 [
-                    'label' => __('Source', DCE_TEXTDOMAIN),
-                    'description' => __('Select the data source', DCE_TEXTDOMAIN),
+                    'label' => __('Source', 'dynamic-content-for-elementor'),
+                    'description' => __('Select the data source', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'default' => 'yes',
-                    'label_on' => __('Same', DCE_TEXTDOMAIN),
-                    'label_off' => __('other', DCE_TEXTDOMAIN),
+                    'label_on' => __('Same', 'dynamic-content-for-elementor'),
+                    'label_off' => __('other', 'dynamic-content-for-elementor'),
                     'return_value' => 'yes',
                 ]
         );
-        $this->add_control(
+        /*$this->add_control(
                 'other_post_source', [
-            'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+            'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'groups' => DCE_Helper::get_all_posts(get_the_ID(), true),
             'default' => '',
             'condition' => [
                 'data_source' => '',
             ],
+                ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
                 ]
         );
         $this->end_controls_section();

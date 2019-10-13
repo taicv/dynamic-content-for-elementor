@@ -28,7 +28,7 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Author', DCE_TEXTDOMAIN);
+        return __('Author', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -43,12 +43,12 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
 
        $this->start_controls_section(
             'section_content', [
-                'label' => __('Author', DCE_TEXTDOMAIN),
+                'label' => __('Author', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'author', [
-                'label' => __('Author', DCE_TEXTDOMAIN),
+                'label' => __('Author', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => $this->user_fields_labels(),
                 'default' => 'display_name',
@@ -56,41 +56,41 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'p',
             ]
         );
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                     'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-justify',
                     ],
                 ],
@@ -102,26 +102,26 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
                     'post' => sprintf(
                             /* translators: %s: Post type singular name (e.g. Post or Page) */
-                            __('%s URL', DCE_TEXTDOMAIN), $post_type_object->labels->singular_name
+                            __('%s URL', 'dynamic-content-for-elementor'), $post_type_object->labels->singular_name
                     ),
-                    'author' => __('Author URL', DCE_TEXTDOMAIN),
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'author' => __('Author URL', 'dynamic-content-for-elementor'),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -137,14 +137,14 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
             'section_style', [
                 'label' => sprintf(
                         /* translators: %s: Post type singular name (e.g. Post or Page) */
-                        __('%s Author', DCE_TEXTDOMAIN), $post_type_object->labels->singular_name
+                        __('%s Author', 'dynamic-content-for-elementor'), $post_type_object->labels->singular_name
                 ),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-author' => 'color: {{VALUE}};',
@@ -166,7 +166,7 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'space', [
-                'label' => __('Size (%)', DCE_TEXTDOMAIN),
+                'label' => __('Size (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 100,
@@ -189,7 +189,7 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'opacity', [
-                'label' => __('Opacity (%)', DCE_TEXTDOMAIN),
+                'label' => __('Opacity (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -211,7 +211,7 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'angle', [
-                'label' => __('Angle (deg)', DCE_TEXTDOMAIN),
+                'label' => __('Angle (deg)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'deg'],
                 'default' => [
@@ -235,14 +235,14 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_animation', [
-                'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+                'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
             ]
         );
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'image_border',
-                'label' => __('Image Border', DCE_TEXTDOMAIN),
+                'label' => __('Image Border', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-author img',
                 'condition' => [
                     'author' => 'image',
@@ -251,7 +251,7 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'image_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -378,15 +378,15 @@ class DCE_Widget_Author extends DCE_Widget_Prototype {
     protected function user_fields_labels() {
 
         $fields = [
-            'first_name' => __('First Name', DCE_TEXTDOMAIN),
-            'last_name' => __('Last Name', DCE_TEXTDOMAIN),
-            'first_last' => __('First Name + Last Name', DCE_TEXTDOMAIN),
-            'last_first' => __('Last Name + First Name', DCE_TEXTDOMAIN),
-            'nickname' => __('Nick Name', DCE_TEXTDOMAIN),
-            'display_name' => __('Display Name', DCE_TEXTDOMAIN),
-            'user_login' => __('User Name', DCE_TEXTDOMAIN),
-            'description' => __('User Bio', DCE_TEXTDOMAIN),
-            'image' => __('User Image', DCE_TEXTDOMAIN),
+            'first_name' => __('First Name', 'dynamic-content-for-elementor'),
+            'last_name' => __('Last Name', 'dynamic-content-for-elementor'),
+            'first_last' => __('First Name + Last Name', 'dynamic-content-for-elementor'),
+            'last_first' => __('Last Name + First Name', 'dynamic-content-for-elementor'),
+            'nickname' => __('Nick Name', 'dynamic-content-for-elementor'),
+            'display_name' => __('Display Name', 'dynamic-content-for-elementor'),
+            'user_login' => __('User Name', 'dynamic-content-for-elementor'),
+            'description' => __('User Bio', 'dynamic-content-for-elementor'),
+            'image' => __('User Image', 'dynamic-content-for-elementor'),
         ];
 
         return $fields;

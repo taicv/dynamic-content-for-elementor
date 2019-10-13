@@ -28,7 +28,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('Add to cart', DCE_TEXTDOMAIN);
+        return __('Add to cart', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -44,24 +44,24 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_settings', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ]
                 ],
@@ -76,11 +76,11 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hide_quantity', [
-                'label' => __('Hide Quantity', DCE_TEXTDOMAIN),
+                'label' => __('Hide Quantity', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'none',
                 'selectors' => [
                     '{{WRAPPER}} .dce-add-to-cart .quantity' => 'display: {{VALUE}};',
@@ -89,11 +89,11 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hide_stock', [
-                'label' => __('Hide Stock', DCE_TEXTDOMAIN),
+                'label' => __('Hide Stock', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'none',
                 'selectors' => [
                     '{{WRAPPER}} .dce-add-to-cart .stock' => 'display: {{VALUE}};',
@@ -105,14 +105,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE]
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Button', DCE_TEXTDOMAIN),
+                'label' => __('Button', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         
         $this->add_control(
             'wooc_color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -125,7 +125,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'wooc_bgcolor', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -144,7 +144,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_control(
             'wooc_space_heading',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -152,7 +152,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'wooc_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'default' => [
@@ -171,7 +171,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'wooc_margin',
                 [
-                'label'         => __( 'Margin', DCE_TEXTDOMAIN ),
+                'label'         => __( 'Margin', 'dynamic-content-for-elementor' ),
                 'type'          => Controls_Manager::DIMENSIONS,
                 'size_units'    => [ 'px', '%' ],
                 'selectors'     => [
@@ -182,7 +182,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_control(
             'wooc_style_heading',
             [
-                'label' => __( 'Style', DCE_TEXTDOMAIN ),
+                'label' => __( 'Style', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -190,14 +190,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'wooc_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .button, {{WRAPPER}} .button--asolo:after, {{WRAPPER}} .button--asolo:before',
             ]
         );
         
         $this->add_control(
             'wooc_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -227,7 +227,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE - Quantity]
         $this->start_controls_section(
             'section_quantity_style', [
-                'label' => __('Quantity', DCE_TEXTDOMAIN),
+                'label' => __('Quantity', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'hide_quantity' => '',
@@ -237,7 +237,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         
         $this->add_control(
             'quantity_color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -249,7 +249,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'quantity_bgcolor', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -261,14 +261,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'qty_typography',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .quantity .qty',
             ]
         );
         
         $this->add_control(
             'quantity_width', [
-                'label' => __('Width', DCE_TEXTDOMAIN),
+                'label' => __('Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'range' => [
@@ -286,7 +286,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_control(
             'quantity_style_heading',
             [
-                'label' => __( 'Style', DCE_TEXTDOMAIN ),
+                'label' => __( 'Style', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -294,7 +294,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'quantity_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .quantity .qty',
                 
             ]
@@ -302,7 +302,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         
         $this->add_control(
             'quantity_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -328,7 +328,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_control(
             'quantity_space_heading',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -336,7 +336,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'quantity_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -350,7 +350,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'quantity_margin',
                 [
-                'label'         => __( 'Margin', DCE_TEXTDOMAIN ),
+                'label'         => __( 'Margin', 'dynamic-content-for-elementor' ),
                 'type'          => Controls_Manager::DIMENSIONS,
                 'size_units'    => [ 'px', '%' ],
                 'selectors'     => [
@@ -365,7 +365,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE - Quantity Plus/Minus]
         $this->start_controls_section(
             'section_plusminus_style', [
-                'label' => __('Plus/Minus', DCE_TEXTDOMAIN),
+                'label' => __('Plus/Minus', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'quantity_enable!' => '',
@@ -374,7 +374,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_control(
             'plusminus_color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -386,7 +386,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'plusminus_bgcolor', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -398,14 +398,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'plusminus_typography',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .quantity .plus, {{WRAPPER}} .dce-add-to-cart .quantity .minus',
             ]
         );
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'plusminus_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .quantity .plus, {{WRAPPER}} .dce-add-to-cart .quantity .minus',
                 'separator' => 'before',
             ]
@@ -413,7 +413,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         
         $this->add_control(
             'plusminus_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -424,7 +424,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_responsive_control(
             'plusminus_padding', [
-                'label' => __('Padding Plus/Minus', DCE_TEXTDOMAIN),
+                'label' => __('Padding Plus/Minus', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -436,7 +436,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_responsive_control(
             'plusminus_margin', [
-                'label' => __('Margin Plus/Minus', DCE_TEXTDOMAIN),
+                'label' => __('Margin Plus/Minus', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -451,7 +451,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE - Quantity Stock]
         $this->start_controls_section(
             'section_stock_style', [
-                'label' => __('Stock', DCE_TEXTDOMAIN),
+                'label' => __('Stock', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'hide_stock' => '',
@@ -460,7 +460,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_control(
             'stock_color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -472,7 +472,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'stock_bgcolor', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -484,14 +484,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'stocktypography',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .stock',
             ]
         );
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'stock_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .stock',
                 'separator' => 'before',
             ]
@@ -499,7 +499,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         
         $this->add_control(
             'stock_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -510,7 +510,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_responsive_control(
             'stock_padding', [
-                'label' => __('Padding Plus/Minus', DCE_TEXTDOMAIN),
+                'label' => __('Padding Plus/Minus', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -526,13 +526,13 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE - Quantity Symbol]
         $this->start_controls_section(
             'section_symbol_style', [
-                'label' => __('Stock', DCE_TEXTDOMAIN),
+                'label' => __('Stock', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
          $this->add_control(
             'symbol_color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -544,7 +544,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'symbol_bgcolor', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -556,14 +556,14 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'symboltypography',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .woocommerce-Price-currencySymbol',
             ]
         );
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'symbol_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} .dce-add-to-cart .woocommerce-Price-currencySymbol',
                 'separator' => 'before',
             ]
@@ -571,7 +571,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         
         $this->add_control(
             'symbol_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -582,7 +582,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
          $this->add_responsive_control(
             'symbol_padding', [
-                'label' => __('Padding Plus/Minus', DCE_TEXTDOMAIN),
+                'label' => __('Padding Plus/Minus', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -598,7 +598,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         // ------------------------------------------- [SECTION STYLE - ROLL-HOVER]
         $this->start_controls_section(
             'section_rolhover_style', [
-                'label' => __('Roll-Hover', DCE_TEXTDOMAIN),
+                'label' => __('Roll-Hover', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                 ]
@@ -607,7 +607,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         $this->add_control(
             'wooc_hover_heading',
             [
-                'label' => __( 'Roll-Hover', DCE_TEXTDOMAIN ),
+                'label' => __( 'Roll-Hover', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 
@@ -615,7 +615,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'wooc_color_hover', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'default' => '',
@@ -628,7 +628,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->add_control(
             'wooc_bgcolor_hover', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'default' => '',
@@ -641,7 +641,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'wooc_bordercolor_hover', [
-                'label' => __('Border Color', DCE_TEXTDOMAIN),
+                'label' => __('Border Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -654,32 +654,32 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'style_effect', [
-                'label' => __('Effect', DCE_TEXTDOMAIN),
+                'label' => __('Effect', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'separator' => 'before',
                 'options' => [
-                    '' => __('None', DCE_TEXTDOMAIN),
-                    'button--asolo' => __('Asolo', DCE_TEXTDOMAIN),
-                    'button--winona' => __('Winona', DCE_TEXTDOMAIN),
-                    'button--ujarak' => __('Ujarak', DCE_TEXTDOMAIN),
-                    'button--wayra' => __('Wayra', DCE_TEXTDOMAIN),
-                    'button--tamaya' => __('Tamaya', DCE_TEXTDOMAIN),
-                    'button--rayen' => __('Rayen', DCE_TEXTDOMAIN),
-                    'button--pipaluk' => __('Pipaluk', DCE_TEXTDOMAIN),
-                    'button--nuka' => __('Nuka', DCE_TEXTDOMAIN),
-                    'button--moema' => __('Moema', DCE_TEXTDOMAIN),
-                    'button--isi' => __('Isi', DCE_TEXTDOMAIN),
-                    'button--aylen' => __('Aylen', DCE_TEXTDOMAIN),
-                    'button--saqui' => __('Saqui', DCE_TEXTDOMAIN),
-                    'button--wapasha' => __('Wapasha', DCE_TEXTDOMAIN),
-                    'button--nina' => __('Nina', DCE_TEXTDOMAIN),
-                    'button--nanuk' => __('Nanuk', DCE_TEXTDOMAIN),
-                    'button--antiman' => __('Antiman', DCE_TEXTDOMAIN),
-                    'button--itzel' => __('Itzel', DCE_TEXTDOMAIN),
-                    // 'button--naira' => __('Naira', DCE_TEXTDOMAIN),
-                    // 'button--quidel' => __('Quidel', DCE_TEXTDOMAIN),
-                    // 'button--sacnite' => __('Sacnite', DCE_TEXTDOMAIN),
-                    // 'button--shikoba' => __('Shikoba', DCE_TEXTDOMAIN),
+                    '' => __('None', 'dynamic-content-for-elementor'),
+                    'button--asolo' => __('Asolo', 'dynamic-content-for-elementor'),
+                    'button--winona' => __('Winona', 'dynamic-content-for-elementor'),
+                    'button--ujarak' => __('Ujarak', 'dynamic-content-for-elementor'),
+                    'button--wayra' => __('Wayra', 'dynamic-content-for-elementor'),
+                    'button--tamaya' => __('Tamaya', 'dynamic-content-for-elementor'),
+                    'button--rayen' => __('Rayen', 'dynamic-content-for-elementor'),
+                    'button--pipaluk' => __('Pipaluk', 'dynamic-content-for-elementor'),
+                    'button--nuka' => __('Nuka', 'dynamic-content-for-elementor'),
+                    'button--moema' => __('Moema', 'dynamic-content-for-elementor'),
+                    'button--isi' => __('Isi', 'dynamic-content-for-elementor'),
+                    'button--aylen' => __('Aylen', 'dynamic-content-for-elementor'),
+                    'button--saqui' => __('Saqui', 'dynamic-content-for-elementor'),
+                    'button--wapasha' => __('Wapasha', 'dynamic-content-for-elementor'),
+                    'button--nina' => __('Nina', 'dynamic-content-for-elementor'),
+                    'button--nanuk' => __('Nanuk', 'dynamic-content-for-elementor'),
+                    'button--antiman' => __('Antiman', 'dynamic-content-for-elementor'),
+                    'button--itzel' => __('Itzel', 'dynamic-content-for-elementor'),
+                    // 'button--naira' => __('Naira', 'dynamic-content-for-elementor'),
+                    // 'button--quidel' => __('Quidel', 'dynamic-content-for-elementor'),
+                    // 'button--sacnite' => __('Sacnite', 'dynamic-content-for-elementor'),
+                    // 'button--shikoba' => __('Shikoba', 'dynamic-content-for-elementor'),
                 ],
                 'default' => '',
                 'condition' => [
@@ -689,7 +689,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_animation', [
-                'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+                'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 'condition' => [
                     'style_effect' => ''
@@ -701,21 +701,21 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_borders', [
-                'label' => __('Form', DCE_TEXTDOMAIN),
+                'label' => __('Form', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'form_border',
-                'label' => __('Border', DCE_TEXTDOMAIN),            
+                'label' => __('Border', 'dynamic-content-for-elementor'),            
                 'selector' => '{{WRAPPER}} form.cart',
                 
             ]
         );
         $this->add_responsive_control(
             'form_inner_space', [
-                'label' => __('Inner Space', DCE_TEXTDOMAIN),
+                'label' => __('Inner Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => '',
@@ -734,7 +734,7 @@ class DCE_Widget_Woo_AddToCart extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'form_outer_space', [
-                'label' => __('Outer Space', DCE_TEXTDOMAIN),
+                'label' => __('Outer Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => '',

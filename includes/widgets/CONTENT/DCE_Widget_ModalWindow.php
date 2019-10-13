@@ -34,10 +34,10 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Fire Modal Window', DCE_TEXTDOMAIN);
+        return __('Fire Modal Window', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Add a “More info” or “Modal Window” button in your post, create a call-to-action', DCE_TEXTDOMAIN);
+        return __('Add a “More info” or “Modal Window” button in your post, create a call-to-action', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/fire-modalwindow/';
@@ -54,13 +54,13 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_modalwindow', [
-                'label' => __('Fire Modal Window', DCE_TEXTDOMAIN),
+                'label' => __('Fire Modal Window', 'dynamic-content-for-elementor'),
             ]
         );
         //
         $this->add_control(
             'text_btn', [
-                'label' => __('Text Button', DCE_TEXTDOMAIN),
+                'label' => __('Text Button', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'Fire Modal Window',
             ]
@@ -68,14 +68,14 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         $this->add_control(
             'icon_fmw',
             [
-                'label' => __( 'Icon', DCE_TEXTDOMAIN ),
+                'label' => __( 'Icon', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::ICON,
             ]
         );
         $this->add_control(
             'icon_fmw_align',
             [
-                'label' => __( 'Icon Position', DCE_TEXTDOMAIN ),
+                'label' => __( 'Icon Position', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'left',
                 'options' => [
@@ -90,7 +90,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         $this->add_control(
             'space_icon_fmw',
             [
-                'label' => __( 'Icon spacing', DCE_TEXTDOMAIN ),
+                'label' => __( 'Icon spacing', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                         'size' => '',
@@ -113,9 +113,9 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         //
         
         //
-        $this->add_control(
+        /*$this->add_control(
             'template', [
-                'label' => __('Select Template', DCE_TEXTDOMAIN),
+                'label' => __('Select Template', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'separator' => 'before',
                 //'options' => get_post_taxonomies( $post->ID ),
@@ -123,12 +123,24 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
                 'default' => '',
                 'label_block' => true,
             ]
+        );*/
+        $this->add_control(
+                'template',
+                [
+                    'label' => __('Select Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                    'separator' => 'before',
+                ]
         );
 
         /* $this->add_control(
           'width_btn',
           [
-          'label' => __( 'Width', DCE_TEXTDOMAIN),
+          'label' => __( 'Width', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SLIDER,
           'default' => [
           'size' => 12.5,
@@ -157,19 +169,19 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'align', [
-              'label' => __('Alignment', DCE_TEXTDOMAIN),
+              'label' => __('Alignment', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::CHOOSE,
               'options' => [
                   'left' => [
-                      'title' => __('Left', DCE_TEXTDOMAIN),
+                      'title' => __('Left', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-left',
                   ],
                   'center' => [
-                      'title' => __('Center', DCE_TEXTDOMAIN),
+                      'title' => __('Center', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-center',
                   ],
                   'right' => [
-                      'title' => __('Right', DCE_TEXTDOMAIN),
+                      'title' => __('Right', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-right',
                   ],
               ],
@@ -193,12 +205,12 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
 
         $this->start_controls_tab(
                 'fmw_btn_colors', [
-            'label' => __('Normal', DCE_TEXTDOMAIN),
+            'label' => __('Normal', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
             'color_txbtn', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -208,7 +220,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'color_bgbtn', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -220,12 +232,12 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
 
         $this->start_controls_tab(
                 'fmw_btn_hover', [
-            'label' => __('Hover', DCE_TEXTDOMAIN),
+            'label' => __('Hover', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
             'color_txbtn_hover', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -235,7 +247,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'color_bgbtn_hover', [
-                'label' => __('Background color', DCE_TEXTDOMAIN),
+                'label' => __('Background color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -245,7 +257,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_animation', [
-                'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+                'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
             ]
         );
@@ -260,7 +272,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
        
         $this->add_responsive_control(
             'fmw_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'separator' => 'before',
@@ -279,7 +291,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'borderradius_btn', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 50,
@@ -302,7 +314,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         /* $this->add_control(
           'padding_item',
           [
-          'label'         => __( 'Padding', DCE_TEXTDOMAIN ),
+          'label'         => __( 'Padding', 'dynamic-content-for-elementor' ),
           'type'          => Controls_Manager::DIMENSIONS,
           'size_units'    => [ 'em', 'px' ],
           'default' => [
@@ -323,7 +335,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'btn_border',
-                'label' => __('Button Border', DCE_TEXTDOMAIN),
+                'label' => __('Button Border', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .cd-modal-action .btn',
             ]
         );
@@ -347,7 +359,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         $this->add_control(
             'fmw_modal',
             [
-                'label' => __( 'Modal', DCE_TEXTDOMAIN ),
+                'label' => __( 'Modal', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -371,7 +383,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'fmw_modal_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%'],
                 
@@ -385,7 +397,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         $this->add_control(
             'fmw_closebutton',
             [
-                'label' => __( 'Close button', DCE_TEXTDOMAIN ),
+                'label' => __( 'Close button', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -395,12 +407,12 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
 
         $this->start_controls_tab(
                 'fmw_button_text_colors', [
-            'label' => __('Normal', DCE_TEXTDOMAIN),
+            'label' => __('Normal', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
             'color_closemodal', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 
                 'selectors' => [
@@ -411,7 +423,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
        
         $this->add_control(
                 'fmw_button_background_color', [
-            'label' => __('Background Color', DCE_TEXTDOMAIN),
+            'label' => __('Background Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'default' => '',
             'selectors' => [
@@ -424,12 +436,12 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
 
         $this->start_controls_tab(
                 'fmw_button_text_colors_hover', [
-            'label' => __('Hover', DCE_TEXTDOMAIN),
+            'label' => __('Hover', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
                 'fmw_button_hover_color', [
-            'label' => __('Color', DCE_TEXTDOMAIN),
+            'label' => __('Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .cd-modal-close:hover .dce-quit-ics:after, {{WRAPPER}} .cd-modal-close:hover .dce-quit-ics:before' => 'background-color: {{VALUE}};',
@@ -439,7 +451,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'fmw_button_background_hover_color', [
-            'label' => __('Background Color', DCE_TEXTDOMAIN),
+            'label' => __('Background Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .cd-modal-close .dce-quit-ics:hover' => 'background-color: {{VALUE}};',
@@ -454,7 +466,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         //
         $this->add_responsive_control(
             'buttonsize_closemodal', [
-                'label' => __('Button Size', DCE_TEXTDOMAIN),
+                'label' => __('Button Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 50,
@@ -475,7 +487,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'weight_closemodal', [
-                'label' => __('Close Width', DCE_TEXTDOMAIN),
+                'label' => __('Close Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -496,7 +508,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'size_closemodal', [
-                'label' => __('Close Size (%)', DCE_TEXTDOMAIN),
+                'label' => __('Close Size (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 60,
@@ -518,7 +530,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'vertical_close', [
-                'label' => __('Y Position', DCE_TEXTDOMAIN),
+                'label' => __('Y Position', 'dynamic-content-for-elementor'),
                
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
@@ -540,7 +552,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'horizontal_close', [
-                'label' => __('X Position', DCE_TEXTDOMAIN),
+                'label' => __('X Position', 'dynamic-content-for-elementor'),
            
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
@@ -581,7 +593,7 @@ class DCE_Widget_ModalWindow extends DCE_Widget_Prototype {
                         echo '<span class="icon-modalwindow icon-'.$settings['icon_fmw_align'].' '.$settings['icon_fmw'].'"></span>';
                     }
                     ?>
-                    <?php echo __($settings['text_btn'], DCE_TEXTDOMAIN.'_texts'); ?>
+                    <?php echo __($settings['text_btn'], 'dynamic-content-for-elementor'.'_texts'); ?>
                     <?php
                     if($settings['icon_fmw'] && $settings['icon_fmw_align'] == 'right'){
                         echo '<span class="icon-modalwindow icon-'.$settings['icon_fmw_align'].' '.$settings['icon_fmw'].'"></span>';

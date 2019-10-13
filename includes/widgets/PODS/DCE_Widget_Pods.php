@@ -3,8 +3,6 @@
 namespace DynamicContentForElementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Image_Size;
@@ -38,11 +36,17 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('PODS Fields', DCE_TEXTDOMAIN);
+        return __('PODS Fields', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
         return 'icon-dyn-acffields';
+    }
+    public function get_description() {
+        return __('Add a customized field realized with Pods', 'dynamic-content-for-elementor');
+    }
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/pods-fields/';
     }
 
     public function get_script_depends() {
@@ -62,12 +66,12 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         // ********************** Section BASE **********************
         $this->start_controls_section(
                 'section_content', [
-            'label' => __('Pods', DCE_TEXTDOMAIN)
+            'label' => __('Pods', 'dynamic-content-for-elementor')
                 ]
         );
         $this->add_control(
                 'pods_field_list', [
-            'label' => __('Fields list', DCE_TEXTDOMAIN),
+            'label' => __('Fields list', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => $this->get_pods_fields(),
             'default' => 'Select the field'
@@ -75,35 +79,33 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'pods_field_type', [
-            'label' => __('Fields type', DCE_TEXTDOMAIN),
+            'label' => __('Fields type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                'empty' => __('Empty', DCE_TEXTDOMAIN),
-                'text' => __('Text', DCE_TEXTDOMAIN),
-                'url' => __('URL', DCE_TEXTDOMAIN),
-                'phone' => __('Phone number', DCE_TEXTDOMAIN),
-                'email' => __('Email', DCE_TEXTDOMAIN),
-                'paragraph' => __('Paragraph', DCE_TEXTDOMAIN),
-                'wysiwyg' => __('WYSIWYG editor', DCE_TEXTDOMAIN),
-                'code' => __('Code', DCE_TEXTDOMAIN),
-                'datetime' => __('Datetime', DCE_TEXTDOMAIN),
-                'date' => __('Date', DCE_TEXTDOMAIN),
-                'time' => __('Time', DCE_TEXTDOMAIN),
-                'image' => __('Image', DCE_TEXTDOMAIN),
+                'empty' => __('Empty', 'dynamic-content-for-elementor'),
+                'text' => __('Text', 'dynamic-content-for-elementor'),
+                'url' => __('URL', 'dynamic-content-for-elementor'),
+                'phone' => __('Phone number', 'dynamic-content-for-elementor'),
+                'email' => __('Email', 'dynamic-content-for-elementor'),
+                'paragraph' => __('Paragraph', 'dynamic-content-for-elementor'),
+                'wysiwyg' => __('WYSIWYG editor', 'dynamic-content-for-elementor'),
+                'code' => __('Code', 'dynamic-content-for-elementor'),
+                'datetime' => __('Datetime', 'dynamic-content-for-elementor'),
+                'date' => __('Date', 'dynamic-content-for-elementor'),
+                'time' => __('Time', 'dynamic-content-for-elementor'),
+                'image' => __('Image', 'dynamic-content-for-elementor'),
             ],
             'default' => 'text',
                 ]
         );
-        $this->add_control(
+        /*$this->add_control(
                 'pods_field_hide', [
-            'label' => __('Hide if empty', DCE_TEXTDOMAIN),
+            'label' => __('Hide if empty', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
             'default' => 'yes',
             'description' => 'Hide the field in front end layer'
                 ]
-        );
+        );*/
 
         $this->end_controls_section();
 
@@ -117,7 +119,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'pods_text_before', [
-            'label' => __('Text before', DCE_TEXTDOMAIN),
+            'label' => __('Text before', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'code', 'datetime', 'date', 'time']]
@@ -125,7 +127,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'pods_text_after', [
-            'label' => __('Text after', DCE_TEXTDOMAIN),
+            'label' => __('Text after', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'code', 'datetime', 'date', 'time']]
@@ -134,27 +136,25 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'pods_field_email_target', [
-            'label' => __('Link mailto', DCE_TEXTDOMAIN),
+            'label' => __('Link mailto', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('Off', DCE_TEXTDOMAIN),
-            'label_on' => __('On', DCE_TEXTDOMAIN),
+            'label_off' => __('Off', 'dynamic-content-for-elementor'),
+            'label_on' => __('On', 'dynamic-content-for-elementor'),
             'condition' => ['pods_field_type' => 'email']
                 ]
         );
 
         $this->add_control(
                 'pods_url_enable', [
-            'label' => __('Enable link', DCE_TEXTDOMAIN),
+            'label' => __('Enable link', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
             'default' => 'yes',
             'condition' => ['pods_field_type' => 'url']
                 ]
         );
         $this->add_control(
                 'pods_url_custom_text', [
-            'label' => __('Custom URL text', DCE_TEXTDOMAIN),
+            'label' => __('Custom URL text', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => ['pods_field_type' => 'url']
@@ -162,13 +162,13 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'pods_url_target', [
-            'label' => __('Target type', DCE_TEXTDOMAIN),
+            'label' => __('Target type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                '_self' => __('_self', DCE_TEXTDOMAIN),
-                '_blank' => __('_blank', DCE_TEXTDOMAIN),
-                '_parent' => __('_parent', DCE_TEXTDOMAIN),
-                '_top' => __('_top', DCE_TEXTDOMAIN),
+                '_self' => __('_self', 'dynamic-content-for-elementor'),
+                '_blank' => __('_blank', 'dynamic-content-for-elementor'),
+                '_parent' => __('_parent', 'dynamic-content-for-elementor'),
+                '_top' => __('_top', 'dynamic-content-for-elementor'),
             ],
             'default' => '_self',
             'condition' => ['pods_field_type' => 'url']
@@ -177,19 +177,16 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'pods_phone_number_enable', [
-            'label' => __('Enable link', DCE_TEXTDOMAIN),
+            'label' => __('Enable link', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
             'default' => 'yes',
             'condition' => ['pods_field_type' => 'phone']
                 ]
         );
         $this->add_control(
                 'pods_phone_number_custom_text', [
-            'label' => __('Custom phone number', DCE_TEXTDOMAIN),
+            'label' => __('Custom phone number', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
-            'default' => '',
             'condition' => ['pods_field_type' => 'phone']
                 ]
         );
@@ -197,7 +194,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'size',
-            'label' => __('Image Size', DCE_TEXTDOMAIN),
+            'label' => __('Image Size', 'dynamic-content-for-elementor'),
             'default' => 'large',
             'condition' => ['pods_field_type' => 'image']
                 ]
@@ -205,47 +202,99 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'html_tag', [
-            'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+            'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                'h1' => __('H1', DCE_TEXTDOMAIN),
-                'h2' => __('H2', DCE_TEXTDOMAIN),
-                'h3' => __('H3', DCE_TEXTDOMAIN),
-                'h4' => __('H4', DCE_TEXTDOMAIN),
-                'h5' => __('H5', DCE_TEXTDOMAIN),
-                'h6' => __('H6', DCE_TEXTDOMAIN),
-                'p' => __('p', DCE_TEXTDOMAIN),
-                'div' => __('div', DCE_TEXTDOMAIN),
-                'span' => __('span', DCE_TEXTDOMAIN),
+                'h1' => __('H1', 'dynamic-content-for-elementor'),
+                'h2' => __('H2', 'dynamic-content-for-elementor'),
+                'h3' => __('H3', 'dynamic-content-for-elementor'),
+                'h4' => __('H4', 'dynamic-content-for-elementor'),
+                'h5' => __('H5', 'dynamic-content-for-elementor'),
+                'h6' => __('H6', 'dynamic-content-for-elementor'),
+                'p' => __('p', 'dynamic-content-for-elementor'),
+                'div' => __('div', 'dynamic-content-for-elementor'),
+                'span' => __('span', 'dynamic-content-for-elementor'),
             ],
             'default' => 'div',
             'condition' => ['pods_field_type' => ['email', 'text']]
                 ]
         );
+        
+        // Link
+        $this->add_control(
+            'link_to', [
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SELECT,
+                'options' => [
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
+                    'post_url' => __('Post URL', 'dynamic-content-for-elementor'),
+                    'pods_url' => __('Pods URL', 'dynamic-content-for-elementor'),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
+                ],
+                'condition' => [
+                    'pods_field_type!' => 'empty',
+                ]
+            ]
+        );
+        $this->add_control(
+            'pods_field_url', [
+                'label' => __('Pods Field Url', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SELECT,
+                'groups' => DCE_Helper::get_pods_fields('website'),
+                'default' => 'Select the Field',
+                'condition' => [
+                    'link_to' => 'pods_url',
+                ]
+            ]
+        );
+        $this->add_control(
+            'pods_field_url_target', [
+                'label' => __('Blank', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'condition' => [
+                    'link_to' => 'pods_url',
+                ]
+            ]
+        );
+        $this->add_control(
+            'link', [
+                'label' => __('Link', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::URL,
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
+                'default' => [
+                    'url' => '',
+                ],
+                'show_label' => false,
+                'condition' => [
+                    'pods_field_type!' => 'empty',
+                    'link_to' => 'custom',
+                ]
+            ]
+        );
 
         $this->add_responsive_control(
                 'align', [
-            'label' => __('Alignment', DCE_TEXTDOMAIN),
+            'label' => __('Alignment', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'left' => [
-                    'title' => __('Left', DCE_TEXTDOMAIN),
+                    'title' => __('Left', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'center' => [
-                    'title' => __('Center', DCE_TEXTDOMAIN),
+                    'title' => __('Center', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-center',
                 ],
                 'right' => [
-                    'title' => __('Right', DCE_TEXTDOMAIN),
+                    'title' => __('Right', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-right',
                 ],
                 'justify' => [
-                    'title' => __('Justified', DCE_TEXTDOMAIN),
+                    'title' => __('Justified', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-justify',
                 ],
             ],
-            'default' => '',
             'prefix_class' => 'align-dce-',
             'selectors' => [
                 '{{WRAPPER}}' => 'text-align: {{VALUE}};',
@@ -256,15 +305,15 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'use_bg', [
-            'label' => __('Background', DCE_TEXTDOMAIN),
+            'label' => __('Background', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 '1' => [
-                    'title' => __('Yes', DCE_TEXTDOMAIN),
+                    'title' => __('Yes', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-check',
                 ],
                 '0' => [
-                    'title' => __('No', DCE_TEXTDOMAIN),
+                    'title' => __('No', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-ban',
                 ]
             ],
@@ -276,20 +325,20 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'bg_position', [
-            'label' => __('Background position', DCE_TEXTDOMAIN),
+            'label' => __('Background position', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'top center',
             'options' => [
-                '' => __('Default', DCE_TEXTDOMAIN),
-                'top left' => __('Top Left', DCE_TEXTDOMAIN),
-                'top center' => __('Top Center', DCE_TEXTDOMAIN),
-                'top right' => __('Top Right', DCE_TEXTDOMAIN),
-                'center left' => __('Center Left', DCE_TEXTDOMAIN),
-                'center center' => __('Center Center', DCE_TEXTDOMAIN),
-                'center right' => __('Center Right', DCE_TEXTDOMAIN),
-                'bottom left' => __('Bottom Left', DCE_TEXTDOMAIN),
-                'bottom center' => __('Bottom Center', DCE_TEXTDOMAIN),
-                'bottom right' => __('Bottom Right', DCE_TEXTDOMAIN),
+                '' => __('Default', 'dynamic-content-for-elementor'),
+                'top left' => __('Top Left', 'dynamic-content-for-elementor'),
+                'top center' => __('Top Center', 'dynamic-content-for-elementor'),
+                'top right' => __('Top Right', 'dynamic-content-for-elementor'),
+                'center left' => __('Center Left', 'dynamic-content-for-elementor'),
+                'center center' => __('Center Center', 'dynamic-content-for-elementor'),
+                'center right' => __('Center Right', 'dynamic-content-for-elementor'),
+                'bottom left' => __('Bottom Left', 'dynamic-content-for-elementor'),
+                'bottom center' => __('Bottom Center', 'dynamic-content-for-elementor'),
+                'bottom right' => __('Bottom Right', 'dynamic-content-for-elementor'),
             ],
             'selectors' => [
                 '{{WRAPPER}} .dynamic-content-for-elementor-acfimage-bg' => 'background-position: {{VALUE}};',
@@ -302,11 +351,11 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'bg_extend', [
-            'label' => __('Extend Background', DCE_TEXTDOMAIN),
+            'label' => __('Extend Background', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Show', DCE_TEXTDOMAIN),
-            'label_off' => __('Hide', DCE_TEXTDOMAIN),
+            'label_on' => __('Show', 'dynamic-content-for-elementor'),
+            'label_off' => __('Hide', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'condition' => [
                 'use_bg' => '1',
@@ -320,7 +369,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'height', [
-            'label' => __('Minimus Height', DCE_TEXTDOMAIN),
+            'label' => __('Minimus Height', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 200,
@@ -363,7 +412,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         // ------------------------------------------------------------ [ OVERLAY Image ]
         $this->start_controls_section(
                 'section_overlay', [
-            'label' => __('Overlay Image', DCE_TEXTDOMAIN),
+            'label' => __('Overlay Image', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_CONTENT,
             'condition' => [
                 'pods_field_type' => 'image',
@@ -372,7 +421,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'overlay_heading', [
-            'label' => __('Overlay', DCE_TEXTDOMAIN),
+            'label' => __('Overlay', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before',
             'condition' => [
@@ -382,11 +431,11 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'use_overlay', [
-            'label' => __('Overlay Image', DCE_TEXTDOMAIN),
+            'label' => __('Overlay Image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Show', DCE_TEXTDOMAIN),
-            'label_off' => __('Hide', DCE_TEXTDOMAIN),
+            'label_on' => __('Show', 'dynamic-content-for-elementor'),
+            'label_off' => __('Hide', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
@@ -407,14 +456,14 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         // ********************** Section STYLE **********************
         $this->start_controls_section(
                 'section_style', [
-            'label' => __('Style', DCE_TEXTDOMAIN),
+            'label' => __('Style', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time']]
                 ]
         );
         $this->add_control(
                 'tx_heading', [
-            'label' => __('Text', DCE_TEXTDOMAIN),
+            'label' => __('Text', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before',
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time']]
@@ -422,9 +471,8 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'color', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
-            'scheme' => [ 'type' => Scheme_Color::get_type(), 'value' => Scheme_Color::COLOR_1],
             'selectors' => [
                 '{{WRAPPER}} .dynamic-content-for-elementor-pods .edc-pods' => 'color: {{VALUE}};',
             ],
@@ -433,16 +481,15 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'bg_color', [
-            'label' => __('Background Color', DCE_TEXTDOMAIN),
+            'label' => __('Background Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
-            'scheme' => ['type' => Scheme_Color::get_type(), 'value' => Scheme_Color::COLOR_1],
             'selectors' => ['{{WRAPPER}} .dynamic-content-for-elementor-pods' => 'background-color: {{VALUE}};',],
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time']]
                 ]
         );
         $this->add_responsive_control(
                 'pods_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%'],
             'selectors' => [
@@ -451,7 +498,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'pods_space', [
-            'label' => __('Space', DCE_TEXTDOMAIN),
+            'label' => __('Space', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => ['size' => 0,],
             'range' => ['px' => ['max' => 100, 'min' => 0, 'step' => 1,],],
@@ -459,7 +506,7 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'pods_shift', [
-            'label' => __('Shift', DCE_TEXTDOMAIN),
+            'label' => __('Shift', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'range' => ['px' => ['max' => 180, 'min' => -180, 'step' => 1,],],
             'selectors' => ['{{WRAPPER}} .dynamic-content-for-elementor-pods' => 'left: {{SIZE}}{{UNIT}};'],]
@@ -467,15 +514,14 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'typography_tx',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-pods',
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time']]]
         );
         $this->add_group_control(
                 Group_Control_Text_Shadow::get_type(), [
             'name' => 'text_shadow',
-            'label' => __('Text shadow', DCE_TEXTDOMAIN),
+            'label' => __('Text shadow', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-pods',
             'condition' => ['pods_field_type' => ['email', 'text', 'url', 'phone', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time']]
                 ]
@@ -489,18 +535,21 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
     protected function get_pods_fields() {
         $option_list = array();
         $option_list = ['Select the Field'];
-        $pods = pods_api()->load_pods();
-        $post_type = get_post_type();
+        
+        if (DCE_Helper::is_plugin_active('pods')) {
+            $pods = pods_api()->load_pods();
+            $post_type = get_post_type();
 
-        //$post_type_elementor = Source_Local::get_template_type(get_the_ID());
+            //$post_type_elementor = Source_Local::get_template_type(get_the_ID());
 
-        foreach ($pods as $pod) {
-            //if ((!strcasecmp($post_type, $pod['name']))) {  // decommenta per la Versione del post corrente
-                foreach ($pod['fields'] as $f) {
-                    $option_list[$f['name']] = $f['label'] . '&nbsp;[' . $f['type'] . ']';
-                }
-                //break; // decommenta per la Versione del post corrente
-            //}
+            foreach ($pods as $pod) {
+                //if ((!strcasecmp($post_type, $pod['name']))) {  // decommenta per la Versione del post corrente
+                    foreach ($pod['fields'] as $f) {
+                        $option_list[$f['name']] = $f['label'] . '&nbsp;[' . $f['type'] . ']';
+                    }
+                    //break; // decommenta per la Versione del post corrente
+                //}
+            }
         }
 
         return $option_list;
@@ -514,12 +563,12 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         // ------------------------------------------
         $demoPage = get_post_meta(get_the_ID(), 'demo_id', true);
         //
-        $id_page = ''; //get_the_ID();
+        $id_page = get_the_ID();
         $type_page = '';
         //
         global $global_ID;
         global $global_TYPE;
-        global $is_blocks;
+        global $in_the_loop;
         global $global_is;
 
         // $podsResult = "";
@@ -548,6 +597,42 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
         //$pod_type = pods()->fields($idFields, 'type'); 
         $pod_type = $settings['pods_field_type'];
         // echo $pod_type;
+        
+        switch ( $settings['link_to'] ) {
+            case 'custom' :
+                if ( ! empty( $settings['link']['url'] ) ) {
+                    $link = esc_url( $settings['link']['url'] );
+                    $target = $settings['link']['is_external'] ? 'target="_blank"' : '';
+                } else {
+                    $link = false;
+                }
+                break;
+
+            case 'pods_url' :
+                if ( !empty( $settings['pods_field_url'] ) ) {
+                    //$link = esc_url( get_field( $settings['pods_field_url'] , $id_page) );
+                    $link = get_post_meta( $id_page, $settings['pods_field_url'], true );      
+                    $target = $settings['pods_field_url_target'] ? 'target="_blank"' : '';
+                } else {
+                    $link = false;
+                }
+                break;
+            case 'post_url' :
+                $link = esc_url( get_permalink($id_page) );
+                $target = '';
+                break;
+                
+            case 'home' :
+                $link = esc_url( get_home_url() );
+                $target = '';
+                break;
+
+            case 'none' :
+            default:
+                $link = false;
+                $target = '';
+                break;
+        }
 
         $html = '';
         switch ($pod_type) {
@@ -564,10 +649,10 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
 
         $animation_class = !empty($settings['hover_animation']) ? 'elementor-animation-' . $settings['hover_animation'] : '';
 
-        if ($settings['pods_field_hide'] && empty($pod_value) && !(\Elementor\Plugin::$instance->editor->is_edit_mode()))
-            $html .= '<style>' . $this->get_unique_selector() . '{display:none !important;}</style>';
+        /*if ($settings['pods_field_hide'] && empty($pod_value) && !(\Elementor\Plugin::$instance->editor->is_edit_mode()))
+            $html .= '<style>' . $this->get_unique_selector() . '{display:none !important;}</style>';*/
 
-        $html .= sprintf('<%1$s class="dynamic-content-for-elementor-pods pippotto %2$s">', $settings['html_tag'], $animation_class);
+        $html .= sprintf('<%1$s class="dynamic-content-for-elementor-pods %2$s">', $settings['html_tag'], $animation_class);
 
         // Email
         if ($pod_type == 'email' && $settings['pods_field_email_target'])
@@ -604,12 +689,18 @@ class DCE_Widget_Pods extends DCE_Widget_Prototype {
             $pod_value = '<span class="edc-pods">' . $pod_value . '</span>';
             // Text before and after
             if ($settings['pods_text_before'] != "" || $settings['pods_text_after'] != "") {
-                $pod_value = '<span class="tx-before">' . __($settings['pods_text_before'], DCE_TEXTDOMAIN) . '</span>' . $pod_value . '<span class="tx-after">' . __($settings['pods_text_after'], DCE_TEXTDOMAIN) . '</span>';
+                $pod_value = '<span class="tx-before">' . __($settings['pods_text_before'], 'dynamic-content-for-elementor') . '</span>' . $pod_value . '<span class="tx-after">' . __($settings['pods_text_after'], 'dynamic-content-for-elementor') . '</span>';
             }
             $html .= $pod_value;
         }
 
         $html .= sprintf('</%s>', $settings['html_tag']);
+        
+        if ( $link ) {
+            //echo $link;
+            $html = sprintf( '<a href="%1$s" %2$s>%3$s</a>', $link, $target, $html );
+        }
+        
         echo $html;
     }
 }

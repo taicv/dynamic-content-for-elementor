@@ -27,7 +27,7 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
         return false;
     }
     public function get_title() {
-        return __('Poster Slider (acf)', DCE_TEXTDOMAIN);
+        return __('Poster Slider (acf)', 'dynamic-content-for-elementor');
     }
     public function get_icon() {
         return 'icon-dyn-poster todo';
@@ -44,12 +44,12 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_cpt', [
-            'label' => __('Post Type', DCE_TEXTDOMAIN),
+            'label' => __('Post Type', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
                 'post_type', [
-            'label' => __('Post Type', DCE_TEXTDOMAIN),
+            'label' => __('Post Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => DCE_Helper::get_post_types(),
             'default' => 'post',
@@ -57,8 +57,8 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'category', [
-            'label' => __('Category ID', DCE_TEXTDOMAIN),
-            'description' => __('Comma separated list of category ids', DCE_TEXTDOMAIN),
+            'label' => __('Category ID', 'dynamic-content-for-elementor'),
+            'description' => __('Comma separated list of category ids', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '',
             'condition' => [
@@ -69,7 +69,7 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'num_post', [
-            'label' => __('Number of SliderPoster', DCE_TEXTDOMAIN),
+            'label' => __('Number of SliderPoster', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => '5'
                 ]
@@ -77,7 +77,7 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'post_offset', [
-            'label' => __('Post Offset', DCE_TEXTDOMAIN),
+            'label' => __('Post Offset', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => '0'
                 ]
@@ -85,7 +85,7 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'orderby', [
-            'label' => __('Order By', DCE_TEXTDOMAIN),
+            'label' => __('Order By', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => DCE_Helper::get_post_orderby_options(),
             'default' => 'date',
@@ -94,7 +94,7 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'order', [
-            'label' => __('Order', DCE_TEXTDOMAIN),
+            'label' => __('Order', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
                 'asc' => 'Ascending',
@@ -109,22 +109,22 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'size',
-            'label' => __('Image Size', DCE_TEXTDOMAIN),
+            'label' => __('Image Size', 'dynamic-content-for-elementor'),
             'default' => 'large',
                 ]
         );
 
         $this->add_control(
                 'show_title', [
-            'label' => __('Show Title', DCE_TEXTDOMAIN),
+            'label' => __('Show Title', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 '1' => [
-                    'title' => __('Yes', DCE_TEXTDOMAIN),
+                    'title' => __('Yes', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-check',
                 ],
                 '0' => [
-                    'title' => __('No', DCE_TEXTDOMAIN),
+                    'title' => __('No', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-ban',
                 ]
             ],
@@ -135,15 +135,15 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'show_image', [
-            'label' => __('Show Image', DCE_TEXTDOMAIN),
+            'label' => __('Show Image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 '1' => [
-                    'title' => __('Yes', DCE_TEXTDOMAIN),
+                    'title' => __('Yes', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-check',
                 ],
                 '0' => [
-                    'title' => __('No', DCE_TEXTDOMAIN),
+                    'title' => __('No', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-ban',
                 ]
             ],
@@ -154,19 +154,19 @@ class DCE_Widget_PosterSlider extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
                 'image_align', [
-            'label' => __('Image Alignment', DCE_TEXTDOMAIN),
+            'label' => __('Image Alignment', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'left' => [
-                    'title' => __('Left', DCE_TEXTDOMAIN),
+                    'title' => __('Left', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'none' => [
-                    'title' => __('Center', DCE_TEXTDOMAIN),
+                    'title' => __('Center', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-center',
                 ],
                 'right' => [
-                    'title' => __('Right', DCE_TEXTDOMAIN),
+                    'title' => __('Right', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-right',
                 ]
             ],

@@ -8,37 +8,116 @@ namespace DynamicContentForElementor;
  */
 class DCE_Tokens {
     
-    public function add_shortcode() {
-        add_shortcode('dce-token', [$this, 'do_shortcode']);
-    }
-    
-    public function do_shortcode($params = array()) {
-        if (empty($params['value'])) {
-            return '';
-        }
-        return self::do_tokens('['.$params['value'].']');
-    }
-
+    // List of Drupal Tokens: https://www.drupal.org/node/390482
     static public function do_tokens($text = '') {
+        if (!is_string($text)) {
+            return $text;
+        }
         return self::replace_all_tokens($text);
     }
 
     static public function replace_all_tokens($text) {
         $text = self::replace_date_tokens($text);
+        $text = self::replace_author_tokens($text);
         $text = self::replace_user_tokens($text);
         $text = self::replace_post_tokens($text);
+        $text = self::replace_form_tokens($text);
+        $text = self::replace_wp_query_tokens($text);
         //$text = self::replace_var_tokens($text);
-        //$text = $this->replace_term__tokens($text); // TODO?!
+        $text = self::replace_term_tokens($text);
         $text = self::replace_option_tokens($text);
+        $text = self::replace_system_tokens($text);
+        $text = self::replace_comment_tokens($text);
+        return $text;
+    }
+    
+    static public function replace_tokens_with_his_name($text, $var_name) {
+        $pezzi = explode('['.$var_name, $text);
+        if (count($pezzi) > 1) {
+            foreach ($pezzi as $key => $avalue) {                
+                if ($key) {
+                    $metaTmp = explode(']', $avalue);
+                    $metaParams = reset($metaTmp);
+                    $subfield = '';
+                    if (substr($metaParams, 0, 1) == ':') {
+                        $metaParams = substr($metaParams, 1);
+                        $subfield = ':';
+                    }
+                    $morePezzi = explode('?', $metaParams, 2);
+                    $pezzoTmp = reset($morePezzi);
+                    $altriPezzi = explode('|', $pezzoTmp, 2);
+                    $metaName = reset($altriPezzi);
+                    $metaKey = explode(':', $metaName);
+                    $field = reset($metaKey);
+
+                    $replaceValue = $field;
+                    
+                    $text = str_replace('['.$var_name.$subfield . $metaParams . ']', $replaceValue, $text);
+                }
+            }
+        }
         return $text;
     }
 
-    static public function replace_user_tokens($text) {
-        $current_user = wp_get_current_user();
-        $current_user_id = 0;
-        if ($current_user) {
-            $current_user_id = $current_user->ID;
+    static public function replace_form_tokens($text) {
+        global $dce_form;
+        
+        $text = str_replace('[form:pdf]', '<!--[dce_form_pdf:attachment]-->', $text); // pdf mail attachment
+        
+        if (is_null($dce_form)) {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                $text = self::replace_tokens_with_his_name($text, 'form');
+            }
+        } else {
+            $text = self::replace_var_tokens($text, 'form', $dce_form);
         }
+        return $text;
+    }
+    
+    static public function replace_comment_tokens($text) {
+        // TODO
+        return $text;
+    }
+    
+    static public function replace_author_tokens($text) {
+        $pezzi = explode('[author', $text);
+        $author_ID = 0;
+        if (count($pezzi) > 1) {
+            global $authordata;
+            //$author = get_the_author();
+            //$user = get_user_by('display_name', $author);
+            $author_ID = get_the_author_meta('ID');
+            /*if ($authordata) {
+                $author_ID = $authordata->ID;
+            }
+            if (!$author_ID) {
+                $post = get_post();
+                if ($post) {
+                    $author_ID = $post->post_author;
+                }
+            }*/
+            if ($author_ID) {
+                foreach ($pezzi as $key => $avalue) {
+                    if ($key) {
+                        $metaTmp = explode(']', $avalue);
+                        $metaParams = reset($metaTmp);
+                        $metaParamsAuthor =  $metaParams.'|'.$author_ID;
+                        $text = str_replace('[author'.$metaParams.']', '[author'.$metaParamsAuthor.']', $text);
+                    }
+                }
+            }
+            $text = str_replace('[author', '[user', $text);
+            $text = self::replace_user_tokens($text);
+        }
+        return $text;
+    }
+    static public function replace_user_tokens($text) {
+        //$current_user = wp_get_current_user();
+        $current_user_id = get_current_user_id();
+        if (!$current_user_id) {
+            $current_user_id = get_the_author_meta('ID');
+        }
+        $user_id = $current_user_id;
         // user field
         $pezzi = explode('[user:', $text);
         if (count($pezzi) > 1) {
@@ -56,67 +135,25 @@ class DCE_Tokens {
                     $altriPezzi = explode('|', $pezzoTmp, 2);
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
-                        if (is_numeric(reset($filtersTmp)) && intval(reset($filtersTmp)) > 0) {
-                            $user_id = reset($filtersTmp);
+                        foreach ($filtersTmp as $afilter) {
+                            if (is_numeric($afilter) && intval($afilter) > 0) {
+                                $user_id = intval($afilter);
+                            }
+                            if ($afilter == 'author') {
+                                $user_id = get_the_author_meta('ID');
+                            }
                         }
-                        //$user_id = end($altriPezzi);
-                    } else {
-                        $user_id = $current_user_id;
                     }
-                    //echo $user_id;
                     $metaName = reset($altriPezzi);
                     $metaKey = explode(':', $metaName);
                     $field = array_shift($metaKey);
-                    $metaValue = '';
-                    if ($user_id) {
-                        $userTmp = get_user_by('ID', $user_id);
-                        if ($userTmp) {
-                            //if (property_exists('WP_User', $metaKey[0])) {
-                            // campo nativo
-                            if (@$userTmp->data->{$field}) {
-                                //$userTmp = get_user_by('ID', $user_id);
-                                $metaValue = $userTmp->data->{$field};
-                            }
-                            if (!$metaValue) {
-                                if (@$userTmp->data->{'user_' . $field}) {
-                                    //if (property_exists('WP_User', 'user_'.$metaKey[0])) {
-                                    //$userTmp = get_user_by('ID', $user_id);
-                                    $metaValue = $userTmp->data->{'user_' . $field};
-                                }
-                            }
-                            // altri campi nativi
-                            if (!$metaValue) {
-                                $userInfo = get_userdata($user_id);
-                                if (@$userInfo->{$field}) {
-                                    $metaValue = $userInfo->{$field};
-                                }
-                                if (!$metaValue) {
-                                    if (@$userInfo->{'user_' . $field}) {
-                                        $metaValue = $userInfo->{'user_' . $field};
-                                    }
-                                }
-                            }
-                            // campo meta
-                            if (!$metaValue) {
-                                if (metadata_exists('user', $user_id, $field)) {
-                                    $metaValue = get_user_meta($user_id, $field, true);
-                                }
-                                if (!$metaValue) {
-                                    // meta from module user_registration
-                                    if (metadata_exists('user', $user_id, 'user_registration_' . $field)) {
-                                        $metaValue = get_user_meta($user_id, 'user_registration_' . $field, true);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $metaValue = DCE_Helper::get_user_value($user_id, $field);
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
-                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
-                    
                     if (count($altriPezzi) == 2) {
                         // APPLY FILTERS
                         $replaceValue = self::apply_filters($replaceValue, end($altriPezzi), $user_id, $field);
                     }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
                     
                     $text = str_replace('[user:' . $metaParams . ']', $replaceValue, $text);
                 }
@@ -127,11 +164,10 @@ class DCE_Tokens {
 
     static public function replace_post_tokens($text) {
         $current_post_id = $post_id = get_the_ID();
-        /*$current_post_id = 0;
         $current_post = get_post();
         if ($current_post) {
             $current_post_id = $post_id = $current_post->ID;
-        }*/
+        }
         // post field
         $pezzi = explode('[post:', $text);
         if (count($pezzi) > 1) {
@@ -153,8 +189,10 @@ class DCE_Tokens {
                     $altriPezzi = explode('|', $pezzoTmp, 2);
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
-                        if (is_numeric(reset($filtersTmp)) && intval(reset($filtersTmp)) > 0) {
-                            $post_id = reset($filtersTmp);
+                        foreach ($filtersTmp as $afilter) {
+                            if (is_numeric($afilter) && intval($afilter) > 0) {
+                                $post_id = intval($afilter);
+                            }
                         }
                     }
 
@@ -170,14 +208,120 @@ class DCE_Tokens {
 
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
                     //$checkValue = eval($replaceValue);
-                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
-                    
                     if (count($altriPezzi) == 2) {
                         // APPLY FILTERS
                         $replaceValue = self::apply_filters($replaceValue, end($altriPezzi), $post_id, $field);
                     }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
                     
                     $text = str_replace('[post:' . $metaParams . ']', $replaceValue, $text);
+                }
+            }
+        }
+        return $text;
+    }
+    
+    static public function replace_system_tokens($text) {
+        $pezzi = explode('[system:', $text);
+        if (count($pezzi) > 1) {
+            foreach ($pezzi as $key => $avalue) {
+                $filters = array();
+                if ($key) {
+                    $metaTmp = explode(']', $avalue);
+                    $metaParams = reset($metaTmp);
+
+                    // GET FALLBACK
+                    $morePezzi = explode('?', $metaParams, 2);
+                    $fallback = '';
+                    if (count($morePezzi) == 2) {
+                        $fallback = end($morePezzi);
+                    }
+                    $pezzoTmp = reset($morePezzi);
+
+                    // GET FILTERS or ID
+                    $altriPezzi = explode('|', $pezzoTmp, 2);
+
+                    $metaName = reset($altriPezzi);
+
+                    // GET SUB ARRAY
+                    $metaKey = explode(':', $metaName);
+                    $metaKeyName = array_shift($metaKey);
+                    switch($metaKeyName) {
+                        case 'get':
+                            $metaValue = $_GET;
+                            break;
+                        case 'post':
+                            $metaValue = $_POST;
+                            break;
+                        case 'request':
+                            $metaValue = $_REQUEST;
+                            break;
+                        case 'server':
+                            $metaValue = $_SERVER;
+                            break;
+                        default:
+                            $metaValue = array();
+                    }
+                    $replaceValue = self::check_array_value($metaValue, $metaKey);
+                    
+                    //$checkValue = eval($replaceValue);
+                    //var_dump($altriPezzi); die();
+                    if (count($altriPezzi) == 2) {
+                        // APPLY FILTERS
+                        $replaceValue = self::apply_filters($replaceValue, end($altriPezzi));
+                    }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    //var_dump($replaceValue);
+                    $text = str_replace('[system:' . $metaParams . ']', $replaceValue, $text);
+                }
+            }
+        }
+        return $text;
+    }
+    
+    static public function replace_wp_query_tokens($text) {
+        global $wp_query;
+        //var_dump($wp_query);
+        $pezzi = explode('[wp_query:', $text);
+        if (count($pezzi) > 1) {
+            foreach ($pezzi as $key => $avalue) {
+                $filters = array();
+                if ($key) {
+                    $metaTmp = explode(']', $avalue);
+                    $metaParams = reset($metaTmp);
+
+                    // GET FALLBACK
+                    $morePezzi = explode('?', $metaParams, 2);
+                    $fallback = '';
+                    if (count($morePezzi) == 2) {
+                        $fallback = end($morePezzi);
+                    }
+                    $pezzoTmp = reset($morePezzi);
+
+                    // GET FILTERS or ID
+                    $altriPezzi = explode('|', $pezzoTmp, 2);
+
+                    $metaName = reset($altriPezzi);
+
+                    // GET SUB ARRAY
+                    $metaKey = explode(':', $metaName);
+                    $metaValue = $wp_query;
+                    switch ($metaValue) { 
+                        case 'referer':
+                            $replaceValue = wp_get_referer();
+                            break;
+                        default:
+                            $replaceValue = self::check_array_value($metaValue, $metaKey);
+                    }
+                    //$checkValue = eval($replaceValue);
+                    //var_dump($altriPezzi); die();
+                    if (count($altriPezzi) == 2) {
+                        // APPLY FILTERS
+                        $replaceValue = self::apply_filters($replaceValue, end($altriPezzi));
+                    }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    //var_dump($replaceValue);
+                    $text = str_replace('[wp_query:' . $metaParams . ']', $replaceValue, $text);
                 }
             }
         }
@@ -189,18 +333,24 @@ class DCE_Tokens {
         if (is_object($var_value)) {
             $var_value = get_object_vars($var_value);
         }
-        //print_r($text);
         //if (trim($text) == '['.$var_name.']') {
             $text = str_replace('['.$var_name.']', DCE_Helper::to_string($var_value), $text); // simple
         //}
         // var field
-        $pezzi = explode('['.$var_name.':', $text);
+        //$pezzi = explode('['.$var_name.':', $text);
+        $pezzi = explode('['.$var_name, $text);
         if (count($pezzi) > 1) {
             foreach ($pezzi as $key => $avalue) {
                 $filters = array();
                 if ($key) {
                     $metaTmp = explode(']', $avalue);
                     $metaParams = reset($metaTmp);
+
+                    $subfield = '';
+                    if (substr($metaParams, 0, 1) == ':') {
+                        $metaParams = substr($metaParams, 1);
+                        $subfield = ':';
+                    }
 
                     // GET FALLBACK
                     $morePezzi = explode('?', $metaParams, 2);
@@ -227,13 +377,13 @@ class DCE_Tokens {
                     $field = reset($metaKey);
 
                     $replaceValue = self::check_array_value($var_value, $metaKey);
-                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
-                    
                     if (count($altriPezzi) == 2) {
                         // APPLY FILTERS
                         $replaceValue = self::apply_filters($replaceValue, end($altriPezzi), $post_id, $field);
                     }
-                    $text = str_replace('['.$var_name.':' . $metaParams . ']', $replaceValue, $text);
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    
+                    $text = str_replace('['.$var_name.$subfield . $metaParams . ']', $replaceValue, $text);
                 }
             }
         }
@@ -241,6 +391,99 @@ class DCE_Tokens {
     }
 
     static public function replace_term_tokens($text) {
+        $pezzi = explode('[term:', $text);
+        if (count($pezzi) > 1) {
+            $terms = array();
+            $queried_object = get_queried_object();
+            //echo '<pre>';var_dump( $queried_object );echo '</pre>';
+            if ($queried_object) {
+                if (get_class($queried_object) == 'WP_Term') {
+                    $terms[] = $queried_object;
+                }
+                if (get_class($queried_object) == 'WP_Post' || DCE_Helper::in_the_loop()) {
+                    $terms = DCE_Helper::get_post_terms();
+                } 
+            }
+            $taxonomies = DCE_Helper::get_taxonomies();
+            foreach ($pezzi as $key => $avalue) {
+                $filters = array();
+                if ($key) {
+                    $metaTmp = explode(']', $avalue);
+                    $metaParams = reset($metaTmp);
+
+                    // GET FALLBACK
+                    $morePezzi = explode('?', $metaParams, 2);
+                    $fallback = '';
+                    if (count($morePezzi) == 2) {
+                        $fallback = end($morePezzi);
+                    }
+                    $pezzoTmp = reset($morePezzi);
+
+                    // GET FILTERS or ID
+                    $tterms = $terms;
+                    $altriPezzi = explode('|', $pezzoTmp, 2);
+                    if (count($altriPezzi) == 2) {
+                        $filtersTmp = explode('|', end($altriPezzi));
+                        foreach ($filtersTmp as $afilter) {
+                            if (is_numeric($afilter) && intval($afilter) > 0) {
+                                $term_id = $afilter;
+                                if ($term_id) {
+                                    $my_term = get_term_by('term_taxonomy_id', $term_id);
+                                    $tterms = array($my_term);
+                                }
+                            } else {
+                                if (isset($taxonomies[$afilter])) {
+                                    $terms_tmp = array();
+                                    if (!empty($tterms)) {
+                                        foreach ($tterms as $aterm) {
+                                            if ($aterm->taxonomy == $afilter) {
+                                                $terms_tmp[] = $aterm;
+                                            }
+                                        }
+                                        $tterms = $terms_tmp;
+                                    }
+                                } else {
+                                    if ($afilter == 'first' || $afilter == 'reset') {
+                                        $tterms = array(reset($tterms));
+                                    }
+                                    if ($afilter == 'last' || $afilter == 'end') {
+                                        $tterms = array(end($tterms));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    $metaName = reset($altriPezzi);
+                    //var_dump($metaName);
+                    // GET SUB ARRAY
+                    $metaKey = explode(':', $metaName);
+                    $field = array_shift($metaKey);
+                    $replaceValue = array();
+                    if (!empty($tterms)) {
+                        foreach ($tterms as $key => $aterm) {
+                            $metaValue = DCE_Helper::get_term_value($aterm, $field);
+                            $metaValue = self::check_array_value($metaValue, $metaKey);
+                            if (count($altriPezzi) == 2) {
+                                // APPLY FILTERS
+                                $metaValue = self::apply_filters($metaValue, end($altriPezzi), $aterm->term_id, $field);
+                            }
+                            $replaceValue[] = $metaValue;
+                        }
+                    }                    
+                    
+                    $replaceValue = array_filter($replaceValue);
+                    if (!empty($replaceValue)) {
+                        $replaceValue = implode(', ', $replaceValue);
+                    }
+                    //$checkValue = eval($replaceValue);
+                    
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    
+                    $text = str_replace('[term:' . $metaParams . ']', $replaceValue, $text);
+                }
+            }
+        }
         return $text;
     }
 
@@ -266,11 +509,12 @@ class DCE_Tokens {
                     $optionName = array_shift($optionParams);
                     $optionValue = get_option($optionName);
                     $replaceValue = self::check_array_value($optionValue, $optionParams);
-                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
                         $replaceValue = self::apply_filters($replaceValue, $filtersTmp);
                     }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    
                     $text = str_replace('[option:' . $metaParams . ']', $replaceValue, $text);
                 }
             }
@@ -282,6 +526,7 @@ class DCE_Tokens {
         $text = str_replace('[date]', '[date:now]', $text);
         $text = str_replace('[date|', '[date:now|', $text);
         // /wp-admin/options.php
+        //var_dump($text);
         $pezzi = explode('[date:', $text);
         if (count($pezzi) > 1) {
             foreach ($pezzi as $key => $avalue) {
@@ -323,13 +568,13 @@ class DCE_Tokens {
                             $timestamp = strtotime($pezzoTmp);
                         }
                         //$dateFormat = $pezzoTmp; //$dateParams[0];
-                        $replaceValue = date($dateFormat, $timestamp);
+                        $replaceValue = date_i18n($dateFormat, $timestamp);
 
                         // translate
                         if (!empty($filtersTmp)) {
-                            foreach ($filtersTmp as $pkey => $pvalue) {
+                            /*foreach ($filtersTmp as $pkey => $pvalue) {
                                 $replaceValue = self::str_translate($replaceValue, $pvalue);
-                            }
+                            }*/
                             $replaceValue = self::apply_filters($replaceValue, $filtersTmp);
                         }
 
@@ -343,15 +588,51 @@ class DCE_Tokens {
         return $text;
     }
     
-    static public function value_or_fallback($replaceValue, $fallback) {
+    static public function value_or_fallback($replaceValue, $fallback = '') {
+        if (is_array($replaceValue) || is_object($replaceValue)) {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode() && false) {
+                $replaceValue = '<pre>'.var_export($replaceValue, true).'</pre>';
+            } else {
+                // FALLBACK
+                //$replaceValue = $fallback;
+                $post_ids = array();
+                if (is_array(reset($replaceValue))) {
+                    foreach ($replaceValue as $apost) {
+                        $post_ids[] = $apost['ID'];
+                    }
+                    $replaceValue = $post_ids;
+                }
+                if (is_object(reset($replaceValue))) {
+                    if (get_class(reset($replaceValue)) == 'WP_Post') {
+                        foreach ($replaceValue as $apost) {
+                            $post_ids[] = $apost->ID;
+                        }
+                        $replaceValue = $post_ids;
+                    }
+                    $replaceValue = (array)$replaceValue;                
+                }
+                
+                $replaceValue = implode(', ', $replaceValue);
+            }
+            
+            /*if (is_array($replaceValue)) {
+                if (count($replaceValue) == 1) {
+                    $tmpValue = reset($replaceValue);
+                    if (!is_array($tmpValue)) {
+                        $replaceValue = $tmpValue;
+                    }
+                }
+            }*/
+        }
         if (!\Elementor\Plugin::$instance->editor->is_edit_mode()) {
             if ($replaceValue == '' 
-                    || substr($replaceValue,0,12) == '<pre>array ('
-                    || substr($replaceValue,0,12) == '<pre>object(') {
+                || substr($replaceValue,0,12) == '<pre>array ('
+                || substr($replaceValue,0,12) == '<pre>object(') {
                 // FALLBACK
                 $replaceValue = $fallback;
             }
         }
+        
         return $replaceValue;
     }
 
@@ -359,49 +640,66 @@ class DCE_Tokens {
         if (!is_array($optionParams)) {
             $optionParams = array($optionParams);
         }
+        //var_dump($optionParams);
         
         $val = $optionValue;
-        foreach ($optionParams as $key => $value) {
-            
-            if (is_array($val)) {
-                
-                /*if (count($val) == 1) {
-                    $tmpValue = reset($val);
-                    if (!is_array($tmpValue)) {
-                        $val = $tmpValue;
+        if (!empty($optionParams)) {
+            foreach ($optionParams as $key => $value) {
+
+                if (is_array($val)) {
+
+                    /*if (count($val) == 1) {
+                        $tmpValue = reset($val);
+                        if (!is_array($tmpValue)) {
+                            $val = $tmpValue;
+                        }
+                    }*/
+
+                    if (array_key_exists($value, $val)) {
+                        $val = $val[$value];
+                    } else {
+                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                            return '<pre>'.var_export($val, true).'</pre>';
+                        } else {
+                            return false;
+                        }
+                    } 
+
+                } else if (is_object($val)) {
+                    if (property_exists(get_class($val), $value)) {
+                        $val = $val->{$value};
+                    } elseif (method_exists(get_class($val), $value)) {
+                        $val = $val->{$value}();
+                    } else {
+                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                            return '<pre>'.var_export($val, true).'</pre>';
+                        } else {
+                            return false;
+                        }
                     }
-                }*/
-                
-                if (array_key_exists($value, $val)) {
-                    $val = $val[$value];
-                } else {
-                    return '<pre>'.var_export($val, true).'</pre>';
-                } 
-                
-            } else if (is_object($val)) {
-                if (property_exists(get_class($val), $value)) {
-                    $val = $val->{$value};
-                } else {
-                    return '<pre>'.var_export($val, true).'</pre>';
                 }
+
             }
-            
-        }
-        
-        if (is_array($val)) {
-          if (count($val) == 1) {
-              $tmpValue = reset($val);
-              if (!is_array($tmpValue)) {
-                  $val = $tmpValue;
-              }
-          }
         }
         
         if (is_array($val) || is_object($val)) {
-            return '<pre>'.var_export($val, true).'</pre>';
+            //return '<pre>'.var_export($val, true).'</pre>';
         }
         
         return $val;
+    }
+    
+    public static function remove_quote($parameters = array()) {
+        if (!empty($parameters)) {
+            foreach ($parameters as $pkey => $pvalue) {
+                $parameters[$pkey] = trim($pvalue);
+                if ((substr($pvalue,0,1) == '"' && substr($pvalue,-1) == '"')
+                    || (substr($pvalue,0,1) == "'" && substr($pvalue,-1) == "'")) {
+                    $parameters[$pkey] = substr($pvalue,1,-1); // remove quote
+                }
+            }
+        }
+        return $parameters;
     }
     
     public static function apply_filters($replaceValue = false, $altriPezzi = '', $post_id = 0, $field = '') {
@@ -419,7 +717,14 @@ class DCE_Tokens {
             if (!is_numeric($afilter) && !intval($afilter) > 0) {
                 $afilterTmp = explode('(', $afilter,2);
                 if (count($afilterTmp) == 2) {
-                    $parameters = explode(',', substr(end($afilterTmp),0,-1));
+                    $parameter_string = substr(end($afilterTmp),0,-1);
+                    $parameters = explode(',', $parameter_string);
+                    $parameters = self::remove_quote($parameters);
+                    $parameters = array_filter($parameters); // TO FIX remove also "0"
+                    if (empty($parameters)) {
+                        $parameters[] = $parameter_string;
+                        $parameters = self::remove_quote($parameters);
+                    }
                     $kfilter = reset($afilterTmp);
                     $filters[$kfilter] = $parameters;
                 } else {
@@ -427,11 +732,18 @@ class DCE_Tokens {
                 }
             }
         }
+        //var_dump($filters);
         // APPLY FILTERS
         if (!empty($filters)) {
             // https://www.w3schools.com/Php/php_ref_string.asp
             // https://www.php.net/manual/en/ref.strings.php
             foreach ($filters as $afilter => $parameters) {
+                
+                if ($afilter == 'concatenate' || $afilter == 'concat') {
+                    $string2 = reset($parameters);
+                    $replaceValue = self::concatenate($replaceValue, $string2);
+                    continue;
+                }
 
                 // THUMB Custom Size
                 if (in_array($field, array('thumbnail','post_thumbnail','thumb','guid'))) {
@@ -451,12 +763,25 @@ class DCE_Tokens {
                         }
                     }
                 }
-
+                if ($afilter == 'eval') {
+                    echo 'EVAL is not a secure function, please do NOT use it.';
+                    continue;
+                }
+                
                 if ($afilter && is_callable($afilter)) {
-                    if (empty($parameters)) {
+                    if (empty($parameters)) {                        
                         $replaceValue = $afilter($replaceValue);
+                        //$replaceValue = call_user_func_array($afilter, $replaceValue);
                     } else {
-                        if (in_array($afilter, array('substr'))) {
+                        /*if (in_array($afilter, array('substr'))) {
+                            array_unshift($parameters, $replaceValue);
+                        }*/
+                        if ($afilter == 'date') {
+                            $afilter = 'date_i18n';
+                        }
+                        if (in_array($afilter, array('implode', 'explode', 'date', 'date_i18n', 'get_the_author_meta'))) {
+                            $parameters[] = $replaceValue;
+                        } else {
                             array_unshift($parameters, $replaceValue);
                         }
                         $replaceValue = call_user_func_array($afilter, $parameters);
@@ -466,8 +791,16 @@ class DCE_Tokens {
         }
         return $replaceValue;
     }
-
-        public static function str_translate($value, $lang) {
+    
+    public static function user_to_author($txt) {
+        return str_replace('[user', '[author', $txt);
+    }
+        
+    public static function concatenate($strin1 = '', $string2 = '') {
+        return $strin1.$string2;
+    }
+    
+    /*public static function str_translate($value, $lang) {
         if ($lang == "IT") {
             $value = str_replace("January", "Gennaio", $value);
             $value = str_replace("February", "Febbraio", $value);
@@ -508,6 +841,6 @@ class DCE_Tokens {
             $value = str_replace("Sat", "Sab", $value);
         }
         return $value;
-    }
+    }*/
 
 }

@@ -6,11 +6,15 @@ get_header();
 $dce_default_options = get_option( DCE_OPTIONS );
 //
 $global_is = 'user';
-//
+
+// BEFORE
 $dce_before_template = null;
 if( isset($dce_default_options['dyncontel_field_singleuser']) ) $dce_before_template = $dce_default_options['dyncontel_field_singleuser'];
 if( isset($dce_default_options['dyncontel_before_field_archiveuser']) ) $dce_before_template = $dce_default_options['dyncontel_before_field_archiveuser'];
-
+// AFTER
+$dce_after_template = null;
+if( isset($dce_default_options['dyncontel_field_singleuser']) ) $dce_after_template = $dce_default_options['dyncontel_field_singleuser'];
+if( isset($dce_default_options['dyncontel_after_field_archiveuser']) ) $dce_after_template = $dce_default_options['dyncontel_after_field_archiveuser'];
 //
 $dce_block_template = 'dyncontel_field_archiveuser';
 //
@@ -34,8 +38,9 @@ $dce_col_xs = $dce_default_options[$dce_block_template.'_col_xs'];
             // -------- quasta è la pagina del template che viene impostata nei settings di User -----------
             if ( isset($dce_before_template) && $dce_before_template > 1 ) {
                 echo do_shortcode('[dce-elementor-template id="' . $dce_before_template . '"]');
-            }else{
-                ?>
+            }
+            else {
+              /* ?>
 
                 <!-- This sets the $curauth variable -->
                 <div class="container">
@@ -67,7 +72,7 @@ $dce_col_xs = $dce_default_options[$dce_block_template.'_col_xs'];
 
                         ?>  
                 </div>
-                <?php
+                <?php */
             }
             //
             
@@ -90,7 +95,7 @@ $dce_col_xs = $dce_default_options[$dce_block_template.'_col_xs'];
                             the_content();
                        echo '</div>';
                      endwhile; else: ?>
-                        <p><?php __('No posts by this author.',DCE_TEXTDOMAIN ); ?></p>
+                        <p><?php __('No posts by this author.','dynamic-content-for-elementor' ); ?></p>
                     <?php endif;
                 }
             }
@@ -98,6 +103,10 @@ $dce_col_xs = $dce_default_options[$dce_block_template.'_col_xs'];
             <!-- End Loop -->
             </div>
             <?php 
+            }
+
+            if ( isset($dce_after_template) && $dce_after_template > 1 ) {
+                echo do_shortcode('[dce-elementor-template id="' . $dce_after_template . '"]');
             }
             ?>
             

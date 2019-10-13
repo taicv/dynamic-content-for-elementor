@@ -220,30 +220,12 @@ body.dce-inertiaScroll {
   backface-visibility: hidden;
   transform-style: preserve-3d;
 }
+
+
 .dce-scrolling .scroll-direction-horizontal.elementor-2760 section.elementor-element{
   
 }
-/*#outer-wrap {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-  background-color: #00ff00;
-}*/
-/*.elementor-2760 {
-  width: 300%;
-  height: 100vh;
-  background-color: #ff0000;
-  transform-origin: 0 0;
-}
-.elementor-2760 section.elementor-element {
-  height: 100vh;
-  width: 33.33333%;
-  float: left;
-  text-align: center;
-  
-}*/
+
 
 .trace{
   position: fixed;
@@ -253,62 +235,7 @@ body.dce-inertiaScroll {
   background-color: #FFF;
   border: 1px solid #ccc;
 }
-/* ////////////////////////////////////////////////////
-///////////////// Scrollify dce-scrollify-pagination ////////////////
-///////////////////////////////////////////////////// */
-.dce-scrollify .dce-scrollify-pagination {
-  position:fixed;
-  right:20px;
-  top: 50%;
-  transform: translateY(-50%);
 
-  font-size:1.4em;
-  z-index: 10000;
-}
-.dce-scrollify .dce-scrollify-pagination li{
-  display: block;
-  position: relative;
-}
-.dce-scrollify .dce-scrollify-pagination a {
-  display:block;
-  height:20px;
-  margin-bottom:5px;
-  color: #000000;
-  position:relative;
-  padding:4px;
-}
-.dce-scrollify .dce-scrollify-pagination a.active:after {
-  box-shadow:inset 0 0 0 10px;
-}
-.dce-scrollify .dce-scrollify-pagination a .hover-text {
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: 0;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
-  padding-right: 20px;
-  font-size: 15px;
-  line-height: 1;
-}
-.dce-scrollify .dce-scrollify-pagination a:hover .hover-text {
-  opacity: 1;
-}
-.dce-scrollify .dce-scrollify-pagination a:after {
-  -webkit-transition:box-shadow 0.5s ease;
-  transition:box-shadow 0.5s ease;
-  width:10px;
-  height:10px;
-  display: block;
-  border:1px solid;
-  border-radius:50%;
-  content:'';
-  position: absolute;
-  margin:auto;
-  top:0;
-  right:4px;
-  bottom:0;
-}
 /* ////////////////////////////////////////////////////
 ///////////////////// Ajax Open //////////////////////
 ///////////////////////////////////////////////////// */
@@ -783,23 +710,29 @@ body:not(.elementor-msie) .equalHMR{
   display: block;
 }
 /* --------- Read More -------- */
+.dyncontel-readmore{
+  z-index: 1;
+}
 .elementor-widget-dyncontel-readmore .dce-btn-readmore{
   display: inline-block;
-  
+}
+.elementor-widget-dyncontel-readmore a.dce-btn-readmore{
+  transition: all 0.5s ease;
 }
 .dce-btn-readmore .icon-rm{
   position: relative;
+  top: 0;
   z-index: 1;
 
   transition: color 0.5s ease;
 }
-.icon-left .dce-btn-readmore .icon-rm{
+/*.icon-left .dce-btn-readmore .icon-rm{
   float: left;
   
 }
 .icon-right .dce-btn-readmore .icon-rm{
   float: right;
-}
+}*/
 .icon-left .dce-btn-readmore.icon_button,
 .icon-left .dce-btn-readmore.icon_button:after,
 .icon-left .dce-btn-readmore.icon_button:before{
@@ -841,26 +774,36 @@ body:not(.elementor-msie) .equalHMR{
   text-align: left;
 }
 
-.icon-right .dce-btn-readmore.icon_button > span,
+.icon-right .dce-btn-readmore.icon_button > span/*,
 .icon-right .dce-btn-readmore.icon_button:after,
-.icon-right .dce-btn-readmore.icon_button:before{
+.icon-right .dce-btn-readmore.icon_button:before*/{
   padding-right: 0 !important;
 }
-.icon-left .dce-btn-readmore.icon_button > span,
+.icon-left .dce-btn-readmore.icon_button > span/*,
 .icon-left .dce-btn-readmore.icon_button:after,
-.icon-left .dce-btn-readmore.icon_button:before{
+.icon-left .dce-btn-readmore.icon_button:before*/{
   padding-left: 0 !important;
 }
 .dce-btn-readmore > span{
   transition: background-color 0.6s ease, color  0.6s ease;
   display: inline-block;
 }
+
 .rmbtn-align-justify .dce-btn-readmore{
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  text-align: center;
 }
 
+.rmbtn-align-justify .dce-btn-readmore:after,
+.rmbtn-align-justify .dce-btn-readmore:before{
+  display: flex;
+  align-items: center;
+}
+.rmbtn-align-justify .dce-btn-readmore .icon-rm{
+  position: inherit;
+  top: 0 !important;
+}
 /* PHOTOSWIPE */
 /* La barra top non si vede */
 .pswp__ui--idle .pswp__top-bar{
@@ -1291,7 +1234,6 @@ body:not(.elementor-msie) .equalHMR{
 
   -webkit-transform: translate3d(0, 25%, 0);
   transform: translate3d(0, 25%, 0);
-  text-align: center;
 }
 
 .button--winona:after,
@@ -2589,22 +2531,22 @@ body:not(.elementor-msie) .equalHMR{
   z-index: 1000;
 }
 
-/* SVG Morphing */
-/* SVG Morphing */
-.dce-svg-morph-wrap .dce-svg-morph{
+/* SVG */
+.dce-svg-morph-wrap .dce-svg-morph,
+.dce_fe_effects-wrapper .dce-svg-fe_filtereffect,
+.dce_distortion-wrapper .dce-svg-distortion,
+.dce_imagemask-wrapper .dce-svg-imagemask,
+.dce_svgblob-wrapper .dce-svg-blob,
+.dce_svgpathtext-wrapper .dce-svg-pathtext
+{
   overflow: visible;
 }
 .elementor-editor-active svg.dce-svg-morph{
   outline: 1px dotted #999;
 }
-svg.dce-svg-morph polygon{
-  
-}
-svg.dce-svg-morph > path, svg.dce-svg-morph > polyline, svg.dce-svg-morph > polygon{
-  /*fill:#CCC;
-  stroke:#000000;
-  stroke-miterlimit:10;
-  stroke-width:5;*/
+.svg-trigger-rollover svg.dce-svg-morph:hover,
+.svg-trigger-rollover svg.dce-svg-distortion:hover{
+  cursor: pointer;
 }
 /* SWUP */
 .transition-fade{
@@ -2719,3 +2661,24 @@ html.swup-enabled.is-animating #footer {
   border-top: none !important;
   border-right: none !important;
 }
+
+
+.elementor-button-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+/**************** ACF repeater ******************/
+.dce-acf-repeater-masonry .dce-acf-repeater-item{
+  float: left;
+}
+
+/**************** ELEMENTOR PRO FORM bugfix ******************/
+.elementor-widget-form .elementor-field-type-acceptance .elementor-field-subgroup .elementor-field-option input, 
+.elementor-widget-form .elementor-field-type-acceptance .elementor-field-subgroup .elementor-field-option label, 
+.elementor-widget-form .elementor-field-type-checkbox .elementor-field-subgroup .elementor-field-option input, 
+.elementor-widget-form .elementor-field-type-checkbox .elementor-field-subgroup .elementor-field-option label, 
+.elementor-widget-form .elementor-field-type-radio .elementor-field-subgroup .elementor-field-option input, 
+.elementor-widget-form .elementor-field-type-radio .elementor-field-subgroup .elementor-field-option label {
+	display: inline-block;
+}
+

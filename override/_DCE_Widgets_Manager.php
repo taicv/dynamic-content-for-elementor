@@ -21,9 +21,10 @@ class DCE_Widgets_Manager extends Widgets_Manager {
    */
     
    private function require_files() {
-       if (!class_exists('Elementor\\Widget_Base')) {
-           require_once ELEMENTOR_PATH . 'includes/base/widget-base.php';
+       if (!class_exists('\\Elementor\\Widget_Base')) {
+           //require_once ELEMENTOR_PATH . 'includes/base/widget-base.php';
        }
    }
+   
 }
 

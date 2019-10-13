@@ -45,11 +45,11 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
 
         $element->add_control(
                 'enabled_rellax', [
-            'label' => __('Enabled Rellax', DCE_TEXTDOMAIN),
+            'label' => __('Enabled Rellax', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
             'frontend_available' => true,
                 //            
@@ -57,7 +57,7 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
         );
         $element->add_responsive_control(
                 'speed_rellax', [
-            'label' => __('Speed', DCE_TEXTDOMAIN),
+            'label' => __('Speed', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 0,
@@ -78,7 +78,7 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
         );
         $element->add_responsive_control(
                 'percentage_rellax', [
-            'label' => __('Percentage', DCE_TEXTDOMAIN),
+            'label' => __('Percentage', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 0.5,
@@ -98,7 +98,7 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
         );
         $element->add_control(
                 'zindex_rellax', [
-            'label' => __('Z-Index', DCE_TEXTDOMAIN),
+            'label' => __('Z-Index', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0,
             'min' => -1,
@@ -112,11 +112,11 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
         /* $element->add_control(
           'vertical_rellax',
           [
-          'label' => __( 'Vertical', DCE_TEXTDOMAIN ),
+          'label' => __( 'Vertical', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SWITCHER,
           'default' => 'yes',
-          'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-          'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+          'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+          'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
           'return_value' => 'yes',
           'frontend_available' => true,
           'condition'     => [
@@ -127,11 +127,11 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
           $element->add_control(
           'horizontal_rellax',
           [
-          'label' => __( 'Horizontal', DCE_TEXTDOMAIN ),
+          'label' => __( 'Horizontal', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SWITCHER,
           'default' => '',
-          'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-          'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+          'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+          'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
           'return_value' => 'yes',
           'frontend_available' => true,
           'condition'     => [

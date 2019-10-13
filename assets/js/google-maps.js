@@ -41,14 +41,14 @@ var isAdminBar = false,
         //
         var mapParams = {
             zoom: zoom,
-            scrollwheel: 'yes' === elementSettingsMap.prevent_scroll,
-            mapTypeControl: 'yes' === elementSettingsMap.maptypecontrol,
-            panControl: 'yes' === elementSettingsMap.pancontrol,
-            rotateControl: 'yes' === elementSettingsMap.rotaterontrol,
-            scaleControl: 'yes' === elementSettingsMap.scalecontrol,
-            streetViewControl: 'yes' === elementSettingsMap.streetviewcontrol,
-            zoomControl: 'yes' === elementSettingsMap.zoomcontrol,
-            fullscreenControl: 'yes' === elementSettingsMap.fullscreenControl,
+            scrollwheel: Boolean( elementSettingsMap.prevent_scroll ),
+            mapTypeControl: Boolean( elementSettingsMap.maptypecontrol ),
+            panControl: Boolean( elementSettingsMap.pancontrol ),
+            rotateControl: Boolean( elementSettingsMap.rotaterontrol ),
+            scaleControl: Boolean( elementSettingsMap.scalecontrol ),
+            streetViewControl: Boolean( elementSettingsMap.streetviewcontrol ),
+            zoomControl: Boolean( elementSettingsMap.zoomcontrol ),
+            fullscreenControl: Boolean( elementSettingsMap.fullscreenControl ),
             center: centroMappa
         };
 
@@ -107,12 +107,12 @@ var isAdminBar = false,
                             icon: address_list[i]['marker'],
                             animation: google.maps.Animation.DROP, //.DROP.BOUNCE,
                         });
-                        console.log(marker);
+                        //console.log(marker);
                         //
                         bounds.extend(marker.position);
                         //
 
-                        if (elementSettingsMap.enable_infoWindow == 'yes') {
+                        if (elementSettingsMap.enable_infoWindow) {
 
 
 
@@ -120,7 +120,7 @@ var isAdminBar = false,
                                 //
                                 return function () {
 
-                                    if (elementSettingsMap.infoWindow_click_to_post == 'yes') {
+                                    if (elementSettingsMap.infoWindow_click_to_post) {
                                         if (isEditMode) {
                                             alert('You have clicked: ' + address_list[k]['postLink']);
                                             return false;
@@ -140,7 +140,9 @@ var isAdminBar = false,
 
                         }
                     }
-                    map.fitBounds(bounds);
+                    if (address_list.length > 1) {
+                        map.fitBounds(bounds);
+                    }
                     //alert(address_list[i]['marker']);
                     //alert('query');
                 }
@@ -174,7 +176,7 @@ var isAdminBar = false,
                         //infowindow: 'HI!'
                     });
 
-                    if (elementSettingsMap.enable_infoWindow == 'yes') {
+                    if (elementSettingsMap.enable_infoWindow) {
                         marker.addListener('click', function () {
                             infoWindowMap.open(map, this);
                         });
@@ -186,8 +188,7 @@ var isAdminBar = false,
         }
         
         function changeMapLocation(locations) {
-
-            if (locations && locations.length) {
+            if (locations && locations.length >= 1) {
 
                 /*var numOfLocations = locations.length;
                  for(var i=0; i<numOfLocations; i++) {  
@@ -233,13 +234,13 @@ var isAdminBar = false,
                 });
                 map.panTo(locations[0].location);
 
-                if (elementSettingsMap.enable_infoWindow == 'yes') {
+                if (elementSettingsMap.enable_infoWindow) {
                     marker.addListener('click', function () {
                         //alert(locations[0].infoWindow);
                         //alert(locations[0].postLink);
 
 
-                        if (elementSettingsMap.infoWindow_click_to_post == 'yes') {
+                        if (elementSettingsMap.infoWindow_click_to_post) {
                             if (isEditMode) {
                                 alert('You have clicked: ' + locations[0].postLink);
                                 return false;
@@ -251,7 +252,7 @@ var isAdminBar = false,
                         }
                     });
                 }
-                if (elementSettingsMap.use_query == 'yes') {
+                if (elementSettingsMap.use_query) {
                     bounds.extend(marker.position);
                     map.fitBounds(bounds);
                 }

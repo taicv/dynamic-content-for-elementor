@@ -12,10 +12,10 @@
             easing: "cubic-bezier(.03,.98,.52,.99)", // Easing on enter/exit.
             scale: tiltSettings.tilt_scale || 1, //1,      // 2 = 200%, 1.5 = 150%, etc..
             speed: tiltSettings.tilt_speed['size'], //300,    // Speed of the enter/exit transition.
-            transition: 'yes' === tiltSettings.tilt_transition, //true,   // Set a transition on enter/exit.
+            transition: Boolean( tiltSettings.tilt_transition ), //true,   // Set a transition on enter/exit.
             axis: null, // What axis should be disabled. Can be X or Y.
-            reset: 'yes' === tiltSettings.tilt_reset, //true,   // If the tilt effect has to be reset on exit.
-            glare: 'yes' === tiltSettings.tilt_glare, //false,  // Enables glare effect
+            reset: Boolean( tiltSettings.tilt_reset ), //true,   // If the tilt effect has to be reset on exit.
+            glare: Boolean( tiltSettings.tilt_glare ), //false,  // Enables glare effect
             maxGlare: tiltSettings.tilt_maxGlare       // From 0 - 1.
 
                     /*maxTilt:        20,

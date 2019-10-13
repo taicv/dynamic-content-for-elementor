@@ -40,9 +40,9 @@ class DCE_Settings {
                 if (!get_option('dce_php_version_notice')) {
                     $pieces = explode('-', PHP_VERSION);
                     $PHP_VERSION = reset($pieces);
-                    $notice_text = __('Your server are using PHP version:', DCE_TEXTDOMAIN) . ' <strong>' . $PHP_VERSION . '</strong>';
-                    $notice_text .= '<br>' . __('We strongly raccomand to update to more recent PHP version, you will have best results with PHP 7.x or newer.', DCE_TEXTDOMAIN);
-                    $notice_text .= '<br><br><a class="btn button" href="' . admin_url('admin.php?page=dce_opt&dismiss_notice=php') . '"><span class="dashicons dashicons-yes"></span> ' . __('Ok, I understand. Thanks for suggestion.', DCE_TEXTDOMAIN) . '</a>';
+                    $notice_text = __('Your server are using PHP version:', 'dynamic-content-for-elementor') . ' <strong>' . $PHP_VERSION . '</strong>';
+                    $notice_text .= '<br>' . __('We strongly raccomand to update to more recent PHP version, you will have best results with PHP 7.x or newer.', 'dynamic-content-for-elementor');
+                    $notice_text .= '<br><br><a class="btn button" href="' . admin_url('admin.php?page=dce_opt&dismiss_notice=php') . '"><span class="dashicons dashicons-yes"></span> ' . __('Ok, I understand. Thanks for suggestion.', 'dynamic-content-for-elementor') . '</a>';
                     DCE_Notice::dce_admin_notice__warning($notice_text);
                 }
             }
@@ -56,9 +56,9 @@ class DCE_Settings {
               }
               }
               if (!get_option('dce_template_system_notice')) {
-              $notice_text = __('It seems that you didn\'t configured the', DCE_TEXTDOMAIN).' <strong>Dynamic Template System</strong>';
-              $notice_text .= '<br>'.__('Please read our guides to obtain best results from Wordpress + Elementor.', DCE_TEXTDOMAIN);
-              $notice_text .= '<br><br><a class="btn button" href="'.admin_url('admin.php?page=dce_opt&tab=settings&dismiss_notice=template').'"><span class="dashicons dashicons-yes"></span> '.__('Ok, I understand. I will use it!', DCE_TEXTDOMAIN ).'</a> <a class="button button-primary" href="https://docs.dynamic.ooo" target="_blank"><span class="dashicons dashicons-book-alt"></span> Read the docs</a>';
+              $notice_text = __('It seems that you didn\'t configured the', 'dynamic-content-for-elementor').' <strong>Dynamic Template System</strong>';
+              $notice_text .= '<br>'.__('Please read our guides to obtain best results from Wordpress + Elementor.', 'dynamic-content-for-elementor');
+              $notice_text .= '<br><br><a class="btn button" href="'.admin_url('admin.php?page=dce_opt&tab=settings&dismiss_notice=template').'"><span class="dashicons dashicons-yes"></span> '.__('Ok, I understand. I will use it!', 'dynamic-content-for-elementor' ).'</a> <a class="button button-primary" href="https://docs.dynamic.ooo" target="_blank"><span class="dashicons dashicons-book-alt"></span> Read the docs</a>';
               DCE_Notice::dce_admin_notice__warning($notice_text);
               }
               }
@@ -76,9 +76,9 @@ class DCE_Settings {
               }
               }
               if (!get_option('dce_dynamic_notice')) {
-              $notice_text = __('Please configure the plugin to enable all functionalities.', DCE_TEXTDOMAIN);
-              $notice_text .= '<br>'.__('Discover our Windgets, Extension and Documents.', DCE_TEXTDOMAIN);
-              $notice_text .= '<br><br><a class="btn button" href="'.admin_url('admin.php?page=dce_opt&tab=widgets&dismiss_notice=dynamic').'"><span class="dashicons dashicons-yes"></span> '.__('Ok, I understand. Let\'s go to activate them!', DCE_TEXTDOMAIN ).'</a> <a class="button button-primary" href="https://docs.dynamic.ooo" target="_blank"><span class="dashicons dashicons-book-alt"></span> Read the docs</a>';
+              $notice_text = __('Please configure the plugin to enable all functionalities.', 'dynamic-content-for-elementor');
+              $notice_text .= '<br>'.__('Discover our Windgets, Extension and Documents.', 'dynamic-content-for-elementor');
+              $notice_text .= '<br><br><a class="btn button" href="'.admin_url('admin.php?page=dce_opt&tab=widgets&dismiss_notice=dynamic').'"><span class="dashicons dashicons-yes"></span> '.__('Ok, I understand. Let\'s go to activate them!', 'dynamic-content-for-elementor' ).'</a> <a class="button button-primary" href="https://docs.dynamic.ooo" target="_blank"><span class="dashicons dashicons-book-alt"></span> Read the docs</a>';
               DCE_Notice::dce_admin_notice__warning($notice_text);
               }
               }
@@ -103,7 +103,7 @@ class DCE_Settings {
         // wordpress will add the "settings-updated" $_GET parameter to the url
         if (isset($_GET['settings-updated'])) {
             // add settings saved message with the class of "updated"
-            add_settings_error('dce_messages', 'dce_message', __('Settings Saved', DCE_TEXTDOMAIN), 'updated');
+            add_settings_error('dce_messages', 'dce_message', __('Settings Saved', 'dynamic-content-for-elementor'), 'updated');
         }
 
         $dce_apis = DCE_Assets::get_dce_apis();
@@ -111,7 +111,7 @@ class DCE_Settings {
         DCE_Assets::dce_icon();
         //var_dump($dce_apis);
         if (empty($dce_apis) && !$tplsys) {
-            DCE_Notice::dce_admin_notice__warning(__('Please fill API keys to use third parts services. <a class="btn button" href="?page=dce_opt&tab=apis">Set them now</a>', DCE_TEXTDOMAIN));
+            DCE_Notice::dce_admin_notice__warning(__('Please fill API keys to use third parts services. <a class="btn button" href="?page=dce_opt&tab=apis">Set them now</a>', 'dynamic-content-for-elementor'));
         }
         
         DCE_License::dce_active_domain_check();
@@ -125,25 +125,30 @@ class DCE_Settings {
             <?php if (!$tplsys) { ?>
             <div id="dce-settings-tabs-wrapper" class="nav-tab-wrapper">
                 <a id="dce-settings-tab-settings" class="nav-tab<?php if (!isset($_GET['tab']) || (isset($_GET['tab']) && $_GET['tab'] == 'settings')) { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=settings">
-                    <span class="icon icon-dyn-logo-dce"></span> <?php _e('Template System', DCE_TEXTDOMAIN); ?>
+                    <span class="icon icon-dyn-logo-dce"></span> <?php _e('Template System', 'dynamic-content-for-elementor'); ?>
                 </a>
                 <a id="dce-settings-tab-widgets" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'widgets') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=widgets">
-                    <span class="elementor-icon eicon-apps"></span> <?php _e('Widgets', DCE_TEXTDOMAIN); ?>
+                    <span class="elementor-icon eicon-apps"></span> <?php _e('Widgets', 'dynamic-content-for-elementor'); ?>
+                    <span class="dce-badge"><?php $widgets = DCE_Widgets::get_active_widgets(); echo count($widgets); ?></span>
                 </a>
                 <a id="dce-settings-tab-extensions" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'extensions') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=extensions">
-                    <span class="dashicons dashicons-admin-generic"></span> <?php _e('Extensions', DCE_TEXTDOMAIN); ?>
+                    <span class="dashicons dashicons-admin-generic"></span> <?php _e('Extensions', 'dynamic-content-for-elementor'); ?>
+                    <span class="dce-badge"><?php $extensions = DCE_Extensions::get_active_extensions(); echo count($extensions); ?></span>
                 </a>
                 <a id="dce-settings-tab-controls" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'documents') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=documents">
-                    <span class="dashicons dashicons-admin-generic"></span> <?php _e('Documents', DCE_TEXTDOMAIN); ?>
+                    <span class="dashicons dashicons-admin-generic"></span> <?php _e('Documents', 'dynamic-content-for-elementor'); ?>
+                    <span class="dce-badge"><?php $documents = DCE_Documents::get_documents(); echo count($documents); ?></span>
                 </a>
                 <a id="dce-settings-tab-apis" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'apis') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=apis">
-                    <span class="dashicons dashicons-admin-plugins"></span> <?php _e('APIs', DCE_TEXTDOMAIN); ?>
+                    <span class="dashicons dashicons-admin-plugins"></span> <?php _e('APIs', 'dynamic-content-for-elementor'); ?>
                 </a>
-                <?php /* <a id="dce-settings-tab-license" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'log') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=log">
-                    <span class="dashicons dashicons-media-text"></span> <?php _e('Log', DCE_TEXTDOMAIN); ?>
-                </a> */ ?>
+                <?php 
+                /* <a id="dce-settings-tab-license" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'log') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=log">
+                    <span class="dashicons dashicons-media-text"></span> <?php _e('Log', 'dynamic-content-for-elementor'); ?>
+                </a> */
+                ?>
                 <a id="dce-settings-tab-license" class="nav-tab<?php if (isset($_GET['tab']) && $_GET['tab'] == 'license') { ?> nav-tab-active<?php } ?>" href="?page=dce_opt&tab=license">
-                    <span class="dashicons dashicons-admin-network"></span> <?php _e('License', DCE_TEXTDOMAIN); ?>
+                    <span class="dashicons dashicons-admin-network"></span> <?php _e('License', 'dynamic-content-for-elementor'); ?>
                 </a>
             </div>
             <div class="metabox-holder dce-metabox-holder-no">
@@ -190,7 +195,7 @@ class DCE_Settings {
 
     public function show_widgets_form() {
         ?>
-        <p><?php __('Select the widgets you want to display on Elementor:', DCE_TEXTDOMAIN); ?></p>
+        <p><?php __('Select the widgets you want to display on Elementor:', 'dynamic-content-for-elementor'); ?></p>
         <form action="" method="post">
             <?php
             if (isset($_POST['save-dce-widgets'])) {
@@ -204,7 +209,7 @@ class DCE_Settings {
                     }
                 }
                 update_option(SL_PRODUCT_ID . '_excluded_widgets', json_encode($excluded_widgets));
-                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active widgets.', DCE_TEXTDOMAIN));
+                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active widgets.', 'dynamic-content-for-elementor'));
             }
             $excluded_widgets = json_decode(get_option(SL_PRODUCT_ID . '_excluded_widgets'), true);
             $i = 0;
@@ -225,7 +230,7 @@ class DCE_Settings {
                                 <h3><?php
                                     echo $key;
                                     if (strtolower($key) == 'dev') {
-                                        ?> <small><abbr style="opacity: 0.5;" title="<?php _e('For security reasons some of this widget are restricted to Admin use only.', DCE_TEXTDOMAIN); ?>"><?php _e('Only for Admins', DCE_TEXTDOMAIN); ?></abbr></small><?php } ?></h3>
+                                        ?> <small><abbr style="opacity: 0.5;" title="<?php _e('For security reasons some of this widget are restricted to Admin use only.', 'dynamic-content-for-elementor'); ?>"><?php _e('Only for Admins', 'dynamic-content-for-elementor'); ?></abbr></small><?php } ?></h3>
                             </th>
                         </tr>
                     </thead>
@@ -252,7 +257,7 @@ class DCE_Settings {
                                             <?php echo $myWdgtObj->get_title(); //echo end($pezzi);  ?>
                                         </label>
                                         <?php if (!empty($enablePlugin)) { ?>
-                                            <small class="warning text-red red"><span class="dashicons dashicons-warning"></span> <?php _e('Required plugins', DCE_TEXTDOMAIN); ?>: <?php echo implode(', ', $enablePlugin); ?></small>
+                                            <small class="warning text-red red"><span class="dashicons dashicons-warning"></span> <?php _e('Required plugins', 'dynamic-content-for-elementor'); ?>: <?php echo implode(', ', $enablePlugin); ?></small>
                                         <?php }
                                         ?>
                                         <p>
@@ -280,7 +285,7 @@ class DCE_Settings {
 
     public function show_extensions_form() {
         ?>
-        <p><?php __('Select the extensions you want to activate on Elementor:', DCE_TEXTDOMAIN); ?></p>
+        <p><?php __('Select the extensions you want to activate on Elementor:', 'dynamic-content-for-elementor'); ?></p>
         <form action="" method="post">
             <?php
             $extensions = DCE_Extensions::get_active_extensions();
@@ -293,7 +298,7 @@ class DCE_Settings {
                     }
                 }
                 update_option(SL_PRODUCT_ID . '_excluded_extensions', json_encode($excluded_extensions));
-                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active extensions.', DCE_TEXTDOMAIN));
+                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active extensions.', 'dynamic-content-for-elementor'));
             }
             $excluded_extensions = json_decode(get_option(SL_PRODUCT_ID . '_excluded_extensions'), true);
             $i = 0;
@@ -322,15 +327,30 @@ class DCE_Settings {
                             ?>
                             <tr>
                                 <td> &nbsp; &nbsp;
+                                    <?php 
+                                        $extension_satisfy_plugin_depends = true;
+                                        if (!empty($myWdgtClass::$depended_plugins)) { 
+                                            foreach ($myWdgtClass::$depended_plugins as $aplugin) { 
+                                                if (!DCE_Helper::is_plugin_active($aplugin)) {
+                                                    $extension_satisfy_plugin_depends = false;
+                                                }
+                                            }
+                                        }
+                                    ?>
                                     <input class="dce-extensions dce-extensions-<?php echo strtolower($key); ?>" type="checkbox" name="dce-extensions[<?php echo $className; ?>]" id="dce-extensions-<?php echo $className; ?>"
                                     <?php
-                                    if (!$excluded_extensions || !isset($excluded_extensions[$className])) {
+                                    if ((!$excluded_extensions || !isset($excluded_extensions[$className])) && $extension_satisfy_plugin_depends) {
                                         ?> checked="checked"<?php
-                                           }
-                                           ?>>
-                                           <?php /* <i class="icon-<?php echo $myWdgtObj->get_icon(); ?>" aria-hidden="true"></i> */ ?>
-                                    <label style="font-weight: bold;" for="dce-extensions-<?php echo $className; ?>">
-                                        <?php echo $myWdgtObj->name; //echo end($pezzi);  ?>
+                                    }
+                                    if (!$extension_satisfy_plugin_depends) {
+                                        echo ' disabled';
+                                    }
+                                    ?>>
+                                    <label for="dce-extensions-<?php echo $className; ?>">
+                                        <b><?php echo $myWdgtObj->name; //echo end($pezzi);  ?></b>
+                                        <?php if (!$extension_satisfy_plugin_depends) { ?>
+                                            <small class="warning text-red red"><span class="dashicons dashicons-warning"></span> <?php _e('Required plugins', 'dynamic-content-for-elementor'); ?>: <?php echo implode(', ', $myWdgtClass::$depended_plugins); ?></small>
+                                        <?php } ?>
                                         <p>
                                             <?php /* <i class="icon <?php echo $myWdgtObj->get_icon(); ?>" aria-hidden="true"></i> */ ?>
                                             <em><?php echo $myWdgtObj->get_description(); ?></em>
@@ -354,7 +374,7 @@ class DCE_Settings {
 
     public function show_documents_form() {
         ?>
-        <p><?php __('Select the documents you want to activate on Elementor:', DCE_TEXTDOMAIN); ?></p>
+        <p><?php __('Select the documents you want to activate on Elementor:', 'dynamic-content-for-elementor'); ?></p>
         <form action="" method="post">
             <?php
             $documents = DCE_Documents::get_active_documents();
@@ -367,7 +387,7 @@ class DCE_Settings {
                     }
                 }
                 update_option(SL_PRODUCT_ID . '_excluded_documents', json_encode($excluded_documents));
-                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active documents.', DCE_TEXTDOMAIN));
+                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved. You will only see the active documents.', 'dynamic-content-for-elementor'));
             }
             $excluded_documents = json_decode(get_option(SL_PRODUCT_ID . '_excluded_documents'), true);
             $i = 0;
@@ -422,16 +442,16 @@ class DCE_Settings {
 
     public function show_apis_form() {
         ?>
-        <p><?php __('Insert your apis if you want to activate this services on your site:', DCE_TEXTDOMAIN); ?></p>
+        <p><?php __('Insert your apis if you want to activate this services on your site:', 'dynamic-content-for-elementor'); ?></p>
         <form action="" method="post">
             <?php
             if (isset($_POST['save-dce-apis'])) {
                 update_option(SL_PRODUCT_ID . '_apis', $_POST['dce-apis']);
-                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', DCE_TEXTDOMAIN));
+                DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', 'dynamic-content-for-elementor'));
             }
             $dce_apis = DCE_Assets::get_dce_apis();
             /* if (empty($dce_apis)) {
-              DCE_Notice::dce_admin_notice__warning(__('Please fill API keys to use third parts services.', DCE_TEXTDOMAIN));
+              DCE_Notice::dce_admin_notice__warning(__('Please fill API keys to use third parts services.', 'dynamic-content-for-elementor'));
               } */
             ?>
             <table class="widefat dce-form-table">
@@ -468,7 +488,7 @@ class DCE_Settings {
             //var_dump($_POST[$dce_option]);
             update_option(DCE_OPTIONS, $_POST[DCE_OPTIONS]);
             $this->options = $_POST[DCE_OPTIONS];
-            DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', DCE_TEXTDOMAIN));
+            DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', 'dynamic-content-for-elementor'));
         }
         ?>
         <form action="#options.php" method="post">
@@ -544,7 +564,7 @@ class DCE_Settings {
                             ?>
                             <tr>
                                 <th width="200" scope="dce-row">
-                                    <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Archive Blocks', DCE_TEXTDOMAIN); ?></label>
+                                    <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Archive Blocks', 'dynamic-content-for-elementor'); ?></label>
                                 </th>
                                 <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                                 <td><?php $this->_dce_settings_select_template_layout($dce_key); ?></td>
@@ -556,7 +576,7 @@ class DCE_Settings {
                         ?>
                         <tr>
                             <th width="200" scope="dce-row">
-                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Single Post', DCE_TEXTDOMAIN); ?></label>
+                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Single Post', 'dynamic-content-for-elementor'); ?></label>
                             </th>
                             <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                             <td><?php $this->_dce_settings_select_template_blank($dce_key); ?></td>
@@ -595,7 +615,7 @@ class DCE_Settings {
                     ?>
                     <tr>
                         <th width="200" scope="dce-row">
-                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Search Head', DCE_TEXTDOMAIN); ?></label>
+                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Search Head', 'dynamic-content-for-elementor'); ?></label>
                         </th>
                         <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                         <?php //$this->_dce_settings_select_template_layout($dce_key);    ?>
@@ -605,7 +625,7 @@ class DCE_Settings {
                     ?>
                     <tr>
                         <th width="200" scope="dce-row">
-                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Search Contents', DCE_TEXTDOMAIN); ?></label>
+                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Search Contents', 'dynamic-content-for-elementor'); ?></label>
                         </th>
                         <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                         <td><?php $this->_dce_settings_select_template_layout($dce_key); ?></td>
@@ -629,7 +649,7 @@ class DCE_Settings {
                     ?>
                     <tr>
                         <th width="200" scope="dce-row">
-                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('User Head', DCE_TEXTDOMAIN); ?></label>
+                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('User Head', 'dynamic-content-for-elementor'); ?></label>
                         </th>
                         <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                         <?php //$this->_dce_settings_select_template_layout($dce_key);    ?>
@@ -639,7 +659,7 @@ class DCE_Settings {
                     ?>
                     <tr>
                         <th width="200" scope="dce-row">
-                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('User Contents', DCE_TEXTDOMAIN); ?></label>
+                            <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('User Contents', 'dynamic-content-for-elementor'); ?></label>
                         </th>
                         <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                         <td><?php $this->_dce_settings_select_template_layout($dce_key); ?></td>
@@ -682,7 +702,7 @@ class DCE_Settings {
                         ?>
                         <tr>
                             <th scope="dce-row">
-                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-upload"></span> <?php _e('Before Archive', DCE_TEXTDOMAIN); ?></label>
+                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-upload"></span> <?php _e('Before Archive', 'dynamic-content-for-elementor'); ?></label>
                             </th>
                             <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                         </tr>
@@ -691,7 +711,7 @@ class DCE_Settings {
                         ?>
                         <tr>
                             <th width="200" scope="dce-row">
-                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Archive Blocks', DCE_TEXTDOMAIN); ?></label>
+                                <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-exerpt-view"></span> <?php _e('Archive Blocks', 'dynamic-content-for-elementor'); ?></label>
                             </th>
                             <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                             <td><?php $this->_dce_settings_select_template_layout($dce_key); ?></td>
@@ -704,7 +724,7 @@ class DCE_Settings {
                             ?>
                             <tr>
                                 <th width="200" scope="dce-row">
-                                    <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Single Post', DCE_TEXTDOMAIN); ?></label>
+                                    <label for="<?php echo $dce_key; ?>"><span class="dashicons dashicons-welcome-widgets-menus"></span> <?php _e('Single Post', 'dynamic-content-for-elementor'); ?></label>
                                 </th>
                                 <td width="100"><?php $this->_dce_settings_select_template($dce_key, $templates); ?></td>
                                 <td><?php $this->_dce_settings_select_template_blank($dce_key); ?></td>
@@ -716,7 +736,7 @@ class DCE_Settings {
             }
 
             // output save settings button
-            submit_button(__('Save Settings', DCE_TEXTDOMAIN));
+            submit_button(__('Save Settings', 'dynamic-content-for-elementor'));
             ?>
         </form>
         <?php
@@ -748,7 +768,7 @@ class DCE_Settings {
         <div class="dce-optionals<?php /* if (!$dce_template) { ?> hidden<?php } */ ?>">
             <input class="dce-checkbox" type="checkbox" <?php if ($dce_template) { ?>checked="" <?php } ?>name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_key_template; ?>]" id="<?php echo $dce_key_template; ?>" value="1" onClick="jQuery(this).closest('.dce-template-main-content').find('.dce-template-page-content').toggleClass('dce-template-page-content-original').toggleClass('dce-template-page-content-full');">
             <label class="dce-template-single-full" for="<?php echo $dce_key_template; ?>">
-                <?php esc_html_e('Force Full Width Template', DCE_TEXTDOMAIN); ?> <a target="_blank" href="https://docs.elementor.com/article/316-using-elementor-s-full-width-page-template"><span class="dashicons dashicons-info"></span></a>
+                <?php esc_html_e('Force Full Width Template', 'dynamic-content-for-elementor'); ?> <a target="_blank" href="https://docs.elementor.com/article/316-using-elementor-s-full-width-page-template"><span class="dashicons dashicons-info"></span></a>
             </label>
         </div>
         <?php
@@ -761,16 +781,16 @@ class DCE_Settings {
         <!--
         <div class="dce-optionals<?php /* if (!$dce_template) { ?> hidden<?php } */ ?>">
             <input class="dce-checkbox" type="checkbox" <?php if ($dce_template) { ?>checked="" <?php } ?>name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_key_template; ?>]" id="<?php echo $dce_key_template; ?>" value="1">
-            <label for="<?php echo $dce_key_template; ?>"><?php esc_html_e('Blank template', DCE_TEXTDOMAIN); ?></label>
+            <label for="<?php echo $dce_key_template; ?>"><?php esc_html_e('Blank template', 'dynamic-content-for-elementor'); ?></label>
         </div>
         -->
         <div class="dce-options<?php /* if (!$dce_template) { ?> hidden<?php } */ ?>">
-            <label for="<?php echo $dce_key_template; ?>"><?php esc_html_e('Select template', DCE_TEXTDOMAIN); ?></label>
+            <label for="<?php echo $dce_key_template; ?>"><?php esc_html_e('Select template', 'dynamic-content-for-elementor'); ?></label>
             <select id="<?php echo $dce_key_template; ?>" name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_key_template; ?>]" class="dce-select js-dce-select">
-                <option value=""<?php if (!$dce_template) { ?> selected="selected"<?php } ?>><?php esc_html_e('Theme default (NO Before Archive)', DCE_TEXTDOMAIN); ?></option>
-                <option value="blank"<?php if ($dce_template == 'blank') { ?> selected="selected"<?php } ?>><?php esc_html_e('Blank FullWidth template', DCE_TEXTDOMAIN); ?></option>
-                <option value="boxed"<?php if ($dce_template == 'boxed') { ?> selected="selected"<?php } ?>><?php esc_html_e('Blank Boxed template', DCE_TEXTDOMAIN); ?></option>
-                <option value="canvas"<?php if ($dce_template == 'canvas') { ?> selected="selected"<?php } ?>><?php esc_html_e('Elementor Canvas', DCE_TEXTDOMAIN); ?></option>
+                <option value=""<?php if (!$dce_template) { ?> selected="selected"<?php } ?>><?php esc_html_e('Theme default (NO Before Archive)', 'dynamic-content-for-elementor'); ?></option>
+                <option value="blank"<?php if ($dce_template == 'blank') { ?> selected="selected"<?php } ?>><?php esc_html_e('Blank FullWidth template', 'dynamic-content-for-elementor'); ?></option>
+                <option value="boxed"<?php if ($dce_template == 'boxed') { ?> selected="selected"<?php } ?>><?php esc_html_e('Blank Boxed template', 'dynamic-content-for-elementor'); ?></option>
+                <option value="canvas"<?php if ($dce_template == 'canvas') { ?> selected="selected"<?php } ?>><?php esc_html_e('Elementor Canvas', 'dynamic-content-for-elementor'); ?></option>
             </select>
         </div>
         <?php
@@ -782,7 +802,7 @@ class DCE_Settings {
         $dce_col_xs = $dce_key . '_col_xs';
         ?>
         <div class="dce-optional">
-            <label for="<?php echo $dce_col_md; ?>"><?php _e('Columns', DCE_TEXTDOMAIN); ?></label>
+            <label for="<?php echo $dce_col_md; ?>"><?php _e('Columns', 'dynamic-content-for-elementor'); ?></label>
             <div id="<?php echo $dce_key; ?>-switchers" class="dce-switchers">
                 <div class="elementor-control-responsive-switchers dce-elementor-control-responsive-switchers">
                     <?php
@@ -819,12 +839,11 @@ class DCE_Settings {
             //var_dump($_POST[$dce_option]);
             update_option(DCE_OPTIONS, $_POST[DCE_OPTIONS]);
             $this->options = $_POST[DCE_OPTIONS];
-            DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', DCE_TEXTDOMAIN));
+            DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', 'dynamic-content-for-elementor'));
         }
 
         $templates = array('NO');
         $get_templates = DCE_Helper::get_templates();
-        //var_dump($get_templates);
         //$get_templates = get_posts(array('post_type' => DCE_TemplateSystem::$supported_types, 'numberposts' => -1, 'post_status' => 'publish', 'orderby' => 'title', 'suppress_filters' => false));
         if (!empty($get_templates)) {
             foreach ($get_templates as $template) {
@@ -837,7 +856,7 @@ class DCE_Settings {
         $preview = array();
         $dceTemplate = array();
 
-        $dceTemplate['post-types']['label'] = __('Types', DCE_TEXTDOMAIN);
+        $dceTemplate['post-types']['label'] = __('Types', 'dynamic-content-for-elementor');
         // ------------------------------- [TYPES] -----------------------------
         $typesRegistered = DCE_Helper::get_types_registered();
         foreach ($typesRegistered as $chiave) {
@@ -858,15 +877,15 @@ class DCE_Settings {
             $object_t = get_post_type_object($chiave)->labels;
             $label_t = $object_t->name;
             $dceTemplate['post-types']['options'][$chiave] = $label_t;
-            $dceTemplate['post-types']['templates'][$chiave]['single'] = __('Single', DCE_TEXTDOMAIN);
-            $dceTemplate['post-types']['templates'][$chiave]['archive'] = __('Archive', DCE_TEXTDOMAIN);
+            $dceTemplate['post-types']['templates'][$chiave]['single'] = __('Single', 'dynamic-content-for-elementor');
+            $dceTemplate['post-types']['templates'][$chiave]['archive'] = __('Archive', 'dynamic-content-for-elementor');
         }
 
         // ------------------------------- [TAXONOMY] --------------------------
         $taxonomiesRegistered = get_taxonomies();
         $customTaxonomies = array_diff($taxonomiesRegistered, DCE_TemplateSystem::$excluded_taxonomies);
         //var_dump($taxonomiesRegistered);
-        $dceTemplate['taxonomies']['label'] = __('Taxonomies', DCE_TEXTDOMAIN);
+        $dceTemplate['taxonomies']['label'] = __('Taxonomies', 'dynamic-content-for-elementor');
         foreach ($customTaxonomies as $chiave) {
             $terms = get_terms($chiave);
             if (!empty($terms)) {
@@ -877,22 +896,22 @@ class DCE_Settings {
             $object_t = get_taxonomy($chiave);
             $label_t = $object_t->label;
             $dceTemplate['taxonomies']['options'][$chiave] = $label_t;
-            $dceTemplate['taxonomies']['templates'][$chiave]['single'] = __('Single', DCE_TEXTDOMAIN);
-            $dceTemplate['taxonomies']['templates'][$chiave]['archive'] = __('Archive', DCE_TEXTDOMAIN);
+            $dceTemplate['taxonomies']['templates'][$chiave]['single'] = __('Single', 'dynamic-content-for-elementor');
+            $dceTemplate['taxonomies']['templates'][$chiave]['archive'] = __('Archive', 'dynamic-content-for-elementor');
         }
 
-        $dceTemplate['other-pages']['label'] = __('Other Pages', DCE_TEXTDOMAIN);
+        $dceTemplate['other-pages']['label'] = __('Other Pages', 'dynamic-content-for-elementor');
         // ------------------------------- [SEARCH] ----------------------------
         $chiave = 'search';
         $preview[$chiave] = get_search_link('lorem ipsum');
-        $dceTemplate['other-pages']['options'][$chiave] = __('Search', DCE_TEXTDOMAIN);
-        $dceTemplate['other-pages']['templates'][$chiave]['archive'] = __('Archive', DCE_TEXTDOMAIN);
+        $dceTemplate['other-pages']['options'][$chiave] = __('Search', 'dynamic-content-for-elementor');
+        $dceTemplate['other-pages']['templates'][$chiave]['archive'] = __('Archive', 'dynamic-content-for-elementor');
 
         // ------------------------------- [USER] ------------------------------
         $chiave = 'user';
         $preview[$chiave] = get_author_posts_url(get_current_user_id());
-        $dceTemplate['other-pages']['options'][$chiave] = __('User', DCE_TEXTDOMAIN);
-        $dceTemplate['other-pages']['templates'][$chiave]['archive'] = __('Archive', DCE_TEXTDOMAIN);
+        $dceTemplate['other-pages']['options'][$chiave] = __('User', 'dynamic-content-for-elementor');
+        $dceTemplate['other-pages']['templates'][$chiave]['archive'] = __('Archive', 'dynamic-content-for-elementor');
 
         ?>
 
@@ -1040,7 +1059,7 @@ class DCE_Settings {
                                                 </ul>
 
                                                 <div class="publishing-action">
-                                                    <input type="submit" name="save_menu_header" class="save_menu save_menu_header button button-primary button-large menu-save" value="<?php _e('Save Settings', DCE_TEXTDOMAIN); ?>">
+                                                    <input type="submit" name="save_menu_header" class="save_menu save_menu_header button button-primary button-large menu-save" value="<?php _e('Save Settings', 'dynamic-content-for-elementor'); ?>">
                                                 </div><!-- END .publishing-action -->
                                             </div><!-- END .major-publishing-actions -->
                                         </div>
@@ -1056,7 +1075,7 @@ class DCE_Settings {
                                                             <h1>
                                                                 <?php echo $svalue; ?> / <abbr title="<?php echo $chiave; ?>"><?php echo $label_t; ?></abbr>
                                                                 <?php if (isset($preview[$chiave]) && $preview[$chiave]) { ?>
-                                                                <a href="<?php echo $preview[$chiave]; ?>" target="_blank" class="dce-template-preview"><!--<small><?php _e('Preview', DCE_TEXTDOMAIN); ?></small>--> <span class="dashicons dashicons-admin-links"></span></a>
+                                                                <a href="<?php echo $preview[$chiave]; ?>" target="_blank" class="dce-template-preview"><!--<small><?php _e('Preview', 'dynamic-content-for-elementor'); ?></small>--> <span class="dashicons dashicons-admin-links"></span></a>
                                                                 <?php } ?>
                                                             </h1>
                                                             <!--<div class="drag-instructions post-body-plain">
@@ -1084,8 +1103,8 @@ class DCE_Settings {
                                                                     <div class="dce-template-icon dce-template-before-icon">
                                                                         <div class="dce-template-icon-bar dce-template-before-icon-bar<?php echo (isset($this->options[$dce_key]) && $this->options[$dce_key]) ? ' dce-template-icon-bar-template' : ''; ?>"></div>
                                                                     </div>
-                                                                    <h4><?php _e('Before', DCE_TEXTDOMAIN); ?></h4>
-                                                                    <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', DCE_TEXTDOMAIN); ?></label>-->
+                                                                    <h4><?php _e('Before', 'dynamic-content-for-elementor'); ?></h4>
+                                                                    <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', 'dynamic-content-for-elementor'); ?></label>-->
                                                                     <?php $this->_dce_settings_select_template($dce_key, $templates); ?>
                                                                 </div>
                                                                 <?php } ?>
@@ -1131,8 +1150,8 @@ class DCE_Settings {
                                                                     <?php
                                                                     if ($skey == 'single') {
                                                                         ?>
-                                                                        <h4><?php _e('Page Template', DCE_TEXTDOMAIN); ?></h4>
-                                                                        <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', DCE_TEXTDOMAIN); ?></label>-->
+                                                                        <h4><?php _e('Page Template', 'dynamic-content-for-elementor'); ?></h4>
+                                                                        <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', 'dynamic-content-for-elementor'); ?></label>-->
                                                                         <?php $this->_dce_settings_select_template($dce_key, $templates); ?>
                                                                         <br><br>
                                                                         <?php
@@ -1141,8 +1160,8 @@ class DCE_Settings {
                                                                     }
                                                                     if ($skey == 'archive') {
                                                                         ?>
-                                                                        <h4><?php _e('Template', DCE_TEXTDOMAIN); ?></h4>
-                                                                        <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', DCE_TEXTDOMAIN); ?></label>-->
+                                                                        <h4><?php _e('Template', 'dynamic-content-for-elementor'); ?></h4>
+                                                                        <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', 'dynamic-content-for-elementor'); ?></label>-->
                                                                         <?php $this->_dce_settings_select_template($dce_key, $templates); ?>
                                                                         <br>
 
@@ -1155,33 +1174,33 @@ class DCE_Settings {
                                                                         //var_dump($dce_template);
                                                                         ?>
                                                                         <div class="dce-template-archive-type<?php echo (!$teaser_template) ? ' hidden' : ''; ?>">
-                                                                            <h4><?php _e('Layout', DCE_TEXTDOMAIN); ?></h4>
+                                                                            <h4><?php _e('Layout', 'dynamic-content-for-elementor'); ?></h4>
                                                                             <!--<label class="dce-radio-container dce-radio-container-template">
                                                                                 <input value="" type="radio"<?php if (!$dce_template) { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Default', DCE_TEXTDOMAIN); ?></span>
+                                                                                <span class="dce-radio-label"><?php _e('Default', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label>-->
                                                                             <!--<label class="dce-radio-container">
                                                                                 <input value="blocks" type="radio"<?php if ($dce_template == 'blocks') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Blocks', DCE_TEXTDOMAIN); ?></span>
+                                                                                <span class="dce-radio-label"><?php _e('Blocks', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label>--><label class="dce-radio-container dce-radio-container-template">
                                                                                 <input value="boxed" type="radio"<?php if ($dce_template == 'boxed') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Boxed', DCE_TEXTDOMAIN); ?></span>
+                                                                                <span class="dce-radio-label"><?php _e('Boxed', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label><label class="dce-radio-container dce-radio-container-template">
                                                                                 <input value="blank" type="radio"<?php if ($dce_template == 'blank') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Full-Width', DCE_TEXTDOMAIN); ?></span>
+                                                                                <span class="dce-radio-label"><?php _e('Full-Width', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label><label class="dce-radio-container dce-radio-container-template">
                                                                                 <input value="canvas" type="radio"<?php if (!$dce_template || $dce_template == 'canvas') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Canvas', DCE_TEXTDOMAIN); ?></span>
+                                                                                <span class="dce-radio-label"><?php _e('Canvas', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label>
 
                                                                             <br><br>
                                                                             <div class="dce-template-archive-blocks<?php if (!in_array($dce_template, array('full', 'boxed', 'blank'))) { ?> hidden<?php } ?>">
-                                                                                <!--<?php _e('Mode', DCE_TEXTDOMAIN); ?><br><br>-->
+                                                                                <!--<?php _e('Mode', 'dynamic-content-for-elementor'); ?><br><br>-->
                                                                                 <?php $this->_dce_settings_archive($dce_key); ?>
                                                                             </div>
                                                                         </div>
@@ -1219,8 +1238,8 @@ class DCE_Settings {
                                                                     <div class="dce-template-icon dce-template-after-icon">
                                                                         <div class="dce-template-icon-bar dce-template-after-icon-bar<?php echo (isset($this->options[$dce_key]) && $this->options[$dce_key]) ? ' dce-template-icon-bar-template' : ''; ?>"></div>
                                                                     </div>
-                                                                    <h4><?php _e('After', DCE_TEXTDOMAIN); ?></h4>
-                                                                    <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', DCE_TEXTDOMAIN); ?></label>-->
+                                                                    <h4><?php _e('After', 'dynamic-content-for-elementor'); ?></h4>
+                                                                    <!--<label for="<?php echo $dce_key; ?>"><?php _e('Template', 'dynamic-content-for-elementor'); ?></label>-->
                                                                     <?php $this->_dce_settings_select_template($dce_key, $templates); ?>
                                                                 </div>
                                                                 <?php } ?>
@@ -1242,7 +1261,7 @@ class DCE_Settings {
                                         <div class="nav-menu-footer">
                                             <div class="major-publishing-actions wp-clearfix">
                                                 <div class="publishing-action">
-                                                    <input type="submit" name="save_menu_footer" class="save_menu save_menu_footer button button-primary button-large menu-save" value="<?php _e('Save Settings', DCE_TEXTDOMAIN); ?>">
+                                                    <input type="submit" name="save_menu_footer" class="save_menu save_menu_footer button button-primary button-large menu-save" value="<?php _e('Save Settings', 'dynamic-content-for-elementor'); ?>">
                                                 </div><!-- END .publishing-action -->
                                             </div><!-- END .major-publishing-actions -->
                                         </div>

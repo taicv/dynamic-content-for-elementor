@@ -22,15 +22,32 @@ var isAdminBar		= false,
 		return elementSettings;
 	}
 	//
+	var dropCap = function($target) {
+	  $first_p = $target.html().trim(); // removes any leading whitespace
+	  if ($first_p.charAt(0) != '<') {
+	    // not a html tag
+
+	    $target.html( '<span class="elementor-drop-cap"><span class="elementor-drop-cap-letter">' + $first_p.charAt(0) + '</span></span>' + $first_p.substring(1) );
+	  }else{
+	  	//alert($target.find('*:first-child').text());
+	  	$first_p = $target.find('*:first-child').html().trim();
+	  	$target.find('*:first-child').html( '<span class="elementor-drop-cap"><span class="elementor-drop-cap-letter">' + $first_p.charAt(0) + '</span></span>' + $first_p.substring(1) );
+	  }
+	}
 	var WidgetElementsACFDCEHandler = function( $scope, $ ) {
 		
 		var elementSettings = get_acf_ElementSettings( $scope );
 		//alert('acf');
+
 		if(elementSettings.drop_cap){
-		$scope.find('p').html(function (i, html)
+		var target = $scope.find('p:first');
+		//alert(target.length);
+		dropCap(target);
+		
+		/*$scope.find('p:first-child, p:first-child > *:first-letter').html(function (i, html)
 		{
 		    return html.replace(/^[^a-zA-Z]*([a-zA-Z])/g, '<span class="elementor-drop-cap"><span class="elementor-drop-cap-letter">$1</span></span>');
-		});
+		});*/
 		}
 		var bindEvents = function() {
 			$scope.find( '.elementor-custom-embed-image-overlay' ).on( 'click', handleVideo );
@@ -74,6 +91,9 @@ var isAdminBar		= false,
 			$videoFrame[0].src = newSourceUrl + '&autoplay=1';
 		};
 		bindEvents();
+
+
+		
 
 	};
 	

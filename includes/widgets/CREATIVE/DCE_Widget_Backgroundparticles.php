@@ -26,7 +26,7 @@ class DCE_Widget_Backgroundparticles extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Background Particles', DCE_TEXTDOMAIN);
+        return __('Background Particles', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -41,14 +41,14 @@ class DCE_Widget_Backgroundparticles extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_dynamictemplate', [
-                'label' => __('background-particles', DCE_TEXTDOMAIN),
+                'label' => __('background-particles', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
           'html_background-particles',
           [
              'type'    => Controls_Manager::RAW_HTML,
-             'raw' => __( '<div>Questo è un widget che diventerà un\'background-particles.</div>', DCE_TEXTDOMAIN ),
+             'raw' => __( '<div>Questo è un widget che diventerà un\'background-particles.</div>', 'dynamic-content-for-elementor' ),
            'content_classes' => 'html-background-particles',
           ]
         );
@@ -67,7 +67,7 @@ class DCE_Widget_Backgroundparticles extends DCE_Widget_Prototype {
         if( $settings['data_source'] == 'yes' ){
             global $global_ID;
             global $global_TYPE;
-            global $is_blocks;
+            global $in_the_loop;
             global $global_is;
             //
             if (!empty($global_ID)) {

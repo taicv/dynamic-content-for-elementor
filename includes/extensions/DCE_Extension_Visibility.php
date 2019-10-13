@@ -28,7 +28,20 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             'action' => 'section_advanced',
         )
     );
-    public static $tabs = ['user' => 'User & Role', 'device' => 'Device & Browser', 'datetime' => 'Date & Time', 'post' => 'Current Post', 'context' => 'Context', 'tags' => 'Conditional Tags', 'random' => 'Random', 'custom' => 'Custom condition', 'v2' => 'V2 Backwards compatibility', 'repeater' => 'Advanced', 'fallback' => 'Fallback'];
+    public static $tabs = [
+        'user' => 'User & Role', 
+        'device' => 'Device & Browser', 
+        'datetime' => 'Date & Time', 
+        'post' => 'Post', 
+        'context' => 'Context', 
+        'tags' => 'Conditional Tags', 
+        'random' => 'Random', 
+        'custom' => 'Custom condition', 
+        'events' => 'Events',
+        'v2' => 'V2 Backwards compatibility', 
+        'repeater' => 'Advanced', 
+        'fallback' => 'Fallback'
+        ];
     public static $triggers = array(
         'user' => array(
             'label' => 'User & Role',
@@ -62,7 +75,11 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
      * @since 0.5.4
      * */
     public static function get_description() {
-        return __('Visibility rules for Widgets and Rows');
+        return __('Visibility rules for Widgets and Rows', 'dynamic-content-for-elementor');
+    }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/dynamic-visibility-for-elementor/';
     }
 
     /**
@@ -160,6 +177,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         ob_end_clean();
                     }
                     $this->print_conditions($element);
+                    $this->print_scripts($element);
                     $fallback = $this->get_fallback($settings, $element);
                     if ($fallback) {
                         $fallback = str_replace('dce-visibility-section-hidden', '', $fallback);
@@ -185,34 +203,14 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
      */
     private function add_controls($element, $args) {
 
-        $user_metas = array();
-        $post_metas = array();
-        $roles = array();
-        $post_types = array();
-        $all_posts = array();
-        $taxonomies = array();
-        $taxonomies_terms = array();
-        $all_taxonomies_terms = array();
-        $templates = array();
-        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-            $post_metas = DCE_Helper::get_post_metas();
-            $user_metas = DCE_Helper::get_user_metas();
-            $roles = DCE_Helper::get_roles(false);
-            $post_types = DCE_Helper::get_post_types();
-            $all_posts = DCE_Helper::get_all_posts();
-            $taxonomies = DCE_Helper::get_taxonomies();
-            foreach ($taxonomies as $tkey => $atax) {
-                $taxonomies_terms[$tkey] = DCE_Helper::get_taxonomy_terms($tkey);
-            }
-            $all_taxonomies_terms = DCE_Helper::get_taxonomy_terms(null, true);
-            $templates = DCE_Helper::get_all_template();
-        }
-
-
-
+        $roles = DCE_Helper::get_roles(false);
+        $post_types = DCE_Helper::get_post_types();        
+        $taxonomies = DCE_Helper::get_taxonomies();
+        //$templates = DCE_Helper::get_all_template();
+        
         /* \Elementor\Controls_Manager::add_tab(
           'dce-visibility',
-          __( 'Visibility', DCE_TEXTDOMAIN )
+          __( 'Visibility', 'dynamic-content-for-elementor' )
           ); */
         //var_dump($args); die();
 
@@ -227,7 +225,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         /* $element->start_controls_section(
           'visibility_section',
           [
-          'label' => __( 'Visibility', DCE_TEXTDOMAIN ),
+          'label' => __( 'Visibility', 'dynamic-content-for-elementor' ),
           'tab' => 'dce-visibility',
           ]
           ); */
@@ -236,7 +234,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'enabled_visibility', [
-                'label' => __('Enable Visibility', DCE_TEXTDOMAIN),
+                'label' => __('Enable Visibility', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'frontend_available' => true,
                     ]
@@ -244,11 +242,11 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_hidden', [
-                'label' => __('HIDE this element', DCE_TEXTDOMAIN),
+                'label' => __('HIDE this element', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                //'label_on' => __('Hide', DCE_TEXTDOMAIN),
-                //'label_off' => __('Show', DCE_TEXTDOMAIN),
-                'description' => __('Hide the element on the frontend until it is enabled', DCE_TEXTDOMAIN),
+                //'label_on' => __('Hide', 'dynamic-content-for-elementor'),
+                //'label_off' => __('Show', 'dynamic-content-for-elementor'),
+                'description' => __('Hide the element on the frontend until it is enabled', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'enabled_visibility' => 'yes',
                 ],
@@ -258,19 +256,20 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_dom', [
-                'label' => __('Keep HTML', DCE_TEXTDOMAIN),
+                'label' => __('Keep HTML', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'description' => __('Keep the element HTML in the DOM.', DCE_TEXTDOMAIN) . '<br>' . __('Only hide this element via CSS.', DCE_TEXTDOMAIN),
+                'description' => __('Keep the element HTML in the DOM.', 'dynamic-content-for-elementor') . '<br>' . __('Only hide this element via CSS.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'enabled_visibility' => 'yes',
                 ],
+                'separator' => 'before',
                     ]
             );
 
             if (defined('DVE_PLUGIN_BASE') || true) {
                 $element->add_control(
                         'dce_visibility_mode', [
-                    'label' => __('Composition mode', DCE_TEXTDOMAIN),
+                    'label' => __('Composition mode', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HIDDEN,
                     'default' => 'quick',
                         ]
@@ -279,20 +278,20 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 /*
                   $element->add_control(
                   'dce_visibility_mode', [
-                  'label' => __('Composition mode', DCE_TEXTDOMAIN),
+                  'label' => __('Composition mode', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::CHOOSE,
                   'options' => [
                   'quick' => [
-                  'title' => __('Quick', DCE_TEXTDOMAIN),
+                  'title' => __('Quick', 'dynamic-content-for-elementor'),
                   'icon' => 'fa fa-bolt',
                   ],
                   'advanced' => [
-                  'title' => __('Advanced', DCE_TEXTDOMAIN),
+                  'title' => __('Advanced', 'dynamic-content-for-elementor'),
                   'icon' => 'fa fa-list-ol',
                   ]
                   ],
                   'default' => 'quick',
-                  'description' => __('Quickly set a trigger or create a complex expression in Advanced mode.', DCE_TEXTDOMAIN),
+                  'description' => __('Quickly set a trigger or create a complex expression in Advanced mode.', 'dynamic-content-for-elementor'),
                   'toggle' => false,
                   'condition' => [
                   'enabled_visibility' => 'yes',
@@ -306,11 +305,11 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_selected', [
-                'label' => __('Display mode', DCE_TEXTDOMAIN),
+                'label' => __('Display mode', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'description' => __('Hide or Show element when a condition is triggered.', DCE_TEXTDOMAIN),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'description' => __('Hide or Show element when a condition is triggered.', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'enabled_visibility' => 'yes',
@@ -324,9 +323,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (WP_DEBUG) {
                 $element->add_control(
                         'dce_visibility_debug', [
-                    'label' => __('DEBUG', DCE_TEXTDOMAIN),
+                    'label' => __('DEBUG', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Enable to get a report of triggered rule which hide element in frontend.<br>WP_DEBUG must be active.', DCE_TEXTDOMAIN),
+                    'description' => __('Enable to get a report of triggered rule which hide element in frontend.<br>WP_DEBUG must be active.', 'dynamic-content-for-elementor'),
                     'separator' => 'before',
                     'condition' => [
                         'enabled_visibility' => 'yes',
@@ -340,15 +339,24 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (defined('DVE_PLUGIN_BASE')) {
                 $element->add_control(
                         'dce_visibility_review', [
-                    'label' => '<b>' . __('Enjoyed Visibility extension?', DCE_TEXTDOMAIN) . '</b>',
+                    'label' => '<b>' . __('Enjoyed Visibility extension?', 'dynamic-content-for-elementor') . '</b>',
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => __('Please leave us a', DCE_TEXTDOMAIN)
+                    'raw' => __('Please leave us a', 'dynamic-content-for-elementor')
                     . ' <a target="_blank" href="https://wordpress.org/support/plugin/dynamic-visibility-for-elementor/reviews/?filter=5/#new-post">★★★★★</a> '
-                    . __('rating.<br>We really appreciate your support!', DCE_TEXTDOMAIN),
+                    . __('rating.<br>We really appreciate your support!', 'dynamic-content-for-elementor'),
                     'separator' => 'before',
                         ]
                 );
             }
+            
+            $element->add_control(
+                    'dce_visibility_help', [
+                //'label' => '<b>' . __('Enjoyed Visibility extension?', 'dynamic-content-for-elementor') . '</b>',
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'separator' => 'before',
+                    ]
+            );
         }
 
         if ($section == 'v2') {
@@ -358,15 +366,15 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 $ctype = Controls_Manager::SWITCHER;
                 $element->add_control(
                         'dce_visibility_v2_notice', [
-                    'label' => __('<b>WARNING</b>', DCE_TEXTDOMAIN),
+                    'label' => __('<b>WARNING</b>', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => __('<b>If you updated from V2</b> set all to Yes and manage it from main "Display Mode", otherwise ignore this control section', DCE_TEXTDOMAIN),
+                    'raw' => __('<b>If you updated from V2</b> set all to Yes and manage it from main "Display Mode", otherwise ignore this control section', 'dynamic-content-for-elementor'),
                         ]
                 );
             }
             $element->add_control(
                     'dce_visibility_user_selected', [
-                'label' => __('User Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('User Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -374,7 +382,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_device_selected', [
-                'label' => __('Device Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('Device Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -382,7 +390,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_datetime_selected', [
-                'label' => __('DateTime Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('DateTime Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -390,7 +398,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_context_selected', [
-                'label' => __('Context Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('Context Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -398,7 +406,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_tags_selected', [
-                'label' => __('Tags Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('Tags Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -406,7 +414,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_custom_condition_selected', [
-                'label' => __('Custom Show/Hide', DCE_TEXTDOMAIN),
+                'label' => __('Custom Show/Hide', 'dynamic-content-for-elementor'),
                 //'type' => Controls_Manager::HIDDEN,
                 'type' => $ctype,
                 'default' => 'yes',
@@ -418,7 +426,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         if ($section == 'user') {
             /* $element->start_controls_section(
               'section_visibility_user', [
-              'label' => __('User & Roles', DCE_TEXTDOMAIN),
+              'label' => __('User & Roles', 'dynamic-content-for-elementor'),
               'condition' => [
               'enabled_visibility' => 'yes',
               'dce_visibility_hidden' => '',
@@ -427,7 +435,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
               ); */
             /* $element->add_control(
               'role_visibility_heading', [
-              'label' => __('Users & Roles', DCE_TEXTDOMAIN),
+              'label' => __('Users & Roles', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'enabled_visibility' => 'yes',
@@ -439,10 +447,10 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             /* $element->add_control(
               'dce_visibility_everyone', [
-              'label' => __('Visible by EveryONE', DCE_TEXTDOMAIN),
+              'label' => __('Visible by EveryONE', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'description' => __('If enabled every user, also visitors, can view the element', DCE_TEXTDOMAIN),
+              'description' => __('If enabled every user, also visitors, can view the element', 'dynamic-content-for-elementor'),
               ]
               ); */
 
@@ -454,11 +462,11 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_role', [
-                'label' => __('Roles', DCE_TEXTDOMAIN),
+                'label' => __('Roles', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => $roles,
                 //'default' => 'everyone',
-                'description' => __('If you want limit visualization to specific user roles', DCE_TEXTDOMAIN),
+                'description' => __('If you want limit visualization to specific user roles', 'dynamic-content-for-elementor'),
                 'multiple' => true,
                     /* 'condition' => [
                       'dce_visibility_everyone' => '',
@@ -467,39 +475,61 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_users', [
-                'label' => __('Selected Users', DCE_TEXTDOMAIN),
+                'label' => __('Selected Users', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('Write here the list of user who will be able to view (or not) this element.<br>You can use their ID, email or username.<br>Simply separate them by a comma. (ex. "23, info@dynamic.ooo, dynamicooo")', DCE_TEXTDOMAIN),
-                    /* 'condition' => [
-                      'dce_visibility_role' => 'users',
-                      //'dce_visibility_everyone' => '',
-                      ], */
+                'description' => __('Write here the list of user who will be able to view (or not) this element.<br>You can use their ID, email or username.<br>Simply separate them by a comma. (ex. "23, info@dynamic.ooo, dynamicooo")', 'dynamic-content-for-elementor'),
+                'separator' => 'before',
+                    ]
+            );
+            
+            $element->add_control(
+                    'dce_visibility_can', [
+                'label' => __('User can', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'description' => __('Trigger by User capability, for example: "manage_options"', 'dynamic-content-for-elementor'),
+                'separator' => 'before',
                     ]
             );
 
-            $element->add_control(
+            /*$element->add_control(
                     'dce_visibility_usermeta', [
-                'label' => __('User Meta', DCE_TEXTDOMAIN),
+                'label' => __('User Meta', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => $user_metas,
-                'description' => __('Triggered by a selected User Meta value', DCE_TEXTDOMAIN),
+                'description' => __('Triggered by a selected User Meta value', 'dynamic-content-for-elementor'),
+                'separator' => 'before',
+                    ]
+            );*/
+            $element->add_control(
+                    'dce_visibility_usermeta',
+                    [
+                        'label' => __('User Field', 'dynamic-content-for-elementor'),
+                        'type' 		=> 'ooo_query',
+                        'placeholder'	=> __( 'Meta key or Name', 'dynamic-content-for-elementor' ),
+                        'label_block' 	=> true,
+                        'query_type'	=> 'fields',
+                        'object_type'	=> 'user',
+                        'description' => __('Triggered by a selected User Field value', 'dynamic-content-for-elementor'),
+                        'separator' => 'before',
                     ]
             );
+            
+            
             $element->add_control(
                     'dce_visibility_usermeta_status', [
-                'label' => __('User Meta Status', DCE_TEXTDOMAIN),
+                'label' => __('User Field Status', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'not' => [
-                        'title' => __('Not isset or empty', DCE_TEXTDOMAIN),
+                        'title' => __('Not isset or empty', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-circle-o',
                     ],
                     'isset' => [
-                        'title' => __('Valorized', DCE_TEXTDOMAIN),
+                        'title' => __('Valorized', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-dot-circle-o',
                     ],
                     'value' => [
-                        'title' => __('Specific value', DCE_TEXTDOMAIN),
+                        'title' => __('Specific value', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-circle',
                     ]
                 ],
@@ -512,9 +542,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_usermeta_value', [
-                'label' => __('User Meta Value', DCE_TEXTDOMAIN),
+                'label' => __('User Field Value', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('The specific value of the User Meta', DCE_TEXTDOMAIN),
+                'description' => __('The specific value of the User Field', 'dynamic-content-for-elementor'),
                 'condition' => [
                     //'dce_visibility_context' => '',
                     'dce_visibility_usermeta!' => '',
@@ -525,31 +555,27 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_ip', [
-                'label' => __('Remote IP', DCE_TEXTDOMAIN),
+                'label' => __('Remote IP', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('Write here the list of IP who will be able to view this element.<br>Separate IPs by comma. (ex. "123.123.123.123, 8.8.8.8, 4.4.4.4")', DCE_TEXTDOMAIN)
-                . '<br><b>' . __('Your current IP is: ', DCE_TEXTDOMAIN) . $_SERVER['REMOTE_ADDR'] . '</b>',
-                    /*                     * 'condition' => [
-                      'dce_visibility_everyone' => '',
-                      ], */
+                'description' => __('Write here the list of IP who will be able to view this element.<br>Separate IPs by comma. (ex. "123.123.123.123, 8.8.8.8, 4.4.4.4")', 'dynamic-content-for-elementor')
+                . '<br><b>' . __('Your current IP is: ', 'dynamic-content-for-elementor') . $_SERVER['REMOTE_ADDR'] . '</b>',
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_referrer', [
-                'label' => __('Enable Referrer', DCE_TEXTDOMAIN),
+                'label' => __('Referrer', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'description' => __('Triggered when previous page is a specific page.', DCE_TEXTDOMAIN),
-                    /* 'condition' => [
-                      'dce_visibility_everyone' => '',
-                      ] */
+                'description' => __('Triggered when previous page is a specific page.', 'dynamic-content-for-elementor'),
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_referrer_list', [
-                'label' => __('Specific referral site authorized:', DCE_TEXTDOMAIN),
+                'label' => __('Specific referral site authorized:', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXTAREA,
                 'placeholder' => 'facebook.com' . PHP_EOL . 'google.com',
-                'description' => __('Only selected referral, once per line. If empty it is triggered for all external site.', DCE_TEXTDOMAIN),
+                'description' => __('Only selected referral, once per line. If empty it is triggered for all external site.', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'dce_visibility_referrer' => 'yes',
                 //'dce_visibility_everyone' => '',
@@ -564,19 +590,19 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 $countries = $countryInfo->getAllCountries();
                 $element->add_control(
                         'dce_visibility_country', [
-                    'label' => __('Country', DCE_TEXTDOMAIN),
+                    'label' => __('Country', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $countries,
-                    'description' => __('Trigger visibility for a specific country.', DCE_TEXTDOMAIN),
+                    'description' => __('Trigger visibility for a specific country.', 'dynamic-content-for-elementor'),
                     'multiple' => true,
                     'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_city', [
-                    'label' => __('City', DCE_TEXTDOMAIN),
+                    'label' => __('City', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'description' => __('Write here the name of the city which trigger the condition. Insert the city name translated in one of the supported language (preferable in EN) and don\'t worry about case sensitive. You can insert multiple cities, separated by comma.', DCE_TEXTDOMAIN) . '<br>' . __('Actually you are in:', DCE_TEXTDOMAIN) . ' ' . implode(', ', $geoinfo->city->names),]
+                    'description' => __('Write here the name of the city which trigger the condition. Insert the city name translated in one of the supported language (preferable in EN) and don\'t worry about case sensitive. You can insert multiple cities, separated by comma.', 'dynamic-content-for-elementor') . '<br>' . __('Actually you are in:', 'dynamic-content-for-elementor') . ' ' . implode(', ', $geoinfo->city->names),]
                 );
             }
 
@@ -584,12 +610,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             //geoip_detect2_get_info_from_current_ip();
             /* $element->add_control(
               'dce_visibility_referrer_selected', [
-              'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+              'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __('Show', DCE_TEXTDOMAIN),
-              'label_off' => __('Hide', DCE_TEXTDOMAIN),
-              'description' => __('Show or hide by selected referrers.', DCE_TEXTDOMAIN),
+              'label_on' => __('Show', 'dynamic-content-for-elementor'),
+              'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+              'description' => __('Show or hide by selected referrers.', 'dynamic-content-for-elementor'),
               'condition' => [
               'dce_visibility_referrer' => 'yes',
               'dce_visibility_referrer_list!' => '',
@@ -599,13 +625,13 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
               ); */
             /* $element->add_control(
               'dce_visibility_user_selected', [
-              'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+              'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __('Show', DCE_TEXTDOMAIN),
-              'label_off' => __('Hide', DCE_TEXTDOMAIN),
+              'label_on' => __('Show', 'dynamic-content-for-elementor'),
+              'label_off' => __('Hide', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
-              'description' => __('Show or hide for selected users.', DCE_TEXTDOMAIN),
+              'description' => __('Show or hide for selected users.', 'dynamic-content-for-elementor'),
               'condition' => [
               'dce_visibility_everyone' => '',
               ],
@@ -618,31 +644,31 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         if ($section == 'device') {
             /* $element->add_control(
               'dce_visibility_device', [
-              'label' => __('Visible on Every Device', DCE_TEXTDOMAIN),
+              'label' => __('Visible on Every Device', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'description' => __('If enabled element will displayed on every device', DCE_TEXTDOMAIN),
+              'description' => __('If enabled element will displayed on every device', 'dynamic-content-for-elementor'),
               ]
               ); */
             $element->add_control(
                     'dce_visibility_responsive', [
-                'label' => __('Responsive', DCE_TEXTDOMAIN),
+                'label' => __('Responsive', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     /* 'all' => [
-                      'title' => __('All', DCE_TEXTDOMAIN),
+                      'title' => __('All', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-circle-o',
                       ], */
                     'desktop' => [
-                        'title' => __('Desktop and Tv', DCE_TEXTDOMAIN),
+                        'title' => __('Desktop and Tv', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-desktop',
                     ],
                     'mobile' => [
-                        'title' => __('Mobile and Tablet', DCE_TEXTDOMAIN),
+                        'title' => __('Mobile and Tablet', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-mobile',
                     ]
                 ],
-                'description' => __('Not really responsive, remove the element from the code based on the user\'s device. This trigger use native WP device detenction.', DCE_TEXTDOMAIN) . ' <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">' . __('Read more.', DCE_TEXTDOMAIN) . '</a>',
+                'description' => __('Not really responsive, remove the element from the code based on the user\'s device. This trigger use native WP device detenction.', 'dynamic-content-for-elementor') . ' <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">' . __('Read more.', 'dynamic-content-for-elementor') . '</a>',
                     //'default' => 'all',
                     //'toggle' => false,
                     /* 'condition' => [
@@ -652,7 +678,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_browser', [
-                'label' => __('Browser', DCE_TEXTDOMAIN),
+                'label' => __('Browser', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => array(
                     'is_chrome' => 'Google Chrome',
@@ -665,22 +691,20 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     'is_lynx' => 'Lynx',
                     'is_iphone' => 'iPhone Safari'
                 ),
-                'description' => __('Trigger visibility for a specific browser.', DCE_TEXTDOMAIN),
+                'description' => __('Trigger visibility for a specific browser.', 'dynamic-content-for-elementor'),
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_device' => '',
-                      ] */
+                'separator' => 'before',
                     ]
             );
             /* $element->add_control(
               'dce_visibility_device_selected', [
-              'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+              'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __('Show', DCE_TEXTDOMAIN),
-              'label_off' => __('Hide', DCE_TEXTDOMAIN),
+              'label_on' => __('Show', 'dynamic-content-for-elementor'),
+              'label_off' => __('Hide', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
-              'description' => __('Show or hide for selected device.', DCE_TEXTDOMAIN),
+              'description' => __('Show or hide for selected device.', 'dynamic-content-for-elementor'),
               'condition' => [
               'dce_visibility_device' => '',
               ],
@@ -691,7 +715,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         if ($section == 'datetime') {
             /* $element->add_control(
               'date_visibility_heading', [
-              'label' => __('Date & Time', DCE_TEXTDOMAIN),
+              'label' => __('Date & Time', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'enabled_visibility' => 'yes',
@@ -703,22 +727,22 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             /* $element->add_control(
               'dce_visibility_datetime', [
-              'label' => __('Visible EveryTIME', DCE_TEXTDOMAIN),
+              'label' => __('Visible EveryTIME', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'description' => __('If enabled you can show the element for a specific period.', DCE_TEXTDOMAIN),
+              'description' => __('If enabled you can show the element for a specific period.', 'dynamic-content-for-elementor'),
               ]
               ); */
 
             if (time() != current_time('timestamp')) {
                 $element->add_control(
                         'dce_visibility_datetime_important_note', [
-                    'label' => '<strong><i class="elementor-dce-datetime-icon eicon-warning"></i> ' . __('ATTENTION', DCE_TEXTDOMAIN) . '</strong>',
+                    'label' => '<strong><i class="elementor-dce-datetime-icon eicon-warning"></i> ' . __('ATTENTION', 'dynamic-content-for-elementor') . '</strong>',
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => '<small><br>' . __('Server time and Wordpress time are different.', DCE_TEXTDOMAIN) . '<br>'
-                    . __('Will be used the Wordpress time you set in', DCE_TEXTDOMAIN)
-                    . ' <a target="_blank" href="' . admin_url('options-general.php') . '">' . __('Wordpress General preferences', DCE_TEXTDOMAIN) . '</a>.<br>'
-                    //.__( 'Here actual time on this page load:', DCE_TEXTDOMAIN ).'<br>'
+                    'raw' => '<small><br>' . __('Server time and Wordpress time are different.', 'dynamic-content-for-elementor') . '<br>'
+                    . __('Will be used the Wordpress time you set in', 'dynamic-content-for-elementor')
+                    . ' <a target="_blank" href="' . admin_url('options-general.php') . '">' . __('Wordpress General preferences', 'dynamic-content-for-elementor') . '</a>.<br>'
+                    //.__( 'Here actual time on this page load:', 'dynamic-content-for-elementor' ).'<br>'
                     . '<br>'
                     . '<strong>SERVER time:</strong><br>' . date('r') . '<br><br>'
                     . '<strong>WORDPRESS time:</strong><br>' . current_time('r')
@@ -734,9 +758,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_date_from', [
-                'label' => __('Date FROM', DCE_TEXTDOMAIN),
+                'label' => __('Date FROM', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DATE_TIME,
-                'description' => __('If set the element will appear after this date', DCE_TEXTDOMAIN),
+                'description' => __('If set the element will appear after this date', 'dynamic-content-for-elementor'),
                     /* 'condition' => [
                       'dce_visibility_datetime' => ''
                       ], */
@@ -744,9 +768,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             $element->add_control(
                     'dce_visibility_date_to', [
-                'label' => __('Date TO', DCE_TEXTDOMAIN),
+                'label' => __('Date TO', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DATE_TIME,
-                'description' => __('If set the element will be visible until this date', DCE_TEXTDOMAIN),
+                'description' => __('If set the element will be visible until this date', 'dynamic-content-for-elementor'),
                     /* 'condition' => [
                       'dce_visibility_datetime' => ''
                       ], */
@@ -755,18 +779,19 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
             $element->add_control(
                     'dce_visibility_period_from', [
-                'label' => __('Period FROM', DCE_TEXTDOMAIN),
+                'label' => __('Period FROM', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
-                'description' => __('If set the element will appear after this period', DCE_TEXTDOMAIN),
+                'description' => __('If set the element will appear after this period', 'dynamic-content-for-elementor'),
                 'placeholder' => 'mm/dd',
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_period_to', [
-                'label' => __('Period TO', DCE_TEXTDOMAIN),
+                'label' => __('Period TO', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'placeholder' => 'mm/dd',
-                'description' => __('If set the element will be visible until this period', DCE_TEXTDOMAIN),
+                'description' => __('If set the element will be visible until this period', 'dynamic-content-for-elementor'),
                     ]
             );
 
@@ -777,35 +802,31 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             }
             $element->add_control(
                     'dce_visibility_time_week', [
-                'label' => __('Days of the WEEK', DCE_TEXTDOMAIN),
+                'label' => __('Days of the WEEK', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => $week,
-                'description' => __('Select days in the week.', DCE_TEXTDOMAIN),
+                'description' => __('Select days in the week.', 'dynamic-content-for-elementor'),
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_datetime' => '',
-                      ], */
+                'separator' => 'before',
                     ]
             );
 
 
             $element->add_control(
                     'dce_visibility_time_from', [
-                'label' => __('Time FROM', DCE_TEXTDOMAIN),
+                'label' => __('Time FROM', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'placeholder' => 'HH:mm',
-                'description' => __('If setted (in H:m format) the element will appear after this time.', DCE_TEXTDOMAIN),
-                    /* 'condition' => [
-                      'dce_visibility_datetime' => ''
-                      ], */
+                'description' => __('If setted (in H:m format) the element will appear after this time.', 'dynamic-content-for-elementor'),
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_time_to', [
-                'label' => __('Time TO', DCE_TEXTDOMAIN),
+                'label' => __('Time TO', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'placeholder' => 'HH:mm',
-                'description' => __('If setted (in H:m format) the element will be visible until this time', DCE_TEXTDOMAIN),
+                'description' => __('If setted (in H:m format) the element will be visible until this time', 'dynamic-content-for-elementor'),
                     /* 'condition' => [
                       'dce_visibility_datetime' => ''
                       ], */
@@ -813,13 +834,13 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             );
             /* $element->add_control(
               'dce_visibility_datetime_selected', [
-              'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+              'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __('Show', DCE_TEXTDOMAIN),
-              'label_off' => __('Hide', DCE_TEXTDOMAIN),
+              'label_on' => __('Show', 'dynamic-content-for-elementor'),
+              'label_off' => __('Hide', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
-              'description' => __('Show or hide for selected datetime.', DCE_TEXTDOMAIN),
+              'description' => __('Show or hide for selected datetime.', 'dynamic-content-for-elementor'),
               'condition' => [
               'dce_visibility_datetime' => '',
               ],
@@ -831,7 +852,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (defined('DVE_PLUGIN_BASE')) { //  Feature not present in FREE version
                 $element->add_control(
                         'dce_visibility_context_hide', [
-                    'label' => __('Only in PRO', DCE_TEXTDOMAIN),
+                    'label' => __('Only in PRO', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
                     'raw' => '<style>.elementor-control-dce_section_visibility_context { display: none !important; }</style>',
                         ]
@@ -839,7 +860,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             } else {
                 /* $element->add_control(
                   'post_visibility_heading', [
-                  'label' => __('Context', DCE_TEXTDOMAIN),
+                  'label' => __('Context', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::HEADING,
                   'condition' => [
                   'enabled_visibility' => 'yes',
@@ -850,17 +871,17 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                   ); */
                 /* $element->add_control(
                   'dce_visibility_context', [
-                  'label' => __('Visible EveryWHERE', DCE_TEXTDOMAIN),
+                  'label' => __('Visible EveryWHERE', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => 'yes',
-                  'description' => __("If you want show something only when it's in a specific page.", DCE_TEXTDOMAIN) . '<br><strong>' . __("Very useful if you are using a Template System.", DCE_TEXTDOMAIN) . '</strong>',
+                  'description' => __("If you want show something only when it's in a specific page.", 'dynamic-content-for-elementor') . '<br><strong>' . __("Very useful if you are using a Template System.", 'dynamic-content-for-elementor') . '</strong>',
                   ]
                   ); */
                 $element->add_control(
                         'dce_visibility_parameter', [
-                    'label' => __('Parameter', DCE_TEXTDOMAIN),
+                    'label' => __('Parameter', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'description' => __('Write here the name of the parameter passed in GET or POST method', DCE_TEXTDOMAIN),
+                    'description' => __('Write here the name of the parameter passed in GET or POST method', 'dynamic-content-for-elementor'),
                         /* 'condition' => [
                           'dce_visibility_context' => '',
                           ], */
@@ -868,19 +889,19 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 );
                 $element->add_control(
                         'dce_visibility_parameter_status', [
-                    'label' => __('Parameter Status', DCE_TEXTDOMAIN),
+                    'label' => __('Parameter Status', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'not' => [
-                            'title' => __('Not isset', DCE_TEXTDOMAIN),
+                            'title' => __('Not isset', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle-o',
                         ],
                         'isset' => [
-                            'title' => __('Isset', DCE_TEXTDOMAIN),
+                            'title' => __('Isset', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-dot-circle-o',
                         ],
                         'value' => [
-                            'title' => __('Definited value', DCE_TEXTDOMAIN),
+                            'title' => __('Definited value', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle',
                         ]
                     ],
@@ -894,9 +915,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 );
                 $element->add_control(
                         'dce_visibility_parameter_value', [
-                    'label' => __('Parameter Value', DCE_TEXTDOMAIN),
+                    'label' => __('Parameter Value', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'description' => __('The specific value of the parameter', DCE_TEXTDOMAIN),
+                    'description' => __('The specific value of the parameter', 'dynamic-content-for-elementor'),
                     'condition' => [
                         //'dce_visibility_context' => '',
                         'dce_visibility_parameter!' => '',
@@ -908,7 +929,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 /* $element->add_control(
                   'dce_visibility_max_user',
                   [
-                  'label' => __('Max per User', DCE_TEXTDOMAIN),
+                  'label' => __('Max per User', 'dynamic-content-for-elementor'),
                   'type' => \Elementor\Controls_Manager::NUMBER,
                   'min' => 0,
                   ]
@@ -916,28 +937,30 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 $element->add_control(
                         'dce_visibility_max_day',
                         [
-                            'label' => __('Max per Day', DCE_TEXTDOMAIN),
+                            'label' => __('Max per Day', 'dynamic-content-for-elementor'),
                             'type' => \Elementor\Controls_Manager::NUMBER,
-                            'min' => 0,
+                            'min' => 1,
+                            'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_max_total',
                         [
-                            'label' => __('Max Total', DCE_TEXTDOMAIN),
+                            'label' => __('Max Total', 'dynamic-content-for-elementor'),
                             'type' => \Elementor\Controls_Manager::NUMBER,
-                            'min' => 0,
+                            'min' => 1,
+                            'separator' => 'before',
                         ]
                 );
 
                 /* $element->add_control(
                   'dce_visibility_context_selected', [
-                  'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+                  'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => 'yes',
-                  'label_on' => __('Show', DCE_TEXTDOMAIN),
-                  'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                  'description' => __('Hide or show in selected context.', DCE_TEXTDOMAIN),
+                  'label_on' => __('Show', 'dynamic-content-for-elementor'),
+                  'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                  'description' => __('Hide or show in selected context.', 'dynamic-content-for-elementor'),
                   'condition' => [
                   'dce_visibility_context' => '',
                   ],
@@ -946,13 +969,13 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                 /* $element->add_control(
                   'dce_visibility_meta_selected', [
-                  'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+                  'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => 'yes',
-                  'label_on' => __('Hide', DCE_TEXTDOMAIN),
-                  'label_off' => __('Show', DCE_TEXTDOMAIN),
+                  'label_on' => __('Hide', 'dynamic-content-for-elementor'),
+                  'label_off' => __('Show', 'dynamic-content-for-elementor'),
                   'return_value' => 'yes',
-                  'description' => __('Visible or hidden by selected meta.', DCE_TEXTDOMAIN),
+                  'description' => __('Visible or hidden by selected meta.', 'dynamic-content-for-elementor'),
                   'condition' => [
                   'enabled_visibility' => 'yes',
                   'dce_visibility_hidden' => '',
@@ -960,6 +983,44 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                   ],
                   ]
                   ); */
+                
+                $select_lang = array();
+                // WPML
+                global $sitepress;
+                if (!empty($sitepress)) {
+                    //$current_language = $sitepress->get_current_language();
+                    //$default_language = $sitepress->get_default_language();                    
+                    $langs = $sitepress->get_ls_languages();
+                    //var_dump($langs); die();
+                    if (!empty($langs)) {
+                        foreach ($langs as $lkey => $lvalue) {
+                            $select_lang[$lkey] = $lvalue['native_name'];
+                        }
+                    }
+                }
+                // POLYLANG
+                if (DCE_Helper::is_plugin_active('polylang')) {
+                    $translations = pll_languages_list();
+                    $translations_name = pll_languages_list(array('fields' => 'name'));
+                    //var_dump($translations); die();
+                    if (!empty($translations)) {
+                        foreach ($translations as $tkey => $tvalue) {
+                            $select_lang[$tvalue] = $translations_name[$tkey];
+                        }
+                    }
+                }
+                if (!empty($select_lang)) {
+                    $element->add_control(
+                            'dce_visibility_lang', [
+                        'label' => __('Language', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SELECT2,
+                        'options' => $select_lang,
+                        'multiple' => true,
+                        'separator' => 'before',
+                            ]
+                    );
+                }
+                 
             }
         }
 
@@ -967,92 +1028,171 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (defined('DVE_PLUGIN_BASE')) { //  Feature not present in FREE version
                 $element->add_control(
                         'dce_visibility_curent_post_hide', [
-                    'label' => __('Only in PRO', DCE_TEXTDOMAIN),
+                    'label' => __('Only in PRO', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
                     'raw' => '<style>.elementor-control-dce_section_visibility_context { display: none !important; }</style>',
                         ]
                 );
             } else {
+                
                 $element->add_control(
-                        'dce_visibility_cpt', [
-                    'label' => __('CPT', DCE_TEXTDOMAIN),
-                    'type' => Controls_Manager::SELECT2,
-                    'options' => $post_types,
-                    'description' => __('Visible if current post is one of this Custom Post Type.', DCE_TEXTDOMAIN),
-                    'multiple' => true,
-                        /* 'condition' => [
-                          'dce_visibility_context' => '',
-                          ], */
+                        'dce_visibility_post_id', [
+                    'label' => __('Post ID', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'current' => [
+                            'title' => __('Current', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-list',
+                        ],
+                        'global' => [
+                            'title' => __('Global', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-globe',
+                        ],
+                        'static' => [
+                            'title' => __('Static', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-pencil',
+                        ]
+                    ],
+                    'default' => 'current',
+                    'toggle' => false,
                         ]
                 );
                 $element->add_control(
+                        'dce_visibility_post_id_static',
+                        [
+                            'label' => __('Set Post ID', 'dynamic-content-for-elementor'),
+                            'type' => \Elementor\Controls_Manager::NUMBER,
+                            'min' => 1,
+                            'condition' => [
+                                'dce_visibility_post_id' => 'static',
+                            ],
+                        ]
+                );
+                $element->add_control(
+                        'dce_visibility_post_id_description', [
+                    'type' => Controls_Manager::RAW_HTML,
+                    'raw' => '<small>'.__('NOTE: in some case Current and Global may be different. For example if you put a Widget with a Loop in a Page then Global ID will be Page ID and Current ID will be Post ID in preview inside the Loop.', 'dynamic-content-for-elementor').'</small>',
+                        ]
+                );
+                
+                $element->add_control(
+                        'dce_visibility_cpt', [
+                    'label' => __('CPT', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SELECT2,
+                    'options' => $post_types,
+                    'description' => __('Visible if current post is one of this Custom Post Type.', 'dynamic-content-for-elementor'),
+                    'multiple' => true,
+                    'separator' => 'before',
+                        ]
+                );
+                /*$element->add_control(
                         'dce_visibility_post', [
-                    'label' => __('Page/Post', DCE_TEXTDOMAIN),
+                    'label' => __('Page/Post', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $all_posts,
-                    'description' => __('Visible if current post is one of this Page/Posts.', DCE_TEXTDOMAIN),
+                    'description' => __('Visible if current post is one of this Page/Posts.', 'dynamic-content-for-elementor'),
                     'multiple' => true,
-                        /* 'condition' => [
-                          'dce_visibility_context' => '',
-                          ], */
+                    'separator' => 'before',
+                        ]
+                );*/
+                $element->add_control(
+                        'dce_visibility_post',
+                        [
+                            'label' => __('Page/Post', 'dynamic-content-for-elementor'),
+                            'type' 		=> 'ooo_query',
+                            'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                            'label_block' 	=> true,
+                            'query_type'	=> 'posts',
+                            'description' => __('Visible if current post is one of this Page/Posts.', 'dynamic-content-for-elementor'),
+                            'multiple' => true,
+                            'separator' => 'before',
                         ]
                 );
 
                 $element->add_control(
                         'dce_visibility_tax', [
-                    'label' => __('Taxonomy', DCE_TEXTDOMAIN),
+                    'label' => __('Taxonomy', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $taxonomies,
-                    'description' => __('Triggered if current post is related with this Taxonomy.', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered if current post is related with this Taxonomy.', 'dynamic-content-for-elementor'),
                     'multiple' => false,
-                        /* 'condition' => [
-                          'dce_visibility_context' => '',
-                          ], */
+                    'separator' => 'before',
                         ]
                 );
 
                 foreach ($taxonomies as $tkey => $atax) {
                     if ($tkey) {
-                        $element->add_control(
+                        /*$element->add_control(
                                 'dce_visibility_term_' . $tkey, [
-                            'label' => __('Terms', DCE_TEXTDOMAIN), //.' '.$atax,
+                            'label' => __('Terms', 'dynamic-content-for-elementor'), //.' '.$atax,
                             'type' => Controls_Manager::SELECT2,
                             //'groups' => \DynamicContentForElementor\DCE_Helper::get_taxonomies_terms(),
                             'options' => $taxonomies_terms[$tkey],
-                            'description' => __('Visible if current post is related with this Terms.', DCE_TEXTDOMAIN),
+                            'description' => __('Visible if current post is related with this Terms.', 'dynamic-content-for-elementor'),
                             'multiple' => true,
                             'condition' => [
                                 //'dce_visibility_context' => '',
                                 'dce_visibility_tax' => $tkey,
                             ],
                                 ]
+                        );*/
+                        $element->add_control(
+                                'dce_visibility_term_' . $tkey,
+                                [
+                                    'label' => __('Terms', 'dynamic-content-for-elementor'),
+                                    'type' 		=> 'ooo_query',
+                                    'placeholder'	=> __( 'Term Name', 'dynamic-content-for-elementor' ),
+                                    'label_block' 	=> true,
+                                    'query_type'	=> 'terms',
+                                    'object_type'	=> $tkey,
+                                    'description' => __('Visible if current post is related with this Terms.', 'dynamic-content-for-elementor'),
+                                    'multiple' => true,
+                                    'condition' => [
+                                        'dce_visibility_tax' => $tkey,
+                                    ],
+                                ]
                         );
                     }
                 }
 
-                $element->add_control(
+                /*$element->add_control(
                         'dce_visibility_field', [
-                    'label' => __('Meta Field', DCE_TEXTDOMAIN),
+                    'label' => __('Meta Field', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $post_metas,
-                    'description' => __('Triggered by a selected Post Meta value', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered by a selected Post Meta value', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
+                        ]
+                );*/
+                $element->add_control(
+                        'dce_visibility_field',
+                        [
+                            'label' => __('Meta Field', 'dynamic-content-for-elementor'),
+                            'type' 		=> 'ooo_query',
+                            'placeholder'	=> __( 'Meta key or Name', 'dynamic-content-for-elementor' ),
+                            'label_block' 	=> true,
+                            'query_type'	=> 'metas',
+                            'object_type'	=> 'post',
+                            'description' => __('Triggered by a selected Post Meta value', 'dynamic-content-for-elementor'),
+                            'separator' => 'before',
                         ]
                 );
+                
                 $element->add_control(
                         'dce_visibility_field_status', [
-                    'label' => __('Post Field Status', DCE_TEXTDOMAIN),
+                    'label' => __('Post Field Status', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'not' => [
-                            'title' => __('Not isset or empty', DCE_TEXTDOMAIN),
+                            'title' => __('Not isset or empty', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle-o',
                         ],
                         'isset' => [
-                            'title' => __('Valorized', DCE_TEXTDOMAIN),
+                            'title' => __('Valorized', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-dot-circle-o',
                         ],
                         'value' => [
-                            'title' => __('Specific value', DCE_TEXTDOMAIN),
+                            'title' => __('Specific value', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle',
                         ]
                     ],
@@ -1065,9 +1205,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 );
                 $element->add_control(
                         'dce_visibility_field_value', [
-                    'label' => __('Post Meta Value', DCE_TEXTDOMAIN),
+                    'label' => __('Post Meta Value', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'description' => __('The specific value of the Post Meta', DCE_TEXTDOMAIN),
+                    'description' => __('The specific value of the Post Meta', 'dynamic-content-for-elementor'),
                     'condition' => [
                         //'dce_visibility_context' => '',
                         'dce_visibility_field!' => '',
@@ -1076,26 +1216,40 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         ]
                 );
 
-                $element->add_control(
+                /*$element->add_control(
                         'dce_visibility_meta', [
-                    'label' => __('Metas', DCE_TEXTDOMAIN),
+                    'label' => __('Metas', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $post_metas,
-                    'description' => __('Triggered by specifics metas fields if they are valorized.', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered by specifics metas fields if they are valorized.', 'dynamic-content-for-elementor'),
                     'multiple' => true,
-                        /* 'condition' => [
-                          'dce_visibility_context' => '',
-                          ], */
+                    'separator' => 'before',
+                        ]
+                );*/
+                $element->add_control(
+                        'dce_visibility_meta',
+                        [
+                            'label' => __('Metas', 'dynamic-content-for-elementor'),
+                            'type' 		=> 'ooo_query',
+                            'placeholder'	=> __( 'Meta key or Name', 'dynamic-content-for-elementor' ),
+                            'label_block' 	=> true,
+                            'query_type'	=> 'metas',
+                            'object_type'	=> 'post',
+                            'description' => __('Triggered by specifics metas fields if they are valorized.', 'dynamic-content-for-elementor'),
+                            'multiple' => true,
+                            'separator' => 'before',
                         ]
                 );
+                
+                
                 $element->add_control(
                         'dce_visibility_meta_operator', [
-                    'label' => __('Meta conditions', DCE_TEXTDOMAIN),
+                    'label' => __('Meta conditions', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'default' => 'yes',
-                    'label_on' => __('And', DCE_TEXTDOMAIN),
-                    'label_off' => __('Or', DCE_TEXTDOMAIN),
-                    'description' => __('How post meta have to satisfy this conditions.', DCE_TEXTDOMAIN),
+                    'label_on' => __('And', 'dynamic-content-for-elementor'),
+                    'label_off' => __('Or', 'dynamic-content-for-elementor'),
+                    'description' => __('How post meta have to satisfy this conditions.', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'dce_visibility_meta!' => '',
                     //'dce_visibility_context' => '',
@@ -1105,46 +1259,51 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                 $element->add_control(
                         'dce_visibility_format', [
-                    'label' => __('Format', DCE_TEXTDOMAIN),
+                    'label' => __('Format', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => DCE_Helper::get_post_formats(),
-                    'description' => __('Triggered if current post is setted as one of this format.', DCE_TEXTDOMAIN) . '<br><a href="https://wordpress.org/support/article/post-formats/" target="_blank">' . __('Read more on Post Format.', DCE_TEXTDOMAIN) . '</a>',
+                    'description' => __('Triggered if current post is setted as one of this format.', 'dynamic-content-for-elementor') . '<br><a href="https://wordpress.org/support/article/post-formats/" target="_blank">' . __('Read more on Post Format.', 'dynamic-content-for-elementor') . '</a>',
                     'multiple' => true,
+                    'separator' => 'before',
                         ]
                 );
 
                 $element->add_control(
                         'dce_visibility_parent', [
-                    'label' => __('Is Parent', DCE_TEXTDOMAIN),
+                    'label' => __('Is Parent', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post with children.', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post with children.', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_root', [
-                    'label' => __('Is Root', DCE_TEXTDOMAIN),
+                    'label' => __('Is Root', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post of first level (without parent).', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post of first level (without parent).', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_leaf', [
-                    'label' => __('Is Leaf', DCE_TEXTDOMAIN),
+                    'label' => __('Is Leaf', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post of last level (without children).', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post of last level (without children).', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_node', [
-                    'label' => __('Is Node', DCE_TEXTDOMAIN),
+                    'label' => __('Is Node', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post of intermedial level (with parent and child).', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post of intermedial level (with parent and child).', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_node_level',
                         [
-                            'label' => __('Node level', DCE_TEXTDOMAIN),
+                            'label' => __('Node level', 'dynamic-content-for-elementor'),
                             'type' => \Elementor\Controls_Manager::NUMBER,
                             'min' => 1,
                             'condition' => [
@@ -1153,59 +1312,210 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         ]
                 );
                 $element->add_control(
+                    'dce_visibility_level',
+                    [
+                        'label' => __('Has Level', 'dynamic-content-for-elementor'),
+                        'type' => \Elementor\Controls_Manager::NUMBER,
+                        'min' => 1,
+                        'description' => __('Triggered for post has specific level.', 'dynamic-content-for-elementor'),
+                        'separator' => 'before',
+                    ]
+                );
+                $element->add_control(
                         'dce_visibility_child', [
-                    'label' => __('Has Parent', DCE_TEXTDOMAIN),
+                    'label' => __('Has Parent', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for posts which are children (with a parent).', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for posts which are children (with a parent).', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
+                /*$element->add_control(
+                        'dce_visibility_child_parent',
+                        [
+                            'label' => __('Spercific Parent Post ID', 'dynamic-content-for-elementor'),
+                            'type' => \Elementor\Controls_Manager::TEXT,
+                            //'min' => 1,
+                            'description' => __('Specify the ID (or multiple separated by comma) of a Post, all his children will be trigger. Otherwise leave blank for a generic parent.', 'dynamic-content-for-elementor'),
+                            'condition' => [
+                                'dce_visibility_child!' => '',
+                            ],
+                        ]
+                );*/
                 $element->add_control(
                         'dce_visibility_child_parent',
                         [
-                            'label' => __('Spercific Parent Post ID', DCE_TEXTDOMAIN),
-                            'type' => \Elementor\Controls_Manager::TEXT,
-                            'min' => 1,
-                            'description' => __('Specify the ID (or multiple separated by comma) of a Post, all his children will be trigger. Otherwise leave blank for a generic parent.', DCE_TEXTDOMAIN),
+                            'label' => __('Spercific Parent Post ID', 'dynamic-content-for-elementor'),
+                            'type' 		=> 'ooo_query',
+                            'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                            'label_block' 	=> true,
+                            'query_type'	=> 'posts',
+                            'description' => __('Specify the ID (or multiple separated by comma) of a Post, all his children will be trigger. Otherwise leave blank for a generic parent.', 'dynamic-content-for-elementor'),
                             'condition' => [
                                 'dce_visibility_child!' => '',
                             ],
                         ]
                 );
+                
+                
                 $element->add_control(
                         'dce_visibility_sibling', [
-                    'label' => __('Has Siblings', DCE_TEXTDOMAIN),
+                    'label' => __('Has Siblings', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post with siblings.', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post with siblings.', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
                 $element->add_control(
                         'dce_visibility_friend', [
-                    'label' => __('Has Term Buddies', DCE_TEXTDOMAIN),
+                    'label' => __('Has Term Buddies', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __('Triggered for post grouped in taxonomies with other posts.', DCE_TEXTDOMAIN),
+                    'description' => __('Triggered for post grouped in taxonomies with other posts.', 'dynamic-content-for-elementor'),
+                    'separator' => 'before',
                         ]
                 );
-                $element->add_control(
+                /*$element->add_control(
                         'dce_visibility_friend_term', [
-                    'label' => __('Terms where find Buddies', DCE_TEXTDOMAIN), //.' '.$atax,
+                    'label' => __('Terms where find Buddies', 'dynamic-content-for-elementor'), //.' '.$atax,
                     'type' => Controls_Manager::SELECT2,
                     //'groups' => \DynamicContentForElementor\DCE_Helper::get_taxonomies_terms(),
                     'options' => $all_taxonomies_terms,
-                    'description' => __('Specific a Term for current post has friends.', DCE_TEXTDOMAIN),
+                    'description' => __('Specific a Term for current post has friends.', 'dynamic-content-for-elementor'),
                     'multiple' => true,
                     'label_block' => true,
                     'condition' => [
                         'dce_visibility_friend!' => '',
                     ],
                         ]
+                );*/
+                $element->add_control(
+                        'dce_visibility_friend_term',
+                        [
+                            'label' => __('Terms where find Buddies', 'dynamic-content-for-elementor'), //.' '.$atax,
+                            'type' 		=> 'ooo_query',
+                            'placeholder'	=> __( 'Term Name', 'dynamic-content-for-elementor' ),
+                            'label_block' 	=> true,
+                            'query_type'	=> 'terms',
+                            'description' => __('Specific a Term for current post has friends.', 'dynamic-content-for-elementor'),
+                            'multiple' => true,
+                            'label_block' => true,
+                            'condition' => [
+                                'dce_visibility_friend!' => '',
+                            ],
+                        ]
                 );
             }
         }
 
+        if ($section == 'events') {
+            
+            $element->add_control(
+                        'dce_visibility_events_note', [
+                    'label' => '<strong><i class="elementor-dce-datetime-icon eicon-warning"></i> ' . __('ATTENTION', 'dynamic-content-for-elementor') . '</strong>',
+                    'type' => \Elementor\Controls_Manager::RAW_HTML,
+                    'raw' => '<small><br>' . __('To use an Event trigger is necessary to activate ', 'dynamic-content-for-elementor'). '<strong>' . __('Keep HTML', 'dynamic-content-for-elementor') . '</strong>' . __(' from base settings', 'dynamic-content-for-elementor') . '</small>',
+                    'content_classes' => 'dce-datetime-notice',
+                        'condition' => [
+                          'dce_visibility_dom' => '',
+                          ],
+                    ]
+                );
+            
+            $element->add_control(
+                'dce_visibility_click',
+                [
+                    'label' => __('On Click', 'dynamic-content-for-elementor'),
+                    'type' => \Elementor\Controls_Manager::TEXT,
+                    'description' => __('Write here the Selector in jQuery format of the Button which will toggle selected Element.', 'dynamic-content-for-elementor'),
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                    ],
+                ]
+            );
+            $element->add_control(
+                'dce_visibility_click_show', [
+                    'label' => __('Show Animation', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SELECT,
+                    'options' => DCE_Helper::get_jquery_display_mode(),
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_click!' => '',
+                    ],
+                ]
+            );
+            $element->add_control(
+                'dce_visibility_click_other',
+                [
+                    'label' => __('Hide other elements', 'dynamic-content-for-elementor'),
+                    'type' => \Elementor\Controls_Manager::TEXT,
+                    'description' => __('Write here the Selector in jQuery format.', 'dynamic-content-for-elementor'),
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_click!' => '',
+                    ],
+                ]
+            );
+            /*$element->add_control(
+                'dce_visibility_click_hide', [
+                    'label' => __('Hide Animation', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SELECT,
+                    'options' => DCE_Helper::get_jquery_display_mode(),
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_click!' => '',
+                    ],
+                ]
+            );*/
+            $element->add_control(
+                'dce_visibility_click_toggle', [
+                    'label' => __('Toggle', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SWITCHER,
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_click!' => '',
+                    ],
+                ]
+            );
+            
+            
+            $element->add_control(
+                'dce_visibility_load', [
+                    'label' => __('On Page Load', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SWITCHER,
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                    ],
+                    'separator' => 'before'
+                ]
+            );
+            $element->add_control(
+                'dce_visibility_load_delay', [
+                    'label' => __('Delay time', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::NUMBER,
+                    'min' => 0,
+                    'default' => 0,
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_load!' => '',
+                    ],
+                ]
+            );
+            $element->add_control(
+                'dce_visibility_load_show', [
+                    'label' => __('Show Animation', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SELECT,
+                    'options' => DCE_Helper::get_jquery_display_mode(),
+                    'condition' => [
+                        'dce_visibility_dom!' => '',
+                        'dce_visibility_load!' => '',
+                    ],
+                ]
+            );
+        }
+        
         if ($section == 'tags') {
             /* $element->add_control(
               'tags_visibility_heading', [
-              'label' => __('Conditional Tags', DCE_TEXTDOMAIN),
+              'label' => __('Conditional Tags', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'enabled_visibility' => 'yes',
@@ -1216,147 +1526,139 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
               ); */
             /* $element->add_control(
               'dce_visibility_tags', [
-              'label' => __('Visible UNconditionally', DCE_TEXTDOMAIN),
+              'label' => __('Visible UNconditionally', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'description' => __('You can use Conditional Tags rule to decide to show your element.', DCE_TEXTDOMAIN).'<a href="https://codex.wordpress.org/Conditional_Tags" target="_blank">' . '<br>'. __('Read more on WordPress related page.', DCE_TEXTDOMAIN).'</a>',
+              'description' => __('You can use Conditional Tags rule to decide to show your element.', 'dynamic-content-for-elementor').'<a href="https://codex.wordpress.org/Conditional_Tags" target="_blank">' . '<br>'. __('Read more on WordPress related page.', 'dynamic-content-for-elementor').'</a>',
               ]
               ); */
             $element->add_control(
                     'dce_visibility_tags_intro', [
-                'label' => '<b>' . __('What\'s Conditional Tags?', DCE_TEXTDOMAIN) . '</b>',
+                'label' => '<b>' . __('What\'s Conditional Tags?', 'dynamic-content-for-elementor') . '</b>',
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => __('You can use native Wordpress Conditional Tags to decide when show your element.', DCE_TEXTDOMAIN)
-                . '<br>' . __('Don\'t you know them?', DCE_TEXTDOMAIN) . ' <a href="https://codex.wordpress.org/Conditional_Tags" target="_blank">' . __('Read more on WordPress Codex related page.', DCE_TEXTDOMAIN) . '</a>',
+                'raw' => __('You can use native Wordpress Conditional Tags to decide when show your element.', 'dynamic-content-for-elementor')
+                . '<br>' . __('Don\'t you know them?', 'dynamic-content-for-elementor') . ' <a href="https://codex.wordpress.org/Conditional_Tags" target="_blank">' . __('Read more on WordPress Codex related page.', 'dynamic-content-for-elementor') . '</a>',
                     ]
             );
             // https://codex.wordpress.org/Conditional_Tags
             $element->add_control(
                     'dce_visibility_conditional_tags_post', [
-                'label' => __('Post', DCE_TEXTDOMAIN),
+                'label' => __('Post', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => [
-                    'is_sticky' => __('Is Sticky', DCE_TEXTDOMAIN),
-                    'is_post_type_hierarchical' => __('Is Hierarchical Post Type', DCE_TEXTDOMAIN),
-                    'is_post_type_archive' => __('Is Post Type Archive', DCE_TEXTDOMAIN),
-                    'comments_open' => __('Comments open', DCE_TEXTDOMAIN),
-                    'pings_open' => __('Pings open', DCE_TEXTDOMAIN),
-                    'has_tag' => __('Has Tags', DCE_TEXTDOMAIN),
-                    'has_term' => __('Has Terms', DCE_TEXTDOMAIN),
-                    'has_excerpt' => __('Has Excerpt', DCE_TEXTDOMAIN),
-                    'has_post_thumbnail' => __('Has Post Thumbnail', DCE_TEXTDOMAIN),
-                    'has_nav_menu' => __('Has Nav menu', DCE_TEXTDOMAIN),
+                    'is_sticky' => __('Is Sticky', 'dynamic-content-for-elementor'),
+                    'is_post_type_hierarchical' => __('Is Hierarchical Post Type', 'dynamic-content-for-elementor'),
+                    'is_post_type_archive' => __('Is Post Type Archive', 'dynamic-content-for-elementor'),
+                    'comments_open' => __('Comments open', 'dynamic-content-for-elementor'),
+                    'pings_open' => __('Pings open', 'dynamic-content-for-elementor'),
+                    'has_tag' => __('Has Tags', 'dynamic-content-for-elementor'),
+                    'has_term' => __('Has Terms', 'dynamic-content-for-elementor'),
+                    'has_excerpt' => __('Has Excerpt', 'dynamic-content-for-elementor'),
+                    'has_post_thumbnail' => __('Has Post Thumbnail', 'dynamic-content-for-elementor'),
+                    'has_nav_menu' => __('Has Nav menu', 'dynamic-content-for-elementor'),
                 ],
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_tags' => '',
-                      ], */
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_conditional_tags_site', [
-                'label' => __('Site', DCE_TEXTDOMAIN),
+                'label' => __('Site', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => [
-                    'is_dynamic_sidebar' => __('Dynamic sidebar', DCE_TEXTDOMAIN),
-                    'is_active_sidebar' => __('Active sidebar', DCE_TEXTDOMAIN),
-                    'is_rtl' => __('RTL', DCE_TEXTDOMAIN),
-                    'is_multisite' => __('Multisite', DCE_TEXTDOMAIN),
-                    'is_main_site' => __('Main site', DCE_TEXTDOMAIN),
-                    'is_child_theme' => __('Child theme', DCE_TEXTDOMAIN),
-                    'is_customize_preview' => __('Customize preview', DCE_TEXTDOMAIN),
-                    'is_multi_author' => __('Multi author', DCE_TEXTDOMAIN),
-                    'is feed' => __('Feed', DCE_TEXTDOMAIN),
-                    'is_trackback' => __('Trackback', DCE_TEXTDOMAIN),
+                    'is_dynamic_sidebar' => __('Dynamic sidebar', 'dynamic-content-for-elementor'),
+                    'is_active_sidebar' => __('Active sidebar', 'dynamic-content-for-elementor'),
+                    'is_rtl' => __('RTL', 'dynamic-content-for-elementor'),
+                    'is_multisite' => __('Multisite', 'dynamic-content-for-elementor'),
+                    'is_main_site' => __('Main site', 'dynamic-content-for-elementor'),
+                    'is_child_theme' => __('Child theme', 'dynamic-content-for-elementor'),
+                    'is_customize_preview' => __('Customize preview', 'dynamic-content-for-elementor'),
+                    'is_multi_author' => __('Multi author', 'dynamic-content-for-elementor'),
+                    'is feed' => __('Feed', 'dynamic-content-for-elementor'),
+                    'is_trackback' => __('Trackback', 'dynamic-content-for-elementor'),
                 ],
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_tags' => '',
-                      ], */
+                'separator' => 'before',
                     ]
             );
             // https://codex.wordpress.org/Special:SpecialPages
             $element->add_control(
                     'dce_visibility_special', [
-                'label' => __('Page', DCE_TEXTDOMAIN),
+                'label' => __('Page', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => [
-                    'is_front_page' => __('Front Page', DCE_TEXTDOMAIN),
-                    'is_home' => __('Home', DCE_TEXTDOMAIN),
-                    'is_404' => __('404 Not Found', DCE_TEXTDOMAIN),
-                    'is_single' => __('Single', DCE_TEXTDOMAIN),
-                    'is_page' => __('Page', DCE_TEXTDOMAIN),
-                    'is_attachment' => __('Attachment', DCE_TEXTDOMAIN),
-                    'is_preview' => __('Preview', DCE_TEXTDOMAIN),
-                    'is_admin' => __('Admin', DCE_TEXTDOMAIN),
-                    'is_page_template' => __('Page Template', DCE_TEXTDOMAIN),
-                    'is_comments_popup' => __('Comments Popup', DCE_TEXTDOMAIN),
+                    'is_front_page' => __('Front Page', 'dynamic-content-for-elementor'),
+                    'is_home' => __('Home', 'dynamic-content-for-elementor'),
+                    'is_404' => __('404 Not Found', 'dynamic-content-for-elementor'),
+                    'is_single' => __('Single', 'dynamic-content-for-elementor'),
+                    'is_page' => __('Page', 'dynamic-content-for-elementor'),
+                    'is_attachment' => __('Attachment', 'dynamic-content-for-elementor'),
+                    'is_preview' => __('Preview', 'dynamic-content-for-elementor'),
+                    'is_admin' => __('Admin', 'dynamic-content-for-elementor'),
+                    'is_page_template' => __('Page Template', 'dynamic-content-for-elementor'),
+                    'is_comments_popup' => __('Comments Popup', 'dynamic-content-for-elementor'),
                     /*
-                      'static' => __('Static', DCE_TEXTDOMAIN),
-                      'login' => __('Login', DCE_TEXTDOMAIN),
-                      'registration' => __('Registration', DCE_TEXTDOMAIN),
-                      'profile' => __('Profile', DCE_TEXTDOMAIN),
+                      'static' => __('Static', 'dynamic-content-for-elementor'),
+                      'login' => __('Login', 'dynamic-content-for-elementor'),
+                      'registration' => __('Registration', 'dynamic-content-for-elementor'),
+                      'profile' => __('Profile', 'dynamic-content-for-elementor'),
                      */
                     // woocommerce
-                    'is_woocommerce' => __('A Woocommerce Page', DCE_TEXTDOMAIN),
-                    'is_shop' => __('Shop', DCE_TEXTDOMAIN),
-                    'is_product' => __('Product', DCE_TEXTDOMAIN),
-                    'is_product_taxonomy' => __('Product Taxonomy', DCE_TEXTDOMAIN),
-                    'is_product_category' => __('Product Category', DCE_TEXTDOMAIN),
-                    'is_product_tag' => __('Product Tag', DCE_TEXTDOMAIN),
-                    'is_cart' => __('Cart', DCE_TEXTDOMAIN),
-                    'is_checkout' => __('Checkout', DCE_TEXTDOMAIN),
-                    'is_add_payment_method_page' => __('Add Payment method', DCE_TEXTDOMAIN),
-                    'is_checkout_pay_page' => __('Checkout Pay', DCE_TEXTDOMAIN),
-                    'is_account_page' => __('Account page', DCE_TEXTDOMAIN),
-                    'is_edit_account_page' => __('Edit Account', DCE_TEXTDOMAIN),
-                    'is_lost_password_page' => __('Lost password', DCE_TEXTDOMAIN),
-                    'is_view_order_page' => __('Order summary', DCE_TEXTDOMAIN),
-                    'is_order_received_page' => __('Order complete', DCE_TEXTDOMAIN),
+                    'is_woocommerce' => __('A Woocommerce Page', 'dynamic-content-for-elementor'),
+                    'is_shop' => __('Shop', 'dynamic-content-for-elementor'),
+                    'is_product' => __('Product', 'dynamic-content-for-elementor'),
+                    'is_product_taxonomy' => __('Product Taxonomy', 'dynamic-content-for-elementor'),
+                    'is_product_category' => __('Product Category', 'dynamic-content-for-elementor'),
+                    'is_product_tag' => __('Product Tag', 'dynamic-content-for-elementor'),
+                    'is_cart' => __('Cart', 'dynamic-content-for-elementor'),
+                    'is_checkout' => __('Checkout', 'dynamic-content-for-elementor'),
+                    'is_add_payment_method_page' => __('Add Payment method', 'dynamic-content-for-elementor'),
+                    'is_checkout_pay_page' => __('Checkout Pay', 'dynamic-content-for-elementor'),
+                    'is_account_page' => __('Account page', 'dynamic-content-for-elementor'),
+                    'is_edit_account_page' => __('Edit Account', 'dynamic-content-for-elementor'),
+                    'is_lost_password_page' => __('Lost password', 'dynamic-content-for-elementor'),
+                    'is_view_order_page' => __('Order summary', 'dynamic-content-for-elementor'),
+                    'is_order_received_page' => __('Order complete', 'dynamic-content-for-elementor'),
                 ],
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_tags' => '',
-                      ], */
+                'separator' => 'before',
                     ]
             );
             $element->add_control(
                     'dce_visibility_archive', [
-                'label' => __('Archive', DCE_TEXTDOMAIN),
+                'label' => __('Archive', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => [
-                    'is_blog' => __('Home blog (latest posts)', DCE_TEXTDOMAIN),
-                    'posts_page' => __('Posts page', DCE_TEXTDOMAIN),
-                    'is_tax' => __('Taxonomy', DCE_TEXTDOMAIN),
-                    'is_category' => __('Category', DCE_TEXTDOMAIN),
-                    'is_tag' => __('Tag', DCE_TEXTDOMAIN),
-                    'is_author' => __('Author', DCE_TEXTDOMAIN),
-                    'is_date' => __('Date', DCE_TEXTDOMAIN),
-                    'is_year' => __('Year', DCE_TEXTDOMAIN),
-                    'is_month' => __('Month', DCE_TEXTDOMAIN),
-                    'is_day' => __('Day', DCE_TEXTDOMAIN),
-                    'is_time' => __('Time', DCE_TEXTDOMAIN),
-                    'is_new_day' => __('New Day', DCE_TEXTDOMAIN),
-                    'is_search' => __('Search', DCE_TEXTDOMAIN),
-                    'is_paged' => __('Paged', DCE_TEXTDOMAIN),
-                    'is_main_query' => __('Main Query', DCE_TEXTDOMAIN),
-                    'in_the_loop' => __('In the Loop', DCE_TEXTDOMAIN),
+                    'is_blog' => __('Home blog (latest posts)', 'dynamic-content-for-elementor'),
+                    'posts_page' => __('Posts page', 'dynamic-content-for-elementor'),
+                    'is_tax' => __('Taxonomy', 'dynamic-content-for-elementor'),
+                    'is_category' => __('Category', 'dynamic-content-for-elementor'),
+                    'is_tag' => __('Tag', 'dynamic-content-for-elementor'),
+                    'is_author' => __('Author', 'dynamic-content-for-elementor'),
+                    'is_date' => __('Date', 'dynamic-content-for-elementor'),
+                    'is_year' => __('Year', 'dynamic-content-for-elementor'),
+                    'is_month' => __('Month', 'dynamic-content-for-elementor'),
+                    'is_day' => __('Day', 'dynamic-content-for-elementor'),
+                    'is_time' => __('Time', 'dynamic-content-for-elementor'),
+                    'is_new_day' => __('New Day', 'dynamic-content-for-elementor'),
+                    'is_search' => __('Search', 'dynamic-content-for-elementor'),
+                    'is_paged' => __('Paged', 'dynamic-content-for-elementor'),
+                    'is_main_query' => __('Main Query', 'dynamic-content-for-elementor'),
+                    'in_the_loop' => __('In the Loop', 'dynamic-content-for-elementor'),
                 ],
                 'multiple' => true,
-                    /* 'condition' => [
-                      'dce_visibility_tags' => '',
-                      ], */
+                'separator' => 'before',
                     ]
             );
 
             /* $element->add_control(
               'dce_visibility_tags_selected', [
-              'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+              'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __('Show', DCE_TEXTDOMAIN),
-              'label_off' => __('Hide', DCE_TEXTDOMAIN),
-              'description' => __('Hide or show in selected tags.', DCE_TEXTDOMAIN),
+              'label_on' => __('Show', 'dynamic-content-for-elementor'),
+              'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+              'description' => __('Hide or show in selected tags.', 'dynamic-content-for-elementor'),
               'condition' => [
               'dce_visibility_tags' => '',
               ],
@@ -1368,7 +1670,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             $element->add_control(
                     'dce_visibility_random',
                     [
-                        'label' => __('Random', DCE_TEXTDOMAIN),
+                        'label' => __('Random', 'dynamic-content-for-elementor'),
                         'type' => Controls_Manager::SLIDER,
                         'size_units' => ['%'],
                         'range' => [
@@ -1385,7 +1687,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (defined('DVE_PLUGIN_BASE')) { //  Feature not present in FREE version
                 $element->add_control(
                         'dce_visibility_custom_hide', [
-                    'label' => __('Only in PRO', DCE_TEXTDOMAIN),
+                    'label' => __('Only in PRO', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::RAW_HTML,
                     'raw' => '<style>.elementor-control-dce_section_visibility_custom { display: none !important; }</style>',
                         ]
@@ -1393,7 +1695,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             } else {
                 /* $element->add_control(
                   'php_visibility_heading', [
-                  'label' => __('Custom Condition', DCE_TEXTDOMAIN),
+                  'label' => __('Custom Condition', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::HEADING,
                   'condition' => [
                   'enabled_visibility' => 'yes',
@@ -1404,19 +1706,19 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                   ); */
                 /* $element->add_control(
                   'dce_visibility_custom_condition', [
-                  'label' => __('Visible Always', DCE_TEXTDOMAIN),
+                  'label' => __('Visible Always', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => 'yes',
-                  'description' => __("By a your handwritten advanced custom condition.", DCE_TEXTDOMAIN),
+                  'description' => __("By a your handwritten advanced custom condition.", 'dynamic-content-for-elementor'),
                   ]
                   ); */
                 $element->add_control(
                         'dce_visibility_custom_condition_php', [
-                    'label' => __('Custom PHP condition', DCE_TEXTDOMAIN),
+                    'label' => __('Custom PHP condition', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CODE,
                     //'placeholder' => 'return true;',
                     'default' => 'return true;',
-                    'description' => __('Write here a function that return a boolean value. You can use all WP variabile and functions.', DCE_TEXTDOMAIN),
+                    'description' => __('Write here a function that return a boolean value. You can use all WP variabile and functions.', 'dynamic-content-for-elementor'),
                         /* 'condition' => [
                           'dce_visibility_custom_condition' => '',
                           ], */
@@ -1424,12 +1726,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 );
                 $element->add_control(
                         'dce_visibility_custom_condition_secure', [
-                    'label' => __('Prevent errors', DCE_TEXTDOMAIN),
+                    'label' => __('Prevent errors', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'default' => 'yes',
-                    'description' => __('Execute code externally in secure mode without throw possible FATAL error.', DCE_TEXTDOMAIN)
-                    . '<br><strong>' . __("NOTE", DCE_TEXTDOMAIN) . '</strong>: ' . __("if you want access to current page data and context you need to disable it.", DCE_TEXTDOMAIN)
-                    . '<br><strong>' . __("WARNING: if it's disabled a wrong code can broke this page, check if code is correct before saving.", DCE_TEXTDOMAIN) . '</strong>',
+                    'description' => __('Execute code externally in secure mode without throw possible FATAL error.', 'dynamic-content-for-elementor')
+                    . '<br><strong>' . __("NOTE", 'dynamic-content-for-elementor') . '</strong>: ' . __("if you want access to current page data and context you need to disable it.", 'dynamic-content-for-elementor')
+                    . '<br><strong>' . __("WARNING: if it's disabled a wrong code can broke this page, check if code is correct before saving.", 'dynamic-content-for-elementor') . '</strong>',
                         /* 'condition' => [
                           'dce_visibility_custom_condition' => '',
                           ], */
@@ -1437,12 +1739,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 );
                 /* $element->add_control(
                   'dce_visibility_custom_condition_selected', [
-                  'label' => __('Show/Hide', DCE_TEXTDOMAIN),
+                  'label' => __('Show/Hide', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => 'yes',
-                  'label_on' => __('Show', DCE_TEXTDOMAIN),
-                  'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                  'description' => __('Hide or show by custom condition.', DCE_TEXTDOMAIN),
+                  'label_on' => __('Show', 'dynamic-content-for-elementor'),
+                  'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                  'description' => __('Hide or show by custom condition.', 'dynamic-content-for-elementor'),
                   'condition' => [
                   'dce_visibility_custom_condition' => '',
                   ],
@@ -1457,7 +1759,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
           $repeater_fields = new \Elementor\Repeater();
           $repeater_fields->add_control(
           'dce_visibility_repeater_trigger', [
-          'label' => __('Trigger', DCE_TEXTDOMAIN),
+          'label' => __('Trigger', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SELECT,
           'options' => self::$triggers,
           ]
@@ -1465,7 +1767,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
           $element->add_control(
           'dce_visibility_repeater', [
-          'label' => __('Add trigger', DCE_TEXTDOMAIN),
+          'label' => __('Add trigger', 'dynamic-content-for-elementor'),
           'type' => \Elementor\Controls_Manager::REPEATER,
           'fields' => $repeater_fields->get_controls(),
           ]
@@ -1473,10 +1775,10 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
           $element->add_control(
           'dce_visibility_repeater_expression', [
-          'label' => __('Parameter Value', DCE_TEXTDOMAIN),
+          'label' => __('Parameter Value', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::TEXT,
           'placeholder' => '((1) AND (2)) OR (3)',
-          'description' => __('The combination of selected trigger', DCE_TEXTDOMAIN),
+          'description' => __('The combination of selected trigger', 'dynamic-content-for-elementor'),
           ]
           );
           }
@@ -1485,7 +1787,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         if ($section == 'fallback') {
             /* $element->add_control(
               'fallback_visibility_heading', [
-              'label' => __('Fallback', DCE_TEXTDOMAIN),
+              'label' => __('Fallback', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'separator' => 'before',
               'condition' => [
@@ -1495,15 +1797,15 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
               ); */
             $element->add_control(
                     'dce_visibility_fallback', [
-                'label' => __('Enable a Fallback Content', DCE_TEXTDOMAIN),
+                'label' => __('Enable a Fallback Content', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'description' => __("If you want to show something when the element is hidden", DCE_TEXTDOMAIN),
+                'description' => __("If you want to show something when the element is hidden", 'dynamic-content-for-elementor'),
                     ]
             );
             if (defined('DVE_PLUGIN_BASE')) { // free version not support template shortcode
                 $element->add_control(
                         'dce_visibility_fallback_type', [
-                    'label' => __('Content type', DCE_TEXTDOMAIN),
+                    'label' => __('Content type', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::HIDDEN,
                     'default' => 'text',
                         ]
@@ -1511,15 +1813,15 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             } else {
                 $element->add_control(
                         'dce_visibility_fallback_type', [
-                    'label' => __('Content type', DCE_TEXTDOMAIN),
+                    'label' => __('Content type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'text' => [
-                            'title' => __('Text', DCE_TEXTDOMAIN),
+                            'title' => __('Text', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-align-left',
                         ],
                         'template' => [
-                            'title' => __('Template', DCE_TEXTDOMAIN),
+                            'title' => __('Template', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-th-large',
                         ]
                     ],
@@ -1530,9 +1832,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         ]
                 );
             }
-            $element->add_control(
+            /*$element->add_control(
                     'dce_visibility_fallback_template', [
-                'label' => __('Render Template', DCE_TEXTDOMAIN),
+                'label' => __('Render Template', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 //'options' => get_post_taxonomies( $post->ID ),
                 'options' => $templates,
@@ -1542,13 +1844,29 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     'dce_visibility_fallback_type' => 'template',
                 ],
                     ]
+            );*/
+            $element->add_control(
+                'dce_visibility_fallback_template',
+                [
+                    'label' => __('Render Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                    'description' => 'Use a Elementor Template as content of popup, useful for complex structure.',
+                    'condition' => [
+                        'dce_visibility_fallback!' => '',
+                        'dce_visibility_fallback_type' => 'template',
+                    ],
+                ]
             );
             $element->add_control(
                     'dce_visibility_fallback_text', [
-                'label' => __('Text Fallback', DCE_TEXTDOMAIN),
+                'label' => __('Text Fallback', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::WYSIWYG,
                 'default' => "This element is currently hidden.",
-                'description' => __("Insert here some content showed if the element is not visible", DCE_TEXTDOMAIN),
+                'description' => __("Insert here some content showed if the element is not visible", 'dynamic-content-for-elementor'),
                 'condition' => [
                     'dce_visibility_fallback!' => '',
                     'dce_visibility_fallback_type' => 'text',
@@ -1558,10 +1876,10 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if ($element_type == 'section') {
                 $element->add_control(
                         'dce_visibility_fallback_section', [
-                    'label' => __('Use section wrapper', DCE_TEXTDOMAIN),
+                    'label' => __('Use section wrapper', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'default' => 'yes',
-                    'description' => __('Mantain original section wrapper.', DCE_TEXTDOMAIN),
+                    'description' => __('Mantain original section wrapper.', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'dce_visibility_fallback!' => '',
                     //'dce_visibility_fallback_type' => 'text',
@@ -1669,6 +1987,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if ($hidden) {
                 $this->print_conditions($widget);
             }
+            $this->print_scripts($widget);
             $this->set_element_view_counters($widget, $hidden);
 
             // show element in backend
@@ -1709,7 +2028,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
             if (isset($settings['dce_visibility_fallback_type']) && $settings['dce_visibility_fallback_type'] == 'template') {
                 $fallback_content = '[dce-elementor-template id="' . $settings['dce_visibility_fallback_template'] . '"]';
             } else { //if ($settings['dce_visibility_fallback_type'] == 'text') {
-                $fallback_content = __($settings['dce_visibility_fallback_text'], DCE_TEXTDOMAIN . '_texts');
+                $fallback_content = __($settings['dce_visibility_fallback_text'], 'dynamic-content-for-elementor' . '_texts');
             }
             $fallback_content = do_shortcode($fallback_content); // TODO FIX
             if (!defined('DVE_PLUGIN_BASE')) {
@@ -1750,15 +2069,30 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         $hidden = FALSE;
         $conditions = array();
 
-        if ($why) {
-            //var_dump($settings);
+        $post_ID = get_the_ID(); // Current post
+        if (!empty($settings['dce_visibility_post_id'])) {
+            switch ($settings['dce_visibility_post_id']) {
+                case 'global':
+                    $queried_object = get_queried_object();
+                    //if ( $queried_object instanceof WP_Post ) {
+                    if ($queried_object && is_object($queried_object) && get_class($queried_object) == 'WP_Post') {
+                        $post_ID = $queried_object->ID; // get_queried_object_id();
+                    }
+                    break;
+                case 'static':
+                    $post_tmp = get_post( $settings['dce_visibility_post_id_static'] );
+                    if (is_object($post_tmp)) {
+                        $post_ID = $post_tmp->ID;
+                    }
+                    break;
+            }
         }
 
         if (isset($settings['enabled_visibility']) && $settings['enabled_visibility']) {
 
             // FORCED HIDDEN
             if (isset($settings['dce_visibility_hidden']) && $settings['dce_visibility_hidden']) {
-                $conditions['dce_visibility_hidden'] = __('Always Hidden', DCE_TEXTDOMAIN);
+                $conditions['dce_visibility_hidden'] = __('Always Hidden', 'dynamic-content-for-elementor');
                 $hidden = TRUE;
             } else {
 
@@ -1768,33 +2102,33 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                 if ($settings['dce_visibility_date_from'] && $settings['dce_visibility_date_to']) {
                     if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                        $conditions['date'] = __('Date', DCE_TEXTDOMAIN);
+                        $conditions['date'] = __('Date', 'dynamic-content-for-elementor');
                     }
                     // between
                     $dateTo = strtotime($settings['dce_visibility_date_to']);
                     $dateFrom = strtotime($settings['dce_visibility_date_from']);
                     if (current_time('timestamp') >= $dateFrom && current_time('timestamp') <= $dateTo) {
-                        $conditions['date'] = __('Date', DCE_TEXTDOMAIN);
+                        $conditions['date'] = __('Date', 'dynamic-content-for-elementor');
                         $everytimehidden = TRUE;
                     }
                 } else {
                     if ($settings['dce_visibility_date_from']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_date_from'] = __('Date From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_date_from'] = __('Date From', 'dynamic-content-for-elementor');
                         }
                         $dateFrom = strtotime($settings['dce_visibility_date_from']);
                         if (current_time('timestamp') >= $dateFrom) {
-                            $conditions['dce_visibility_date_from'] = __('Date From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_date_from'] = __('Date From', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
                     if ($settings['dce_visibility_date_to']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_date_to'] = __('Date To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_date_to'] = __('Date To', 'dynamic-content-for-elementor');
                         }
                         $dateTo = strtotime($settings['dce_visibility_date_to']);
                         if (current_time('timestamp') <= $dateTo) {
-                            $conditions['dce_visibility_date_to'] = __('Date To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_date_to'] = __('Date To', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
@@ -1802,29 +2136,29 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                 if ($settings['dce_visibility_period_from'] && $settings['dce_visibility_period_to']) {
                     if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                        $conditions['period'] = __('Period', DCE_TEXTDOMAIN);
+                        $conditions['period'] = __('Period', 'dynamic-content-for-elementor');
                     }
                     // between
                     if (date_i18n('m/d') >= $settings['dce_visibility_period_from'] && date_i18n('m/d') <= $settings['dce_visibility_period_to']) {
-                        $conditions['period'] = __('Period', DCE_TEXTDOMAIN);
+                        $conditions['period'] = __('Period', 'dynamic-content-for-elementor');
                         $everytimehidden = TRUE;
                     }
                 } else {
                     if ($settings['dce_visibility_period_from']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_period_from'] = __('Period From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_period_from'] = __('Period From', 'dynamic-content-for-elementor');
                         }
                         if (date_i18n('m/d') >= $settings['dce_visibility_period_from']) {
-                            $conditions['dce_visibility_period_from'] = __('Period From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_period_from'] = __('Period From', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
                     if ($settings['dce_visibility_period_to']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_period_to'] = __('Period To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_period_to'] = __('Period To', 'dynamic-content-for-elementor');
                         }
                         if (date_i18n('m/d') <= $settings['dce_visibility_period_to']) {
-                            $conditions['dce_visibility_period_to'] = __('Period To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_period_to'] = __('Period To', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
@@ -1832,42 +2166,42 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                 if ($settings['dce_visibility_time_week'] && !empty($settings['dce_visibility_time_week'])) {
                     if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                        $conditions['dce_visibility_time_week'] = __('Day of Week', DCE_TEXTDOMAIN);
+                        $conditions['dce_visibility_time_week'] = __('Day of Week', 'dynamic-content-for-elementor');
                     }
                     if (in_array(current_time('w'), $settings['dce_visibility_time_week'])) {
-                        $conditions['dce_visibility_time_week'] = __('Day of Week', DCE_TEXTDOMAIN);
+                        $conditions['dce_visibility_time_week'] = __('Day of Week', 'dynamic-content-for-elementor');
                         $everytimehidden = TRUE;
                     }
                 }
 
                 if ($settings['dce_visibility_time_from'] && $settings['dce_visibility_time_to']) {
                     if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                        $conditions['time'] = __('Time', DCE_TEXTDOMAIN);
+                        $conditions['time'] = __('Time', 'dynamic-content-for-elementor');
                     }
                     $timeFrom = $settings['dce_visibility_time_from'];
                     $timeTo = ($settings['dce_visibility_time_to'] == '00:00') ? '24:00' : $settings['dce_visibility_time_to'];
                     if (current_time('H:m') >= $timeFrom && current_time('H:m') <= $timeTo) {
-                        $conditions['time'] = __('Time', DCE_TEXTDOMAIN);
+                        $conditions['time'] = __('Time', 'dynamic-content-for-elementor');
                         $everytimehidden = TRUE;
                     }
                 } else {
                     if ($settings['dce_visibility_time_from']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_time_from'] = __('Time From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_time_from'] = __('Time From', 'dynamic-content-for-elementor');
                         }
                         $timeFrom = $settings['dce_visibility_time_from'];
                         if (current_time('H:m') >= $timeFrom) {
-                            $conditions['dce_visibility_time_from'] = __('Time From', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_time_from'] = __('Time From', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
                     if ($settings['dce_visibility_time_to']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_time_to'] = __('Time To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_time_to'] = __('Time To', 'dynamic-content-for-elementor');
                         }
                         $timeTo = ($settings['dce_visibility_time_to'] == '00:00') ? '24:00' : $settings['dce_visibility_time_to'];
                         if (current_time('H:m') <= $timeTo) {
-                            $conditions['dce_visibility_time_to'] = __('Time To', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_time_to'] = __('Time To', 'dynamic-content-for-elementor');
                             $everytimehidden = TRUE;
                         }
                     }
@@ -1880,7 +2214,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     //roles
                     if (isset($settings['dce_visibility_role']) && !empty($settings['dce_visibility_role'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_role'] = __('User Role', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_role'] = __('User Role', 'dynamic-content-for-elementor');
                         }
                         $current_user = wp_get_current_user();
                         if ($current_user && $current_user->ID) {
@@ -1891,13 +2225,13 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             if (is_array($settings['dce_visibility_role'])) {
                                 $tmp_role = array_intersect($user_roles, $settings['dce_visibility_role']);
                                 if (!empty($tmp_role)) {
-                                    $conditions['dce_visibility_role'] = __('User Role', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_role'] = __('User Role', 'dynamic-content-for-elementor');
                                     $everyonehidden = TRUE;
                                 }
                             }
                         } else {
                             if (in_array('visitor', $settings['dce_visibility_role'])) {
-                                $conditions['dce_visibility_role'] = __('User not logged', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_role'] = __('User not logged', 'dynamic-content-for-elementor');
                                 $everyonehidden = TRUE;
                             }
                         }
@@ -1906,7 +2240,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // user
                     if (isset($settings['dce_visibility_users']) && $settings['dce_visibility_users'] && $settings['dce_visibility_users'] != '1') {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_users'] = __('Specific User', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_users'] = __('Specific User', 'dynamic-content-for-elementor');
                         }
                         $users = $settings['dce_visibility_users'];
                         if ($users) {
@@ -1935,31 +2269,50 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         }
                         //var_dump($is_user);
                         if ($is_user) {
-                            $conditions['dce_visibility_users'] = __('Specific User', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_users'] = __('Specific User', 'dynamic-content-for-elementor');
+                            $everyonehidden = TRUE;
+                        }
+                    }
+                    
+                    if (isset($settings['dce_visibility_can']) && $settings['dce_visibility_can']) {
+                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                            $conditions['dce_visibility_can'] = __('User can', 'dynamic-content-for-elementor');
+                        }
+                        $user_can = false;
+                        $user_id = get_current_user_id();
+                        if (user_can($user_id, $settings['dce_visibility_can'])) {
+                            $user_can = true;
+                        }
+                        if ($user_can) {
+                            $conditions['dce_visibility_can'] = __('User can', 'dynamic-content-for-elementor');
                             $everyonehidden = TRUE;
                         }
                     }
 
                     if (isset($settings['dce_visibility_usermeta']) && !empty($settings['dce_visibility_usermeta'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_usermeta'] = __('User Meta', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_usermeta'] = __('User Field', 'dynamic-content-for-elementor');
                         }
                         $current_user = wp_get_current_user();
-                        $usermeta = get_user_meta($current_user->ID, $settings['dce_visibility_usermeta'], true); // false for visitor
+                        if (DCE_Helper::is_user_meta($settings['dce_visibility_usermeta'])) {
+                            $usermeta = get_user_meta($current_user->ID, $settings['dce_visibility_usermeta'], true); // false for visitor
+                        } else {
+                            $usermeta = $current_user->{$settings['dce_visibility_usermeta']};
+                        }
                         switch ($settings['dce_visibility_usermeta_status']) {
                             case 'isset':
                                 if (!empty($usermeta)) {
-                                    $conditions['dce_visibility_usermeta'] = __('User Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_usermeta'] = __('User Field', 'dynamic-content-for-elementor');
                                 }
                                 break;
                             case 'not':
                                 if (empty($usermeta)) {
-                                    $conditions['dce_visibility_usermeta'] = __('User Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_usermeta'] = __('User Field', 'dynamic-content-for-elementor');
                                 }
                                 break;
                             case 'value':
                                 if ($usermeta == $settings['dce_visibility_usermeta_value']) {
-                                    $conditions['dce_visibility_usermeta'] = __('User Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_usermeta'] = __('User Field', 'dynamic-content-for-elementor');
                                 }
                         }
                     }
@@ -1970,25 +2323,25 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     if (DCE_Helper::is_plugin_active('geoip-detect') && function_exists('geoip_detect2_get_info_from_current_ip')) {
                         if (!empty($settings['dce_visibility_country'])) {
                             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                                $conditions['dce_visibility_country'] = __('Country', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_country'] = __('Country', 'dynamic-content-for-elementor');
                             } else {
                                 $geoinfo = geoip_detect2_get_info_from_current_ip();
                                 if (in_array($geoinfo->country->isoCode, $settings['dce_visibility_country'])) {
-                                    $conditions['dce_visibility_country'] = __('Country', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_country'] = __('Country', 'dynamic-content-for-elementor');
                                 }
                             }
                         }
 
                         if (!empty($settings['dce_visibility_city'])) {
                             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                                $conditions['dce_visibility_country'] = __('City', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_country'] = __('City', 'dynamic-content-for-elementor');
                             } else {
                                 $geoinfo = geoip_detect2_get_info_from_current_ip();
                                 $ucity = array_map('strtolower', $geoinfo->city->names);
                                 $scity = DCE_Helper::str_to_array(',', $settings['dce_visibility_city'], 'strtolower');
                                 $icity = array_intersect($ucity, $scity);
                                 if (!empty($icity)) {
-                                    $conditions['dce_visibility_country'] = __('City', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_country'] = __('City', 'dynamic-content-for-elementor');
                                 }
                             }
                         }
@@ -1998,7 +2351,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // referrer
                     if (isset($settings['dce_visibility_referrer']) && $settings['dce_visibility_referrer'] && $settings['dce_visibility_referrer_list']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_referrer_list'] = __('Referer', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_referrer_list'] = __('Referer', 'dynamic-content-for-elementor');
                         }
                         if ($_SERVER['HTTP_REFERER']) {
                             $pieces = explode('/', $_SERVER['HTTP_REFERER']);
@@ -2012,7 +2365,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                                 }
                             }
                             if ($ref_found) {
-                                $conditions['dce_visibility_referrer_list'] = __('Referer', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_referrer_list'] = __('Referer', 'dynamic-content-for-elementor');
                                 $everyonehidden = TRUE;
                             }
                         }/* else {
@@ -2022,12 +2375,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
                     if (isset($settings['dce_visibility_ip']) && $settings['dce_visibility_ip']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_ip'] = __('Remote IP', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_ip'] = __('Remote IP', 'dynamic-content-for-elementor');
                         }
                         $ips = explode(',', $settings['dce_visibility_ip']);
                         $ips = array_map('trim', $ips);
                         if (in_array($_SERVER['REMOTE_ADDR'], $ips)) {
-                            $conditions['dce_visibility_ip'] = __('Remote IP', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_ip'] = __('Remote IP', 'dynamic-content-for-elementor');
                             $everyonehidden = TRUE;
                         }
                     }
@@ -2040,16 +2393,16 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // responsive
                     if (isset($settings['dce_visibility_responsive']) && $settings['dce_visibility_responsive']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_responsive'] = __('Responsive', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_responsive'] = __('Responsive', 'dynamic-content-for-elementor');
                         }
                         if (wp_is_mobile()) {
                             if ($settings['dce_visibility_responsive'] == 'mobile') {
-                                $conditions['dce_visibility_responsive'] = __('Responsive: is Mobile', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_responsive'] = __('Responsive: is Mobile', 'dynamic-content-for-elementor');
                                 $ahidden = TRUE;
                             }
                         } else {
                             if ($settings['dce_visibility_responsive'] == 'desktop') {
-                                $conditions['dce_visibility_responsive'] = __('Responsive: is Desktop', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_responsive'] = __('Responsive: is Desktop', 'dynamic-content-for-elementor');
                                 $ahidden = TRUE;
                             }
                         }
@@ -2058,7 +2411,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // browser
                     if (isset($settings['dce_visibility_browser']) && is_array($settings['dce_visibility_browser']) && !empty($settings['dce_visibility_browser'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_browser'] = __('Browser', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_browser'] = __('Browser', 'dynamic-content-for-elementor');
                         }
                         $is_browser = false;
                         foreach ($settings['dce_visibility_browser'] as $browser) {
@@ -2070,7 +2423,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         }
                         //$hidden_browser = false;
                         if ($is_browser) {
-                            $conditions['dce_visibility_browser'] = __('Browser', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_browser'] = __('Browser', 'dynamic-content-for-elementor');
                             $ahidden = TRUE;
                         }
                     }
@@ -2083,12 +2436,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // cpt
                     if (isset($settings['dce_visibility_cpt']) && !empty($settings['dce_visibility_cpt']) && is_array($settings['dce_visibility_cpt'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_cpt'] = __('Post Type', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_cpt'] = __('Post Type', 'dynamic-content-for-elementor');
                         }
                         $cpt = get_post_type();
                         //var_dump($cpt);
                         if (in_array($cpt, $settings['dce_visibility_cpt'])) {
-                            $conditions['dce_visibility_cpt'] = __('Post Type', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_cpt'] = __('Post Type', 'dynamic-content-for-elementor');
                             $contexthidden = true;
                         }
                     }
@@ -2097,16 +2450,10 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     //var_dump($settings['dce_visibility_post']);
                     if (isset($settings['dce_visibility_post']) && !empty($settings['dce_visibility_post']) && is_array($settings['dce_visibility_post'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_post'] = __('Post', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_post'] = __('Post', 'dynamic-content-for-elementor');
                         }
-                        $id = 0;
-                        $queried_object = get_queried_object();
-                        //if ( $queried_object instanceof WP_Post ) {
-                        if ($queried_object && get_class($queried_object) == 'WP_Post') {
-                            $id = $queried_object->ID;
-                        }
-                        if (in_array($id, $settings['dce_visibility_post'])) {
-                            $conditions['dce_visibility_post'] = __('Post', DCE_TEXTDOMAIN);
+                        if (in_array($post_ID, $settings['dce_visibility_post'])) {
+                            $conditions['dce_visibility_post'] = __('Post', 'dynamic-content-for-elementor');
                             $contexthidden = true;
                         }
                     }
@@ -2116,39 +2463,39 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                       $tax = get_post_taxonomies();
                       //return $tax;
                       if (!array_intersect($tax, $settings['dce_visibility_tax'])) {
-                      $conditions[] = __('Taxonomy', DCE_TEXTDOMAIN);
+                      $conditions[] = __('Taxonomy', 'dynamic-content-for-elementor');
                       $contexthidden = true;
                       }
                       } */
                     if (isset($settings['dce_visibility_tax']) && $settings['dce_visibility_tax']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_tax'] = __('Taxonomy', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_tax'] = __('Taxonomy', 'dynamic-content-for-elementor');
                         }
                         //return $settings['dce_visibility_tax'];
                         $tax = get_post_taxonomies();
                         //return $tax;
                         if (!in_array($settings['dce_visibility_tax'], $tax)) {
-                            $conditions['dce_visibility_tax'] = __('Taxonomy', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_tax'] = __('Taxonomy', 'dynamic-content-for-elementor');
                             $contexthidden = true;
                         } else {
                             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                                $conditions['terms'] = __('Terms', DCE_TEXTDOMAIN);
+                                $conditions['terms'] = __('Terms', 'dynamic-content-for-elementor');
                             }
                             // term
-                            $terms = get_the_terms(get_the_ID(), $settings['dce_visibility_tax']);
+                            $terms = get_the_terms($post_ID, $settings['dce_visibility_tax']);
                             $terms = wp_list_pluck($terms, 'term_id');
                             //return $terms;
                             $tkey = 'dce_visibility_term_' . $settings['dce_visibility_tax'];
                             //return $settings[$tkey];
                             if (!empty($settings[$tkey]) && is_array($settings[$tkey])) {
                                 if (array_intersect($terms, $settings[$tkey])) {
-                                    $conditions[$tkey] = __('Terms', DCE_TEXTDOMAIN);
+                                    $conditions[$tkey] = __('Terms', 'dynamic-content-for-elementor');
                                     $contexthidden = true;
                                     //return $tax;
                                 }
                             } else {
                                 if (!empty($terms)) {
-                                    $conditions['terms'] = __('Terms', DCE_TEXTDOMAIN);
+                                    $conditions['terms'] = __('Terms', 'dynamic-content-for-elementor');
                                     $contexthidden = true;
                                 }
                             }
@@ -2158,7 +2505,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // meta
                     if (isset($settings['dce_visibility_meta']) && is_array($settings['dce_visibility_meta']) && !empty($settings['dce_visibility_meta'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_meta'] = __('Post Metas', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_meta'] = __('Post Metas', 'dynamic-content-for-elementor');
                         }
                         $post_metas = $settings['dce_visibility_meta'];
                         $metafirst = true;
@@ -2170,8 +2517,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                                 //var_dump($author_id);
                                 $mvalue = get_user_meta($author_id, $ameta, true);
                             } else {
-                                //var_dump(get_the_ID());
-                                $mvalue = get_post_meta(get_the_ID(), $ameta, true);
+                                $mvalue = get_post_meta($post_ID, $ameta, true);
                                 if (is_array($mvalue) && empty($mvalue)) {
                                     $mvalue = false;
                                 }
@@ -2192,54 +2538,54 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         }
 
                         if ($metavalued) {
-                            $conditions['dce_visibility_meta'] = __('Post Metas', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_meta'] = __('Post Metas', 'dynamic-content-for-elementor');
                             $contexthidden = TRUE;
                         }
                     }
 
                     if (isset($settings['dce_visibility_field']) && !empty($settings['dce_visibility_field'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_field'] = __('Post Meta', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_field'] = __('Post Meta', 'dynamic-content-for-elementor');
                         }
-                        $postmeta = get_post_meta(get_the_ID(), $settings['dce_visibility_field'], true);
+                        $postmeta = get_post_meta($post_ID, $settings['dce_visibility_field'], true);
                         switch ($settings['dce_visibility_field_status']) {
                             case 'isset':
                                 if (!empty($postmeta)) {
-                                    $conditions['dce_visibility_field'] = __('Post Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_field'] = __('Post Meta', 'dynamic-content-for-elementor');
                                 }
                                 break;
                             case 'not':
                                 if (empty($postmeta)) {
-                                    $conditions['dce_visibility_field'] = __('Post Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_field'] = __('Post Meta', 'dynamic-content-for-elementor');
                                 }
                                 break;
                             case 'value':
                                 if ($postmeta == $settings['dce_visibility_field_value']) {
-                                    $conditions['dce_visibility_field'] = __('Post Meta', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_field'] = __('Post Meta', 'dynamic-content-for-elementor');
                                 }
                         }
                     }
 
                     if (isset($settings['dce_visibility_parameter']) && $settings['dce_visibility_parameter']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_parameter'] = __('Parameter', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_parameter'] = __('Parameter', 'dynamic-content-for-elementor');
                         }
                         switch ($settings['dce_visibility_parameter_status']) {
                             case 'isset':
                                 if (isset($_REQUEST[$settings['dce_visibility_parameter']])) {
-                                    $conditions['dce_visibility_parameter'] = __('Parameter', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_parameter'] = __('Parameter', 'dynamic-content-for-elementor');
                                     $contexthidden = true;
                                 }
                                 break;
                             case 'not':
                                 if (!isset($_REQUEST[$settings['dce_visibility_parameter']])) {
-                                    $conditions['dce_visibility_parameter'] = __('Parameter', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_parameter'] = __('Parameter', 'dynamic-content-for-elementor');
                                     $contexthidden = true;
                                 }
                                 break;
                             case 'value':
                                 if (isset($_REQUEST[$settings['dce_visibility_parameter']]) && $_REQUEST[$settings['dce_visibility_parameter']] == $settings['dce_visibility_parameter_value']) {
-                                    $conditions['dce_visibility_parameter'] = __('Parameter', DCE_TEXTDOMAIN);
+                                    $conditions['dce_visibility_parameter'] = __('Parameter', 'dynamic-content-for-elementor');
                                     $contexthidden = true;
                                 }
                         }
@@ -2249,10 +2595,26 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                       $dce_visibility_max = get_option('dce_visibility_max', array());
                       if (isset($dce_visibility_max[$element->get_id()]) && isset($dce_visibility_max[$element->get_id()]['user'])) {
                       if ($settings['dce_visibility_max_user'] < $dce_visibility_max[$element->get_id()]['user']) {
-                      $conditions['dce_visibility_max_user'] = __('Max User', DCE_TEXTDOMAIN);
+                      $conditions['dce_visibility_max_user'] = __('Max User', 'dynamic-content-for-elementor');
                       }
                       }
                       } */
+                    
+                    // LANGUAGES
+                    if (!empty($settings['dce_visibility_lang']) && $settings['dce_visibility_lang']) {
+                        $current_language = get_locale();
+                        global $sitepress;
+                        if (!empty($sitepress)) {
+                            $current_language = $sitepress->get_current_language(); // return lang code
+                        }
+                        if (DCE_Helper::is_plugin_active('polylang')) {
+                            $current_language = pll_current_language();
+                        }    
+                        if (in_array($current_language, $settings['dce_visibility_lang'])) {
+                            $conditions['dce_visibility_lang'] = __('Language', 'dynamic-content-for-elementor');
+                        }
+                    }
+                    
                     if (!empty($settings['dce_visibility_max_day']) && $settings['dce_visibility_max_day']) {
                         $dce_visibility_max = get_option('dce_visibility_max', array());
                         //var_dump($dce_visibility_max);echo $element->get_id();
@@ -2260,10 +2622,10 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         if (isset($dce_visibility_max[$element->get_id()]) && isset($dce_visibility_max[$element->get_id()]['day']) && isset($dce_visibility_max[$element->get_id()]['day'][$today])) {
                             //var_dump($dce_visibility_max[$element->get_id()]['day'][$today]);
                             if ($settings['dce_visibility_max_day'] >= $dce_visibility_max[$element->get_id()]['day'][$today]) {
-                                $conditions['dce_visibility_max_day'] = __('Max Day', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_max_day'] = __('Max Day', 'dynamic-content-for-elementor');
                             }
                         } else {
-                            $conditions['dce_visibility_max_day'] = __('Max Day', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_max_day'] = __('Max Day', 'dynamic-content-for-elementor');
                         }
                     }
                     if (!empty($settings['dce_visibility_max_total']) && $settings['dce_visibility_max_total']) {
@@ -2271,40 +2633,37 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         if (isset($dce_visibility_max[$element->get_id()]) && isset($dce_visibility_max[$element->get_id()]['total'])) {
                             //var_dump($dce_visibility_max[$element->get_id()]['total']);
                             if ($settings['dce_visibility_max_total'] >= $dce_visibility_max[$element->get_id()]['total']) {
-                                $conditions['dce_visibility_max_total'] = __('Max Total', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_max_total'] = __('Max Total', 'dynamic-content-for-elementor');
                             }
                         } else {
-                            $conditions['dce_visibility_max_total'] = __('Max Total', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_max_total'] = __('Max Total', 'dynamic-content-for-elementor');
                         }
                     }
 
 
                     if (isset($settings['dce_visibility_root']) && $settings['dce_visibility_root']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_root'] = __('Post is Root', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_root'] = __('Post is Root', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         if (!wp_get_post_parent_id($post_ID)) {
-                            $conditions['dce_visibility_root'] = __('Post is Root', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_root'] = __('Post is Root', 'dynamic-content-for-elementor');
                         }
                     }
 
                     if (isset($settings['dce_visibility_format']) && !empty($settings['dce_visibility_format'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_format'] = __('Post Format', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_format'] = __('Post Format', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         $format = get_post_format($post_ID) ?: 'standard';
                         if (in_array($format, $settings['dce_visibility_format'])) {
-                            $conditions['dce_visibility_format'] = __('Post Format', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_format'] = __('Post Format', 'dynamic-content-for-elementor');
                         }
                     }
 
                     if (isset($settings['dce_visibility_parent']) && $settings['dce_visibility_parent']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_parent'] = __('Post is Parent', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_parent'] = __('Post is Parent', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         $args = array(
                             'post_parent' => $post_ID,
                             'post_type' => get_post_type(),
@@ -2313,15 +2672,14 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         );
                         $children = get_children($args);
                         if (!empty($children) && count($children)) {
-                            $conditions['dce_visibility_parent'] = __('Post is Parent', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_parent'] = __('Post is Parent', 'dynamic-content-for-elementor');
                         }
                     }
 
                     if (isset($settings['dce_visibility_leaf']) && $settings['dce_visibility_leaf']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_leaf'] = __('Post is Leaf', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_leaf'] = __('Post is Leaf', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         $args = array(
                             'post_parent' => $post_ID,
                             'post_type' => get_post_type(),
@@ -2330,15 +2688,14 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         );
                         $children = get_children($args);
                         if (empty($children)) {
-                            $conditions['dce_visibility_leaf'] = __('Post is Leaf', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_leaf'] = __('Post is Leaf', 'dynamic-content-for-elementor');
                         }
                     }
 
                     if (isset($settings['dce_visibility_node']) && $settings['dce_visibility_node']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_node'] = __('Post is Node', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_node'] = __('Post is Node', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         if (wp_get_post_parent_id($post_ID)) {
                             $args = array(
                                 'post_parent' => $post_ID,
@@ -2349,33 +2706,42 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             $children = get_children($args);
                             if (!empty($children)) {
 
-                                $parents = get_post_ancestors();
-                                $node_level = count($parents + 1);
-                                if (!$settings['dce_visibility_node_level'] || $node_level == $settings['dce_visibility_node_level']) {
-                                    $conditions['dce_visibility_node'] = __('Post is Node', DCE_TEXTDOMAIN);
+                                $parents = get_post_ancestors($post_ID);
+                                $node_level = count($parents) + 1;
+                                if (empty($settings['dce_visibility_node_level']) || $node_level == $settings['dce_visibility_node_level']) {
+                                    $conditions['dce_visibility_node'] = __('Post is Node', 'dynamic-content-for-elementor');
                                 }
                             }
                         }
                     }
 
+                    if (isset($settings['dce_visibility_level']) && $settings['dce_visibility_level']) {
+                        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                            $conditions['dce_visibility_level'] = __('Post is Node', 'dynamic-content-for-elementor');
+                        }
+                        $parents = get_post_ancestors($post_ID);
+                        $node_level = count($parents) + 1;
+                        if ($node_level == $settings['dce_visibility_level']) {
+                            $conditions['dce_visibility_level'] = __('Post has Level', 'dynamic-content-for-elementor');
+                        }
+                    }
+
                     if (isset($settings['dce_visibility_child']) && $settings['dce_visibility_child']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_child'] = __('Post has Parent', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_child'] = __('Post has Parent', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         if ($post_parent_ID = wp_get_post_parent_id($post_ID)) {
                             $parent_ids = DCE_Helper::str_to_array(',', $settings['dce_visibility_child_parent']);
                             if (empty($settings['dce_visibility_child_parent']) || in_array($post_parent_ID, $parent_ids)) {
-                                $conditions['dce_visibility_child'] = __('Post has Parent', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_child'] = __('Post has Parent', 'dynamic-content-for-elementor');
                             }
                         }
                     }
 
                     if (isset($settings['dce_visibility_sibling']) && $settings['dce_visibility_sibling']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_sibling'] = __('Post has Siblings', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_sibling'] = __('Post has Siblings', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
                         if ($post_parent_ID = wp_get_post_parent_id($post_ID)) {
                             $args = array(
                                 'post_parent' => $post_parent_ID,
@@ -2385,17 +2751,16 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             );
                             $children = get_children($args);
                             if (!empty($children) && count($children) > 1) {
-                                $conditions['dce_visibility_sibling'] = __('Post has Siblings', DCE_TEXTDOMAIN);
+                                $conditions['dce_visibility_sibling'] = __('Post has Siblings', 'dynamic-content-for-elementor');
                             }
                         }
                     }
 
                     if (isset($settings['dce_visibility_friend']) && $settings['dce_visibility_friend']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_friend'] = __('Post has Friends', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_friend'] = __('Post has Friends', 'dynamic-content-for-elementor');
                         }
-                        $post_ID = get_the_ID();
-                        $posts_ID = array();
+                        $posts_ids = array();
                         if ($settings['dce_visibility_friend_term']) {
                             $term = get_term($settings['dce_visibility_friend_term']);
                             $terms = array($term);
@@ -2417,9 +2782,9 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                                 );
                                 $term_posts = get_posts($post_args);
                                 if (!empty($term_posts) && count($term_posts) > 1) {
-                                    $posts_ID = wp_list_pluck($term_posts, 'ID');
-                                    if (in_array($post_ID, $posts_ID)) {
-                                        $conditions['dce_visibility_friend'] = __('Post has Friends', DCE_TEXTDOMAIN);
+                                    $posts_ids = wp_list_pluck($term_posts, 'ID');
+                                    if (in_array($post_ID, $posts_ids)) {
+                                        $conditions['dce_visibility_friend'] = __('Post has Friends', 'dynamic-content-for-elementor');
                                         break;
                                     }
                                 }
@@ -2434,7 +2799,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // conditional tags
                     if (isset($settings['dce_visibility_conditional_tags_post']) && is_array($settings['dce_visibility_conditional_tags_post']) && !empty($settings['dce_visibility_conditional_tags_post'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_conditional_tags_post'] = __('Conditional tags Post', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_conditional_tags_post'] = __('Conditional tags Post', 'dynamic-content-for-elementor');
                         }
                         $context_conditional_tags = false;
                         $post_type = get_post_type();
@@ -2449,7 +2814,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                                         break;
                                     case 'has_post_thumbnail':
                                         if (is_callable($conditional_tags)) {
-                                            $context_conditional_tags = call_user_func($conditional_tags, get_the_ID());
+                                            $context_conditional_tags = call_user_func($conditional_tags, $post_ID);
                                         }
                                         break;
                                     default:
@@ -2460,13 +2825,13 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             }
                         }
                         if ($context_conditional_tags) {
-                            $conditions['dce_visibility_conditional_tags_post'] = __('Conditional tags Post', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_conditional_tags_post'] = __('Conditional tags Post', 'dynamic-content-for-elementor');
                             $contexttags = TRUE;
                         }
                     }
                     if (isset($settings['dce_visibility_conditional_tags_site']) && is_array($settings['dce_visibility_conditional_tags_site']) && !empty($settings['dce_visibility_conditional_tags_site'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_conditional_tags_site'] = __('Conditional tags Site', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_conditional_tags_site'] = __('Conditional tags Site', 'dynamic-content-for-elementor');
                         }
                         $context_conditional_tags = false;
                         foreach ($settings['dce_visibility_conditional_tags_site'] as $conditional_tags) {
@@ -2480,7 +2845,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             }
                         }
                         if ($context_conditional_tags) {
-                            $conditions['dce_visibility_conditional_tags_site'] = __('Conditional tags Site', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_conditional_tags_site'] = __('Conditional tags Site', 'dynamic-content-for-elementor');
                             $contexttags = TRUE;
                         }
                     }
@@ -2488,7 +2853,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // specials
                     if (isset($settings['dce_visibility_special']) && is_array($settings['dce_visibility_special']) && !empty($settings['dce_visibility_special'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_special'] = __('Conditional tags Special', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_special'] = __('Conditional tags Special', 'dynamic-content-for-elementor');
                         }
                         $context_special = false;
                         foreach ($settings['dce_visibility_special'] as $special) {
@@ -2502,7 +2867,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             }
                         }
                         if ($context_special) {
-                            $conditions['dce_visibility_special'] = __('Conditional tags Special', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_special'] = __('Conditional tags Special', 'dynamic-content-for-elementor');
                             $contexttags = TRUE;
                         }
                     }
@@ -2510,7 +2875,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                     // archive
                     if (isset($settings['dce_visibility_archive']) && is_array($settings['dce_visibility_archive']) && !empty($settings['dce_visibility_archive'])) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['dce_visibility_archive'] = __('Conditional tags Archive', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_archive'] = __('Conditional tags Archive', 'dynamic-content-for-elementor');
                         }
                         $context_archive = false;
                         foreach ($settings['dce_visibility_archive'] as $archive) {
@@ -2537,7 +2902,7 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                             }
                         }
                         if ($context_archive) { // || ($context_archive && !$settings['dce_visibility_context_selected'])) {
-                            $conditions['dce_visibility_archive'] = __('Archive', DCE_TEXTDOMAIN);
+                            $conditions['dce_visibility_archive'] = __('Archive', 'dynamic-content-for-elementor');
                             $contexttags = TRUE;
                         }
                     }
@@ -2546,22 +2911,31 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 if (isset($settings['dce_visibility_random']) && $settings['dce_visibility_random']['size']) {
                     $rand = mt_rand(1, 100);
                     if ($rand <= $settings['dce_visibility_random']['size']) {
-                        $conditions['dce_visibility_random'] = __('Random', DCE_TEXTDOMAIN);
+                        $conditions['dce_visibility_random'] = __('Random', 'dynamic-content-for-elementor');
                         $randomhidden = true;
                     }
                 }
+                
+                /*if (!$settings['dce_visibility_selected']) {
+                    if (isset($settings['dce_visibility_click']) && $settings['dce_visibility_click']) {
+                        $conditions['dce_visibility_click'] = __('On Click', 'dynamic-content-for-elementor');
+                    }
+                    if (isset($settings['dce_visibility_load']) && $settings['dce_visibility_load']) {
+                        $conditions['dce_visibility_load'] = __('On Page Load', 'dynamic-content-for-elementor');
+                    }
+                }*/
 
                 // CUSTOM CONDITION
                 if (!isset($settings['dce_visibility_custom_condition']) || !$settings['dce_visibility_custom_condition']) {
                     $customhidden = false;
                     if (isset($settings['dce_visibility_custom_condition_php']) && trim($settings['dce_visibility_custom_condition_php']) && trim($settings['dce_visibility_custom_condition_php']) != 'return true;') {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                            $conditions['custom'] = __('Custom Condition', DCE_TEXTDOMAIN);
+                            $conditions['custom'] = __('Custom Condition', 'dynamic-content-for-elementor');
                         }
                         $customhidden = $this->check_custom_condition($settings, $element->get_id());
                         //var_dump($customhidden);
                         if ($customhidden) {
-                            $conditions['custom'] = __('Custom Condition', DCE_TEXTDOMAIN);
+                            $conditions['custom'] = __('Custom Condition', 'dynamic-content-for-elementor');
                         }
                     }
                 }
@@ -2684,6 +3058,75 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                 }
             }
             //}
+        }
+    }
+    
+    public function print_scripts($element, $settings = null) {
+        if (!\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+            if (empty($settings)) {
+                $settings = $element->get_settings_for_display();
+            }
+            if ($settings['dce_visibility_click']) {                
+                switch ($settings['dce_visibility_click_show']) {
+                    case 'slide':
+                        $jFunction = 'slideDown';
+                        $jFunctionHide = 'slideUp';
+                        break;
+                    case 'fade':
+                        $jFunction = 'fadeIn';
+                        $jFunctionHide = 'fadeOut';
+                        break;
+                    default:
+                        $jFunction = 'show';
+                        $jFunctionHide = 'hide';
+                }
+                //var_dump($settings['dce_visibility_selected']);
+                if (!$settings['dce_visibility_selected']) {                    
+                    $jFunction = $jFunctionHide;
+                }
+                
+                if ($settings['dce_visibility_click_show']) {
+                    $jFunctionToggle = $settings['dce_visibility_click_show'].'Toggle';
+                } else {
+                    $jFunctionToggle = 'toggle';
+                }
+                if ($settings['dce_visibility_click_toggle']) {
+                    $jFunction = $jFunctionToggle;
+                }
+                ?>
+                <script>
+                    jQuery(document).ready(function(){
+                        //alert('<?php echo $jFunction; ?>');
+                        jQuery('<?php echo $settings['dce_visibility_click']; ?>').on('click', function(){
+                            <?php if ($settings['dce_visibility_click_other']) { ?>
+                                jQuery('<?php echo $settings['dce_visibility_click_other']; ?>').<?php echo $jFunctionToggle; ?>();
+                            <?php } ?>
+                            jQuery('.elementor-element-<?php echo $element->get_id(); ?>').<?php echo $jFunction; ?>();
+                            //return false;
+                        });
+                    });
+                </script>
+                <?php
+            }
+            if ($settings['dce_visibility_load']) {  
+                if ($settings['dce_visibility_load_show']) {
+                    $jFunctionToggle = $settings['dce_visibility_load_show'].'Toggle';
+                } else {
+                    $jFunctionToggle = 'toggle';
+                }
+                ?>
+                <script>
+                    jQuery(document).ready(function(){
+                        //alert('<?php echo $jFunctionToggle; ?>');
+                        jQuery(window).on('load', function(){
+                            setTimeout(function(){ 
+                                 jQuery('.elementor-element-<?php echo $element->get_id(); ?>').<?php echo $jFunctionToggle; ?>();
+                            }, <?php echo $settings['dce_visibility_load_delay'] ? $settings['dce_visibility_load_delay'] : '0'; ?>);
+                        });
+                    });
+                </script>
+                <?php
+            }
         }
     }
 

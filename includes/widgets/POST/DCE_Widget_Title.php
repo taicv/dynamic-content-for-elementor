@@ -31,10 +31,10 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Title', DCE_TEXTDOMAIN);
+        return __('Title', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Put a title on your article', DCE_TEXTDOMAIN);
+        return __('Put a title on your article', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/title/';
@@ -53,24 +53,24 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_title', [
-                'label' => __('Title', DCE_TEXTDOMAIN),
+                'label' => __('Title', 'dynamic-content-for-elementor'),
             ]
         );
        
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'h3',
                 'separator' => 'before',
@@ -79,19 +79,19 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                 ],
@@ -107,24 +107,24 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
                     'post' => 'Post URL',
                     'parent' => 'Parent Page',
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
 
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -137,11 +137,11 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'enable_divider',
             [
-                'label' => __( 'Enable dividers', DCE_TEXTDOMAIN ),
+                'label' => __( 'Enable dividers', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
                 'render_type' => 'template',
                 'prefix_class' => 'dce-title-divider-',
@@ -150,11 +150,11 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'enable_masking',
             [
-                'label' => __( 'Enable masking', DCE_TEXTDOMAIN ),
+                'label' => __( 'Enable masking', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
                 'render_type' => 'template',
                 'prefix_class' => 'dce-title-mask-',
@@ -164,7 +164,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_title_dividers', [
-                'label' => __('Dividers', DCE_TEXTDOMAIN),
+                'label' => __('Dividers', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'enable_divider' => 'yes',
                 ],
@@ -173,13 +173,13 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'style_dividers',
             [
-                'label' => __( 'Style', DCE_TEXTDOMAIN),
+                'label' => __( 'Style', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'solid' => __( 'Solid', DCE_TEXTDOMAIN),
-                    'double' => __( 'Double', DCE_TEXTDOMAIN),
-                    'dotted' => __( 'Dotted', DCE_TEXTDOMAIN),
-                    'dashed' => __( 'Dashed', DCE_TEXTDOMAIN),
+                    'solid' => __( 'Solid', 'dynamic-content-for-elementor'),
+                    'double' => __( 'Double', 'dynamic-content-for-elementor'),
+                    'dotted' => __( 'Dotted', 'dynamic-content-for-elementor'),
+                    'dashed' => __( 'Dashed', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'solid',
 
@@ -192,7 +192,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'weight_dividers',
             [
-                'label' => __( 'Weight', DCE_TEXTDOMAIN),
+                'label' => __( 'Weight', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -212,7 +212,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'color_dividers',
             [
-                'label' => __( 'Color', DCE_TEXTDOMAIN),
+                'label' => __( 'Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
@@ -224,7 +224,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'width_dividers',
             [
-                'label' => __( 'Width', DCE_TEXTDOMAIN),
+                'label' => __( 'Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ '%', 'px' ],
                 'range' => [
@@ -254,7 +254,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'gap_dividers',
             [
-                'label' => __( 'Gap', DCE_TEXTDOMAIN),
+                'label' => __( 'Gap', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 15,
@@ -273,7 +273,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'space_dividers',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN),
+                'label' => __( 'Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 15,
@@ -300,28 +300,28 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_responsive_control(
                 'divider_position',
                 [
-                    'label'         => __( 'Position', DCE_TEXTDOMAIN ),
+                    'label'         => __( 'Position', 'dynamic-content-for-elementor' ),
                     'type'          => Controls_Manager::CHOOSE,
                     'default'       => 'center',
                     'options'       => [
                         'left'    => [
-                            'title'     => __( 'Leftp', DCE_TEXTDOMAIN ),
+                            'title'     => __( 'Leftp', 'dynamic-content-for-elementor' ),
                             'icon'      => 'eicon-h-align-left',
                         ],
                         'center'        => [
-                            'title'     => __( 'Center', DCE_TEXTDOMAIN ),
+                            'title'     => __( 'Center', 'dynamic-content-for-elementor' ),
                             'icon'      => 'eicon-h-align-center',
                         ],
                         'right'      => [
-                            'title'     => __( 'Right', DCE_TEXTDOMAIN ),
+                            'title'     => __( 'Right', 'dynamic-content-for-elementor' ),
                             'icon'      => 'eicon-h-align-right',
                         ],
                         'top'      => [
-                            'title'     => __( 'Top', DCE_TEXTDOMAIN ),
+                            'title'     => __( 'Top', 'dynamic-content-for-elementor' ),
                             'icon'      => 'eicon-v-align-top',
                         ],
                         'bottom'      => [
-                            'title'     => __( 'Bottom', DCE_TEXTDOMAIN ),
+                            'title'     => __( 'Bottom', 'dynamic-content-for-elementor' ),
                             'icon'      => 'eicon-v-align-bottom',
                         ],
                     ],
@@ -333,19 +333,19 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
             );
         $this->add_responsive_control(
             'divider_align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                 ],
@@ -354,9 +354,9 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
                 'selectors' => [
                     '{{WRAPPER}} .dce-title-divider' => 'text-align: {{VALUE}};',
                 ],
-                /*'condition' => [
+                'condition' => [
                     'divider_position' => ['top','bottom'],
-                ],*/
+                ]
             ]
         );
         // width
@@ -369,7 +369,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_title_masking', [
-                'label' => __('Masking', DCE_TEXTDOMAIN),
+                'label' => __('Masking', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'enable_masking' => 'yes',
                 ],
@@ -396,14 +396,14 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Title', DCE_TEXTDOMAIN),
+                'label' => __('Title', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-title' => 'color: {{VALUE}};',
@@ -428,7 +428,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'blend_mode',
             [
-                'label' => __( 'Blend Mode', DCE_TEXTDOMAIN ),
+                'label' => __( 'Blend Mode', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     '' => __( 'Normal', 'elementor' ),
@@ -456,7 +456,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_rollhover', [
-                'label' => __('Roll-Hover', DCE_TEXTDOMAIN),
+                'label' => __('Roll-Hover', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'link_to!' => 'none',
@@ -465,7 +465,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_color', [
-                'label' => __('Hover Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Hover Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-title a:hover' => 'color: {{VALUE}};',
@@ -477,7 +477,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         );
          $this->add_control(
             'hover_animation', [
-                'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+                'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 'condition' => [
                     'link_to!' => 'none',
@@ -489,7 +489,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic Content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic Content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
 
             ]
@@ -497,18 +497,18 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               'label_block' => 'true',
               'groups' => DCE_Helper::get_all_posts(get_the_ID(), true),
@@ -517,16 +517,26 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
+        
         $this->add_control(
             'other_post_parent',
             [
-                'label' => __( 'From post parent', DCE_TEXTDOMAIN ),
+                'label' => __( 'From post parent', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
-                'default' => '',
-                'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'No', DCE_TEXTDOMAIN ),
-                'return_value' => 'yes',
                 'condition' => [
                     'data_source' => '',
                     
@@ -546,7 +556,7 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         $global_is = $dce_data['is'];
         // ------------------------------------------
         //
-        $title = __('Title of post', DCE_TEXTDOMAIN);
+        $title = __('Title of post', 'dynamic-content-for-elementor');
 
         // leggo il type dell'articolo corrente... [$id_page]
         // if( is_singular() ){
@@ -556,21 +566,24 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
         // }
         // Archives
         // All other Taxonomies
-        if (is_archive()) {
-
+        if (is_archive() && !DCE_Helper::in_the_loop()) {
+            
             if( /*$global_is == 'archive' || */$global_is == 'user'  || $global_is == 'singular' ){
-                $title = get_the_title($id_page);
+                
             }else{
-                //$title = single_cat_title('', false); //get_the_archive_title($id_page);  //
-                if (is_tax() || is_category() || is_tag()) {
-                    $title = single_term_title('',false);
-                    //$title .= ' C'.$global_is;
-                }else{
-                    $title = post_type_archive_title('',false);
-                }
+                
                 
             }
+            $title = get_the_title($id_page);
+            //$title = single_cat_title('', false); //get_the_archive_title($id_page);  //
+            if (is_tax() || is_category() || is_tag()) {
+                $title = single_term_title('',false);
+                //$title .= ' C'.$global_is;
+            }else{
+                $title = post_type_archive_title('',false);
+            }
             //$title .= ' B '.$global_is;
+           
         }
         if( is_home() &&  $global_is == 'before' ){
           $title = ''; //get_the_title($id_page);

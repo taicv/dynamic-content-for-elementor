@@ -33,11 +33,11 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('TOOLSET Relationship', DCE_TEXTDOMAIN);
+        return __('TOOLSET Relationship', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Display related posts.', DCE_TEXTDOMAIN);
+        return __('Display related posts', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -53,19 +53,19 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
     }
 
     protected function _register_controls() {
-        $rels = DCE_Helper::get_toolset_field('post');
+        $rels = DCE_Helper::get_toolset_fields('post');
         //var_dump($rels); die();
-        $templates = DCE_Helper::get_all_template();
+        //$templates = DCE_Helper::get_all_template();
 
         // ********************************************************************************* Section BASE
         $this->start_controls_section(
                 'section_content', [
-            'label' => __('Content', DCE_TEXTDOMAIN)
+            'label' => __('Content', 'dynamic-content-for-elementor')
                 ]
         );
         $this->add_control(
                 'toolset_relation_field', [
-            'label' => __('TOOLSET Relation Fields List', DCE_TEXTDOMAIN),
+            'label' => __('TOOLSET Relation Fields List', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'groups' => $rels,
             'default' => '0',
@@ -74,19 +74,19 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'toolset_relation_render', [
-            'label' => __('Render mode', DCE_TEXTDOMAIN),
+            'label' => __('Render mode', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'title' => [
-                    'title' => __('Title', DCE_TEXTDOMAIN),
+                    'title' => __('Title', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-list',
                 ],
                 'text' => [
-                    'title' => __('Text', DCE_TEXTDOMAIN),
+                    'title' => __('Text', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'template' => [
-                    'title' => __('Template', DCE_TEXTDOMAIN),
+                    'title' => __('Template', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-th-large',
                 ]
             ],
@@ -97,22 +97,37 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
 
 
-        $this->add_control(
+        /*$this->add_control(
                 'toolset_relation_template', [
-            'label' => __('Select Template', DCE_TEXTDOMAIN),
+            'label' => __('Select Template', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => $templates,
             'condition' => [
                 'toolset_relation_render' => 'template',
             ],
                 ]
+        );*/
+        $this->add_control(
+                'toolset_relation_template',
+                [
+                    'label' => __('Select Template', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Template Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'posts',
+                    'object_type' => 'elementor_library',
+                    'condition' => [
+                        'toolset_relation_render' => 'template',
+                    ],
+                ]
         );
+        
         $this->add_control(
                 'toolset_relation_text', [
-            'label' => __('Post html', DCE_TEXTDOMAIN),
+            'label' => __('Post html', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::WYSIWYG,
             'default' => '<h4>[post:title]</h4>[post:thumb]<p>[post:excerpt]</p><a class="btn btn-primary" href="[post:permalink]">READ MORE</a>',
-            'description' => __("Define related post structure.", DCE_TEXTDOMAIN),
+            'description' => __("Define related post structure.", 'dynamic-content-for-elementor'),
             'dynamic' => [
                 'active' => true,
             ],
@@ -124,16 +139,16 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'toolset_relation_format', [
-            'label' => __('Display mode', DCE_TEXTDOMAIN),
+            'label' => __('Display mode', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                '' => __('Natural', DCE_TEXTDOMAIN),
-                'ul' => __('Unordered list', DCE_TEXTDOMAIN),
-                'ol' => __('Ordered list', DCE_TEXTDOMAIN),
-                'grid' => __('Grid', DCE_TEXTDOMAIN),
-                'tab' => __('Tabs', DCE_TEXTDOMAIN),
-                'accordion' => __('Accordion', DCE_TEXTDOMAIN),
-                'select' => __('Select', DCE_TEXTDOMAIN),
+                '' => __('Natural', 'dynamic-content-for-elementor'),
+                'ul' => __('Unordered list', 'dynamic-content-for-elementor'),
+                'ol' => __('Ordered list', 'dynamic-content-for-elementor'),
+                'grid' => __('Grid', 'dynamic-content-for-elementor'),
+                'tab' => __('Tabs', 'dynamic-content-for-elementor'),
+                'accordion' => __('Accordion', 'dynamic-content-for-elementor'),
+                'select' => __('Select', 'dynamic-content-for-elementor'),
             ],
                 ]
         );
@@ -172,7 +187,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'toolset_relation_label', [
-            'label' => __('Label', DCE_TEXTDOMAIN),
+            'label' => __('Label', 'dynamic-content-for-elementor'),
             'type' => \Elementor\Controls_Manager::TEXT,
             'default' => '[post:title]',
             'placeholder' => '[post:title]',
@@ -183,7 +198,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_close', [
-            'label' => __('Close by default', DCE_TEXTDOMAIN),
+            'label' => __('Close by default', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'toolset_relation_format' => ['accordion', 'select'],
@@ -192,9 +207,9 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_close_label', [
-            'label' => __('Empty value text', DCE_TEXTDOMAIN),
+            'label' => __('Empty value text', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
-            'default' => __('Choose an option', DCE_TEXTDOMAIN),
+            'default' => __('Choose an option', 'dynamic-content-for-elementor'),
             'condition' => [
                 'toolset_relation_close!' => '',
                 'toolset_relation_format' => 'select',
@@ -203,11 +218,11 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'toolset_relation_col', [
-            'label' => __('Columns', DCE_TEXTDOMAIN),
+            'label' => __('Columns', 'dynamic-content-for-elementor'),
             'type' => \Elementor\Controls_Manager::NUMBER,
             'default' => 3,
             'min' => 1,
-            'description' => __("Set 1 to show one result per line", DCE_TEXTDOMAIN),
+            'description' => __("Set 1 to show one result per line", 'dynamic-content-for-elementor'),
             'condition' => [
                 'toolset_relation_format' => 'grid',
             ],
@@ -215,15 +230,15 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_tab', [
-            'label' => __('Tab orientation', DCE_TEXTDOMAIN),
+            'label' => __('Tab orientation', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'horizontal' => [
-                    'title' => __('Horizontal', DCE_TEXTDOMAIN),
+                    'title' => __('Horizontal', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-chevron-up',
                 ],
                 'vertical' => [
-                    'title' => __('Vertical', DCE_TEXTDOMAIN),
+                    'title' => __('Vertical', 'dynamic-content-for-elementor'),
                     'icon' => 'fa fa-chevron-left',
                 ],
             ],
@@ -241,7 +256,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_style_title', [
-            'label' => __('Title', DCE_TEXTDOMAIN),
+            'label' => __('Title', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -262,7 +277,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
           ); */
         $this->add_control(
                 'toolset_relation_title_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'selectors' => [
                 '{{WRAPPER}} .elementor-heading-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -271,7 +286,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_title_margin', [
-            'label' => __('Margin', DCE_TEXTDOMAIN),
+            'label' => __('Margin', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'selectors' => [
                 '{{WRAPPER}} .elementor-heading-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -362,7 +377,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_style_atitle', [
-            'label' => __('Title Active', DCE_TEXTDOMAIN),
+            'label' => __('Title Active', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
             'toolset_relation_format' => 'tab'
@@ -372,13 +387,13 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Background::get_type(), [
             'name' => 'toolset_relation_bgcolor_aitem',
-            'label' => __('Background', DCE_TEXTDOMAIN),
+            'label' => __('Background', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-tab-item.dce-tab-item-active',
                 ]
         );
         $this->add_control(
                 'toolset_relation_color_aitem', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dce-tab-item.dce-tab-item-active .elementor-heading-title' => 'color: {{VALUE}};',
@@ -391,7 +406,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_style_item', [
-            'label' => __('Item', DCE_TEXTDOMAIN),
+            'label' => __('Item', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
             'toolset_relation_format' => ['accordion', 'tab']
@@ -400,7 +415,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_padding_item', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'selectors' => [
                 '{{WRAPPER}} .dce-view-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -410,13 +425,13 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
             'name' => 'toolset_relation_border_item',
-            'label' => __('Border', DCE_TEXTDOMAIN),
+            'label' => __('Border', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-view-item',
                 ]
         );
         $this->add_control(
             'toolset_relation_border_radius_item', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'selectors' => [
                     '{{WRAPPER}} .dce-view-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -426,7 +441,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Background::get_type(), [
             'name' => 'toolset_relation_bgcolor_item',
-            'label' => __('Background', DCE_TEXTDOMAIN),
+            'label' => __('Background', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-view-item',
                 ]
         );
@@ -436,7 +451,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_style_pane', [
-            'label' => __('Pane', DCE_TEXTDOMAIN),
+            'label' => __('Pane', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
                 'toolset_relation_format' => ['accordion', 'tab', 'grid', 'select', 'ul', 'ol']
@@ -445,7 +460,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_padding_pane', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'selectors' => [
                 '{{WRAPPER}} .dce-view-pane' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -454,7 +469,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_margin_pane', [
-            'label' => __('Margin', DCE_TEXTDOMAIN),
+            'label' => __('Margin', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'selectors' => [
                 '{{WRAPPER}} .dce-view-pane' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -464,13 +479,13 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
             'name' => 'toolset_relation_border_pane',
-            'label' => __('Border', DCE_TEXTDOMAIN),
+            'label' => __('Border', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-view-pane',
                 ]
         );
         $this->add_control(
             'toolset_relation_border_radius_pane', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'selectors' => [
                     '{{WRAPPER}} .dce-view-pane' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -479,7 +494,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'toolset_relation_color_pane', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .dce-view-pane' => 'color: {{VALUE}};',
@@ -489,7 +504,7 @@ class DCE_Widget_ToolsetRelationship extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Background::get_type(), [
             'name' => 'toolset_relation_bgcolor_pane',
-            'label' => __('Background', DCE_TEXTDOMAIN),
+            'label' => __('Background', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-view-pane',
                 ]
         );

@@ -93,9 +93,13 @@
             $('body').addClass('modal-close-'+id_modal);
 
             //
+            $('#'+id_modal+'-background').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(el){
+                $('#'+id_modal+'-background').hide();
+                $(el.currentTarget).off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
+            });
             $('#'+id_modal+' .modal-dialog').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(el){
                                $('#'+id_modal).hide();
-                               $('#'+id_modal+'-background').hide()
+                               
                                //$(el.currentTarget).removeClass(dce_popup_settings.close_animation);
                                $(el.currentTarget).off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
 
@@ -163,7 +167,7 @@
         $('.dce-popup-onload').each(function(){
             var dce_popup_settings = get_dce_ElementSettings( $scope ); //$(this).closest('.elementor-element').data('settings');
             var id_modal = $(this).find('.dce-modal').attr('id');
-            console.log('trigger onload for: '+id_modal);
+            //console.log('trigger onload for: '+id_modal);
             // read cookie
             var cookie_popup = dce_getCookie(id_modal);
             if (dce_popup_settings.always_visible) {
@@ -172,14 +176,14 @@
             if (!cookie_popup) {
                     dce_show_modal(id_modal);
             } else {
-                console.log('cookie already setted for: '+id_modal);
+                //console.log('cookie already setted for: '+id_modal);
             }
         });
 
         // BUTTON
         $(document).on('click', '.dce-button-open-modal, .dce-button-next-modal', function() {
             var id_modal = $(this).data('target')
-            console.log('trigger click btn for: '+id_modal);
+            //console.log('trigger click btn for: '+id_modal);
             //alert(id_modal);
             dce_show_modal(id_modal);
         });
@@ -196,7 +200,7 @@
             }
             if (cookie_popup) {
                 $(this).removeClass('dce-popup-widget');
-                console.log('cookie setted for: '+id_modal);
+                //console.log('cookie setted for: '+id_modal);
             }
         });
         //alert($('.dce-popup-widget').length);
@@ -206,9 +210,9 @@
                     if ($(this).visible()) {
                         $(this).removeClass('dce-popup-widget');
                         var id_modal = $(this).find('.dce-modal').attr('id');
-                        console.log('trigger widget for: '+id_modal);
+                        //console.log('trigger widget for: '+id_modal);
                         dce_show_modal(id_modal);
-                        console.log('visible widget: '+id_modal);
+                        //console.log('visible widget: '+id_modal);
                     }
                 });
             });
@@ -222,7 +226,7 @@
                     if ($(window).scrollTop() > dce_popup_settings.scroll_display_displacement) {
                         $(this).removeClass('dce-popup-scroll');
                         var id_modal = $(this).find('.dce-modal').attr('id');
-                        console.log('trigger scroll for: '+id_modal);
+                        //console.log('trigger scroll for: '+id_modal);
                         dce_show_modal(id_modal);
                         //console.log('visible scroll: '+id_modal);
                     }

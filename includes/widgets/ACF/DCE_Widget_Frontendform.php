@@ -27,7 +27,7 @@ class DCE_Widget_Frontendform extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('ACF Frontend Form', DCE_TEXTDOMAIN);
+        return __('ACF Frontend Form', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -42,14 +42,14 @@ class DCE_Widget_Frontendform extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_dynamictemplate', [
-                'label' => __('acf-frontendform', DCE_TEXTDOMAIN),
+                'label' => __('acf-frontendform', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
           'html_acf-frontendform',
           [
              'type'    => Controls_Manager::RAW_HTML,
-             'raw' => __( '<div>Questo è un widget che diventerà un\'acf-frontendform.</div>', DCE_TEXTDOMAIN ),
+             'raw' => __( '<div>Questo è un widget che diventerà un\'acf-frontendform.</div>', 'dynamic-content-for-elementor' ),
            'content_classes' => 'html-acf-frontendform',
           ]
         );
@@ -68,7 +68,7 @@ class DCE_Widget_Frontendform extends DCE_Widget_Prototype {
         if( $settings['data_source'] == 'yes' ){
             global $global_ID;
             global $global_TYPE;
-            global $is_blocks;
+            global $in_the_loop;
             global $global_is;
             //
             if (!empty($global_ID)) {

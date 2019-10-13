@@ -17,10 +17,10 @@ clear: both;
 .elementor-widget-dyncontel-acfposts.add-radius-masking-yes .dce-post-item .dce-wrapper{
   overflow: hidden;
 }
+/*.elementor-widget-dyncontel-acfposts.no-masking-yes .slick-list*/
 .elementor-widget-dyncontel-acfposts.no-masking-yes,
 .elementor-widget-dyncontel-acfposts.no-masking-yes .swiper-container,
-.elementor-widget-dyncontel-acfposts.no-masking-yes .swiper-slide,
-.elementor-widget-dyncontel-acfposts.no-masking-yes .slick-list
+.elementor-widget-dyncontel-acfposts.no-masking-yes .swiper-slide
 {
   overflow: visible;
 }
@@ -190,9 +190,9 @@ clear: both;
 .dce_metadata:first-child{
   padding-left: 0 !important;
 }
-.dce_metadata-wrap > span:not(:first-child){
+/*.dce_metadata-wrap > span:not(:first-child){
   padding-left: 10px;
-}
+}*/
 /* ----- Author ACF Posts ------ */
 .dce_author-wrap{
   align-items: flex-start;
@@ -228,6 +228,8 @@ clear: both;
 }
 .dce_author-avatar{
   width: 40px;
+  float: left;
+  margin-right: 8px;
 }
 .acfposts-align-left .dce_author-avatar{
   margin-right: 11px;
@@ -256,7 +258,7 @@ clear: both;
 
 .dce-acfposts_image{
     position: relative;
-
+    line-height: 0;
 }
 .dce-overlay_hover, .dce-overlay{
     
@@ -303,6 +305,9 @@ clear: both;
 .dce-acfposts_image a, .swiper-slide .dce-acfposts_image a{
   display: inline-block;
   position: relative;
+}
+.swiper-slide .dce-acfposts_image a{
+  
 }
 .bgimage-yes .dce-acfposts_image a, .bgimage-yes .swiper-slide .dce-acfposts_image a{
   display: inline-block;

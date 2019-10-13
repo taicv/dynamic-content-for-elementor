@@ -14,7 +14,7 @@
  * Plugin Name:       Dynamic Content for Elementor
  * Plugin URI:        https://www.dynamic.ooo/
  * Description:       Improve your website’s potential through additional widgets, expanding Elementor’s functionality. New creative widgets, every and each of them with the purpose of building pages with amazing contents.
- * Version:           1.5.3
+ * Version:           1.6.0.1
  * Author:            Dynamic.ooo
  * Author URI:        https://www.dynamic.ooo/
  * Text Domain:       dynamic-content-for-elementor
@@ -73,10 +73,10 @@ define('DCE__FILE__', __FILE__);
 define('DCE_URL', plugins_url('/', __FILE__));
 define('DCE_PATH', plugin_dir_path(__FILE__));
 define('DCE_PLUGIN_BASE', plugin_basename( DCE__FILE__ ) );
-define('DCE_VERSION', '1.5.3');
-define('DCE_ELEMENTOR_VERSION_REQUIRED', '1.8.0');
-define('DCE_ELEMENTOR_PRO_VERSION_REQUIRED', '1.6.0');
-define('DCE_PHP_VERSION_REQUIRED', '5.6');
+define('DCE_VERSION', '1.6.0.1');
+define('DCE_ELEMENTOR_VERSION_REQUIRED', '2.6.0');
+define('DCE_ELEMENTOR_PRO_VERSION_REQUIRED', '2.6.0');
+define('DCE_PHP_VERSION_REQUIRED', '7.1');
 define('DCE_TEXTDOMAIN', 'dynamic-content-for-elementor');
 define('DCE_OPTIONS', 'dyncontel_options');
 
@@ -99,7 +99,7 @@ register_activation_hook(DCE__FILE__, 'dce_activate');
  */
 function dce_load() {
     // Load localization file
-    load_plugin_textdomain(DCE_TEXTDOMAIN);
+    load_plugin_textdomain('dynamic-content-for-elementor');
 
     // Notice if the Elementor is not active
     if (!did_action('elementor/loaded')) {
@@ -120,10 +120,10 @@ function dce_load() {
         $info .= '&beta=true';
     }
     //require_once( __DIR__ . '/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php' );
-    $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+    $myUpdateChecker = \Puc_v4p8_Factory::buildUpdateChecker(
         $info,
         __FILE__,
-        DCE_TEXTDOMAIN
+        'dynamic-content-for-elementor'
     );
 
 }
@@ -136,7 +136,7 @@ function dce_load() {
  */
 function dce_fail_load() {
     $class = 'notice notice-error';
-    $message = sprintf(__('You need %1$s"Elementor"%2$s for the %1$s"Dynamic Content for Elementor"%2$s plugin to work and updated.', DCE_TEXTDOMAIN), '<strong>', '</strong>');
+    $message = sprintf(__('You need %1$s"Elementor"%2$s for the %1$s"Dynamic Content for Elementor"%2$s plugin to work and updated.', 'dynamic-content-for-elementor'), '<strong>', '</strong>');
 
     printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
 }

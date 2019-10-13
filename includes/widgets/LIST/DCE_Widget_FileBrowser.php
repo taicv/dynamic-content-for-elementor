@@ -35,11 +35,11 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('FileBrowser', DCE_TEXTDOMAIN);
+        return __('FileBrowser', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Display a list of files you uploaded in a specific “uploads” directory. This is particularly useful when you need to make pictures or documents available in a simple and intuitive way', DCE_TEXTDOMAIN);
+        return __('Display a list of files you uploaded in a specific “uploads” directory. This is particularly useful when you need to make pictures or documents available in a simple and intuitive way', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -66,35 +66,43 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         
         $this->start_controls_section(
                 'section_filebrowser', [
-            'label' => __('FileBrowser', DCE_TEXTDOMAIN),
+            'label' => __('FileBrowser', 'dynamic-content-for-elementor'),
                 ]
         );
 
         $this->add_control(
                 'path_selection',
                 [
-                    'label' => __('Select path', DCE_TEXTDOMAIN),
+                    'label' => __('Select path', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'uploads' => [
-                            'title' => __('Uploads', DCE_TEXTDOMAIN),
+                            'title' => __('Uploads', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-upload',
                         ],
                         'custom' => [
-                            'title' => __('Custom', DCE_TEXTDOMAIN),
+                            'title' => __('Custom', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-folder-o',
                         ],
                         'media' => [
-                            'title' => __('Media Library', DCE_TEXTDOMAIN),
+                            'title' => __('Media Library', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-file-image-o',
                         ],
+                        'taxonomy' => [
+                            'title' => __('Taxonomy', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-tags',
+                        ],
                         /*'meta' => [
-                            'title' => __('Meta', DCE_TEXTDOMAIN),
+                            'title' => __('Meta', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-tags',
                         ],*/
                         'post' => [
-                            'title' => __('Post Medias', DCE_TEXTDOMAIN),
+                            'title' => __('Post Medias', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-file-o',
+                        ],
+                        'csv' => [
+                            'title' => __('CSV', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-file-excel-o',
                         ],
                     ],
                     'default' => 'uploads',
@@ -105,24 +113,40 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'folder_custom', [
-            'label' => __('Custom Path', DCE_TEXTDOMAIN),
+            'label' => __('Custom Path', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
-            'placeholoder' => 'myfolder/document',
-            'description' => __('A custom path from site root. You can use Token for dynamic path.', DCE_TEXTDOMAIN) . '<br>Ex: \'myfolder/document/[post:my_meta_field]\'',
+            'placeholder' => 'myfolder/docs',
+            'description' => __('A custom path from site root. You can use Token for dynamic path.', 'dynamic-content-for-elementor') . '<br>Ex: \'myfolder/document/[post:my_meta_field]\'',
             'default' => 'wp-content/uploads',
             'condition' => [
-                'path_selection' => 'custom',
+                'path_selection' => ['custom', 'csv'],
             ],
+                ]
+        );
+        
+        $this->add_control(
+                'medias_field',
+                [
+                    'label' => __('Field', 'dynamic-content-for-elementor'),
+                    'type' => 'ooo_query',
+                    'placeholder' => __('Meta key or Field Name', 'dynamic-content-for-elementor'),
+                    'label_block' => true,
+                    'query_type' => 'fields',
+                    'object_type' => 'any',
+                    'condition' => [
+                        'path_selection' => 'media',
+                    ],
                 ]
         );
         $this->add_control(
                 'medias',
                 [
-                    'label' => __('Choose Files', DCE_TEXTDOMAIN),
+                    'label' => __('Choose Files', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::WYSIWYG,
                     'description' => '<style>.elementor-control-medias .wp-editor-container, .elementor-control-medias .wp-editor-tabs { display: none; }</style>',
                     'condition' => [
                         'path_selection' => 'media',
+                        'medias_field' => '',
                     ],
                 ]
         );
@@ -130,7 +154,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'metas',
                 [
-                    'label' => __('Post Meta field', DCE_TEXTDOMAIN),
+                    'label' => __('Post Meta field', 'dynamic-content-for-elementor'),
                     'type' => \Elementor\Controls_Manager::SELECT2,
                     'options' => $post_metas,
                     'condition' => [
@@ -142,11 +166,11 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'folder',
                 [
-                    'label' => __('Root Folder', DCE_TEXTDOMAIN),
+                    'label' => __('Root Folder', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => $this->getFolders(),
                     'default' => date('Y'),
-                    'description' => __('You can add more files trought <a target="_blank" href="' . admin_url('upload.php', 'relative') . '">MediaLibrary</a>, via FTP or using specific plugin as <a href="https://wordpress.org/plugins/wp-file-manager/" target="_blank">WP File Manager</a>', DCE_TEXTDOMAIN),
+                    'description' => __('You can add more files trought <a target="_blank" href="' . admin_url('upload.php', 'relative') . '">MediaLibrary</a>, via FTP or using specific plugin as <a href="https://wordpress.org/plugins/wp-file-manager/" target="_blank">WP File Manager</a>', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'path_selection' => 'uploads',
                     ],
@@ -160,11 +184,11 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
             $this->add_control(
                     'subfolder_' . $value,
                     [
-                        'label' => __('SubFolder', DCE_TEXTDOMAIN),
+                        'label' => __('SubFolder', 'dynamic-content-for-elementor'),
                         'type' => Controls_Manager::SELECT2,
                         'options' => $subfolders,
                         'default' => '/',
-                        'description' => __('Select specific subfolder or root', DCE_TEXTDOMAIN),
+                        'description' => __('Select specific subfolder or root', 'dynamic-content-for-elementor'),
                         'condition' => [
                             'path_selection' => 'uploads',
                             'folder' => $value,
@@ -173,9 +197,45 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
             );
         }
 
+        $taxonomies = DCE_Helper::get_taxonomies( false, 'attachment');
+        $this->add_control(
+            'taxonomy', [
+                'label' => __('Select Taxonomy', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SELECT,
+                'options' => ['' => __('None', 'dynamic-content-for-elementor')] + $taxonomies, //get_taxonomies(array('public' => true)),
+                'description' => __('Use selected taxonomy as folder', 'dynamic-content-for-elementor'),
+                'label_block' => true,
+                'condition' => [
+                    'path_selection' => 'taxonomy',
+                ],
+            ]
+        );
+        if (!empty($taxonomies)) {
+            foreach ($taxonomies as $tkey => $atax) {
+                if ($tkey) {
+                    $terms = DCE_Helper::get_taxonomy_terms($tkey, true);
+                    //var_dump($tkey); var_dump($terms); die();
+                    $this->add_control(
+                        'terms_' . $tkey, [
+                        'label' => __('Terms', 'dynamic-content-for-elementor'), //.' '.$atax,
+                        'type' => Controls_Manager::SELECT2,
+                        'options' => ['' => __('All', 'dynamic-content-for-elementor')] + $terms,
+                        'description' => __('Filter results by selected taxonomy term', 'dynamic-content-for-elementor'),
+                        'label_block' => true,
+                        'condition' => [
+                            'taxonomy' => $tkey,
+                            'path_selection' => 'taxonomy',
+                        ],
+                    ]
+                    );
+                }
+            }
+        }
+        
+
         $this->add_control(
                 'title', [
-            'label' => __('Show folder title', DCE_TEXTDOMAIN),
+            'label' => __('Show folder title', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'separator' => 'before',
             'condition' => [
@@ -186,7 +246,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'title_size',
                 [
-                        'label' => __( 'Title HTML Tag', DCE_TEXTDOMAIN ),
+                        'label' => __( 'Title HTML Tag', 'dynamic-content-for-elementor' ),
                         'type' => Controls_Manager::SELECT,
                         'options' => [
                                 'h1' => 'H1',
@@ -209,7 +269,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'empty', [
-            'label' => __('Show empty folders', DCE_TEXTDOMAIN),
+            'label' => __('Show empty folders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'path_selection' => ['uploads', 'custom'],
@@ -219,9 +279,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'resized', [
-            'label' => __('Show resized images', DCE_TEXTDOMAIN),
+            'label' => __('Show resized images', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __('Wordpress automatically create for every uploaded image many resized version (es: my-image-150x150.png, another-img-310x250.jpg), if you want view them enable this setting', DCE_TEXTDOMAIN),
+            'description' => __('Wordpress automatically create for every uploaded image many resized version (es: my-image-150x150.png, another-img-310x250.jpg), if you want view them enable this setting', 'dynamic-content-for-elementor'),
             'condition' => [
                 'path_selection' => ['uploads', 'custom'],
             ]
@@ -231,15 +291,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'order',
                 [
-                    'label' => __('Order', DCE_TEXTDOMAIN),
+                    'label' => __('Order', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT2,
                     'options' => array(
-                        SCANDIR_SORT_NONE => __('None', DCE_TEXTDOMAIN),
-                        0 => __('Ascending', DCE_TEXTDOMAIN),
-                        1 => __('Descending', DCE_TEXTDOMAIN),
+                        SCANDIR_SORT_NONE => __('None', 'dynamic-content-for-elementor'),
+                        0 => __('Ascending', 'dynamic-content-for-elementor'),
+                        1 => __('Descending', 'dynamic-content-for-elementor'),
                     ),
                     'default' => '0',
-                    'description' => __('Select file order', DCE_TEXTDOMAIN),
+                    'description' => __('Select file order', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'path_selection' => ['uploads', 'custom'],
                     ]
@@ -249,10 +309,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_type',
                 [
-                    'label' => __('Filter by file extension', DCE_TEXTDOMAIN),
+                    'label' => __('Filter by file extension', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
                     'placeholder' => 'gif, jpg, png',
-                    'description' => __('Show only specific file types. Separate each extension by comma', DCE_TEXTDOMAIN),
+                    'description' => __('Show only specific file types. Separate each extension by comma', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'path_selection!' => 'media',
                     ]
@@ -260,10 +320,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'file_type_show', [
-            'label' => __('Show/Hide specified file types', DCE_TEXTDOMAIN),
+            'label' => __('Show/Hide specified file types', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('Hide', DCE_TEXTDOMAIN),
-            'label_on' => __('Show', DCE_TEXTDOMAIN),
+            'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+            'label_on' => __('Show', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => [
                 'file_type!' => ''
@@ -273,9 +333,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'img_icon', [
-            'label' => __('Use thumbnail for images', DCE_TEXTDOMAIN),
+            'label' => __('Use thumbnail for images', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __('If file is an image then use it\'s thumb as icon', DCE_TEXTDOMAIN),
+            'description' => __('If file is an image then use it\'s thumb as icon', 'dynamic-content-for-elementor'),
                 ]
         );
 
@@ -283,7 +343,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
           $this->add_control(
           'subfolder',
           [
-          'label' => __( 'Root Folder', DCE_TEXTDOMAIN ),
+          'label' => __( 'Root Folder', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SELECT,
           'options' => $this->plainDirToArray(),
           'default' => '/',
@@ -295,7 +355,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'search', [
-            'label' => __('Enable quick search form', DCE_TEXTDOMAIN),
+            'label' => __('Enable quick search form', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'separator' => 'before'
                 ]
@@ -305,17 +365,77 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'enable_metadata', [
                     'separator' => 'before',
-            'label' => __('Enable metadata info', DCE_TEXTDOMAIN),
+            'label' => __('Enable metadata info', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
                 ]
         );
 
         $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_file_csv',
+            [
+                'label' => __('CSV', 'dynamic-content-for-elementor'),
+                'condition' => [
+                    'path_selection' => 'csv',
+                ],
+            ]
+        );
+        $this->add_control(
+            'folder_csv', [
+            'label' => __('CSV Path', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => 'myfolder/file_list.csv',
+                ]
+        );
+        $this->add_control(
+            'folder_csv_filter', [
+            'label' => __('CSV Folder Path Filter', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => 'myfolder/docs',
+                ]
+        );
+        $this->add_control(
+            'folder_csv_separator', [
+            'label' => __('CSV Folder Separator', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'default' => '/',
+                ]
+        );
+        $this->add_control(
+            'folder_csv_header', [
+            'label' => __('CSV Header line', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+                ]
+        );
+        $this->add_control(
+            'folder_csv_col_dir', [
+            'label' => __('CSV Directory col', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::NUMBER,
+            'default' => 1,
+            'min' => 1,
+                ]
+        );
+        $this->add_control(
+            'folder_csv_col_file', [
+            'label' => __('CSV File col', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::NUMBER,
+            'default' => 2,
+            'min' => 1,
+                ]
+        );
+        $this->add_control(
+            'folder_csv_title', [
+            'label' => __('Use Dir basename as file Title', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+                ]
+        );
+        $this->end_controls_section();
         
         $this->start_controls_section(
                 'section_file_form',
                 [
-                    'label' => __('Search form', DCE_TEXTDOMAIN),
+                    'label' => __('Search form', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'search!' => '',
                     ],
@@ -324,16 +444,16 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
             $this->add_control(
                 'search_text',
                 [
-                    'label' => __('Search Text', DCE_TEXTDOMAIN),
+                    'label' => __('Search Text', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'default' => __('Quick search', DCE_TEXTDOMAIN),
-                    'placeholder' => __('Quick search', DCE_TEXTDOMAIN),
+                    'default' => __('Quick search', 'dynamic-content-for-elementor'),
+                    'placeholder' => __('Quick search', 'dynamic-content-for-elementor'),
                 ]
             );
             $this->add_control(
                     'search_text_size',
                     [
-                            'label' => __( 'Form Title HTML Tag', DCE_TEXTDOMAIN ),
+                            'label' => __( 'Form Title HTML Tag', 'dynamic-content-for-elementor' ),
                             'type' => Controls_Manager::SELECT,
                             'options' => [
                                     'h1' => 'H1',
@@ -353,10 +473,29 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                     ]
             );
             $this->add_control(
+                'search_notice',
+                [
+                    'label' => __('Search Notice', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::TEXT,
+                    'default' => __('* at least 3 character min', 'dynamic-content-for-elementor'),
+                    'placeholder' => __('* at least 3 character min', 'dynamic-content-for-elementor'),
+                ]
+            );
+            $this->add_control(
                     'search_quick',
                     [
-                        'label' => __('Quick search', DCE_TEXTDOMAIN),
+                        'label' => __('Quick search', 'dynamic-content-for-elementor'),
                         'type' => Controls_Manager::SWITCHER,
+                    ]
+            );
+            $this->add_control(
+                    'search_reset',
+                    [
+                        'label' => __('Use Reset button', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SWITCHER,
+                        'condition' => [
+                            'search_quick' => '',
+                        ]
                     ]
             );
         $this->end_controls_section();
@@ -364,7 +503,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_file_metadata',
                 [
-                    'label' => __('Metadata', DCE_TEXTDOMAIN),
+                    'label' => __('Metadata', 'dynamic-content-for-elementor'),
                     'condition' => [
                         'enable_metadata!' => '',
                     ],
@@ -372,7 +511,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'extension', [
-            'label' => __('Show file extension', DCE_TEXTDOMAIN),
+            'label' => __('Show file extension', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'enable_metadata' => 'yes',
@@ -381,7 +520,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_size', [
-            'label' => __('Show file size', DCE_TEXTDOMAIN),
+            'label' => __('Show file size', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'enable_metadata' => 'yes',
@@ -390,7 +529,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_hits', [
-            'label' => __('Add a download counter for statistics', DCE_TEXTDOMAIN),
+            'label' => __('Add a download counter for statistics', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'enable_metadata' => 'yes',
@@ -400,7 +539,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'enable_metadata_description', [
-            'label' => __('Add description to files', DCE_TEXTDOMAIN),
+            'label' => __('Add description to files', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'enable_metadata' => 'yes',
@@ -409,10 +548,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_wp_description', [
-            'label' => __('Use WP Caption', DCE_TEXTDOMAIN),
+            'label' => __('Use WP Caption', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
-            'description' => __('Use Media Caption as description if file is managed by native WP interface', DCE_TEXTDOMAIN),
+            'description' => __('Use Media Caption as description if file is managed by native WP interface', 'dynamic-content-for-elementor'),
             'condition' => [
                 'enable_metadata' => 'yes',
                 'enable_metadata_description' => 'yes'
@@ -421,7 +560,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_custom_title', [
-            'label' => __('Set custom title to files and folders', DCE_TEXTDOMAIN),
+            'label' => __('Set custom title to files and folders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'condition' => [
                 'enable_metadata' => 'yes',
@@ -430,10 +569,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_wp_title', [
-            'label' => __('Use WP Title', DCE_TEXTDOMAIN),
+            'label' => __('Use WP Title', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
-            'description' => __('Use Media Title if file is managed by native WP interface', DCE_TEXTDOMAIN),
+            'description' => __('Use Media Title if file is managed by native WP interface', 'dynamic-content-for-elementor'),
             'condition' => [
                 'enable_metadata' => 'yes',
                 'enable_metadata_custom_title' => 'yes'
@@ -442,9 +581,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_hide', [
-            'label' => __('Hide some files and folders', DCE_TEXTDOMAIN),
+            'label' => __('Hide some files and folders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __("You can select what file and folder hide if you don't want to share it", DCE_TEXTDOMAIN),
+            'description' => __("You can select what file and folder hide if you don't want to share it", 'dynamic-content-for-elementor'),
             'condition' => [
                 'enable_metadata' => 'yes',
             ],
@@ -452,9 +591,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'enable_metadata_hide_reverse', [
-            'label' => __('Invert: show only selected files and folders', DCE_TEXTDOMAIN),
+            'label' => __('Invert: show only selected files and folders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __("If enabled you select the exact file and folder to show, all other file and folders will be hidden", DCE_TEXTDOMAIN),
+            'description' => __("If enabled you select the exact file and folder to show, all other file and folders will be hidden", 'dynamic-content-for-elementor'),
             'condition' => [
                 'enable_metadata' => 'yes',
                 'enable_metadata_hide' => 'yes',
@@ -463,6 +602,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->end_controls_section();
 
+        
         //////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////  STYLE  ///////////////////////////
         // ++++++++++++++++++++++ Title ++++++++++++++++++++++
@@ -470,7 +610,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_style_title',
                 [
-                    'label' => __('Title', DCE_TEXTDOMAIN),
+                    'label' => __('Title', 'dynamic-content-for-elementor'),
                     'tab' => Controls_Manager::TAB_STYLE,
                     'condition' => [
                         'title' => 'yes',
@@ -511,12 +651,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'title_color',
                 [
-                    'label' => __('Color', DCE_TEXTDOMAIN),
+                    'label' => __('Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-filebrowser-title' => 'color: {{VALUE}};',
                     ],
@@ -525,8 +662,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'title_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-filebrowser-title',
                 ]
         );
@@ -540,7 +676,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'title_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 0,
@@ -563,7 +699,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_style_folders',
                 [
-                    'label' => __('Folders', DCE_TEXTDOMAIN),
+                    'label' => __('Folders', 'dynamic-content-for-elementor'),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -572,12 +708,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'foldername_color',
                 [
-                    'label' => __('Name Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -589,12 +722,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'foldername_color_hover',
                 [
-                    'label' => __('Name Hover Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Hover Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -606,8 +736,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'foldername_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} a .dce-dir-title',
                 ]
         );
@@ -622,7 +751,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_folders_border',
                 [
-                    'label' => __('Border', DCE_TEXTDOMAIN),
+                    'label' => __('Border', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -630,15 +759,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'folder_border_type',
                 [
-                    'label' => __('Border type', DCE_TEXTDOMAIN),
+                    'label' => __('Border type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'solid',
                     'options' => [
-                        'solid' => __('Solid', DCE_TEXTDOMAIN),
-                        'dashed' => __('Dashed', DCE_TEXTDOMAIN),
-                        'dotted' => __('Dotted', DCE_TEXTDOMAIN),
-                        'double' => __('Double', DCE_TEXTDOMAIN),
-                        'none' => __('None', DCE_TEXTDOMAIN),
+                        'solid' => __('Solid', 'dynamic-content-for-elementor'),
+                        'dashed' => __('Dashed', 'dynamic-content-for-elementor'),
+                        'dotted' => __('Dotted', 'dynamic-content-for-elementor'),
+                        'double' => __('Double', 'dynamic-content-for-elementor'),
+                        'none' => __('None', 'dynamic-content-for-elementor'),
                     ],
                     //'separator' => 'before',
                     'selectors' => [// You can use the selected value in an auto-generated css rule.
@@ -649,12 +778,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'folder_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'folder_border_type!' => 'none',
                     ],
@@ -666,7 +792,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'folder_border_stroke',
                 [
-                    'label' => __('Border weight', DCE_TEXTDOMAIN),
+                    'label' => __('Border weight', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -690,7 +816,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'folder_list_space',
                 [
-                    'label' => __('Row Space', DCE_TEXTDOMAIN),
+                    'label' => __('Row Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -709,7 +835,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'folder_list_padding', [
-            'label' => __('Space around', DCE_TEXTDOMAIN),
+            'label' => __('Space around', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', '%'],
             'separator' => 'after',
@@ -722,7 +848,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_folders_icon',
                 [
-                    'label' => __('Icons', DCE_TEXTDOMAIN),
+                    'label' => __('Icons', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -730,7 +856,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_responsive_control(
                 'folder_icon_size',
                 [
-                    'label' => __('Size', DCE_TEXTDOMAIN),
+                    'label' => __('Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 40,
@@ -750,7 +876,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_responsive_control(
                 'folder_icon_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -781,7 +907,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_style_subfolders',
                 [
-                    'label' => __('Sub Folders', DCE_TEXTDOMAIN),
+                    'label' => __('Sub Folders', 'dynamic-content-for-elementor'),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -790,12 +916,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfoldername_color',
                 [
-                    'label' => __('Name Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -807,12 +930,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfoldername_color_hover',
                 [
-                    'label' => __('Name Hover Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Hover Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -824,8 +944,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'subfoldername_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} li.dir li.dir a .dce-dir-title',
                 ]
         );
@@ -840,7 +959,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_subfolders_border',
                 [
-                    'label' => __('Border', DCE_TEXTDOMAIN),
+                    'label' => __('Border', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -848,15 +967,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_border_type',
                 [
-                    'label' => __('Border type', DCE_TEXTDOMAIN),
+                    'label' => __('Border type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'solid',
                     'options' => [
-                        'solid' => __('Solid', DCE_TEXTDOMAIN),
-                        'dashed' => __('Dashed', DCE_TEXTDOMAIN),
-                        'dotted' => __('Dotted', DCE_TEXTDOMAIN),
-                        'double' => __('Double', DCE_TEXTDOMAIN),
-                        'none' => __('None', DCE_TEXTDOMAIN),
+                        'solid' => __('Solid', 'dynamic-content-for-elementor'),
+                        'dashed' => __('Dashed', 'dynamic-content-for-elementor'),
+                        'dotted' => __('Dotted', 'dynamic-content-for-elementor'),
+                        'double' => __('Double', 'dynamic-content-for-elementor'),
+                        'none' => __('None', 'dynamic-content-for-elementor'),
                     ],
                     //'separator' => 'before',
                     'selectors' => [// You can use the selected value in an auto-generated css rule.
@@ -867,12 +986,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'subfolder_border_type!' => 'none',
                     ],
@@ -884,7 +1000,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_border_stroke',
                 [
-                    'label' => __('Border weight', DCE_TEXTDOMAIN),
+                    'label' => __('Border weight', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -908,7 +1024,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_list_space',
                 [
-                    'label' => __('Row Space', DCE_TEXTDOMAIN),
+                    'label' => __('Row Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -930,7 +1046,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_subfolders_icon',
                 [
-                    'label' => __('Icons', DCE_TEXTDOMAIN),
+                    'label' => __('Icons', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -938,7 +1054,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_icon_size',
                 [
-                    'label' => __('Size', DCE_TEXTDOMAIN),
+                    'label' => __('Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 40,
@@ -958,7 +1074,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'subfolder_icon_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -989,7 +1105,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_style_files',
                 [
-                    'label' => __('Files', DCE_TEXTDOMAIN),
+                    'label' => __('Files', 'dynamic-content-for-elementor'),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -997,12 +1113,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'filename_color',
                 [
-                    'label' => __('Name Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -1014,12 +1127,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'filename_color_hover',
                 [
-                    'label' => __('Name Hover Color', DCE_TEXTDOMAIN),
+                    'label' => __('Name Hover Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                     //'show_childlist' => '1',
                     ],
@@ -1031,8 +1141,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'filename_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} a .dce-file-title',
                 ]
         );
@@ -1047,7 +1156,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_files_border',
                 [
-                    'label' => __('Border', DCE_TEXTDOMAIN),
+                    'label' => __('Border', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1055,15 +1164,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_border_type',
                 [
-                    'label' => __('Border type', DCE_TEXTDOMAIN),
+                    'label' => __('Border type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'solid',
                     'options' => [
-                        'solid' => __('Solid', DCE_TEXTDOMAIN),
-                        'dashed' => __('Dashed', DCE_TEXTDOMAIN),
-                        'dotted' => __('Dotted', DCE_TEXTDOMAIN),
-                        'double' => __('Double', DCE_TEXTDOMAIN),
-                        'none' => __('None', DCE_TEXTDOMAIN),
+                        'solid' => __('Solid', 'dynamic-content-for-elementor'),
+                        'dashed' => __('Dashed', 'dynamic-content-for-elementor'),
+                        'dotted' => __('Dotted', 'dynamic-content-for-elementor'),
+                        'double' => __('Double', 'dynamic-content-for-elementor'),
+                        'none' => __('None', 'dynamic-content-for-elementor'),
                     ],
                     //'separator' => 'before',
                     'selectors' => [// You can use the selected value in an auto-generated css rule.
@@ -1074,12 +1183,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'file_border_type!' => 'none',
                     ],
@@ -1091,7 +1197,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_border_stroke',
                 [
-                    'label' => __('Border weight', DCE_TEXTDOMAIN),
+                    'label' => __('Border weight', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -1114,7 +1220,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_list_space',
                 [
-                    'label' => __('Row Space', DCE_TEXTDOMAIN),
+                    'label' => __('Row Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -1135,7 +1241,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_files_icon',
                 [
-                    'label' => __('Icons', DCE_TEXTDOMAIN),
+                    'label' => __('Icons', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1143,7 +1249,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_icon_size',
                 [
-                    'label' => __('Size', DCE_TEXTDOMAIN),
+                    'label' => __('Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 40,
@@ -1165,7 +1271,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'file_icon_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -1198,7 +1304,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_files_size',
                 [
-                    'label' => __('Label Size', DCE_TEXTDOMAIN),
+                    'label' => __('Label Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
@@ -1209,12 +1315,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'filesizes_color',
                 [
-                    'label' => __('Color', DCE_TEXTDOMAIN),
+                    'label' => __('Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'enable_metadata_size' => 'yes',
                     ],
@@ -1226,7 +1329,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'filesize_icon_size',
                 [
-                    'label' => __('Size', DCE_TEXTDOMAIN),
+                    'label' => __('Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => '',
@@ -1250,7 +1353,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_files_hits',
                 [
-                    'label' => __('Label Hits', DCE_TEXTDOMAIN),
+                    'label' => __('Label Hits', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
@@ -1261,24 +1364,21 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'filehits_color',
                 [
-                    'label' => __('Color', DCE_TEXTDOMAIN),
+                    'label' => __('Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'enable_metadata_hits' => 'yes',
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .dce-list .dce-file-download .dce-file-hits-label' => 'color: {{VALUE}};',
+                        '{{WRAPPER}} .dce-list .dce-file-hits-label' => 'color: {{VALUE}};',
                     ],
                 ]
         );
         $this->add_control(
                 'filehits_icon_size',
                 [
-                    'label' => __('Size', DCE_TEXTDOMAIN),
+                    'label' => __('Size', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => '',
@@ -1294,7 +1394,30 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                     ],
                     //'separator' => 'before',
                     'selectors' => [
-                        '{{WRAPPER}} .dce-list .dce-file-download .dce-file-hits-label' => 'font-size: {{SIZE}}{{UNIT}};',
+                        '{{WRAPPER}} .dce-list .dce-file-hits-label' => 'font-size: {{SIZE}}{{UNIT}};',
+                    ],
+                ]
+        );
+        $this->add_control(
+                'filehits_icon_space',
+                [
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SLIDER,
+                    'default' => [
+                        'size' => '',
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 10,
+                            'max' => 180,
+                        ],
+                    ],
+                    'condition' => [
+                        'enable_metadata_hits' => 'yes',
+                    ],
+                    //'separator' => 'before',
+                    'selectors' => [
+                        '{{WRAPPER}} .dce-list .dce-file-hits-label' => 'margin-left: {{SIZE}}{{UNIT}};',
                     ],
                 ]
         );
@@ -1307,7 +1430,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->start_controls_section(
                 'section_style_search',
                 [
-                    'label' => __('Search', DCE_TEXTDOMAIN),
+                    'label' => __('Search', 'dynamic-content-for-elementor'),
                     'tab' => Controls_Manager::TAB_STYLE,
                     'condition' => [
                         'search' => 'yes',
@@ -1318,19 +1441,19 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'align_search',
                 [
-                    'label' => __('Alignment', DCE_TEXTDOMAIN),
+                    'label' => __('Alignment', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'left' => [
-                            'title' => __('Left', DCE_TEXTDOMAIN),
+                            'title' => __('Left', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-align-left',
                         ],
                         'center' => [
-                            'title' => __('Center', DCE_TEXTDOMAIN),
+                            'title' => __('Center', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-align-center',
                         ],
                         'right' => [
-                            'title' => __('Right', DCE_TEXTDOMAIN),
+                            'title' => __('Right', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-align-right',
                         ],
                     ],
@@ -1345,7 +1468,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_border',
                 [
-                    'label' => __('Border', DCE_TEXTDOMAIN),
+                    'label' => __('Border', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1353,7 +1476,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         /* $this->add_group_control(
           Group_Control_Border::get_type(), [
           'name' => 'searchfield_border',
-          'label' => __('Borders', DCE_TEXTDOMAIN),
+          'label' => __('Borders', 'dynamic-content-for-elementor'),
           'selector' => '{{WRAPPER}} .dce-file-search-form',
 
           ]
@@ -1361,15 +1484,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_border_type',
                 [
-                    'label' => __('Border type', DCE_TEXTDOMAIN),
+                    'label' => __('Border type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'solid',
                     'options' => [
-                        'solid' => __('Solid', DCE_TEXTDOMAIN),
-                        'dashed' => __('Dashed', DCE_TEXTDOMAIN),
-                        'dotted' => __('Dotted', DCE_TEXTDOMAIN),
-                        'double' => __('Double', DCE_TEXTDOMAIN),
-                        'none' => __('None', DCE_TEXTDOMAIN),
+                        'solid' => __('Solid', 'dynamic-content-for-elementor'),
+                        'dashed' => __('Dashed', 'dynamic-content-for-elementor'),
+                        'dotted' => __('Dotted', 'dynamic-content-for-elementor'),
+                        'double' => __('Double', 'dynamic-content-for-elementor'),
+                        'none' => __('None', 'dynamic-content-for-elementor'),
                     ],
                     //'separator' => 'before',
                     'selectors' => [// You can use the selected value in an auto-generated css rule.
@@ -1380,12 +1503,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'search_border_type!' => 'none',
                     ],
@@ -1397,7 +1517,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_border_stroke',
                 [
-                    'label' => __('Border weight', DCE_TEXTDOMAIN),
+                    'label' => __('Border weight', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -1419,7 +1539,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_border_radius',
                 [
-                    'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                    'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -1442,7 +1562,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_background',
                 [
-                    'label' => __('Background', DCE_TEXTDOMAIN),
+                    'label' => __('Background', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1459,7 +1579,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_title',
                 [
-                    'label' => __('Title', DCE_TEXTDOMAIN),
+                    'label' => __('Title', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
@@ -1470,12 +1590,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_title_color',
                 [
-                    'label' => __('Color', DCE_TEXTDOMAIN),
+                    'label' => __('Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-file-search-form-title' => 'color: {{VALUE}};',
                     ],
@@ -1487,8 +1604,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'search_title_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-file-search-form-title',
             'condition' => [
                 'search_text!' => '',
@@ -1498,7 +1614,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_title_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -1528,7 +1644,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_field',
                 [
-                    'label' => __('Field search', DCE_TEXTDOMAIN),
+                    'label' => __('Field search', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1536,12 +1652,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_field_txcolor',
                 [
-                    'label' => __('Text Color', DCE_TEXTDOMAIN),
+                    'label' => __('Text Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} input.filetxt' => 'color: {{VALUE}};',
                     ],
@@ -1550,12 +1663,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_field_bgcolor',
                 [
-                    'label' => __('Background Color', DCE_TEXTDOMAIN),
+                    'label' => __('Background Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} input.filetxt' => 'background-color: {{VALUE}};',
                     ],
@@ -1564,15 +1674,14 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'search_field_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} input.filetxt',
                 ]
         );
         $this->add_control(
                 'search_field_border_radius',
                 [
-                    'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                    'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -1591,7 +1700,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'search_field_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', '%'],
             'selectors' => [
@@ -1602,15 +1711,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_field_border_type',
                 [
-                    'label' => __('Border type', DCE_TEXTDOMAIN),
+                    'label' => __('Border type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'solid',
                     'options' => [
-                        'solid' => __('Solid', DCE_TEXTDOMAIN),
-                        'dashed' => __('Dashed', DCE_TEXTDOMAIN),
-                        'dotted' => __('Dotted', DCE_TEXTDOMAIN),
-                        'double' => __('Double', DCE_TEXTDOMAIN),
-                        'none' => __('None', DCE_TEXTDOMAIN),
+                        'solid' => __('Solid', 'dynamic-content-for-elementor'),
+                        'dashed' => __('Dashed', 'dynamic-content-for-elementor'),
+                        'dotted' => __('Dotted', 'dynamic-content-for-elementor'),
+                        'double' => __('Double', 'dynamic-content-for-elementor'),
+                        'none' => __('None', 'dynamic-content-for-elementor'),
                     ],
                     //'separator' => 'before',
                     'selectors' => [// You can use the selected value in an auto-generated css rule.
@@ -1621,12 +1730,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_field_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'condition' => [
                         'search_field_border_type!' => 'none',
                     ],
@@ -1637,7 +1743,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'search_field_border_stroke', [
-            'label' => __('Borders', DCE_TEXTDOMAIN),
+            'label' => __('Borders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'default' => [
                 'top' => '',
@@ -1657,7 +1763,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_field_space',
                 [
-                    'label' => __('Space', DCE_TEXTDOMAIN),
+                    'label' => __('Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 10,
@@ -1687,7 +1793,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_desc_field',
                 [
-                    'label' => __('Small description', DCE_TEXTDOMAIN),
+                    'label' => __('Small description', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1695,12 +1801,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'search_desc_color',
                 [
-                    'label' => __('Color', DCE_TEXTDOMAIN),
+                    'label' => __('Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-desc small' => 'color: {{VALUE}};',
                     ],
@@ -1709,8 +1812,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'search_desc_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-search-desc small',
                 ]
         );
@@ -1718,7 +1820,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_buttons',
                 [
-                    'label' => __('Buttons', DCE_TEXTDOMAIN),
+                    'label' => __('Buttons', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1726,15 +1828,14 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'buttons_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .dce-search-buttons input',
                 ]
         );
         $this->add_control(
                 'buttons_border_radius',
                 [
-                    'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                    'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 1,
@@ -1753,7 +1854,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
                 'buttons_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', '%'],
             'selectors' => [
@@ -1764,7 +1865,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
                 'buttons_border_stroke', [
-            'label' => __('Borders', DCE_TEXTDOMAIN),
+            'label' => __('Borders', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'default' => [
                 'top' => '',
@@ -1781,7 +1882,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttons_v_space',
                 [
-                    'label' => __('Verical Space', DCE_TEXTDOMAIN),
+                    'label' => __('Verical Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 0,
@@ -1800,7 +1901,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttons_h_space',
                 [
-                    'label' => __('Horizontal Space', DCE_TEXTDOMAIN),
+                    'label' => __('Horizontal Space', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'size' => 0,
@@ -1820,20 +1921,18 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_buttonReset',
                 [
-                    'label' => __('Button Reset', DCE_TEXTDOMAIN),
+                    'label' => __('Button Reset', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
+                    'condition' => ['search_reset!' => ''],
                 ]
         );
         $this->add_control(
                 'buttonreset_txcolor',
                 [
-                    'label' => __('Text Color', DCE_TEXTDOMAIN),
+                    'label' => __('Text Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset' => 'color: {{VALUE}};',
                     ],
@@ -1842,12 +1941,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonreset_bgcolor',
                 [
-                    'label' => __('Background Color', DCE_TEXTDOMAIN),
+                    'label' => __('Background Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset' => 'background-color: {{VALUE}};',
                     ],
@@ -1856,12 +1952,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonreset_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset' => 'border-color: {{VALUE}};',
                     ],
@@ -1870,12 +1963,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonreset_txcolor_hover',
                 [
-                    'label' => __('Hover Text Color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Text Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset:hover' => 'color: {{VALUE}};',
                     ],
@@ -1884,12 +1974,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonreset_bgcolor_hover',
                 [
-                    'label' => __('Hover Background Color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Background Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset:hover' => 'background-color: {{VALUE}};',
                     ],
@@ -1898,12 +1985,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonreset_border_color_hover',
                 [
-                    'label' => __('Hover Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    'condition' => ['search_reset!' => ''],
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset:hover' => 'border-color: {{VALUE}};',
                     ],
@@ -1913,7 +1997,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'heading_search_buttonFind',
                 [
-                    'label' => __('Button Find', DCE_TEXTDOMAIN),
+                    'label' => __('Button Find', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                 ]
@@ -1922,12 +2006,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_txcolor',
                 [
-                    'label' => __('Text Color', DCE_TEXTDOMAIN),
+                    'label' => __('Text Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.find' => 'color: {{VALUE}};',
                     ],
@@ -1936,12 +2017,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_bgcolor',
                 [
-                    'label' => __('Background Color', DCE_TEXTDOMAIN),
+                    'label' => __('Background Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.find' => 'background-color: {{VALUE}};',
                     ],
@@ -1950,12 +2028,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_border_color',
                 [
-                    'label' => __('Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.find' => 'border-color: {{VALUE}};',
                     ],
@@ -1964,12 +2039,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_txcolor_hover',
                 [
-                    'label' => __('Hover Text Color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Text Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.find:hover' => 'color: {{VALUE}};',
                     ],
@@ -1978,12 +2050,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_bgcolor_hover',
                 [
-                    'label' => __('Hover Background Color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Background Color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.find:hover' => 'background-color: {{VALUE}};',
                     ],
@@ -1992,12 +2061,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $this->add_control(
                 'buttonfind_border_color_hover',
                 [
-                    'label' => __('Hover Border color', DCE_TEXTDOMAIN),
+                    'label' => __('Hover Border color', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::COLOR,
-                    'scheme' => [
-                        'type' => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
+                    
                     'selectors' => [
                         '{{WRAPPER}} .dce-search-buttons input.reset:hover' => 'border-color: {{VALUE}};',
                     ],
@@ -2010,12 +2076,18 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         $settings = $this->get_settings_for_display();
 
         $baseDir = false;
-        $files = array();
+        $files = $dirs = array();
         switch ($settings['path_selection']) {
             case 'custom':
-                $baseDir = \DynamicContentForElementor\DCE_Tokens::do_tokens($settings['folder_custom']);
+                $baseDir = $settings['folder_custom'];
                 $tmpTit = explode('/', $baseDir);
                 $baseTitle = end($tmpTit);
+                break;
+            case 'csv':
+                $baseDir = $settings['folder_custom'];
+                $pieces = explode('.', $settings['folder_csv']);
+                $ext = end($pieces); 
+                $baseTitle = basename($settings['folder_csv'], '.'.$ext);
                 break;
             case 'uploads':
                 $baseDir = $settings['folder'];
@@ -2031,16 +2103,28 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
             case 'media':
                 $baseTitle = false;
                 $baseDir = 'wp-content/uploads';
-                $tmp = explode('="http', $settings['medias']);
+                if ($settings['medias_field']) {
+                    $medias = get_post_meta(get_the_ID(), $settings['medias_field'], true);
+                } else {
+                    $medias = $settings['medias'];
+                }
+                $src_identifier = 'http';
+                //$src_identifier = 'http';
+                $tmp = explode($src_identifier, $medias);
                 //var_dump(ABSPATH);                
                 foreach ($tmp as $fkey => $afile) {
                     if ($fkey) {
                         list($furl, $other) = explode('"', $afile, 2);
+                        $resized = DCE_Helper::is_resized_image($furl);
+                        if ($resized) {
+                            $furl = $resized;
+                        }
                         list($other, $fpath) = explode($baseDir, $furl, 2);
                         $files[] = substr($fpath, 1);
                     }
                 }
                 array_filter($files);
+                $files = array_unique($files);
                 if (empty($files)) {
                     $baseDir = false;
                 }
@@ -2048,6 +2132,36 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                 /* foreach ( $files as $afile ) {
                   echo $afile . '<br>';
                   } */
+                break;
+            case 'taxonomy':
+                $baseTitle = false;
+                $baseDir = 'wp-content/uploads';
+                if ($settings['taxonomy']) {
+                    $term_id = intval($settings['terms_'.$settings['taxonomy']]);
+                    if ($term_id) {
+                        $taxonomy = get_taxonomy($settings['taxonomy']);
+                        if ($taxonomy) {
+                            $baseTitle = $taxonomy->label;                    
+                            if ($term_id) {
+                                $term = get_term_by('term_taxonomy_id', $term_id);
+                                $baseTitle = $term->name;
+                            }
+                        }                    
+                        $medias = DCE_Helper::get_term_posts( $term_id, 'attachment' );
+                        //var_dump($medias);
+                        if (!empty($medias)) {
+                            foreach ($medias as $amedia) {
+                                list($other, $fpath) = explode($baseDir, $amedia->guid, 2);
+                                $files[] = substr($fpath, 1);
+                            }
+                        }                        
+                    }
+                }
+                // TODO - subfolder                
+                array_filter($files);
+                if (empty($files)) {
+                    $baseDir = false;
+                }
                 break;
             case 'meta':
                 $baseTitle = false;
@@ -2070,8 +2184,8 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                 if (empty($files)) {
                     $baseDir = false;
                 }
-        }
-        //var_dump($files); return false;
+        }        
+        //var_dump($baseDir); return false;
 
         if ($baseDir) {
 
@@ -2094,18 +2208,155 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                     echo ' data-hide-reverse="1"';
                 }
                 echo '>';
-                $this->dirToHtml($this->getRootDir($baseDir, $settings), null, $files);
+
+                /*if ($settings['path_selection'] == 'taxonomy') {
+                    if ($settings['taxonomy']) {
+                        $term_id = intval($settings['terms_'.$settings['taxonomy']]);
+                        if ($term_id) {
+                            $term = get_term_by('term_taxonomy_id', $term_id);
+                            $term_children = get_term_children($term_id, $settings['taxonomy']);
+                            $term_medias = get_posts(array(
+                                'post_type' => 'attachment',
+                                'numberposts' => -1,
+                                'tax_query' => array(
+                                  array(
+                                    'taxonomy' => $settings['taxonomy'],
+                                    'field' => 'id',
+                                    'terms' => $term_id,
+                                    'include_children' => false
+                                  )
+                                )
+                              ));
+                            foreach($term_medias as $afile) {
+                                $files[$afile->post_name] = $afile->post_title; // $afile->post_guid;
+                                //$files[$afile->post_guid] = $afile->post_title; // $afile->post_guid;
+                            }
+                            foreach($term_children as $aterm_id) 
+                                $aterm = get_term_by('term_taxonomy_id', $aterm_id);{
+                                //var_dump($aterm);
+                                $dirs[$aterm->aterm_id] = $aterm->name;
+                            }
+                            //var_dump($dirs)
+                        }
+                    }
+                    if (!$dirs && !$files) {
+                        return false;
+                    }
+                }*/
+
+                if ($settings['path_selection'] == 'csv') {
+                    if ($settings['folder_csv']) {
+                        $row_file = $settings['folder_csv_col_file'] - 1;
+                        $row_path = $settings['folder_csv_col_dir'] - 1;
+                        $csv_path = ABSPATH.$settings['folder_csv'];
+                        if (file_exists($csv_path)) {
+                            $csv = file($csv_path);
+                            if (!empty($csv)) {
+                                $hide = true;
+                                foreach($csv as $ckey => $arow) {
+                                    if ($settings['folder_csv_header'] && !$ckey) {
+                                        // header row
+                                    } else {
+                                        $cols = explode(';', $arow);                                   
+                                        if (isset($cols[$row_path])) {
+                                            $chunk = explode($settings['folder_csv_separator'], $cols[$row_path]);
+                                            $chunk = array_map('trim', $chunk);
+                                            $chunk = array_filter($chunk);                                            
+                                            $filedir = implode($settings['folder_csv_separator'], $chunk);
+                                            if (isset($cols[$row_file])) {
+                                                if ($row_file == $row_path) {
+                                                    $filename = array_pop($chunk);
+                                                } else {
+                                                    $filename = $cols[$row_file];
+                                                }
+                                                $filename = trim(basename($filename));
+                                                
+                                                $last = end($chunk);
+                                                if ($filename && $filename != 'NULL' && $last) {
+                                                    //$pezzi = explode('.', $last);
+                                                    //if (count($pezzi) > 1) {
+                                                        $filepath = $baseDir.DIRECTORY_SEPARATOR.$filename;
+                                                        //echo $filepath;
+                                                        if (file_exists($filepath)) {
+                                                            $files[$filename] = $last;
+                                                        }
+                                                    //}
+                                                }                                                
+                                                if (array_key_exists($filename, $files)) {
+                                                    $tmp = array();
+                                                    $filename_title = $filename;
+                                                    if ($settings['folder_csv_title']) {
+                                                        $filename_title = array_pop($chunk);
+                                                    }
+                                                    if (empty($chunk)) {
+                                                        if ($row_file == $row_path) {
+                                                            if ($settings['folder_csv_title']) {
+                                                                $chunk[] = $files[$filename];
+                                                            }
+                                                        }
+                                                    }
+                                                    if (!empty($chunk)) {
+                                                        foreach($chunk as $kkey => $cnk) {
+                                                            $tmp[] = $cnk;
+                                                            $arr_key = '["'.implode('"]["', $tmp).'"]';
+                                                            $eval = 'if (!isset($dirs'.$arr_key.')) { $dirs'.$arr_key.' = array(); }';
+                                                            eval($eval);
+                                                            if ($kkey == count($chunk)-1) {
+                                                                $dkey = '';
+                                                                if ($row_file == $row_path) {
+                                                                    if ($settings['folder_csv_title']) {
+                                                                        $folder_csv = explode($settings['folder_csv_separator'], $settings['folder_csv_filter']);
+                                                                        if ($filename_title == end($folder_csv)) {
+                                                                            $dkey = '"'.$filename_title.'"';
+                                                                        }
+                                                                    }
+                                                                }
+                                                                $eval = '$dirs'.$arr_key.'['.$dkey.'] = array("'.$filename_title.'" => "'.$filename.'");';
+                                                                eval($eval);
+                                                            }
+                                                            
+                                                        }
+                                                        //var_dump($dirs);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
+
+                        if ($settings['folder_csv_filter']) {
+                            $folder_csv = explode($settings['folder_csv_separator'], $settings['folder_csv_filter']);
+                            $arr_key = '["'.implode('"]["', $folder_csv).'"]';
+                            $eval = 'if (isset($dirs'.$arr_key.')) { if (is_array($dirs'.$arr_key.')) { $dirs = $dirs'.$arr_key.'; } else { $dirs = array($dirs'.$arr_key.'); } } else { $dirs = false; $files = false; }';
+                            eval($eval);
+                            if (!$dirs && !$files) {
+                                return false;
+                            }
+                        }
+                    }
+                    if (\Elementor\Plugin::$instance->editor->is_edit_mode() && empty($dirs)) {
+                        _e('Empty CSV folder', 'dynamic-content-for-elementor');
+                        return false;
+                    }
+                }
+                //echo $this->getRootDir($baseDir, $settings); return false;
+                //echo '<pre>';var_dump($dirs);echo '</pre>'; return false;
+                //echo '<pre>';var_dump($files);echo '</pre>'; return false;
+                    $this->dirToHtml($this->getRootDir($baseDir, $settings), null, $files, $dirs);
                 echo '</ul>';
                 
                 $this->editorJavascript();
             } else {
                 if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                    _e('Root folder not found', DCE_TEXTDOMAIN);
+                    _e('Root folder not found', 'dynamic-content-for-elementor');
                 }
             }
         } else {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                _e('Select root folder or files', DCE_TEXTDOMAIN);
+                _e('Select root folder or files', 'dynamic-content-for-elementor');
             }
         }
     }
@@ -2173,7 +2424,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         return $result;
     }
 
-    public function dirToHtml($dir, $hidden = false, $cdir = array()) {
+    public function dirToHtml($dir, $hidden = false, $files = array(), $dirs = array()) {
         global $wpdb;
         $image_exts = array('jpg', 'jpeg', 'jpe', 'gif', 'png');
         $settings = $this->get_settings_for_display();
@@ -2185,7 +2436,16 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
             $extensions = array_filter($extensions);
         }
 
-        //var_dump($cdir);
+        //var_dump($dirs); return false;
+        if (!empty($dirs) && is_array($dirs)) {
+            $cdir = $dirs;
+        }
+        if ($settings['path_selection'] != 'csv') {
+            if (!empty($files) && is_array($files)) {
+                $cdir = $files;
+            }
+        }
+        
         if (empty($cdir)) {
             $cdir = scandir($dir, isset($settings['order']) ? $settings['order'] : null);
         }
@@ -2197,14 +2457,65 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
           } */
 
         foreach ($cdir as $key => $value) {
-            if (substr($value, 0, 1) != '.') { // hidden file
+            if (!is_array($value) && substr($value, 0, 1) == '.') { // hidden file
+                continue;
+            }
+            $title = false;
+            if (is_array($value)) {
+                //var_dump($value); return false;
+                $fulldir = $dir . DIRECTORY_SEPARATOR . $key;
+                if ($settings['path_selection'] == 'csv') {    
+                    if (count($value) == 1) {
+                        //var_dump($key);
+                        if (is_int($key)) {
+                            $value = reset($value);
+                            //var_dump($files); die();                        
+                            if (!empty($files) && is_array($files)) {
+                                //var_dump($value);
+                                $filename = $value;
+                                // TO FIX
+                                if (is_array($filename)) {
+                                    $filename = reset($filename);
+                                    $value = $filename;
+                                    if (is_array($filename)) {
+                                        $keys = array_keys($filename);
+                                        $filename = reset($filename);
+                                    }
+                                }
+                                //$filename = basename($filename);
+                                //var_dump($filename);
+                                if (isset($files[$filename])) {
+                                    $title = $files[$filename];
+                                    //var_dump($title);
+                                }
+                            }
+                            //$fulldir = $dir . DIRECTORY_SEPARATOR . $value;
+                            //var_dump($filename);
+                            
+                            $fulldir = ABSPATH . $settings['folder_custom'] . DIRECTORY_SEPARATOR . $filename;
+                        }
+                    }
+                    //$keys = array_keys($value);
+                    //var_dump($keys);
+                    /*if (is_int(reset($keys))) {
+                        //var_dump(reset($keys));
+                        $title = $key;
+                        $value = $key;
+                        $fulldir = $dir . DIRECTORY_SEPARATOR . $value;
+                    }*/
+                    
+                }
+            } else {
                 if (substr($dir, -1, 1) == '/') {
                     $fulldir = $dir . $value;
                 } else {
                     $fulldir = $dir . DIRECTORY_SEPARATOR . $value;
                 }
-                $rdir = str_replace($this->getRootDir(null, $settings), '', $fulldir);
-                if (is_dir($fulldir)) {
+            }
+
+            $rdir = str_replace($this->getRootDir(null, $settings), '', $fulldir);
+                
+                if (is_array($value) || is_dir($fulldir)) {
                     $hide = false;
                     $kdir = sanitize_file_name($rdir);
                     //var_dump($kdir);
@@ -2229,13 +2540,19 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                                 }
                             }
                             $customTitle = 0;
-                            if (\Elementor\Plugin::$instance->editor->is_edit_mode() && isset($settings['enable_metadata']) && $settings['enable_metadata'] && isset($settings['enable_metadata_title']) && $settings['enable_metadata_custom_title']) {
-                                $customTitle = 1;
-                            }
-                            if (isset($settings['enable_metadata_custom_title']) && $settings['enable_metadata_custom_title']) {
-                                $title = $this->get_dir_meta($kdir, 'title', $value);
-                            } else {
-                                $title = $value;
+                            if (!$title) {
+                                if (is_array($value)) {
+                                    $title = $key;
+                                } else {
+                                    if (\Elementor\Plugin::$instance->editor->is_edit_mode() && isset($settings['enable_metadata']) && $settings['enable_metadata'] && isset($settings['enable_metadata_title']) && $settings['enable_metadata_custom_title']) {
+                                        $customTitle = 1;
+                                    }
+                                    if (isset($settings['enable_metadata_custom_title']) && $settings['enable_metadata_custom_title']) {
+                                        $title = $this->get_dir_meta($kdir, 'title', $value);
+                                    } else {
+                                        $title = $value;
+                                    }
+                                }
                             }
                             ?>
                             <li class="dir">
@@ -2249,16 +2566,27 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                                         <strong class="dce-dir-title"><?php echo $title; ?></strong>
                             <?php } ?>
                                 </a>
-                                <ul class="hidden collapse list-unstyled dce-list" id="#<?php echo $kdir; ?>-ul">
-                            <?php echo $this->dirToHtml($fulldir); ?>
+                                <ul class="dce-hidden collapse list-unstyled dce-list" id="#<?php echo $kdir; ?>-ul">
+                                    <?php
+                                    echo $this->dirToHtml($fulldir, null, $files, $value); 
+                                    ?>
                                 </ul>
                             </li>
                                 <?php
                             }
                         }
                     } else {
-                        $pezzi = explode('.', $value);
+                        
+                        $filename = basename($value);
+                        $pezzi = explode('.', $filename);
                         $ext = strtolower(end($pezzi));
+
+                        if ($settings['path_selection'] == 'csv') {  
+                            if (isset($files[$filename])) {
+                                $title = $files[$filename];
+                            }
+                        }
+                        
 
                         if (!empty($extensions)) {
                             if (isset($settings['file_type_show'])) {
@@ -2275,26 +2603,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                         }
 
                         if (in_array($ext, $image_exts)) {
-                            $is_resized = false;
-                            // ora controllo se è una immagine resized, quindi del seguente tipo: "nome-123x123.ext"
-                            $pezzi = explode('-', substr($value, 0, -(strlen($ext) + 1)));
-                            //var_dump($pezzi);
-                            if (count($pezzi) > 1) {
-                                $misures = array_pop($pezzi);
-                                $fullsize = implode('-', $pezzi) . '.' . $ext;
-                                //echo $fullsize;
-                                $pezzi = explode('x', $misures);
-                                if (count($pezzi) == 2) {
-                                    //var_dump($pezzi);
-                                    if (is_numeric($pezzi[0]) && is_numeric($pezzi[1])) {
-                                        $is_resized = true;
-                                    }
-                                }
-                            }
-
+                            $is_resized = DCE_Helper::is_resized_image($value); // ora controllo se è una immagine resized, quindi del seguente tipo: "nome-123x123.ext"
                             if ($is_resized) {
                                 if ($settings['path_selection'] == 'media') {
-                                    $value = $fullsize;
+                                    $value = $is_resized;
                                     //echo $value;
                                     $fulldir = $dir . DIRECTORY_SEPARATOR . $value;
                                     //echo $fulldir;
@@ -2311,15 +2623,15 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
 
                         $md5 = md5($fulldir);
-                        // verifico se è una file caricato tramite wp media
                         $post_id = 0;
-                        $meta = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->postmeta . " WHERE meta_key=%s AND meta_value=%s", '_wp_attached_file', substr($rdir, 1)));
+                        // verifico se è una file caricato tramite wp media                        
+                        /*$meta = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->postmeta . " WHERE meta_key=%s AND meta_value=%s", '_wp_attached_file', substr($rdir, 1)));
                         if (!empty($meta)) {
                             $meta = reset($meta);
                             //echo $rdir; var_dump($meta);
                             $post_id = $meta->post_id;
                             //echo $post_id;
-                        }
+                        }*/
                         //echo $rdir;
                         $post_id = DCE_Helper::get_image_id($rdir);
 
@@ -2330,6 +2642,29 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                         if ($settings['enable_metadata'] && $settings['enable_metadata_hide'] && $settings['enable_metadata_hide_reverse']) {
                             $hide = !$hide;
                         }
+
+                        /*if ($settings['path_selection'] == 'csv') {
+                            if ($settings['folder_csv']) {
+                                $csv_path = $settings['folder_csv'];
+                                //var_dump($csv_path);
+                                if (file_exists($csv_path)) {
+                                    $csv = file($csv_path);
+                                    //var_dump($csv);
+                                    if (!empty($csv)) {
+                                        $hide = true;
+                                        foreach($csv as $arow) {
+                                            $row_file = $settings['folder_csv_col_file'] - 1;
+                                            if (isset($arow[$row_file])) {
+                                                if ($arow[$row_file] == $filename) {
+                                                    $hide = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }*/
+
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode() || !$hide) {
 
                             if (file_exists(DCE_PATH . '/assets/file-icon/' . $ext . '.svg')) {
@@ -2365,7 +2700,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                             if (isset($settings['img_icon']) && $settings['img_icon'] && $post_id && in_array($ext, $image_exts)) {
                                 echo wp_get_attachment_image($post_id, array(100, 100), true, array('class' => 'middle dce-img-icon'));
                             } else {
-                                echo '<span class="middle fiv-viv fiv-icon-' . $ext . '"></span>'; // <img class="hidden dce-file-icon" alt='.__('File Icon', DCE_TEXTDOMAIN).'" src="'.$icon.'" width="56" height="56">';
+                                echo '<span class="middle fiv-viv fiv-icon-' . $ext . '"></span>'; // <img class="hidden dce-file-icon" alt='.__('File Icon', 'dynamic-content-for-elementor').'" src="'.$icon.'" width="56" height="56">';
                             }
                             echo '<span class="dce-file-text">';
                             if (!$settings['extension']) {
@@ -2378,7 +2713,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                                     $title = $this->get_file_meta(($post_id ? $post_id : $md5), 'title', $value);
                                 }
                             } else {
-                                $title = basename($value);
+                                if (!$title) {
+                                    $title = basename($value);
+                                }
                             }
                             if ($customTitle) {
                                 echo '</a>';
@@ -2412,7 +2749,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                                     }
                                     if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                                         if ($settings['enable_metadata_wp_description'] && $post_id) {
-                                            echo '<div class="dce-file-description block"><a target="_blank" onclick="window.open(jQuery(this).attr(\'href\'));" href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit"><span class="dashicons dashicons-edit"></span> ' . ($description ? $description : '<span class="dce-empty-capton">' . __('Edit caption', DCE_TEXTDOMAIN) . '</span>') . '</a></div>';
+                                            echo '<div class="dce-file-description block"><a target="_blank" onclick="window.open(jQuery(this).attr(\'href\'));" href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit"><span class="dashicons dashicons-edit"></span> ' . ($description ? $description : '<span class="dce-empty-capton">' . __('Edit caption', 'dynamic-content-for-elementor') . '</span>') . '</a></div>';
                                         } else {
                                             echo '<textarea class="dce-file-description block" data-md5="' . $md5 . '"' . ($post_id ? ' data-post-id="' . $post_id . '"' : '') . ' name="dce-file-browser[' . $md5 . '][description]">' . $description . '</textarea>';
                                         }
@@ -2428,7 +2765,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                         }
                     }
                 }
-            }
+            
             return '';
         }
 
@@ -2475,10 +2812,10 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         public function displayFileSearch($settings) {
             ?>
         <form action="" class="dce-file-search-form">
-        <?php if ($settings['search_text'] != '') echo '<'.$settings['search_text_size'].' class="dce-file-search-form-title">' . __($settings['search_text'], DCE_TEXTDOMAIN) . '</'.$settings['search_text_size'].'>'; ?>
+        <?php if ($settings['search_text'] != '') echo '<'.$settings['search_text_size'].' class="dce-file-search-form-title">' . __($settings['search_text'], 'dynamic-content-for-elementor') . '</'.$settings['search_text_size'].'>'; ?>
             <div class="form-control"><input type="text" class="filetxt" name="filetxt" value=""></div>
-            <div class="dce-search-desc"><small>* <?php _e('at least 3 carachter min', DCE_TEXTDOMAIN); ?></small></div>
-            <?php if (!$settings['search_quick']) { ?><div class="text-right dce-search-buttons"><input class="reset" type="reset" value="<?php _e('Reset', DCE_TEXTDOMAIN); ?>"> <input class="find" type="submit" value="<?php _e('Find', DCE_TEXTDOMAIN); ?>"></div><?php } ?>
+            <?php if ($settings['search_notice']) { ?><div class="dce-search-desc"><small><?php _e($settings['search_notice'], 'dynamic-content-for-elementor'); ?></small></div><?php } ?>
+            <?php if (!$settings['search_quick']) { ?><div class="text-right dce-search-buttons"><?php if ($settings['search_reset']) { ?><input class="reset" type="reset" value="<?php _e('Reset', 'dynamic-content-for-elementor'); ?>"> <?php } ?><input class="find" type="submit" value="<?php _e('Find', 'dynamic-content-for-elementor'); ?>"></div><?php } ?>
         </form>
         <br />
         <?php

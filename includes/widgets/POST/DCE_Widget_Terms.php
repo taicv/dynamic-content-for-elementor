@@ -29,10 +29,10 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Terms & Taxonomy', DCE_TEXTDOMAIN);
+        return __('Terms & Taxonomy', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-      return __('Write a taxonomy for your article', DCE_TEXTDOMAIN);
+      return __('Write a taxonomy for your article', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/terms-and-taxonomy/';
@@ -47,47 +47,62 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_content', [
-              'label' => __('Terms', DCE_TEXTDOMAIN),
+              'label' => __('Terms', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'taxonomy', [
-              'label' => __('Taxonomy', DCE_TEXTDOMAIN),
+              'label' => __('Taxonomy', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               //'options' => get_post_taxonomies( $post->ID ),
-              'options' => [ 'auto' => __('Dynamic', DCE_TEXTDOMAIN)] + get_taxonomies(array('public' => true)),
+              'options' => [ 'auto' => __('Dynamic', 'dynamic-content-for-elementor')] + get_taxonomies(array('public' => true)),
               'default' => 'category',
             ]
         );
         $this->add_control(
+              'only_parent_terms', [
+                  'label' => __('Only parent terms', 'dynamic-content-for-elementor'),
+                  'type' => Controls_Manager::SWITCHER,
+                  'default' => '',
+                  'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                  'label_off' => __('No', 'dynamic-content-for-elementor'),
+                  'return_value' => 'yes',
+                  
+                  /*'condition' => [
+                          'taxonomy!' => '',
+                      ],*/
+              ]
+          );
+        
+        $this->add_control(
             'html_tag', [
-              'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+              'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               'options' => [
-                  'h1' => __('H1', DCE_TEXTDOMAIN),
-                  'h2' => __('H2', DCE_TEXTDOMAIN),
-                  'h3' => __('H3', DCE_TEXTDOMAIN),
-                  'h4' => __('H4', DCE_TEXTDOMAIN),
-                  'h5' => __('H5', DCE_TEXTDOMAIN),
-                  'h6' => __('H6', DCE_TEXTDOMAIN),
-                  'p' => __('p', DCE_TEXTDOMAIN),
-                  'div' => __('div', DCE_TEXTDOMAIN),
-                  'span' => __('span', DCE_TEXTDOMAIN),
+                  'h1' => __('H1', 'dynamic-content-for-elementor'),
+                  'h2' => __('H2', 'dynamic-content-for-elementor'),
+                  'h3' => __('H3', 'dynamic-content-for-elementor'),
+                  'h4' => __('H4', 'dynamic-content-for-elementor'),
+                  'h5' => __('H5', 'dynamic-content-for-elementor'),
+                  'h6' => __('H6', 'dynamic-content-for-elementor'),
+                  'p' => __('p', 'dynamic-content-for-elementor'),
+                  'div' => __('div', 'dynamic-content-for-elementor'),
+                  'span' => __('span', 'dynamic-content-for-elementor'),
               ],
               'default' => 'div',
             ]
         );
         $this->add_control(
           'separator', [
-            'label' => __('Separator', DCE_TEXTDOMAIN),
-            //'description' => __('Separator caracters.',DCE_TEXTDOMAIN),
+            'label' => __('Separator', 'dynamic-content-for-elementor'),
+            //'description' => __('Separator caracters.','dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => ', ',
           ]
         );
         $this->add_responsive_control(
             'space', [
-                'label' => __('Space', DCE_TEXTDOMAIN),
+                'label' => __('Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 0,
@@ -113,37 +128,37 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'text_before', [
-                'label' => __('Text before', DCE_TEXTDOMAIN),
+                'label' => __('Text before', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );
         $this->add_control(
             'text_after', [
-                'label' => __('Text after', DCE_TEXTDOMAIN),
+                'label' => __('Text after', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );
         $this->add_responsive_control(
             'align', [
-              'label' => __('Alignment', DCE_TEXTDOMAIN),
+              'label' => __('Alignment', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::CHOOSE,
               'options' => [
                   'left' => [
-                      'title' => __('Left', DCE_TEXTDOMAIN),
+                      'title' => __('Left', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-left',
                   ],
                   'center' => [
-                      'title' => __('Center', DCE_TEXTDOMAIN),
+                      'title' => __('Center', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-center',
                   ],
                   'right' => [
-                      'title' => __('Right', DCE_TEXTDOMAIN),
+                      'title' => __('Right', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-right',
                   ],
                   'justify' => [
-                      'title' => __('Justified', DCE_TEXTDOMAIN),
+                      'title' => __('Justified', 'dynamic-content-for-elementor'),
                       'icon' => 'fa fa-align-justify',
                   ],
               ],
@@ -155,12 +170,12 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'link_to', [
-            'label' => __('Link to', DCE_TEXTDOMAIN),
+            'label' => __('Link to', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'none',
             'options' => [
-                'none' => __('None', DCE_TEXTDOMAIN),
-                'term' => __('Term', DCE_TEXTDOMAIN),
+                'none' => __('None', 'dynamic-content-for-elementor'),
+                'term' => __('Term', 'dynamic-content-for-elementor'),
             ],
           ]
         );
@@ -170,13 +185,13 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         if(DCE_Helper::is_plugin_active('acf')){
           $this->start_controls_section(
             'section_image', [
-              'label' => __('Term Image', DCE_TEXTDOMAIN),
+              'label' => __('Term Image', 'dynamic-content-for-elementor'),
             ]
           );
           $this->add_control(
               'heading_image_acf',
               [
-                  'label' => __( 'ACF Term image', DCE_TEXTDOMAIN ),
+                  'label' => __( 'ACF Term image', 'dynamic-content-for-elementor' ),
                   'type' => Controls_Manager::HEADING,
                   'separator' => 'before',
               ]
@@ -184,17 +199,17 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           $this->add_control(
           'image_acf_enable',
               [
-                  'label'         => __( 'Enable', DCE_TEXTDOMAIN ),
+                  'label'         => __( 'Enable', 'dynamic-content-for-elementor' ),
                   'type'          => Controls_Manager::SWITCHER,
                   'default'       => '',
-                  'label_on'      => __( 'Yes', DCE_TEXTDOMAIN ),
-                  'label_off'     => __( 'No', DCE_TEXTDOMAIN ),
+                  'label_on'      => __( 'Yes', 'dynamic-content-for-elementor' ),
+                  'label_off'     => __( 'No', 'dynamic-content-for-elementor' ),
                   'return_value'  => 'yes',
               ]
           );
           $this->add_control(
               'acf_field_image', [
-                  'label' => __('ACF Field', DCE_TEXTDOMAIN),
+                  'label' => __('ACF Field', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SELECT,
                   //'options' => $this->get_acf_field(),
                   'groups' => $this->get_acf_field_image(true),
@@ -207,7 +222,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           $this->add_group_control(
               Group_Control_Image_Size::get_type(), [
                   'name' => 'imgsize',
-                  'label' => __('Image Size', DCE_TEXTDOMAIN),
+                  'label' => __('Image Size', 'dynamic-content-for-elementor'),
                   'default' => 'large',
                   'render_type' => 'template',
                   'condition' => [
@@ -217,11 +232,11 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           );
           $this->add_control(
               'block_enable', [
-                  'label' => __('Block', DCE_TEXTDOMAIN),
+                  'label' => __('Block', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
                   'default' => '',
-                  'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                  'label_off' => __('No', DCE_TEXTDOMAIN),
+                  'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                  'label_off' => __('No', 'dynamic-content-for-elementor'),
                   'return_value' => 'block',
                   'selectors' => [
                       '{{WRAPPER}} .dce-terms img' => 'display: {{VALUE}};',
@@ -234,7 +249,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           $this->add_control(
               'image_acf_space',
               [
-                  'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                  'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                   'type' => Controls_Manager::SLIDER,
                   'default' => [
                           'size' => 0,
@@ -255,7 +270,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           );
           $this->add_responsive_control(
               'image_acf_size', [
-                  'label' => __('Size (%)', DCE_TEXTDOMAIN),
+                  'label' => __('Size (%)', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SLIDER,
                   'default' => [
                       
@@ -283,7 +298,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
           );
           $this->add_responsive_control(
               'image_acf_shift', [
-                  'label' => __('Shift', DCE_TEXTDOMAIN),
+                  'label' => __('Shift', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SLIDER,
                   
                   'size_units' => [ '%','px'],
@@ -309,13 +324,13 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         // ----------------------------------------- [STYLE]
         $this->start_controls_section(
           'section_style', [
-            'label' => __('Terms', DCE_TEXTDOMAIN),
+            'label' => __('Terms', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
           ]
         );
         $this->add_control(
           'color', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             
             'selectors' => [
@@ -326,7 +341,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'color_hover', [
-            'label' => __('Text Color Hover', DCE_TEXTDOMAIN),
+            'label' => __('Text Color Hover', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             
             'selectors' => [
@@ -336,7 +351,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'color_separator', [
-            'label' => __('Separator color', DCE_TEXTDOMAIN),
+            'label' => __('Separator color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             
             'selectors' => [
@@ -353,7 +368,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
           'hover_animation', [
-            'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+            'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HOVER_ANIMATION,
             'condition' => [
                 'link_to!' => 'none',
@@ -365,7 +380,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         $this->add_control(
             'txbefore_heading',
             [
-                'label' => __( 'Text before', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text before', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -375,7 +390,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'tx_before_color', [
-                'label' => __('Text Before Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Before Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dce-terms span.tx-before' => 'color: {{VALUE}};',
@@ -389,7 +404,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_tx_before',
-                'label' => __('Font Before', DCE_TEXTDOMAIN),
+                'label' => __('Font Before', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-terms span.tx-before',
                 'condition' => [
                     'text_before!' => '',
@@ -403,7 +418,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         $this->add_control(
             'txafter_heading',
             [
-                'label' => __( 'Text after', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text after', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -413,7 +428,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'tx_after_color', [
-                'label' => __('Text After Color', DCE_TEXTDOMAIN),
+                'label' => __('Text After Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dce-terms span.tx-after' => 'color: {{VALUE}};',
@@ -427,7 +442,7 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_tx_after',
-                'label' => __('Font After', DCE_TEXTDOMAIN),
+                'label' => __('Font After', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-terms span.tx-after',
                 'condition' => [
                     'text_after!' => '',
@@ -438,25 +453,25 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         // ------------------------------------------------ SETTINGS 
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic Content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic Content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
             ]
         );
          $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               
               'groups' => DCE_Helper::get_all_posts(get_the_ID(),true),
@@ -466,13 +481,26 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         /*$this->add_control(
           'go_to_page',
           [
              'type'    => Controls_Manager::RAW_HTML,
              'raw' => '<a target="_blank" class="dce-go-to-page-template dce-btn" href="#">
-                <i class="fa fa-pencil"></i>'. __( 'Edit Page', DCE_TEXTDOMAIN ).'</a>',
+                <i class="fa fa-pencil"></i>'. __( 'Edit Page', 'dynamic-content-for-elementor' ).'</a>',
              'content_classes' => 'dce-btn-go-page',
              'separator' => 'after',
              //'render_type' => 'template',
@@ -485,10 +513,10 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
             'mod_page',
             [
                 'type' => Controls_Manager::BUTTON,
-                'label' => __( 'Modify', DCE_TEXTDOMAIN ),
+                'label' => __( 'Modify', 'dynamic-content-for-elementor' ),
                 'label_block' => true,
                 'show_label' => false,
-                'text' => __( 'View page', DCE_TEXTDOMAIN ),
+                'text' => __( 'View page', 'dynamic-content-for-elementor' ),
                 'separator' => 'none',
                 'event' => 'dceMain:previewPage',
                 'condition' => [
@@ -567,12 +595,17 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
         $html = sprintf( '<%1$s class="dce-terms %2$s">', $settings['html_tag'], $animation_class );
 
 
-        if($settings['text_before'] != "" || $settings['text_after'] != "") $html .= '<span class="tx-before">'.__($settings['text_before'], DCE_TEXTDOMAIN.'_texts').'</span>';
+        if($settings['text_before'] != "" || $settings['text_after'] != "") $html .= '<span class="tx-before">'.__($settings['text_before'], 'dynamic-content-for-elementor'.'_texts').'</span>';
         //echo 'terms: ';
         
 
         // --------------------- Image ACF
         foreach ( $term_list as $term ) {
+          
+          // se il termina non ha genitore è il padre..
+          if( !$settings["only_parent_terms"] || !$term->parent ){
+          //echo '->only:'.$settings["only_parent_terms"]  .' ->p:'. $term->parent;
+          
           if($conta > 0) $html .= '<span class="dce-separator">'.$settings['separator'].'</span>';
 
           if(DCE_Helper::is_plugin_active('acf')){
@@ -602,7 +635,6 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
 
                   $html .= $image_acf;
                 }
-                //$html .= 'IIIIIIIII';
             }
           }
           switch ( $settings['link_to'] ) {
@@ -625,7 +657,12 @@ class DCE_Widget_Terms extends DCE_Widget_Prototype {
             break;
           }
         }
+
+        } // end onli_term_parent
         $html .= sprintf( '</%s>', $settings['html_tag'] );
+
+
+
       }
       //$html = substr( $html, 0, -2);
       

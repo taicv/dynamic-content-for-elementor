@@ -26,7 +26,7 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Bubbles', DCE_TEXTDOMAIN);
+        return __('Bubbles', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -44,17 +44,17 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_bubbles', [
-                'label' => __('Bubbles', DCE_TEXTDOMAIN),
+                'label' => __('Bubbles', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'indicatore_bubbles',
             [
-                'label' => __( 'Enable Indicatore', DCE_TEXTDOMAIN ),
+                'label' => __( 'Enable Indicatore', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
                 'prefix_class' => 'indicatore-',
                 'return_value' => 'yes',
             ]
@@ -62,7 +62,7 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
          $this->add_control(
             'dimension_bubbles',
             [
-                'label' => __( 'Dimension', DCE_TEXTDOMAIN ),
+                'label' => __( 'Dimension', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'unit' => 'rem',
@@ -89,7 +89,7 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
          $this->add_control(
             'starting_depth_bubbles',
             [
-                'label' => __( 'Starting Depth', DCE_TEXTDOMAIN ),
+                'label' => __( 'Starting Depth', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'unit' => 'px',
@@ -116,13 +116,13 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
          $this->add_control(
           'power_bubbles',
           [
-             'label'       => __( 'Power', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Power', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT,
              'default' => '',
              'options' => [
-                'short' => _x( 'Short', 'Animation Control', DCE_TEXTDOMAIN ),
-                '' => _x( 'Medium', 'Animation Control', DCE_TEXTDOMAIN ),
-                'long' => _x( 'Long', 'Animation Control', DCE_TEXTDOMAIN ),
+                'short' => _x( 'Short', 'Animation Control', 'dynamic-content-for-elementor' ),
+                '' => _x( 'Medium', 'Animation Control', 'dynamic-content-for-elementor' ),
+                'long' => _x( 'Long', 'Animation Control', 'dynamic-content-for-elementor' ),
             ],
              'selectors' => [ // You can use the selected value in an auto-generated css rule.
                 '{{WRAPPER}} .bubbles-large > g, {{WRAPPER}} .bubbles-small > g' => 'animation-name: up_bubble{{VALUE}}; -webkit-animation-name: up_bubble{{VALUE}};',
@@ -132,12 +132,9 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
          $this->add_control(
             'bubbles_color',
             [
-                'label' => __( 'Bubbles Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Bubbles Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'default' => '#FFFFFF',
                 'selectors' => [
                     '{{WRAPPER}} .bubbles circle' => 'stroke: {{VALUE}}',
@@ -147,12 +144,9 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
           $this->add_control(
             'bubbles_color1',
             [
-                'label' => __( 'Bubbles Color A', DCE_TEXTDOMAIN ),
+                'label' => __( 'Bubbles Color A', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'default' => '#87f5fb',
                 'selectors' => [
                     '{{WRAPPER}} .bubbles > g > g:nth-of-type(3n) circle' => 'stroke: {{VALUE}}',
@@ -162,12 +156,9 @@ class DCE_Widget_Bubbles extends DCE_Widget_Prototype {
            $this->add_control(
             'bubbles_color2',
             [
-                'label' => __( 'Bubbles Color B', DCE_TEXTDOMAIN ),
+                'label' => __( 'Bubbles Color B', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'default' => '#8be8cb',
                 'selectors' => [
                     '{{WRAPPER}} .bubbles > g > g:nth-of-type(4n) circle' => 'stroke: {{VALUE}}',

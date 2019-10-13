@@ -28,7 +28,7 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('SKU', DCE_TEXTDOMAIN);
+        return __('SKU', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -44,24 +44,24 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_responsive_control(
             'sku_align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ]
                 ],
@@ -76,7 +76,7 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
         $this->add_control(
             'sku_space',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                         'size' => 0,
@@ -95,7 +95,7 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
         $this->add_control(
             'prefix_text',
             [
-                'label' => __( 'Prefix text', DCE_TEXTDOMAIN ),
+                'label' => __( 'Prefix text', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::TEXT,
                 'default' => __( 'SKU:', 'woocommerce' ),
 
@@ -107,14 +107,14 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_price', [
-                'label' => __('Text Sku', DCE_TEXTDOMAIN),
+                'label' => __('Text Sku', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
             'color', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .sku_wrapper .sku' => 'color: {{VALUE}};',
@@ -138,7 +138,7 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
         $this->add_control(
             'blend_mode',
             [
-                'label' => __( 'Blend Mode', DCE_TEXTDOMAIN ),
+                'label' => __( 'Blend Mode', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     '' => __( 'Normal', 'elementor' ),
@@ -165,14 +165,14 @@ class DCE_Widget_Woo_Sku extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_prefixtext', [
-                'label' => __('Prefix text', DCE_TEXTDOMAIN),
+                'label' => __('Prefix text', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
             'color_prefixtext', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .sku_wrapper .prefix-sku' => 'color: {{VALUE}};',

@@ -26,11 +26,11 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Dynamic Finder', DCE_TEXTDOMAIN);
+        return __('Dynamic Finder', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Dynamic Finder', DCE_TEXTDOMAIN);
+        return __('Dynamic Finder', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -69,21 +69,21 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         // ------------------------------------------------------------------------------------ [SECTION]
         $this->start_controls_section(
                 'section_query', [
-            'label' => __('Search Query', DCE_TEXTDOMAIN),
+            'label' => __('Search Query', 'dynamic-content-for-elementor'),
                 ]
         );
         
         $this->add_control(
             'search_engine', [
-                'label' => __('Search Engine', DCE_TEXTDOMAIN),
+                'label' => __('Search Engine', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'native' => [
-                        'title' => __('Native', DCE_TEXTDOMAIN),
+                        'title' => __('Native', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'custom' => [
-                        'title' => __('Custom', DCE_TEXTDOMAIN),
+                        'title' => __('Custom', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-th-large',
                     ]
                 ],
@@ -97,7 +97,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         // --------------------------------- [ Custom Post Type ]
         $this->add_control(
                 'post_type', [
-            'label' => __('Post Type', DCE_TEXTDOMAIN),
+            'label' => __('Post Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => DCE_Helper::get_post_types(),
             'multiple' => true,
@@ -111,7 +111,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'taxonomy', [
-            'label' => __('Taxonomy', DCE_TEXTDOMAIN),
+            'label' => __('Taxonomy', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => DCE_Helper::get_taxonomy_terms(),
             'default' => '',
@@ -124,12 +124,12 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         
         $this->add_control(
                 'metas', [
-            'label' => __('Search in post metas', DCE_TEXTDOMAIN),
+            'label' => __('Search in post metas', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => '',
-            'description' => __('Search also in Posts Meta fields.<br>Warning: using post meta will increase time necessary to obtain results.', DCE_TEXTDOMAIN),
+            'description' => __('Search also in Posts Meta fields.<br>Warning: using post meta will increase time necessary to obtain results.', 'dynamic-content-for-elementor'),
             'condition' => [
                 'search_engine' => 'custom',
             ],
@@ -137,12 +137,12 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'post_metas', [
-            'label' => __('Post Metas', DCE_TEXTDOMAIN),
+            'label' => __('Post Metas', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => DCE_Helper::get_post_metas(),
             'default' => '',
             'multiple' => true,
-            'description' => __('Search only in selected Posts Meta fields. If empty all fields will be utilized during search operation.', DCE_TEXTDOMAIN),
+            'description' => __('Search only in selected Posts Meta fields. If empty all fields will be utilized during search operation.', 'dynamic-content-for-elementor'),
             'condition' => [
                 'search_engine' => 'custom',
                 'metas' => 'yes',
@@ -152,7 +152,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'num_posts', [
-            'label' => __('Number of Post', DCE_TEXTDOMAIN),
+            'label' => __('Number of Post', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => '-1',
             'separator' => 'before',
@@ -160,10 +160,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'view_more_btn', [
-            'label' => __('Show "View more results" button', DCE_TEXTDOMAIN),
+            'label' => __('Show "View more results" button', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             /*'condition' => [
                 'search_engine' => 'custom',
@@ -174,9 +174,9 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         $this->add_control(
           'view_more_btn_text',
           [
-             'label' => __( 'View more results button text', DCE_TEXTDOMAIN ),
+             'label' => __( 'View more results button text', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::TEXT,
-             'default' => __('View more results', DCE_TEXTDOMAIN),
+             'default' => __('View more results', 'dynamic-content-for-elementor'),
              'condition' => [
                     'view_more_btn' => 'yes',
                 ],
@@ -184,10 +184,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'load_more_scroll', [
-            'label' => __('Automatic load more result', DCE_TEXTDOMAIN),
+            'label' => __('Automatic load more result', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => [
                 'search_engine' => 'custom',
@@ -197,7 +197,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'orderby', [
-            'label' => __('Order By', DCE_TEXTDOMAIN),
+            'label' => __('Order By', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => array('recommended'=> 'Recommended') + DCE_Helper::get_post_orderby_options(),
             'default' => 'recommended',
@@ -209,12 +209,12 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         
         $this->add_control(
                 'taxonomies', [
-            'label' => __('Use taxonomy filter', DCE_TEXTDOMAIN),
+            'label' => __('Use taxonomy filter', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
-            'description' => __('Use advanced taxonomy filter in result panel', DCE_TEXTDOMAIN),
+            'description' => __('Use advanced taxonomy filter in result panel', 'dynamic-content-for-elementor'),
             'condition' => [
                 'search_engine' => 'custom',
             ],
@@ -223,7 +223,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         
         $this->add_control(
                 'position', [
-            'label' => __('Position', DCE_TEXTDOMAIN),
+            'label' => __('Position', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => array(
                 'below' => 'Below the search input',
@@ -238,19 +238,19 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         
         $this->add_control(
             'post_display', [
-                'label' => __('Search Engine', DCE_TEXTDOMAIN),
+                'label' => __('Search Engine', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'native' => [
-                        'title' => __('Native', DCE_TEXTDOMAIN),
+                        'title' => __('Native', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'custom' => [
-                        'title' => __('Custom', DCE_TEXTDOMAIN),
+                        'title' => __('Custom', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-th-large',
                     ],
                     'template' => [
-                        'title' => __('Template', DCE_TEXTDOMAIN),
+                        'title' => __('Template', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-th-large',
                     ]
                 ],
@@ -260,10 +260,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'show_title', [
-            'label' => __('Show post Title', DCE_TEXTDOMAIN),
+            'label' => __('Show post Title', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => [
                 'search_engine' => 'custom',
@@ -273,10 +273,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'show_thumb', [
-            'label' => __('Show post Featured image', DCE_TEXTDOMAIN),
+            'label' => __('Show post Featured image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => 'yes',
             'condition' => [
                 'search_engine' => 'custom',
@@ -287,7 +287,7 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         $this->add_control(
           'custom_placeholder_thumb',
           [
-             'label' => __( 'Placeholder Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Placeholder Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'description' => 'Use another image if the featured one does not exist.',
              'default' => [
@@ -302,10 +302,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'show_excerpt', [
-            'label' => __('Show post Excerpt', DCE_TEXTDOMAIN),
+            'label' => __('Show post Excerpt', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => '',
             'condition' => [
                 'search_engine' => 'custom',
@@ -315,10 +315,10 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'show_cta', [
-            'label' => __('Show post Read more button', DCE_TEXTDOMAIN),
+            'label' => __('Show post Read more button', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'label_off' => __('No', DCE_TEXTDOMAIN),
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
             'default' => '',
             'condition' => [
                 'search_engine' => 'custom',
@@ -329,9 +329,9 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
         $this->add_control(
           'custom_cta_button',
           [
-             'label' => __( 'Placeholder Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Placeholder Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::TEXT,
-             'default' => __('Read more', DCE_TEXTDOMAIN),
+             'default' => __('Read more', 'dynamic-content-for-elementor'),
              'condition' => [
                     'search_engine' => 'custom',
                     'show_cta' => 'yes',
@@ -365,14 +365,14 @@ class DCE_Widget_DynamicFinder extends DCE_Widget_Prototype {
                         </div>
                         <div class="dce-finder-result-posts">
                             <div class="dce-finder-result-posts-header">
-                                <?php _e('Results found', DCE_TEXTDOMAIN); ?>: <span class="dce-finder-result-number"></span>
+                                <?php _e('Results found', 'dynamic-content-for-elementor'); ?>: <span class="dce-finder-result-number"></span>
                             </div>
                             <div class="dce-finder-result-posts-grid">
                                 
                             </div>
                             <div class="dce-finder-result-posts-footer">
                                 <a href="<?php echo get_search_link('dynamic.ooo'); ?>" class="btn button btn-primary">
-                                    <?php _e('View more results', DCE_TEXTDOMAIN); ?>
+                                    <?php _e('View more results', 'dynamic-content-for-elementor'); ?>
                                 </a>
                             </div>
                         </div>

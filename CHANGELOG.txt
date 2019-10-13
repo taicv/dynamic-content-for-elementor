@@ -1,6 +1,48 @@
+12/10/2019
+1.6.0.1
+ - Minor fixes
+ - Out of Beta
+
+06/10/2019
+1.6.0
+ - New: Category SVG
+ - New: Widget SVG Mask
+ - New: Widget SVG Fe - FilterEffects
+ - New: Widget SVG Distortion
+ - New: Widget SVG Blob
+ - New: Widget SVG PathText
+ - New: Widget SVG Morphing pattern image
+ - New: Widget ACF Repeater 
+ - New: Widget User Fields
+ - New: Widget Add to Favorites
+ - New: Extension use Tokens everywhere in Dynamic field (no Elementor PRO needed)
+ - New: Extension Save Data (as Post, User or Term) for Elementor PRO Form
+ - New: Extension Export Data for Elementor PRO Form
+ - New: Extension Message for Elementor PRO Form
+ - New: Extension PDF for Elementor PRO Form
+ - New: Extension Dynamic Email for Elementor PRO Form
+ - New: Extension Visibility Conditional Fields for Elementor PRO Form
+ - New: Control Ajax Select2 in Elementor Settings
+ - New: Document Navigation Snap Scroll style
+ - Add: Views Widget now also list User and Term objects
+ - Add: Term variable in Tokens
+ - Add: Wp_Query variable in Tokens
+ - Add: Author variable in Tokens
+ - Add: Group By option in Views Widget
+ - Add: Ignore Posts option in Views Widget
+ - Add: Post selection for Visibility Extension
+ - Add: language trigger for Visibility Extension
+ - Add: user Events trigger (click and page load) for Visibility Extension
+ - Add: File Browser Widget can get files from Medias in Post Field and from a CSV
+ - Add: Inverted relation in ACF Relationship Widget for Bidirectional relations 
+ - Add: fix links (lazy images, relative links, ecc) of scraped code in Remote Content Widget
+ - Add: Author Query filter in Dynamic Posts
+ - Fix: search posts by author in admin
+ - Fix: plugin speed optimizations
+
 20/07/2019
 1.5.3
- - New: Token type Date ([date], [date|Y m d], [date:+1 mounth|]
+ - New: Tokens type Date ([date], [date|Y m d], [date:+1 mounth|d-m-Y]
  - New: PODS Gallery Widget
  - Add: Pagination options on Views Widget
  - Add: Period trigger on Visibility extension

@@ -23,7 +23,7 @@ class Model extends GeneralModel {
 
     public function get_panel_page_settings() {
         return [
-            'title' => __('Dynamic Content', DCE_TEXTDOMAIN),
+            'title' => __('Dynamic Content', 'dynamic-content-for-elementor'),
             'menu' => [
                 'icon' => 'icon-dyn-logo-dce',
                 'beforeItem' => 'elementor-settings',
@@ -36,24 +36,24 @@ class Model extends GeneralModel {
         return [
             Manager::PANEL_TAB_SETTINGS => [
                 /* 'settings_barbajs' => [
-                  'label' => __( 'Barba', DCE_TEXTDOMAIN ),
+                  'label' => __( 'Barba', 'dynamic-content-for-elementor' ),
                   'controls' => [
                   'dce_barba_note' => [
                   'type' 				=> Controls_Manager::RAW_HTML,
-                  'raw' 				=> __( 'Barba.js.', DCE_TEXTDOMAIN ),
+                  'raw' 				=> __( 'Barba.js.', 'dynamic-content-for-elementor' ),
                   'content_classes' 	=> '',
                   ],
                   'enable_barbajs' => [
-                  'label' => __('Enable Barbajs', DCE_TEXTDOMAIN),
+                  'label' => __('Enable Barbajs', 'dynamic-content-for-elementor'),
                   'type' => Controls_Manager::SWITCHER,
-                  'label_off' => __('Yes', DCE_TEXTDOMAIN),
-                  'label_on' => __('No', DCE_TEXTDOMAIN),
+                  'label_off' => __('Yes', 'dynamic-content-for-elementor'),
+                  'label_on' => __('No', 'dynamic-content-for-elementor'),
                   'return_value' => 'yes',
                   'default' => '',
                   'frontend_available' => true
                   ],
                   'barbajs_duration' => [
-                  'label' 		=> __( 'Duration', DCE_TEXTDOMAIN ),
+                  'label' 		=> __( 'Duration', 'dynamic-content-for-elementor' ),
                   'type' 			=> Controls_Manager::SLIDER,
                   'default' 	=> [
                   'size' 	=> 0.2,
@@ -75,15 +75,15 @@ class Model extends GeneralModel {
                   ], */
                 // SWUP
                 'settings_animsition' => [
-                    'label' => __('Smooth navigation', DCE_TEXTDOMAIN),
+                    'label' => __('Smooth navigation', 'dynamic-content-for-elementor'),
                     'controls' => [
                         'dce_swup_note' => [
                             'type' => Controls_Manager::RAW_HTML,
-                            'raw' => __('<div><i class="icon-dyn-logo-dce" style="font-size: 8em;text-align: center;display: block;"></i></div>', DCE_TEXTDOMAIN),
+                            'raw' => __('<div><i class="icon-dyn-logo-dce" style="font-size: 8em;text-align: center;display: block;"></i></div>', 'dynamic-content-for-elementor'),
                             'content_classes' => '',
                         ],
                         'id_wrapper' => [
-                            'label' => __('Wrapper ID', DCE_TEXTDOMAIN),
+                            'label' => __('Wrapper ID', 'dynamic-content-for-elementor'),
                             'type' => Controls_Manager::TEXT,
                             'default' => '',
                             'placeholder' => 'Write ID...',
@@ -91,37 +91,37 @@ class Model extends GeneralModel {
                             'separator' => 'before'
                         ],
                         /* 'header_site' => [
-                          'label' => __('Header ID', DCE_TEXTDOMAIN),
+                          'label' => __('Header ID', 'dynamic-content-for-elementor'),
                           'type' => Controls_Manager::TEXT,
                           'default' => '',
                           'placeholder' => 'Write ID of header...',
                           'frontend_available' => true
                           ],
                           'main_site' => [
-                          'label' => __('Main ID', DCE_TEXTDOMAIN),
+                          'label' => __('Main ID', 'dynamic-content-for-elementor'),
                           'type' => Controls_Manager::TEXT,
                           'default' => '',
                           'placeholder' => 'Write ID of main...',
                           'frontend_available' => true
                           ],
                           'footer_site' => [
-                          'label' => __('Footer ID', DCE_TEXTDOMAIN),
+                          'label' => __('Footer ID', 'dynamic-content-for-elementor'),
                           'type' => Controls_Manager::TEXT,
                           'default' => '',
                           'placeholder' => 'Write ID of footer...',
                           'frontend_available' => true
                           ], */
                         'enable_swup' => [
-                            'label' => __('Enable Swup', DCE_TEXTDOMAIN),
+                            'label' => __('Enable Swup', 'dynamic-content-for-elementor'),
                             'type' => Controls_Manager::SWITCHER,
-                            'label_off' => __('No', DCE_TEXTDOMAIN),
-                            'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                            'label_off' => __('No', 'dynamic-content-for-elementor'),
+                            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                             'return_value' => 'yes',
                             'default' => '',
                             'frontend_available' => true
                         ],
                         'a_class' => [
-                            'label' => __('A class CLASS', DCE_TEXTDOMAIN),
+                            'label' => __('A class CLASS', 'dynamic-content-for-elementor'),
                             'type' => Controls_Manager::TEXT,
                             'label_block' => true,
                             'row' => 3,
@@ -134,7 +134,7 @@ class Model extends GeneralModel {
                             ],
                         ],
                         'swup_duration' => [
-                            'label' => __('Duration', DCE_TEXTDOMAIN),
+                            'label' => __('Duration', 'dynamic-content-for-elementor'),
                             'type' => Controls_Manager::SLIDER,
                             'default' => [
                                 'size' => 0.2,
@@ -155,24 +155,24 @@ class Model extends GeneralModel {
                 ]
             // ANIMSITION
             /* 'settings_animsition' => [
-              'label' => __( 'Animsition', DCE_TEXTDOMAIN ),
+              'label' => __( 'Animsition', 'dynamic-content-for-elementor' ),
               'controls' => [
               'dce_animsition_note' => [
               'type' 				=> Controls_Manager::RAW_HTML,
-              'raw' 				=> __( 'Animsition.js.', DCE_TEXTDOMAIN ),
+              'raw' 				=> __( 'Animsition.js.', 'dynamic-content-for-elementor' ),
               'content_classes' 	=> '',
               ],
               'enable_animsition' => [
-              'label' => __('Enable Animsition', DCE_TEXTDOMAIN),
+              'label' => __('Enable Animsition', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
-              'label_off' => __('Yes', DCE_TEXTDOMAIN),
-              'label_on' => __('No', DCE_TEXTDOMAIN),
+              'label_off' => __('Yes', 'dynamic-content-for-elementor'),
+              'label_on' => __('No', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
               'default' => '',
               'frontend_available' => true
               ],
               'animsition_duration' => [
-              'label' 		=> __( 'Duration', DCE_TEXTDOMAIN ),
+              'label' 		=> __( 'Duration', 'dynamic-content-for-elementor' ),
               'type' 			=> Controls_Manager::SLIDER,
               'default' 	=> [
               'size' 	=> 0.2,
@@ -194,11 +194,11 @@ class Model extends GeneralModel {
 
             // TEMPLATE SYSTEM
             /* 'settings_templateSystem' => [
-              'label' => __( 'Template System', DCE_TEXTDOMAIN ),
+              'label' => __( 'Template System', 'dynamic-content-for-elementor' ),
               'controls' => [
               'dce_templateSystem_note' => [
               'type' 				=> Controls_Manager::RAW_HTML,
-              'raw' 				=> __( '<div><i class="icon-dyn-logo-dce" style="font-size: 8em;text-align: center;display: block;"></i></div>', DCE_TEXTDOMAIN ),
+              'raw' 				=> __( '<div><i class="icon-dyn-logo-dce" style="font-size: 8em;text-align: center;display: block;"></i></div>', 'dynamic-content-for-elementor' ),
               'content_classes' 	=> '',
               ],
 
@@ -207,7 +207,7 @@ class Model extends GeneralModel {
 
 
               'animsition_duration' => [
-              'label' 		=> __( 'Duration', DCE_TEXTDOMAIN ),
+              'label' 		=> __( 'Duration', 'dynamic-content-for-elementor' ),
               'type' 			=> Controls_Manager::SLIDER,
               'default' 	=> [
               'size' 	=> 0.2,
@@ -233,11 +233,11 @@ class Model extends GeneralModel {
 
 
               'settings_templateSystem_types' => [
-              'label' => __( 'Types', DCE_TEXTDOMAIN ),
+              'label' => __( 'Types', 'dynamic-content-for-elementor' ),
               'controls' => [
 
               'dce_templateSystem_heading_types_posts' => [
-              'label' => __('Posts', DCE_TEXTDOMAIN),
+              'label' => __('Posts', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_posts_template' => [
@@ -245,15 +245,15 @@ class Model extends GeneralModel {
               'type' => Controls_Manager::CHOOSE,
               'options' => [
               'singlepost' => [
-              'title' => __('Single Post', DCE_TEXTDOMAIN),
+              'title' => __('Single Post', 'dynamic-content-for-elementor'),
               'icon' => 'eicon-image-box',
               ],
               'archive' => [
-              'title' => __('Archive', DCE_TEXTDOMAIN),
+              'title' => __('Archive', 'dynamic-content-for-elementor'),
               'icon' => 'eicon-post-list',
               ],
               'archive_beforeafter' => [
-              'title' => __('Archive Before/After', DCE_TEXTDOMAIN),
+              'title' => __('Archive Before/After', 'dynamic-content-for-elementor'),
               'icon' => 'eicon-accordion',
               ],
 
@@ -266,14 +266,14 @@ class Model extends GeneralModel {
 
 
               'dce_templateSystem_posts_archive_heading' => [
-              'label' => __('Archive', DCE_TEXTDOMAIN),
+              'label' => __('Archive', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'dce_templateSystem_posts_template' => 'archive',
               ],
               ],
               'dce_templateSystem_posts_archive_template' => [
-              'label' => __('Template', DCE_TEXTDOMAIN),
+              'label' => __('Template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT2,
               'options' => DCE_Helper::get_all_template(),
 
@@ -284,7 +284,7 @@ class Model extends GeneralModel {
               ],
 
               'dce_templateSystem_posts_archive_columns' => [
-              'label' => __('Columns', DCE_TEXTDOMAIN),
+              'label' => __('Columns', 'dynamic-content-for-elementor'),
               'responsive' => true,
               'type' => Controls_Manager::SELECT,
               'default' => '3',
@@ -303,10 +303,10 @@ class Model extends GeneralModel {
 
               ],
               'dce_templateSystem_posts_archive_layout' => [
-              'label' => __('Layout Boxed/Full', DCE_TEXTDOMAIN),
+              'label' => __('Layout Boxed/Full', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
-              'label_off' => __('Full', DCE_TEXTDOMAIN),
-              'label_on' => __('Boxed', DCE_TEXTDOMAIN),
+              'label_off' => __('Full', 'dynamic-content-for-elementor'),
+              'label_on' => __('Boxed', 'dynamic-content-for-elementor'),
               'return_value' => 'full',
               'default' => '',
               'condition' => [
@@ -316,10 +316,10 @@ class Model extends GeneralModel {
               ],
               ],
               'dce_templateSystem_posts_archive_canvas' => [
-              'label' => __('Canvas Layout', DCE_TEXTDOMAIN),
+              'label' => __('Canvas Layout', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
-              'label_off' => __('No', DCE_TEXTDOMAIN),
-              'label_on' => __('Yes', DCE_TEXTDOMAIN),
+              'label_off' => __('No', 'dynamic-content-for-elementor'),
+              'label_on' => __('Yes', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
               'default' => '',
               'condition' => [
@@ -333,14 +333,14 @@ class Model extends GeneralModel {
 
 
               'dce_templateSystem_posts_singepost_heading' => [
-              'label' => __('Single Post', DCE_TEXTDOMAIN),
+              'label' => __('Single Post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'dce_templateSystem_posts_template' => 'singlepost',
               ],
               ],
               'dce_templateSystem_posts_singlepost' => [
-              'label' => __('Template', DCE_TEXTDOMAIN),
+              'label' => __('Template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT2,
               'options' => DCE_Helper::get_all_template(),
 
@@ -350,10 +350,10 @@ class Model extends GeneralModel {
               ],
               ],
               'dce_templateSystem_posts_singlepost_layout' => [
-              'label' => __('Blank template', DCE_TEXTDOMAIN),
+              'label' => __('Blank template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SWITCHER,
-              'label_off' => __('Default', DCE_TEXTDOMAIN),
-              'label_on' => __('Yes', DCE_TEXTDOMAIN),
+              'label_off' => __('Default', 'dynamic-content-for-elementor'),
+              'label_on' => __('Yes', 'dynamic-content-for-elementor'),
               'return_value' => 'yes',
               'default' => '',
               'condition' => [
@@ -369,14 +369,14 @@ class Model extends GeneralModel {
 
 
               'dce_templateSystem_posts_beforeafter_heading' => [
-              'label' => __('Archive Before/After', DCE_TEXTDOMAIN),
+              'label' => __('Archive Before/After', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               'condition' => [
               'dce_templateSystem_posts_template' => 'archive_beforeafter',
               ],
               ],
               'dce_templateSystem_posts_beforeArchive' => [
-              'label' => __('Before Template', DCE_TEXTDOMAIN),
+              'label' => __('Before Template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT2,
               'options' => DCE_Helper::get_all_template(),
 
@@ -386,7 +386,7 @@ class Model extends GeneralModel {
               ],
               ],
               'dce_templateSystem_posts_afterArchive' => [
-              'label' => __('After Template', DCE_TEXTDOMAIN),
+              'label' => __('After Template', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT2,
               'options' => DCE_Helper::get_all_template(),
 
@@ -404,7 +404,7 @@ class Model extends GeneralModel {
 
               // --------------------------------------------------------------------------------------
               'dce_templateSystem_heading_types_pages' => [
-              'label' => __('Pages', DCE_TEXTDOMAIN),
+              'label' => __('Pages', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
 
@@ -415,7 +415,7 @@ class Model extends GeneralModel {
 
               // --------------------------------------------------------------------------------------
               'dce_templateSystem_heading_types_cpt' => [
-              'label' => __('CPT..', DCE_TEXTDOMAIN),
+              'label' => __('CPT..', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
 
@@ -431,24 +431,24 @@ class Model extends GeneralModel {
 
 
             /* 'settings_templateSystem_otherPages' => [
-              'label' => __( 'Other Pages', DCE_TEXTDOMAIN ),
+              'label' => __( 'Other Pages', 'dynamic-content-for-elementor' ),
               'controls' => [
 
 
               'dce_templateSystem_heading_users' => [
-              'label' => __('Users', DCE_TEXTDOMAIN),
+              'label' => __('Users', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_heading_media' => [
-              'label' => __('Media attachmets', DCE_TEXTDOMAIN),
+              'label' => __('Media attachmets', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_heading_search' => [
-              'label' => __('Search', DCE_TEXTDOMAIN),
+              'label' => __('Search', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_heading_404' => [
-              'label' => __('404', DCE_TEXTDOMAIN),
+              'label' => __('404', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               ],
@@ -461,19 +461,19 @@ class Model extends GeneralModel {
 
 
             /* 'settings_templateSystem_taxonomy' => [
-              'label' => __( 'Taxominies', DCE_TEXTDOMAIN ),
+              'label' => __( 'Taxominies', 'dynamic-content-for-elementor' ),
               'controls' => [
 
               'dce_templateSystem_heading_categories' => [
-              'label' => __('Categories', DCE_TEXTDOMAIN),
+              'label' => __('Categories', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_heading_tags' => [
-              'label' => __('Tags', DCE_TEXTDOMAIN),
+              'label' => __('Tags', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               'dce_templateSystem_heading_taxonomy' => [
-              'label' => __('Taxonomy ...', DCE_TEXTDOMAIN),
+              'label' => __('Taxonomy ...', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::HEADING,
               ],
               ],

@@ -18,7 +18,7 @@ class DCE_Extension_Prototype {
 
     public $name = 'Extension';
     
-    public $docs = 'https://www.dynamic.ooo';
+    public static $docs = 'https://www.dynamic.ooo';
     
     static public function is_enabled() {
         return true;
@@ -29,6 +29,7 @@ class DCE_Extension_Prototype {
     private $depended_scripts = [];
 
     private $depended_styles = [];
+    public static $depended_plugins = [];
     
     public $common_sections_actions = array(
         array(
@@ -37,7 +38,7 @@ class DCE_Extension_Prototype {
         )
     );
 
-    public final function __construct() {
+    public function __construct() {
 
         $this->init();
     }
@@ -60,7 +61,49 @@ class DCE_Extension_Prototype {
     }
     
     public function get_docs() {
-        return $this->docs;
+        return self::$docs;
+    }
+    
+    static public function get_satisfy_dependencies($ret = false) {
+        $widgetClass = get_called_class();
+        //require_once( __DIR__ . '/'.$widgetClass.'.php' );
+        //$myWdgt = new $widgetClass();
+        return $widgetClass::satisfy_dependencies($ret);
+    }
+    
+    public static function get_plugin_depends() {
+        return self::$depended_plugins;
+    }
+    
+    public static function satisfy_dependencies($ret = false, $deps = array()) {
+        if (empty($deps)) {
+            $deps = self::get_plugin_depends();
+        }
+        $depsDisabled = array();
+        if (!empty($deps)) {
+            $isActive = true;
+            foreach ($deps as $pkey => $plugin) {
+                if (!is_numeric($pkey)) {
+                    if (!DCE_Helper::is_plugin_active($pkey)) {
+                        $isActive = false;
+                    }
+                } else {
+                    if (!DCE_Helper::is_plugin_active($plugin)) {
+                        $isActive = false;
+                    }
+                }
+                if (!$isActive) {
+                    if (!$ret) {
+                        return false;
+                    }
+                    $depsDisabled[] = $pkey;
+                }
+            }
+        }
+        if ($ret) {
+            return $depsDisabled;
+        }
+        return true;
     }
 
     public function add_script_depends($handler) {
@@ -99,6 +142,11 @@ class DCE_Extension_Prototype {
         $low_name = strtolower($this->name);
         $section_name = 'dce_section_' . $low_name . '_advanced';
 
+        if ($low_name == 'tokens' || substr($low_name,0,4) == 'form') {
+            // no need settings
+            return false;
+        }
+        
         // Check if this section exists
         $section_exists = \Elementor\Plugin::instance()->controls_manager->get_control_from_stack($element->get_unique_name(), $section_name);
 
@@ -110,14 +158,14 @@ class DCE_Extension_Prototype {
         if ($low_name == 'visibility') {
             
             \Elementor\Controls_Manager::add_tab(
-                    'dce-'.$low_name,
-                    __( $this->name, DCE_TEXTDOMAIN )
+                    'dce_'.$low_name,
+                    __( $this->name, 'dynamic-content-for-elementor' )
             );
             
             $element->start_controls_section(
                 $section_name, [
-                    'tab' => 'dce-'.$low_name,
-                    'label' => __($this->name, DCE_TEXTDOMAIN),
+                    'tab' => 'dce_'.$low_name,
+                    'label' => '<span class="color-dce icon icon-dyn-logo-dce pull-right ml-1"></span> '.__($this->name, 'dynamic-content-for-elementor'),
                 ]
             );
             $element->end_controls_section();
@@ -141,10 +189,52 @@ class DCE_Extension_Prototype {
                             ];
                 }
                 
+                $icon = '';
+                switch ($tkey) {
+                    case 'user':
+                        $icon = 'user-o';
+                        break;
+                    case 'datetime':
+                        $icon = 'calendar';
+                        break;
+                    case 'device':
+                        $icon = 'mobile';
+                        break;
+                    case 'post':
+                        $icon = 'file-text-o';
+                        break;
+                    case 'context':
+                        $icon = 'crosshairs';
+                        break;
+                    case 'tags':
+                        $icon = 'question-circle-o';
+                        break;
+                    case 'random':
+                        $icon = 'random';
+                        break;
+                    case 'custom':
+                        $icon = 'code';
+                        break;
+                    case 'events':
+                        $icon = 'hand-pointer-o';
+                        break;
+                    case 'fallback':
+                        $icon = 'life-ring';
+                        break;
+                    case 'advanced':
+                        $icon = 'cogs';
+                        break;
+                    default:
+                        $icon = 'cog';
+                }
+                if ($icon) {
+                    $icon = '<i class="fa fa-'.$icon.' pull-right ml-1" aria-hidden="true"></i>';
+                }
+                
                 $element->start_controls_section(
                     $section_name, [
-                        'tab' => 'dce-'.$low_name,
-                        'label' => __($tlabel, DCE_TEXTDOMAIN),
+                        'tab' => 'dce_'.$low_name,
+                        'label' => $icon.__($tlabel, 'dynamic-content-for-elementor'),
                         'condition' => $condition,
                     ]
                 );
@@ -155,7 +245,7 @@ class DCE_Extension_Prototype {
             $element->start_controls_section(
                 $section_name, [
                     'tab' => Controls_Manager::TAB_ADVANCED,
-                    'label' => __($this->name, DCE_TEXTDOMAIN),
+                    'label' => __($this->name, 'dynamic-content-for-elementor'),
                 ]
             );
             $element->end_controls_section();

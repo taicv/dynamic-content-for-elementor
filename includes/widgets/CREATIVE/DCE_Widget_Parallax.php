@@ -29,10 +29,10 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('Parallax', DCE_TEXTDOMAIN);
+        return __('Parallax', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-      return __('Manage parallax movements with your mouse on desktop or device orientation on mobile', DCE_TEXTDOMAIN);
+      return __('Manage parallax movements with your mouse on desktop or device orientation on mobile', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/parallax/';
@@ -58,98 +58,98 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_parallaxsettings', [
-            'label' => __('Parallax', DCE_TEXTDOMAIN),
+            'label' => __('Parallax', 'dynamic-content-for-elementor'),
                 ]
         );
         /*$this->add_control(
             'acf_text_before', [
-                'label' => __('Text before', DCE_TEXTDOMAIN),
-                'description' => __('Un testo prima dell\'elemento', DCE_TEXTDOMAIN),
+                'label' => __('Text before', 'dynamic-content-for-elementor'),
+                'description' => __('Un testo prima dell\'elemento', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );*/
         $this->add_control(
                 'parallaxjs_relative_input', [
-            'label' => __('Relative Input', DCE_TEXTDOMAIN),
+            'label' => __('Relative Input', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_clip_relative_input', [
-            'label' => __('Clip Relative Input', DCE_TEXTDOMAIN),
+            'label' => __('Clip Relative Input', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_hover_only', [
-            'label' => __('Hover Only', DCE_TEXTDOMAIN),
+            'label' => __('Hover Only', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_input_element', [
-            'label' => __('Input Element', DCE_TEXTDOMAIN),
-            //'description' => __('Un testo dopo dell\'elemento',DCE_TEXTDOMAIN),
+            'label' => __('Input Element', 'dynamic-content-for-elementor'),
+            //'description' => __('Un testo dopo dell\'elemento','dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             'default' => '#myinput',
                 ]
         );
         $this->add_control(
                 'parallaxjs_calibrate_x', [
-            'label' => __('Calibrate X', DCE_TEXTDOMAIN),
+            'label' => __('Calibrate X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_calibrate_y', [
-            'label' => __('Calibrate Y', DCE_TEXTDOMAIN),
+            'label' => __('Calibrate Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_invert_x', [
-            'label' => __('Invert X', DCE_TEXTDOMAIN),
+            'label' => __('Invert X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_invert_y', [
-            'label' => __('Invert Y', DCE_TEXTDOMAIN),
+            'label' => __('Invert Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 'parallaxjs_limit_x', [
-            'label' => __('Linit X', DCE_TEXTDOMAIN),
+            'label' => __('Linit X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 100,
             'min' => 0,
@@ -159,7 +159,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_limit_y', [
-            'label' => __('Linit Y', DCE_TEXTDOMAIN),
+            'label' => __('Linit Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 100,
             'min' => 0,
@@ -169,7 +169,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_scalar_x', [
-            'label' => __('Scalar X', DCE_TEXTDOMAIN),
+            'label' => __('Scalar X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 2,
@@ -183,7 +183,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_scalar_y', [
-            'label' => __('Scalar Y', DCE_TEXTDOMAIN),
+            'label' => __('Scalar Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 8,
@@ -197,7 +197,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_friction_x', [
-            'label' => __('Friction X', DCE_TEXTDOMAIN),
+            'label' => __('Friction X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0.1,
             'min' => 0,
@@ -207,7 +207,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_friction_y', [
-            'label' => __('Friction Y', DCE_TEXTDOMAIN),
+            'label' => __('Friction Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0.1,
             'min' => 0,
@@ -221,7 +221,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'parallaxjs_origin_x', [
-            'label' => __('Origin X', DCE_TEXTDOMAIN),
+            'label' => __('Origin X', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0.5,
             'min' => 0,
@@ -231,7 +231,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_origin_y', [
-            'label' => __('Origin Y', DCE_TEXTDOMAIN),
+            'label' => __('Origin Y', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0.5,
             'min' => 0,
@@ -241,26 +241,26 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'parallaxjs_pointer_events', [
-            'label' => __('Pointer Events', DCE_TEXTDOMAIN),
+            'label' => __('Pointer Events', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'return_value' => 'yes',
                 ]
         );
         $this->end_controls_section();
         $this->start_controls_section(
                 'section_parallaxitems', [
-            'label' => __('Parallax ITEMS', DCE_TEXTDOMAIN),
+            'label' => __('Parallax ITEMS', 'dynamic-content-for-elementor'),
                 ]
         );
 
         // coefficiente per default
         $this->add_control(
                 'parallax_coef', [
-            'label' => __('Default depth factor', DCE_TEXTDOMAIN),
-            'description' => __('It is used if the DepthFactor value is 0', DCE_TEXTDOMAIN),
+            'label' => __('Default depth factor', 'dynamic-content-for-elementor'),
+            'description' => __('It is used if the DepthFactor value is 0', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::NUMBER,
             'default' => 0.2,
             'min' => 0.05,
@@ -272,11 +272,11 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
 
         //$repeater->start_controls_tabs('parallaxjs_repeater');
 
-        //$repeater->start_controls_tab('tab_content', [ 'label' => __('Item', DCE_TEXTDOMAIN)]);
+        //$repeater->start_controls_tab('tab_content', [ 'label' => __('Item', 'dynamic-content-for-elementor')]);
 
         $repeater->add_control(
                 'parallax_image', [
-            'label' => __('Image', DCE_TEXTDOMAIN),
+            'label' => __('Image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::MEDIA,
             'default' => [
                 'url' => '', //'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
@@ -285,7 +285,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         );
         $repeater->add_control(
                 'factor_item', [
-            'label' => __('Depth Factor', DCE_TEXTDOMAIN),
+            'label' => __('Depth Factor', 'dynamic-content-for-elementor'),
             'description' => 'If 0, the default value will be used',
             'type' => Controls_Manager::NUMBER,
             'default' => 0,
@@ -298,9 +298,9 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         /* $repeater->add_control(
           'acf_field_item',
           [
-          'label' => __( 'ACF Fields List', DCE_TEXTDOMAIN ),
+          'label' => __( 'ACF Fields List', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SELECT,
-          'options' => [ '' => __( 'Title', DCE_TEXTDOMAIN).'(CORE)' ] + ['contenuto' => __( 'Content', DCE_TEXTDOMAIN).'(CORE)' ] + ['taxx' => __( 'Taxonomy MetaData', DCE_TEXTDOMAIN).'(CORE)' ] + $this->get_acf_field(),
+          'options' => [ '' => __( 'Title', 'dynamic-content-for-elementor').'(CORE)' ] + ['contenuto' => __( 'Content', 'dynamic-content-for-elementor').'(CORE)' ] + ['taxx' => __( 'Taxonomy MetaData', 'dynamic-content-for-elementor').'(CORE)' ] + $this->get_acf_field(),
           'default' => '0',
 
           ]
@@ -308,19 +308,19 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
           $repeater->add_control(
           'html_tag_item',
           [
-          'label' => __( 'HTML Tag', DCE_TEXTDOMAIN ),
+          'label' => __( 'HTML Tag', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SELECT,
           'options' => [
-          '' => __( 'None', DCE_TEXTDOMAIN),
-          'h1' => __( 'H1', DCE_TEXTDOMAIN ),
-          'h2' => __( 'H2', DCE_TEXTDOMAIN ),
-          'h3' => __( 'H3', DCE_TEXTDOMAIN ),
-          'h4' => __( 'H4', DCE_TEXTDOMAIN ),
-          'h5' => __( 'H5', DCE_TEXTDOMAIN ),
-          'h6' => __( 'H6', DCE_TEXTDOMAIN ),
-          'p'  => __( 'p', DCE_TEXTDOMAIN ),
-          'div' => __( 'div', DCE_TEXTDOMAIN ),
-          'span' => __( 'span', DCE_TEXTDOMAIN ),
+          '' => __( 'None', 'dynamic-content-for-elementor'),
+          'h1' => __( 'H1', 'dynamic-content-for-elementor' ),
+          'h2' => __( 'H2', 'dynamic-content-for-elementor' ),
+          'h3' => __( 'H3', 'dynamic-content-for-elementor' ),
+          'h4' => __( 'H4', 'dynamic-content-for-elementor' ),
+          'h5' => __( 'H5', 'dynamic-content-for-elementor' ),
+          'h6' => __( 'H6', 'dynamic-content-for-elementor' ),
+          'p'  => __( 'p', 'dynamic-content-for-elementor' ),
+          'div' => __( 'div', 'dynamic-content-for-elementor' ),
+          'span' => __( 'span', 'dynamic-content-for-elementor' ),
           ],
           'default' => '',
 
@@ -329,15 +329,15 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
           $repeater->add_control(
           'link_to',
           [
-          'label' => __( 'Link to', DCE_TEXTDOMAIN ),
+          'label' => __( 'Link to', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::SELECT,
           'default' => 'none',
           'options' => [
-          'none' => __( 'None', DCE_TEXTDOMAIN ),
-          'home' => __( 'Home URL', DCE_TEXTDOMAIN ),
+          'none' => __( 'None', 'dynamic-content-for-elementor' ),
+          'home' => __( 'Home URL', 'dynamic-content-for-elementor' ),
           'post' => 'Post URL',
 
-          'custom' => __( 'Custom URL', DCE_TEXTDOMAIN ),
+          'custom' => __( 'Custom URL', 'dynamic-content-for-elementor' ),
           ],
 
           ]
@@ -345,22 +345,22 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
         
         //$repeater->end_controls_tab();
 
-        /* $repeater->start_controls_tab( 'tab_media', [ 'label' => __( 'Media', DCE_TEXTDOMAIN ) ] );
+        /* $repeater->start_controls_tab( 'tab_media', [ 'label' => __( 'Media', 'dynamic-content-for-elementor' ) ] );
 
 
 
           $repeater->end_controls_tab(); */
 
-        //$repeater->start_controls_tab('tab_transform', [ 'label' => __('Transform', DCE_TEXTDOMAIN)]);
+        //$repeater->start_controls_tab('tab_transform', [ 'label' => __('Transform', 'dynamic-content-for-elementor')]);
         
         /* $repeater->add_control(
           'block_enable',
           [
-          'label'         => __( 'Block', DCE_TEXTDOMAIN ),
+          'label'         => __( 'Block', 'dynamic-content-for-elementor' ),
           'type'          => Controls_Manager::SWITCHER,
           'default'       => '',
-          'label_on'      => __( 'Yes', DCE_TEXTDOMAIN ),
-          'label_off'     => __( 'No', DCE_TEXTDOMAIN ),
+          'label_on'      => __( 'Yes', 'dynamic-content-for-elementor' ),
+          'label_off'     => __( 'No', 'dynamic-content-for-elementor' ),
           'return_value'  => 'yes',
           'frontend_available' => true,
           ]
@@ -368,7 +368,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
           $repeater->add_control(
           'padding_item',
           [
-          'label'         => __( 'Padding', DCE_TEXTDOMAIN ),
+          'label'         => __( 'Padding', 'dynamic-content-for-elementor' ),
           'type'          => Controls_Manager::DIMENSIONS,
           'size_units'    => [ 'px', '%' ],
           'selectors'     => [
@@ -382,12 +382,9 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
           $repeater->add_control(
           'color_item',
           [
-          'label' => __( 'Text Color', DCE_TEXTDOMAIN ),
+          'label' => __( 'Text Color', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::COLOR,
-          'scheme' => [
-          'type' => Scheme_Color::get_type(),
-          'value' => Scheme_Color::COLOR_1,
-          ],
+          
           'selectors' => [
           '{{WRAPPER}} .dce-acfposts_content {{CURRENT_ITEM}}' => 'color: {{VALUE}};',
           '{{WRAPPER}} .dce-acfposts_content {{CURRENT_ITEM}} a' => 'color: {{VALUE}};',
@@ -397,12 +394,9 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
           $repeater->add_control(
           'hover_color_item',
           [
-          'label' => __( 'Hover Color', DCE_TEXTDOMAIN ),
+          'label' => __( 'Hover Color', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::COLOR,
-          'scheme' => [
-          'type' => Scheme_Color::get_type(),
-          'value' => Scheme_Color::COLOR_1,
-          ],
+          
           'selectors' => [
           '{{WRAPPER}} .dce-acfposts_content {{CURRENT_ITEM}} a:hover' => 'color: {{VALUE}};',
           ],
@@ -426,7 +420,7 @@ class DCE_Widget_Parallax extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'parallaxjs', [
-            'label' => __('Items', DCE_TEXTDOMAIN),
+            'label' => __('Items', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::REPEATER,
             'default' => [
             ],

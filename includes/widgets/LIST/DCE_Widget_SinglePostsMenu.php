@@ -25,10 +25,10 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-            return __( 'Single Posts List', DCE_TEXTDOMAIN );
+            return __( 'Single Posts List', 'dynamic-content-for-elementor' );
     }
     public function get_description() {
-        return __('Create a custom menu from single pages', DCE_TEXTDOMAIN);
+        return __('Create a custom menu from single pages', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/single-posts-list/';
@@ -44,7 +44,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->start_controls_section(
             'section_content',
             [
-                    'label' => __( 'Custom menu from single pages', DCE_TEXTDOMAIN ),
+                    'label' => __( 'Custom menu from single pages', 'dynamic-content-for-elementor' ),
             ]
         );
         
@@ -52,21 +52,20 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'singlepage_select',
             [
-                'label' => __( 'Select Single Posts', DCE_TEXTDOMAIN ),
+                'label' => __( 'Select Single Posts', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HIDDEN,
                 'multiple' => true,
                 'label_block' => true,
-                'options' => DCE_Helper::get_all_posts(null,false,'menu_order'),
+                'options' => array(), //DCE_Helper::get_all_posts(null,false,'menu_order'),
                 //'groups' => DCE_Helper::get_all_posts(get_the_ID(),true),
-                'default' => ''
             ]
         );
+        
         $repeater = new Repeater();
-
-        $repeater->add_control(
+        /*$repeater->add_control(
             'singlepage_select',
             [
-                'label' => __( 'Select Single Posts', DCE_TEXTDOMAIN ),
+                'label' => __( 'Select Single Posts', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT2,
                 'multiple' => false,
                 'label_block' => true,
@@ -74,11 +73,21 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 //'groups' => DCE_Helper::get_all_posts(get_the_ID(),true),
                 'default' => ''
             ]
+        );*/
+        $repeater->add_control(
+                'singlepage_select',
+                [
+                    'label' => __( 'Select Single Posts', 'dynamic-content-for-elementor' ),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                ]
         );
         
         $this->add_control(
                 'pages', [
-            'label' => __('Pages', DCE_TEXTDOMAIN),
+            'label' => __('Pages', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::REPEATER,
             'prevent_empty' => false,
             'default' => [
@@ -88,14 +97,14 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 ]
         );
         // ------
-        $this->add_responsive_control(
+        $this->add_control(
             'menu_style',
             [
-                'label' => __( 'Style', DCE_TEXTDOMAIN ),
+                'label' => __( 'Style', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'horizontal' => __( 'Horizontal', DCE_TEXTDOMAIN ),
-                    'vertical' => __( 'Vertical', DCE_TEXTDOMAIN )
+                    'horizontal' => __( 'Horizontal', 'dynamic-content-for-elementor' ),
+                    'vertical' => __( 'Vertical', 'dynamic-content-for-elementor' )
                 ],
                 'default' => 'vertical',
             ]
@@ -103,7 +112,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'heading_options_menu',
             [
-                    'label' => __( 'Options', DCE_TEXTDOMAIN ),
+                    'label' => __( 'Options', 'dynamic-content-for-elementor' ),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
             ]
@@ -111,97 +120,81 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
         'show_title',
             [
-                'label' => __( 'Show Title', DCE_TEXTDOMAIN ),
-                'toggle' => false,
-                'label_block' => true,
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __( 'Yes', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __( 'No', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-ban',
-                    ]
-                ],
-                'default' => '1'
+                'label' => __( 'Show Title', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes'
             ]
         );
         $this->add_control(
             'title_text',
             [
-                'label' => __( 'Title text', DCE_TEXTDOMAIN ),
+                'label' => __( 'Title text', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::TEXT,
-                'default' => '',
                 'condition' => [
-                    'show_title' => '1',
+                    'show_title!' => '',
                 ],
             ]
         );
         $this->add_control(
             'show_childlist',
             [
-                'label' => __( 'Show Child List', DCE_TEXTDOMAIN ),
-                'type' => Controls_Manager::CHOOSE,
-                'toggle' => false,
-                'label_block' => false,
-                'options' => [
-                    '1' => [
-                        'title' => __( 'Yes', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __( 'No', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-ban',
-                    ]
-                ],
-                'default' => '1'
+                'label' => __( 'Show Child List', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes'
+            ]
+        );
+        $this->add_control(
+            'show_publish',
+            [
+                'label' => __( 'Show only published', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes'
             ]
         );
         $this->add_control(
         'show_border',
             [
-                'label' => __( 'Show Border', DCE_TEXTDOMAIN ),
+                'label' => __( 'Show Border', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'toggle' => false,
-                'label_block' => false,
                 'options' => [
                     '1' => [
-                        'title' => __( 'Yes', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Yes', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-check',
                     ],
                     '0' => [
-                        'title' => __( 'No', DCE_TEXTDOMAIN ),
+                        'title' => __( 'No', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-ban',
                     ],
                     '2' => [
-                        'title' => __( 'Any', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Any', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-square-o',
                     ]
                 ],
-                'condition' => [
+                /*'condition' => [
                     'menu_style' => 'vertical',
-                ],
-                'default' => '1'
+                ],*/
+                'default' => '1',
+                'render_type' => 'template',
+                'prefix_class' => 'border-',
             ]
         );
 
         $this->add_control(
         'blockwidth_enable',
             [
-                'label'         => __( 'Force Block width', DCE_TEXTDOMAIN ),
+                'label'         => __( 'Force Block width', 'dynamic-content-for-elementor' ),
                 'type'          => Controls_Manager::SWITCHER,
-                'default'       => '',
-                'label_on'      => __( 'Yes', DCE_TEXTDOMAIN ),
-                'label_off'     => __( 'No', DCE_TEXTDOMAIN ),
-                'return_value'  => 'yes'
+                'separator'     => 'before',
+                'condition' => [
+                    'show_border' => '2',
+                ],
             ]
         );
         $this->add_control(
             'menu_width',
             [
-                'label' => __( 'Box Width', DCE_TEXTDOMAIN ),
+                'label' => __( 'Box Width', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 120,
@@ -214,6 +207,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 ],
                 'condition' => [
                     'blockwidth_enable' => 'yes',
+                    'show_border' => '2',
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .dce-menu .box' => 'width: {{SIZE}}{{UNIT}};',
@@ -223,15 +217,15 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_responsive_control(
         'show_separators',
             [
-                'label' => __( 'Show Separator', DCE_TEXTDOMAIN ),
+                'label' => __( 'Show Separator', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'solid' => [
-                        'title' => __( 'Yes', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Yes', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-check',
                     ],
                     'none' => [
-                        'title' => __( 'No', DCE_TEXTDOMAIN ),
+                        'title' => __( 'No', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-ban',
                     ],
                 ],
@@ -249,7 +243,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'menu_size_separator',
             [
-                'label' => __( 'Height', DCE_TEXTDOMAIN ),
+                'label' => __( 'Weight', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -271,48 +265,33 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 ],
             ]
         );
-        $this->add_responsive_control(
-        'menu_align',
+        $this->add_control(
+            'separator_color',
             [
-                'label' => __( 'Text Alignment', DCE_TEXTDOMAIN ),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'flex-start' => [
-                        'title' => __( 'Left', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-align-left',
+                    'label' => __( 'Color', 'dynamic-content-for-elementor' ),
+                    'type' => Controls_Manager::HEADING,
+                    'separator' => 'before',
+                    'condition' => [
+                        'show_separators' => 'solid',
+                        'menu_style' => 'horizontal',
                     ],
-                    'center' => [
-                        'title' => __( 'Center', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'flex-end' => [
-                        'title' => __( 'Right', DCE_TEXTDOMAIN ),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                ],
-                
-                'default' => 'left',
-                'selectors' => [
-                     '{{WRAPPER}}' => 'text-align: {{VALUE}};',
-                     '{{WRAPPER}} ul' => 'justify-content: {{VALUE}};',
-                ],
             ]
         );
         $this->add_control(
             'heading_spaces_menu',
             [
-                'label' => __( 'Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
             ]
         );
         $this->add_responsive_control(
             'menu_space',
             [
-                'label' => __( 'Header Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'Header Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                         'size' => 0,
@@ -329,14 +308,14 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                         '{{WRAPPER}} .dce-menu div.box' => 'padding: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => [
-                    'show_title' => '1',
+                    'show_title!' => '',
                 ],
             ]
         );
         $this->add_responsive_control(
             'menu_list_space',
             [
-                'label' => __( 'List Space', DCE_TEXTDOMAIN ),
+                'label' => __( 'List Space', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                         'size' => 0,
@@ -351,14 +330,14 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                         '{{WRAPPER}} .dce-menu ul.first-level > li' => 'margin-bottom: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
             ]
         );
         $this->add_responsive_control(
             'menu_indent',
             [
-                'label' => __( 'Indent', DCE_TEXTDOMAIN ),
+                'label' => __( 'Indent', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                         'px' => [
@@ -370,7 +349,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                         '{{WRAPPER}} .dce-menu ul.first-level > li' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
             ]
         );
@@ -380,34 +359,57 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->start_controls_section(
             'section_style',
             [
-                    'label' => __( 'Style', DCE_TEXTDOMAIN ),
+                    'label' => __( 'Style', 'dynamic-content-for-elementor' ),
                     'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+        $this->add_responsive_control(
+        'menu_align',
+            [
+                'label' => __( 'Text Alignment', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => __( 'Left', DCE_TEXTDOMAIN ),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __( 'Center', DCE_TEXTDOMAIN ),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __( 'Right', DCE_TEXTDOMAIN ),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                ],
+                'prefix_class' => 'menu-align-',
+                'default' => 'left',
+                'selectors' => [
+                     /*'{{WRAPPER}} .dce-menu' => 'text-align: {{VALUE}};',*/
+                     '{{WRAPPER}}' => 'text-align: {{VALUE}};',
+                ],
             ]
         );
         $this->add_control(
             'heading_colors',
             [
-                    'label' => __( 'List items', DCE_TEXTDOMAIN ),
+                    'label' => __( 'List items', 'dynamic-content-for-elementor' ),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
-                        'show_childlist' => '1',
+                        'show_childlist!' => '',
                     ],
             ]
         );
         $this->add_control(
             'menu_color',
             [
-                'label' => __( 'Text Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
-                'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .dce-menu a' => 'color: {{VALUE}};',
                 ],
@@ -416,16 +418,12 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'menu_color_hover',
             [
-                'label' => __( 'Text Hover Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text Hover Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
-                'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .dce-menu a:hover' => 'color: {{VALUE}};',
                 ],
@@ -434,16 +432,12 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'menu_color_active',
             [
-                'label' => __( 'Text Active Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text Active Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
-                'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .dce-menu ul li a.active' => 'color: {{VALUE}};',
                 ],
@@ -456,34 +450,30 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 'selector' => '{{WRAPPER}} .dce-menu ul.first-level li',
                 'condition' => [
-                    'show_childlist' => '1',
+                    'show_childlist!' => '',
                 ],
             ]
         );
         $this->add_control(
             'heading_title',
             [
-                'label' => __( 'Title', DCE_TEXTDOMAIN ),
+                'label' => __( 'Title', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
-                    'show_title' => '1',
+                    'show_title!' => '',
                 ],
             ]
         );
         $this->add_control(
             'menu_title_color',
             [
-                'label' => __( 'Title Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Title Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'condition' => [
-                    'show_title' => '1',
+                    'show_title!' => '',
                 ],
-                'default' => '',
                 'selectors' => [
                         '{{WRAPPER}} .dce-menu .dce-parent-title' => 'color: {{VALUE}};',
                 ],
@@ -498,7 +488,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 'selector' => '{{WRAPPER}} .dce-menu .dce-parent-title',
                 'condition' => [
-                    'show_title' => '1',
+                    'show_title!' => '',
                 ],
             ]
         );
@@ -506,7 +496,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'heading_border',
             [
-                'label' => __( 'Border', DCE_TEXTDOMAIN ),
+                'label' => __( 'Border', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -517,15 +507,10 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'menu_border_color',
             [
-                'label' => __( 'Border Color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Border Color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::COLOR,
                 'toggle' => false,
-                'label_block' => false,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
-                'default' => '',
+                
                 'condition' => [
                     'show_border' => ['1','2'],
                 ],
@@ -539,10 +524,9 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'menu_border_size',
             [
-                'label' => __( 'Border weight', DCE_TEXTDOMAIN ),
+                'label' => __( 'Border weight', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'toggle' => false,
-                'label_block' => false,
                 'default' => [
                     'size' => 1,
                     'unit' => 'px',
@@ -555,7 +539,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .dce-menu hr' => 'border-width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .dce-menu hr, {{WRAPPER}} .dce-menu .box' => 'border-width: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => [
                     'show_border' => ['1','2']
@@ -565,11 +549,13 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         $this->add_control(
             'menu_border_width',
             [
-                'label' => __( 'Border width', DCE_TEXTDOMAIN ),
+                'label' => __( 'Border width', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SLIDER,
                 'toggle' => false,
-                'label_block' => false,
                 'size_units' => [ 'px','%'],
+                'default' => [
+                    'size' => '',
+                ],
                 'range' => [
                     'px' => [
                         'min' => 1,
@@ -599,49 +585,26 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
         
 
         // ------------------------------------------
-        $demoPage = get_post_meta(get_the_ID(), 'demo_id', true);
-        //
-        $id_page = ''; //get_the_ID();
-        $type_page = '';
-
-        global $global_ID;
-        global $global_TYPE;
-        global $is_blocks;
-        global $global_is;
-        //
-        if(!empty($demoPage)){
-            $id_page = $demoPage;
-            $type_page = get_post_type($demoPage);
-            //echo 'DEMO ...';
-        } 
-        else if (!empty($global_ID)) {
-            $id_page = $global_ID;
-            $type_page = get_post_type($id_page);
-            //echo 'global ...';
-        } else {
-            $id_page = get_the_id();
-            $type_page = get_post_type();
-            //echo 'natural ...';
-        }
-
-
+        $dce_data = DCE_Helper::dce_dynamic_data(/*$settings['other_post_source'],$settings['other_post_parent']*/);
+        $id_page = $dce_data['id'];
+        $type_page = $dce_data['type'];
+        $global_is = $dce_data['is'];
         // ------------------------------------------
 
-      
-        
+
 
         $styleMenu = $settings['menu_style'];
         $clssStyleMenu = $styleMenu; 
 
         echo '<nav class="dce-menu '.$clssStyleMenu.'" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">';
         if( $settings['show_border'] == 2  ) echo '<div class="box">';
-        if ( $settings['show_title'] != 0 ) {
+        if ( $settings['show_title'] ) {
 
-            echo '<h4 class="dce-parent-title">'.__($settings['title_text'], DCE_TEXTDOMAIN.'_texts').'</h4>';
+            echo '<h4 class="dce-parent-title">'.__($settings['title_text'], 'dynamic-content-for-elementor'.'_texts').'</h4>';
             if( $settings['show_border'] == 1  ) echo '<hr />';
 
         }
-        if ( $settings['show_childlist'] != 0 ) {
+        if ( $settings['show_childlist'] ) {
             
             echo '<ul class="first-level">';
 
@@ -654,10 +617,11 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                         }else{
                             $linkActive = '';
                         }
-                        
-                        echo '<li class="item-'.$pageid.'"><a href="'.get_permalink( $pageid ).'"'.$linkActive.'>'.get_the_title( $pageid ).'</a>';
-                        
-                        echo '</li>';
+                        if( get_post_status( $pageid ) == 'publish' && $settings['show_publish'] ){
+		                echo '<li class="item-'.$pageid.'"><a href="'.get_permalink( $pageid ).'"'.$linkActive.'>'.get_the_title( $pageid ).'</a>';
+		                
+		                echo '</li>';
+                        }
                     endforeach;
                 }else{
 

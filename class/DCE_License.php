@@ -68,7 +68,7 @@ class DCE_License {
         }
         //var_dump($plugin); die();
         // agisco solo per il mio plugin
-        if ($plugin == DCE_TEXTDOMAIN) {
+        if ($plugin == 'dynamic-content-for-elementor') {
             return $this->upgrader_pre_download($package);
             //\DynamicContentForElementor\DCE_license::upgraderPreDownload();
         }
@@ -89,15 +89,15 @@ class DCE_License {
         if (!$license_status) {
             if (!SL_LICENSE) {
                 // l'utente non ha ancora impostato alcun codice di licenza
-                return new \WP_Error('no_license', __('You have not entered the license.', DCE_TEXTDOMAIN).' <a target="_blank" href="'.SL_APP_API_URL.'">'.__('If you do not have one then buy it now', DCE_TEXTDOMAIN).'</a>');
+                return new \WP_Error('no_license', __('You have not entered the license.', 'dynamic-content-for-elementor').' <a target="_blank" href="'.SL_APP_API_URL.'">'.__('If you do not have one then buy it now', 'dynamic-content-for-elementor').'</a>');
             }
             // qualcosa è andato storto...stampo tutti gli errori
             $license_dump = self::call_api('status-check', SL_LICENSE, false, true);
             if(is_wp_error( $license_dump ) || $license_dump['response']['code'] != 200) {
-                return new \WP_Error('no_license', __('Error connecting to the server.', DCE_TEXTDOMAIN).' -- KEY: '.SL_LICENSE.' - DOMAIN: '.SL_INSTANCE. ' - STATUS-CHECK: '.var_export($license_dump, true));
+                return new \WP_Error('no_license', __('Error connecting to the server.', 'dynamic-content-for-elementor').' -- KEY: '.SL_LICENSE.' - DOMAIN: '.SL_INSTANCE. ' - STATUS-CHECK: '.var_export($license_dump, true));
             }
             // oppure semplicemente la licenza utilizzata non è attiva o valida
-            return new \WP_Error('no_license', __('The license is not valid.', DCE_TEXTDOMAIN).' <a href="./admin.php?page=dce_opt&tab=license&licence_check=1">'.__('Check it in the plugin settings', DCE_TEXTDOMAIN).'</a>.');
+            return new \WP_Error('no_license', __('The license is not valid.', 'dynamic-content-for-elementor').' <a href="./admin.php?page=dce_opt&tab=license&licence_check=1">'.__('Check it in the plugin settings', 'dynamic-content-for-elementor').'</a>.');
         }
         // aggiungo quindi le info aggiuntive della licenza alla richiesta per abilitarmi al download
         $package .= '?license_key='.SL_LICENSE.'&license_instance='.SL_INSTANCE;
@@ -107,7 +107,7 @@ class DCE_License {
         //return new WP_Error('no_license', $package);
         $download_file = download_url($package);
         if ( is_wp_error($download_file) )
-                return new \WP_Error('download_failed', __('Error downloading the update package', DCE_TEXTDOMAIN), $download_file->get_error_message());
+                return new \WP_Error('download_failed', __('Error downloading the update package', 'dynamic-content-for-elementor'), $download_file->get_error_message());
         return $download_file;
     }
 
@@ -252,30 +252,30 @@ class DCE_License {
         <div class="dce-notice <?php echo $classes; ?>">
             <h2>LICENSE Status <a href="?<?php echo $_SERVER['QUERY_STRING']; ?>&licence_check=1"><span class="dashicons dashicons-info"></span></a></h2>
             <form action="" method="post">
-                <?php _e('Your key', DCE_TEXTDOMAIN ); ?>: <input type="text" name="licence_key" value="<?php if ($dce_activated) { echo $licence_key_hidden; } ?>" id="licence_key" placeholder="dce-xxxxxxxx-xxxxxxxx-xxxxxxxx" style="width: 240px; max-width: 100%;">
+                <?php _e('Your key', 'dynamic-content-for-elementor' ); ?>: <input type="text" name="licence_key" value="<?php if ($dce_activated) { echo $licence_key_hidden; } ?>" id="licence_key" placeholder="dce-xxxxxxxx-xxxxxxxx-xxxxxxxx" style="width: 240px; max-width: 100%;">
                 <input type="hidden" name="licence_status" value="<?php echo $licence_status; ?>" id="licence_status">
                 <?php ($licence_status) ? submit_button('Deactivate', 'cancel') : submit_button('Save Key and Activate'); ?>
             </form>
         <?php if ($licence_status) {
             if ($dce_domain && $dce_domain != SL_INSTANCE) { ?>
-                <p><strong style="color:#f0ad4e;"><?php _e('Your license is valid but there is something wrong: <b>License Mismatch</b>.', DCE_TEXTDOMAIN ); ?></strong></p>
-                <p><?php _e('Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again.', DCE_TEXTDOMAIN ); ?></p>
+                <p><strong style="color:#f0ad4e;"><?php _e('Your license is valid but there is something wrong: <b>License Mismatch</b>.', 'dynamic-content-for-elementor' ); ?></strong></p>
+                <p><?php _e('Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again.', 'dynamic-content-for-elementor' ); ?></p>
             <?php } else { ?>
-                <p><strong style="color:#46b450;"><?php _e('Your license is valid and active.', DCE_TEXTDOMAIN ); ?></strong></p>
-                <p><?php _e('Thank you for choosing to use our plugin.', DCE_TEXTDOMAIN ); ?><br><?php _e('Feel free to create your new dynamic and creative website.', DCE_TEXTDOMAIN ); ?><br><?php _e('If you think that our widgets are fantastic do not forget to recommend it to your friends.', DCE_TEXTDOMAIN ); ?></p>
+                <p><strong style="color:#46b450;"><?php _e('Your license is valid and active.', 'dynamic-content-for-elementor' ); ?></strong></p>
+                <p><?php _e('Thank you for choosing to use our plugin.', 'dynamic-content-for-elementor' ); ?><br><?php _e('Feel free to create your new dynamic and creative website.', 'dynamic-content-for-elementor' ); ?><br><?php _e('If you think that our widgets are fantastic do not forget to recommend it to your friends.', 'dynamic-content-for-elementor' ); ?></p>
             <?php }
             } else { ?>
-                <p><?php _e('Enter your license here to keep the plugin updated, obtaining new widgets, future compatibility, more stability and security.', DCE_TEXTDOMAIN ); ?></p>
-                <p><?php _e('Do not you have one yet? Get it right away:', DCE_TEXTDOMAIN ); ?> <a href="http://www.dynamic.ooo" class="button button-small" target="_blank"><?php _e('visit our official page', DCE_TEXTDOMAIN ); ?></a></p>
+                <p><?php _e('Enter your license here to keep the plugin updated, obtaining new widgets, future compatibility, more stability and security.', 'dynamic-content-for-elementor' ); ?></p>
+                <p><?php _e('Do not you have one yet? Get it right away:', 'dynamic-content-for-elementor' ); ?> <a href="http://www.dynamic.ooo" class="button button-small" target="_blank"><?php _e('visit our official page', 'dynamic-content-for-elementor' ); ?></a></p>
         <?php } ?>
         </div>
 
         <?php if ($licence_status) {
             $dce_beta = get_option('dce_beta'); ?>
             <div class="dce-notice dce-warning dce-notice-warning">
-                <h3><?php _e('Beta release', DCE_TEXTDOMAIN ); ?></h3>
+                <h3><?php _e('Beta release', 'dynamic-content-for-elementor' ); ?></h3>
                 <form action="" method="post">
-                    <label><input type="checkbox" name="dce_beta" value="beta"<?php if ($dce_beta) { ?> checked="checked"<?php } ?>> <?php _e('Enable BETA releases (IMPORTANT: do NOT enable if you need a stable version).', DCE_TEXTDOMAIN ); ?></label>
+                    <label><input type="checkbox" name="dce_beta" value="beta"<?php if ($dce_beta) { ?> checked="checked"<?php } ?>> <?php _e('Enable BETA releases (IMPORTANT: do NOT enable if you need a stable version).', 'dynamic-content-for-elementor' ); ?></label>
                     <input type="hidden" name="beta_status" value="1" id="beta_status">
                     <?php submit_button('Save my preference'); ?>
                 </form>
@@ -285,7 +285,7 @@ class DCE_License {
     }
     
     public static function dce_plugin_action_links_license($links){
-        $links['license'] = '<a style="color:brown;" title="Activate license" href="'.admin_url().'admin.php?page=dce_opt&tab=license"><b>'.__('License', DCE_TEXTDOMAIN).'</b></a>';
+        $links['license'] = '<a style="color:brown;" title="Activate license" href="'.admin_url().'admin.php?page=dce_opt&tab=license"><b>'.__('License', 'dynamic-content-for-elementor').'</b></a>';
         return $links;
     }
     
@@ -293,7 +293,7 @@ class DCE_License {
         $dce_activated = intval(get_option(SL_PRODUCT_ID.'_license_activated', 0));
         $dce_domain = base64_decode(get_option(SL_PRODUCT_ID.'_license_domain'));
         if ($dce_activated && $dce_domain && $dce_domain != SL_INSTANCE) {
-            DCE_Notice::dce_admin_notice__warning(__('<b>License Mismatch</b><br>Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again. <a class="btn button" href="?page=dce_opt&tab=license">Reactivate License</a>', DCE_TEXTDOMAIN));
+            DCE_Notice::dce_admin_notice__warning(__('<b>License Mismatch</b><br>Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again. <a class="btn button" href="?page=dce_opt&tab=license">Reactivate License</a>', 'dynamic-content-for-elementor'));
             return false;
         }
         return true;

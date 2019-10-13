@@ -1,7 +1,15 @@
 <?php
 namespace DynamicContentForElementor;
 
+use Elementor\Controls_Manager;
+use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
+use Elementor\Widget_Base;
+use Elementor\Core\Base\Module;
+use Elementor\TemplateLibrary\Source_Local;
+
 class DCE_Ajax {
+    
+    public $query_control;
     
     public function __construct() {
         $this->init();
@@ -30,6 +38,10 @@ class DCE_Ajax {
         
         add_action('wp_ajax_dce_finder_search', array($this, 'dce_finder_search'));
         add_action('wp_ajax_nopriv_dce_finder_search', array($this, 'dce_finder_search'));
+        
+        // Ajax Select2 autocomplete
+        include_once( DCE_PATH.'/modules/query-control/DCE_QueryControl.php' );
+        $this->query_control = new \DynamicContentForElementor\Modules\QueryControl\DCE_QueryControl();
         
     }
     
@@ -346,7 +358,7 @@ class DCE_Ajax {
                         . '<a href="'.$apost['permalink'].'"><img src="'.$featured_img_url.'"></a>'
                         . '<a href="'.$apost['permalink'].'"><h4>'.$apost['title'].'</h4></a>'
                         . '<p>'.$apost['excerpt'].'</p>'
-                        . '<a href="'.$apost['permalink'].'" class="btn button">'. __('Read more', DCE_TEXTDOMAIN).'</a>'
+                        . '<a href="'.$apost['permalink'].'" class="btn button">'. __('Read more', 'dynamic-content-for-elementor').'</a>'
                         . '</div>';
             }
             

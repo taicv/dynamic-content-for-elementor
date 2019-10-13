@@ -17,10 +17,10 @@ var isAdminBar = false,
                 orientation: elementSettings.orientation || 'horizontal', // Orientation of the before and after images ('horizontal' or 'vertical')
                 before_label: String(elementSettings.before_label) || 'Before', // Set a custom before label
                 after_label: String(elementSettings.after_label) || 'After', // Set a custom after label
-                no_overlay: 'yes' === elementSettings.no_overlay, //Do not show the overlay with before and after
-                move_slider_on_hover: 'yes' === elementSettings.move_slider_on_hover, // Move slider on mouse hover?
-                move_with_handle_only: 'yes' === elementSettings.move_with_handle_only, // Allow a user to swipe anywhere on the image to control slider movement. 
-                click_to_move: 'yes' === elementSettings.click_to_move // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+                no_overlay: Boolean( elementSettings.no_overlay ), //Do not show the overlay with before and after
+                move_slider_on_hover: Boolean( elementSettings.move_slider_on_hover ), // Move slider on mouse hover?
+                move_with_handle_only: Boolean( elementSettings.move_with_handle_only ), // Allow a user to swipe anywhere on the image to control slider movement. 
+                click_to_move: Boolean( elementSettings.click_to_move ) // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
             });
         }, 100);
     };

@@ -29,11 +29,11 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('ACF Google Maps', DCE_TEXTDOMAIN);
+        return __('ACF Google Maps', 'dynamic-content-for-elementor');
     }
 
     public function get_description() {
-        return __('Build a map using data from a Google Maps ACF', DCE_TEXTDOMAIN);
+        return __('Build a map using data from a Google Maps ACF', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
@@ -65,41 +65,39 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_map', [
-            'label' => __('ACF Google Maps', DCE_TEXTDOMAIN),
+            'label' => __('ACF Google Maps', 'dynamic-content-for-elementor'),
                 ]
         );    
 
         $this->add_control(
                 'map_data_type', [
-            'label' => __('Data Type', DCE_TEXTDOMAIN),
+            'label' => __('Data Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'acfmap',
             'options' => [
-                'acfmap' => __('ACF Map Field', DCE_TEXTDOMAIN),
-                'address' => __('Address', DCE_TEXTDOMAIN),
-                'latlng' => __('Latitude Longitude', DCE_TEXTDOMAIN),
+                'acfmap' => __('ACF Map Field', 'dynamic-content-for-elementor'),
+                'address' => __('Address', 'dynamic-content-for-elementor'),
+                'latlng' => __('Latitude Longitude', 'dynamic-content-for-elementor'),
             ],
             'frontend_available' => true,
                 ]
         );
         $this->add_control(
                 'acf_mapfield', [
-            'label' => __('ACF Map', DCE_TEXTDOMAIN),
+            'label' => __('ACF Map', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
-            'options' => DCE_Helper::get_all_acf(false, 'google_map'),
+            'options' => DCE_Helper::get_acf_fields('google_map'),
             'frontend_available' => true,
             'condition' => [
                 'map_data_type' => 'acfmap',
             ],
                 ]
         );
-        //$default_location = get_field('map_location',$global_ID);
-        //$default_address = "Venezia";
-        //if( !empty($default_location) ) $default_address = $default_location['address'];
+        
         $this->add_control(
                 'address', [
-            'label' => __('Manual address', DCE_TEXTDOMAIN),
-            //'description' => __('Only works if the ACF field is not set', DCE_TEXTDOMAIN),
+            'label' => __('Manual address', 'dynamic-content-for-elementor'),
+            //'description' => __('Only works if the ACF field is not set', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             //'placeholder' => $default_address,
             'default' => 'Venice', //$default_address,
@@ -112,7 +110,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'latitudine', [
-            'label' => __('Manual Latitude', DCE_TEXTDOMAIN),
+            'label' => __('Manual Latitude', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             //'placeholder' => $default_address,
             'default' => '45.4371908', //$default_address,
@@ -124,8 +122,8 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'longitudine', [
-            'label' => __('Manual Longitude', DCE_TEXTDOMAIN),
-            //'description' => __('Only works if the ACF field is not set', DCE_TEXTDOMAIN),
+            'label' => __('Manual Longitude', 'dynamic-content-for-elementor'),
+            //'description' => __('Only works if the ACF field is not set', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXT,
             //'placeholder' => $default_address,
             'default' => '12.3345898', //$default_address,
@@ -137,7 +135,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'zoom', [
-            'label' => __('Zoom Level', DCE_TEXTDOMAIN),
+            'label' => __('Zoom Level', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'size' => 10,
@@ -154,7 +152,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
                 'height', [
-            'label' => __('Height', DCE_TEXTDOMAIN),
+            'label' => __('Height', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -183,18 +181,18 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'prevent_scroll', [
-            'label' => __('Scroll', DCE_TEXTDOMAIN),
+            'label' => __('Scroll', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
-            'label_on' => __('Yes', DCE_TEXTDOMAIN),
-            'label_off' => __('No', DCE_TEXTDOMAIN),
+            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+            'label_off' => __('No', 'dynamic-content-for-elementor'),
             'render_type' => 'template',
             'frontend_available' => true,
                 ]
         );
         $this->add_control(
                 'enable_infoWindow', [
-            'label' => __('Info Window', DCE_TEXTDOMAIN),
+            'label' => __('Info Window', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'render_type' => 'template',
@@ -204,7 +202,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'view', [
-            'label' => __('View', DCE_TEXTDOMAIN),
+            'label' => __('View', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HIDDEN,
             'default' => 'traditional',
                 ]
@@ -215,7 +213,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_mapInfoWIndow', [
-            'label' => __('Info Window', DCE_TEXTDOMAIN),
+            'label' => __('Info Window', 'dynamic-content-for-elementor'),
             'condition' => [
                 'enable_infoWindow' => 'yes'
             ]
@@ -224,7 +222,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'infoWindow_click_to_post', [
-            'label' => __('Link to post', DCE_TEXTDOMAIN),
+            'label' => __('Link to post', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'frontend_available' => true,
             'separator' => 'after',
@@ -238,7 +236,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         /* $this->add_control(
           'infoWindow_heading_content',
           [
-          'label' => __( 'InfoWindow Content', DCE_TEXTDOMAIN ),
+          'label' => __( 'InfoWindow Content', 'dynamic-content-for-elementor' ),
           'type' => Controls_Manager::HEADING,
           'separator' => 'before',
           'condition' => [
@@ -248,11 +246,11 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
           );
           $this->add_control(
           'infoWindow_title', [
-          'label' => __('Title', DCE_TEXTDOMAIN),
+          'label' => __('Title', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SWITCHER,
           'default' => '',
-          'label_on' => __('Yes', DCE_TEXTDOMAIN),
-          'label_off' => __('No', DCE_TEXTDOMAIN),
+          'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+          'label_off' => __('No', 'dynamic-content-for-elementor'),
           'frontend_available' => true,
           'condition' => [
           'acf_mapfield!' => '',
@@ -262,11 +260,11 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
           );
           $this->add_control(
           'infoWindow_image', [
-          'label' => __('Image', DCE_TEXTDOMAIN),
+          'label' => __('Image', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SWITCHER,
           'default' => '',
-          'label_on' => __('Yes', DCE_TEXTDOMAIN),
-          'label_off' => __('No', DCE_TEXTDOMAIN),
+          'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+          'label_off' => __('No', 'dynamic-content-for-elementor'),
           'frontend_available' => true,
           'condition' => [
           'acf_mapfield!' => '',
@@ -277,7 +275,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->add_control(
                 'custom_infoWindow',
                 [
-                    'label' => __('Custom text', DCE_TEXTDOMAIN),
+                    'label' => __('Custom text', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
                     'frontend_available' => true,
                     'label_block' => true,
@@ -291,7 +289,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->add_control(
                 'infoWindow_heading_style',
                 [
-                    'label' => __('InfoWindow Style', DCE_TEXTDOMAIN),
+                    'label' => __('InfoWindow Style', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::HEADING,
                     'separator' => 'before',
                     'condition' => [
@@ -302,7 +300,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'infowindow_typography',
-            'label' => __('Typography', DCE_TEXTDOMAIN),
+            'label' => __('Typography', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .gm-style .gm-style-iw-c',
             'condition' => [
                 'infoWindow_click_to_post' => '',
@@ -311,7 +309,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'infoWindow_textColor', [
-            'label' => __('Text Color', DCE_TEXTDOMAIN),
+            'label' => __('Text Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .gm-style .gm-style-iw-c, {{WRAPPER}} .gm-style .gm-style-iw-t::after' => 'color: {{VALUE}};',
@@ -325,7 +323,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'infoWindow_bgColor', [
-            'label' => __('Background Color', DCE_TEXTDOMAIN),
+            'label' => __('Background Color', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
                 '{{WRAPPER}} .gm-style .gm-style-iw-c, {{WRAPPER}} .gm-style .gm-style-iw-t::after' => 'background-color: {{VALUE}};',
@@ -339,7 +337,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
             'name' => 'infoWindow_border',
-            'label' => __('Image Border', DCE_TEXTDOMAIN),
+            'label' => __('Image Border', 'dynamic-content-for-elementor'),
             'selector' => '{{WRAPPER}} .gm-style .gm-style-iw-c, {{WRAPPER}} .gm-style .gm-style-iw-t::after',
             'condition' => [
                 'infoWindow_click_to_post' => '',
@@ -348,7 +346,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'infoWindow_padding', [
-            'label' => __('Padding', DCE_TEXTDOMAIN),
+            'label' => __('Padding', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', 'em'],
             'selectors' => [
@@ -361,7 +359,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'infoWindow_border_radius', [
-            'label' => __('Border Radius', DCE_TEXTDOMAIN),
+            'label' => __('Border Radius', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', '%'],
             'selectors' => [
@@ -387,20 +385,23 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_mapMarker', [
-            'label' => __('Marker', DCE_TEXTDOMAIN),
+            'label' => __('Marker', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
                 'acf_markerfield', [
-            'label' => __('Map (ACF)', DCE_TEXTDOMAIN),
+            'label' => __('Map (ACF)', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
-            'options' => DCE_Helper::get_all_acf(false, 'image'),
+            'options' => DCE_Helper::get_acf_fields('image'),
             'default' => '0',
+            'condition' => [
+                'imageMarker[id]!' => '',
+            ],
                 ]
         );
         $this->add_control(
                 'imageMarker', [
-            'label' => __('Marker Image', DCE_TEXTDOMAIN),
+            'label' => __('Marker Image', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::MEDIA,
             'default' => [
                 'url' => '', //'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
@@ -415,19 +416,19 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->end_controls_section();
         $this->start_controls_section(
                 'section_mapStyles', [
-            'label' => __('Styles', DCE_TEXTDOMAIN),
+            'label' => __('Styles', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
                 'map_type', [
-            'label' => __('Map Type', DCE_TEXTDOMAIN),
+            'label' => __('Map Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'default' => 'roadmap',
             'options' => [
-                'roadmap' => __('Roadmap', DCE_TEXTDOMAIN),
-                'satellite' => __('Satellite', DCE_TEXTDOMAIN),
-                'hybrid' => __('Hybrid', DCE_TEXTDOMAIN),
-                'terrain' => __('Terrain', DCE_TEXTDOMAIN),
+                'roadmap' => __('Roadmap', 'dynamic-content-for-elementor'),
+                'satellite' => __('Satellite', 'dynamic-content-for-elementor'),
+                'hybrid' => __('Hybrid', 'dynamic-content-for-elementor'),
+                'terrain' => __('Terrain', 'dynamic-content-for-elementor'),
             ],
             'frontend_available' => true,
                 ]
@@ -435,12 +436,12 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         // --------------------------------- [ ACF Type of style ]
         $this->add_control(
                 'style_select', [
-            'label' => __('Style', DCE_TEXTDOMAIN),
+            'label' => __('Style', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => [
-                '' => __('None', DCE_TEXTDOMAIN),
-                'custom' => __('Custom', DCE_TEXTDOMAIN),
-                'prestyle' => __('Snazzy Style', DCE_TEXTDOMAIN),
+                '' => __('None', 'dynamic-content-for-elementor'),
+                'custom' => __('Custom', 'dynamic-content-for-elementor'),
+                'prestyle' => __('Snazzy Style', 'dynamic-content-for-elementor'),
             ],
             'default' => '',
             'frontend_available' => true,
@@ -451,7 +452,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'snazzy_select', [
-            'label' => __('Snazzy Style', DCE_TEXTDOMAIN),
+            'label' => __('Snazzy Style', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => $this->snazzymaps(),
             'frontend_available' => true,
@@ -463,9 +464,9 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'style_map', [
-            'label' => __('Copy Snazzy Json Style Map', DCE_TEXTDOMAIN),
+            'label' => __('Copy Snazzy Json Style Map', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::TEXTAREA,
-            'default' => __('', DCE_TEXTDOMAIN),
+            'default' => __('', 'dynamic-content-for-elementor'),
             'description' => 'To better manage the graphic styles of the map go to: <a href="https://snazzymaps.com/" target="_blank">snazzymaps.com</a>',
             'frontend_available' => true,
             'condition' => [
@@ -477,12 +478,12 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->end_controls_section();
         $this->start_controls_section(
                 'section_mapControls', [
-            'label' => __('Controls', DCE_TEXTDOMAIN),
+            'label' => __('Controls', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
                 'maptypecontrol', [
-            'label' => __('Map Type Control', DCE_TEXTDOMAIN),
+            'label' => __('Map Type Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -490,7 +491,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'pancontrol', [
-            'label' => __('Pan Control', DCE_TEXTDOMAIN),
+            'label' => __('Pan Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -499,7 +500,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
 
         $this->add_control(
                 'rotatecontrol', [
-            'label' => __('Rotate Control', DCE_TEXTDOMAIN),
+            'label' => __('Rotate Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -507,7 +508,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'scalecontrol', [
-            'label' => __('Scale Control', DCE_TEXTDOMAIN),
+            'label' => __('Scale Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -515,7 +516,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'streetviewcontrol', [
-            'label' => __('Street View Control', DCE_TEXTDOMAIN),
+            'label' => __('Street View Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -523,7 +524,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'zoomcontrol', [
-            'label' => __('Zoom Control', DCE_TEXTDOMAIN),
+            'label' => __('Zoom Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -531,7 +532,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'fullscreenControl', [
-            'label' => __('Full Screen Control', DCE_TEXTDOMAIN),
+            'label' => __('Full Screen Control', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,
@@ -540,7 +541,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->end_controls_section();
         $this->start_controls_section(
                 'section_cpt', [
-            'label' => __('Post Type Query', DCE_TEXTDOMAIN),
+            'label' => __('Post Type Query', 'dynamic-content-for-elementor'),
             'condition' => [
                 'map_data_type' => 'acfmap',
                 'acf_mapfield!' => ''
@@ -550,7 +551,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         // --------------------------------- [ Use Query post ]
         $this->add_control(
                 'use_query', [
-            'label' => __('Use Query', DCE_TEXTDOMAIN),
+            'label' => __('Use Query', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'frontend_available' => true,
                 ]
@@ -558,7 +559,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         // --------------------------------- [ Query Type ]
         $this->add_control(
                 'query_type', [
-            'label' => __('Query Type', DCE_TEXTDOMAIN),
+            'label' => __('Query Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::CHOOSE,
             'options' => [
                 'get_cpt' => [
@@ -583,7 +584,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         // --------------------------------- [ Custom Post Type ]
         $this->add_control(
                 'post_type', [
-            'label' => __('Post Type', DCE_TEXTDOMAIN),
+            'label' => __('Post Type', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => DCE_Helper::get_post_types(),
             'multiple' => true,
@@ -597,10 +598,10 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'taxonomy', [
-            'label' => __('Taxonomy', DCE_TEXTDOMAIN),
+            'label' => __('Taxonomy', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             //'options' => get_post_taxonomies( $post->ID ),
-            'options' => ['' => __('None', DCE_TEXTDOMAIN)] + get_taxonomies(array('public' => true)),
+            'options' => ['' => __('None', 'dynamic-content-for-elementor')] + get_taxonomies(array('public' => true)),
             'default' => '',
             'condition' => [
                 'use_query' => 'yes',
@@ -610,8 +611,8 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'category', [
-            'label' => __('Terms ID', DCE_TEXTDOMAIN),
-            'description' => __('Comma separated list of category ids', DCE_TEXTDOMAIN),
+            'label' => __('Terms ID', 'dynamic-content-for-elementor'),
+            'description' => __('Comma separated list of category ids', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::HIDDEN,
             'default' => '',
             'condition' => [
@@ -622,9 +623,9 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'terms_current_post', [
-            'label' => __('Use Dynamic Current Post Terms (Archive)', DCE_TEXTDOMAIN),
+            'label' => __('Use Dynamic Current Post Terms (Archive)', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __('Filter results by taxonomy terms associated to current post', DCE_TEXTDOMAIN),
+            'description' => __('Filter results by taxonomy terms associated to current post', 'dynamic-content-for-elementor'),
             'condition' => [
                 'taxonomy!' => '',
                 'query_type' => ['get_cpt', 'dynamic_mode'],
@@ -637,11 +638,11 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
             if ($tkey) {
                 $this->add_control(
                         'terms_' . $tkey, [
-                    'label' => __('Terms', DCE_TEXTDOMAIN), //.' '.$atax,
+                    'label' => __('Terms', 'dynamic-content-for-elementor'), //.' '.$atax,
                     'type' => Controls_Manager::SELECT2,
                     //'groups' => \DynamicContentForElementor\DCE_Helper::get_taxonomies_terms(),
-                    'options' => ['' => __('All', DCE_TEXTDOMAIN)] + \DynamicContentForElementor\DCE_Helper::get_taxonomy_terms($tkey), // + ['dce_current_post_terms' => __('Dynamic Current Post Terms', DCE_TEXTDOMAIN)],
-                    'description' => __('Filter results by selected taxonomy term', DCE_TEXTDOMAIN),
+                    'options' => ['' => __('All', 'dynamic-content-for-elementor')] + \DynamicContentForElementor\DCE_Helper::get_taxonomy_terms($tkey), // + ['dce_current_post_terms' => __('Dynamic Current Post Terms', 'dynamic-content-for-elementor')],
+                    'description' => __('Filter results by selected taxonomy term', 'dynamic-content-for-elementor'),
                     'multiple' => true,
                     'label_block' => true,
                     'condition' => [
@@ -663,10 +664,10 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         // --------------------------------- [ ACF relations ]
         $this->add_control(
                 'acf_relationship', [
-            'label' => __('Relations (ACF)', DCE_TEXTDOMAIN),
+            'label' => __('Relations (ACF)', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             //'options' => get_post_taxonomies( $post->ID ),
-            'options' => DCE_Helper::get_all_acf(false, 'relationship'),
+            'options' => DCE_Helper::get_acf_fields('relationship'),
             'default' => '0',
             'condition' => [
                 'query_type' => 'acf_relations',
@@ -674,9 +675,9 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
                 ]
         );
         // --------------------------------- [ Specific Pages ]
-        $this->add_control(
+        /*$this->add_control(
                 'specific_pages', [
-            'label' => __('Posts', DCE_TEXTDOMAIN),
+            'label' => __('Posts', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT2,
             'options' => DCE_Helper::get_all_posts(),
             'multiple' => true,
@@ -685,36 +686,64 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
                 'query_type' => 'specific_posts',
             ],
                 ]
+        );*/
+        $this->add_control(
+                'specific_pages',
+                [
+                    'label' => __('Posts', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'multiple' => true,
+                    'label_block' => true,
+                    'condition' => [
+                        'query_type' => 'specific_posts',
+                    ],
+                ]
         );
         $this->end_controls_section();
 
         $this->start_controls_section(
                 'section_dce_settings', [
-            'label' => __('Dynamic content', DCE_TEXTDOMAIN),
+            'label' => __('Dynamic content', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_SETTINGS,
                 ]
         );
         $this->add_control(
                 'data_source',
                 [
-                    'label' => __('Source', DCE_TEXTDOMAIN),
-                    'description' => __('Select the data source', DCE_TEXTDOMAIN),
+                    'label' => __('Source', 'dynamic-content-for-elementor'),
+                    'description' => __('Select the data source', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'default' => 'yes',
-                    'label_on' => __('Same', DCE_TEXTDOMAIN),
-                    'label_off' => __('Other', DCE_TEXTDOMAIN),
+                    'label_on' => __('Same', 'dynamic-content-for-elementor'),
+                    'label_off' => __('Other', 'dynamic-content-for-elementor'),
                     'return_value' => 'yes',
                 ]
         );
-        $this->add_control(
+        /*$this->add_control(
                 'other_post_source', [
-            'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+            'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SELECT,
             'options' => DCE_Helper::get_all_posts(),
             'default' => '',
             'condition' => [
                 'data_source' => '',
             ],
+                ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
                 ]
         );
         $this->end_controls_section();
@@ -738,10 +767,18 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
             $zoom = 10;
         }
 
-        $imageMarker = get_field($settings['acf_markerfield'], $id_page);
+        //$imageMarker = get_field($settings['acf_markerfield'], $id_page);
+        $imageMarker = DCE_Helper::get_acffield_filtred($settings['acf_markerfield'], $id_page);
+
         if (is_string($imageMarker)) {
+            if(is_numeric($marker_img)){
+                $imageSrc = wp_get_attachment_image_src($imageMarker, 'full');
+                $imageMarker = $imageSrc[0];
+                //echo 'uuu: '.$imageSrc;
+            }else{
+                $imageSrc = $imageMarker;
+            }
             //echo 'url: '.$imageMarker;
-            $imageSrc = $imageMarker;
         } else if (is_numeric($imageMarker)) {
             //echo 'id: '.$imageMarker;
             $imageSrc = wp_get_attachment_image_src($imageMarker, 'full');
@@ -778,7 +815,9 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
             $lng = $settings['longitudine'];
 
             if ($settings['acf_mapfield']) {
-                $location = get_field($settings['acf_mapfield'], $id_page);
+                //$location = get_field($settings['acf_mapfield'], $id_page);
+                $location = DCE_Helper::get_acffield_filtred($settings['acf_mapfield'], $id_page);
+
                 //$location = unserialize(get_post_meta( $id_page, $settings['acf_mapfield'], true ));
                 //var_dump($location);
                 //echo $id_page;
@@ -809,11 +848,11 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
                 );
                 //acf_relationship
             } else if ($settings['query_type'] == 'acf_relations') {
-                $relations_ids = get_field($settings['acf_relationship'], $id_page, false);
+                //$relations_ids = get_field($settings['acf_relationship'], $id_page, false);
+		        $relations_ids = DCE_Helper::get_acffield_filtred($settings['acf_relationship'], $id_page, false);
                 //$relations_ids = unserialize(get_post_meta( $id_page, $settings['acf_relationship'] ));
                 if (!empty($relations_ids)) {
-                    $relations_type = get_post_type($relations_ids[0]);
-                    //echo $relations_type;
+                    
                     $args = array(
                         'post_type' => 'any',
                         'posts_per_page' => -1,
@@ -889,27 +928,16 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
             //echo $p_query->found_posts;
             $counter = 0;
             //var_dump($args);
-            if ($p_query->have_posts()) :
-                /*while ($p_query->have_posts()) : $p_query->the_post();
-                    $id_page = get_the_ID();
-                    $map_field = get_field($settings['acf_mapfield']);
-                //var_dump($map_field);
-                // if(isset($map_field) && $map_field != '' && $map_field['address']){
-                // echo '<br> a '.$map_field['address'];
-                //  } 
-                endwhile;
-                wp_reset_postdata();
-                */
-                //var_dump(get_field($settings['acf_mapfield']));
-                ?>
+            if ($p_query->have_posts()) : ?>
                 <script>
                     var address_list = [<?php
                 while ($p_query->have_posts()) {
                     $p_query->the_post();
                     $id_page = get_the_ID();
 
-                    $map_field = get_field($settings['acf_mapfield'], get_the_ID());
-
+                    //$map_field = get_field($settings['acf_mapfield'], get_the_ID());
+                    $map_field = DCE_Helper::get_acffield_filtred($settings['acf_mapfield'], get_the_ID());
+                    
                     if (!empty($map_field)) {
                         //var_dump($map_field);
                         $indirizzo = $map_field['address'];
@@ -919,10 +947,18 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
                         $postTitle = get_the_title($id_page);
 
                         //$map_field = get_post_meta( $id_page, $settings['acf_mapfield'] );
-                        $marker_img = get_field($settings['acf_markerfield']);
+                        //$marker_img = get_field($settings['acf_markerfield']);
+                        $marker_img = DCE_Helper::get_acffield_filtred($settings['acf_markerfield'],$id_page);
+
                         if (is_string($marker_img)) {
-                            //echo 'url: '.$marker_img;
-                            $imageSrc = $marker_img;
+                            if(is_numeric($marker_img)){
+                                $imageSrc = wp_get_attachment_image_src($marker_img, 'full');
+                                $marker_img = $imageSrc[0];
+                                //echo 'uuu: '.$imageSrc;
+                            }else{
+                                //echo 'url: '.$marker_img;
+                                $imageSrc = $marker_img;
+                            }
                         } else if (is_numeric($marker_img)) {
                             //echo 'id: '.$marker_img;
                             $imageSrc = wp_get_attachment_image_src($marker_img, 'full');

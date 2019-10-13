@@ -34,10 +34,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('Before After', DCE_TEXTDOMAIN);
+        return __('Before After', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Display an image with a before – after effect, ideal for comparing differences between two images', DCE_TEXTDOMAIN);
+        return __('Display an image with a before – after effect, ideal for comparing differences between two images', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/before-after/';
@@ -59,13 +59,13 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_5050base', [
-                'label' => __('Before After', DCE_TEXTDOMAIN),
+                'label' => __('Before After', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
           'before_image',
           [
-             'label' => __( 'Before Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Before Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'dynamic' => [
                 'active' => true,
@@ -78,7 +78,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
           'after_image',
           [
-             'label' => __( 'After Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'After Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'dynamic' => [
                 'active' => true,
@@ -92,16 +92,16 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
             'orientation',
             [
-                'label' => __( 'Orientation', DCE_TEXTDOMAIN ),
+                'label' => __( 'Orientation', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'default' => 'horizontal',
                 'options' => [
                     'vertical'    => [
-                        'title' => __( 'Vertical', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Vertical', 'dynamic-content-for-elementor' ),
                         'icon' => 'eicon-v-align-middle',
                     ],
                     'horizontal' => [
-                        'title' => __( 'Horizontal', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Horizontal', 'dynamic-content-for-elementor' ),
                         'icon' => 'eicon-h-align-center',
                     ],
                 ],
@@ -110,7 +110,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'offset_pict', [
-                'label' => __('Default offset', DCE_TEXTDOMAIN),
+                'label' => __('Default offset', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 50,
@@ -130,7 +130,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_5050settings', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
 
@@ -140,12 +140,12 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
             'move_slider_on_hover',
             [
-              'label' => __( 'Move slider on hover', DCE_TEXTDOMAIN ),
-              'description' => __( 'Move slider on mouse hover?', DCE_TEXTDOMAIN ),
+              'label' => __( 'Move slider on hover', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Move slider on mouse hover?', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
               'frontend_available' => true,
             ]
@@ -153,12 +153,12 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
             'move_with_handle_only',
             [
-              'label' => __( 'Move with handle only', DCE_TEXTDOMAIN ),
-              'description' => __( 'Allow a user to swipe anywhere on the image to control slider movement', DCE_TEXTDOMAIN ),
+              'label' => __( 'Move with handle only', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Allow a user to swipe anywhere on the image to control slider movement', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
               'frontend_available' => true,
             ]
@@ -166,12 +166,12 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
             'click_to_move',
             [
-              'label' => __( 'Click to move', DCE_TEXTDOMAIN ),
-              'description' => __( 'Allow a user to click (or tap) anywhere on the image to move the slider to that location', DCE_TEXTDOMAIN ),
+              'label' => __( 'Click to move', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Allow a user to click (or tap) anywhere on the image to move the slider to that location', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
               'frontend_available' => true,
             ]
@@ -183,18 +183,18 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
                 'section_5050overlay', [
-                'label' => __('Overlay and labels', DCE_TEXTDOMAIN),
+                'label' => __('Overlay and labels', 'dynamic-content-for-elementor'),
             ]
         );
          $this->add_control(
             'no_overlay',
             [
-              'label' => __( 'No overlay', DCE_TEXTDOMAIN ),
-              'description' => __( 'Do not show the overlay with before and after', DCE_TEXTDOMAIN ),
+              'label' => __( 'No overlay', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Do not show the overlay with before and after', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => '',
-              'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
               'frontend_available' => true,
             ]
@@ -202,8 +202,8 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->add_control(
             'before_label', [
-                'label' => __('Before', DCE_TEXTDOMAIN),
-                'description' => __('Set a custom before label', DCE_TEXTDOMAIN),
+                'label' => __('Before', 'dynamic-content-for-elementor'),
+                'description' => __('Set a custom before label', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'Before',
                 'dynamic' => [
@@ -218,8 +218,8 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->add_control(
             'after_label', [
-                'label' => __('After', DCE_TEXTDOMAIN),
-                'description' => __('Set a custom after label', DCE_TEXTDOMAIN),
+                'label' => __('After', 'dynamic-content-for-elementor'),
+                'description' => __('Set a custom after label', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'After',
                 'dynamic' => [
@@ -235,7 +235,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         // ********************************************************************************* Section STYLE
         $this->start_controls_section(
             'section_handlestyle', [
-                'label' => __('Handle style', DCE_TEXTDOMAIN),
+                'label' => __('Handle style', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             
             ]
@@ -245,13 +245,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->add_control(
             'handle_border_color', [
-                'label' => __('Handle border color', DCE_TEXTDOMAIN),
+                'label' => __('Handle border color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#fff',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-horizontal .twentytwenty-handle:before, {{WRAPPER}} .twentytwenty-horizontal .twentytwenty-handle:after, {{WRAPPER}} .twentytwenty-vertical .twentytwenty-handle:before, {{WRAPPER}} .twentytwenty-vertical .twentytwenty-handle:after' => 'background-color: {{VALUE}};',
                     '{{WRAPPER}} .twentytwenty-handle' => 'border-color: {{VALUE}}'
@@ -260,13 +257,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'handle_fill_color', [
-                'label' => __('Handle fill color', DCE_TEXTDOMAIN),
+                'label' => __('Handle fill color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-handle' => 'background-color: {{VALUE}}'
                 ]
@@ -274,7 +268,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'handle_stroke', [
-                'label' => __('Stroke', DCE_TEXTDOMAIN),
+                'label' => __('Stroke', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 3,
@@ -297,7 +291,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'circle_stroke', [
-                'label' => __('Circle Stroke', DCE_TEXTDOMAIN),
+                'label' => __('Circle Stroke', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => '',
@@ -318,7 +312,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'handle_circlewidth', [
-                'label' => __('Circle Width', DCE_TEXTDOMAIN),
+                'label' => __('Circle Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 38,
@@ -349,13 +343,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'handle_trianglecolor', [
-                'label' => __('Triangle color', DCE_TEXTDOMAIN),
+                'label' => __('Triangle color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#fff',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-left-arrow' => 'border-right-color: {{VALUE}}',
                     '{{WRAPPER}} .twentytwenty-right-arrow' => 'border-left-color: {{VALUE}}', 
@@ -366,7 +357,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'handle_trianglesize', [
-                'label' => __('Triangle size', DCE_TEXTDOMAIN),
+                'label' => __('Triangle size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 6,
@@ -386,7 +377,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'handle_triangleposition', [
-                'label' => __('Triangle position', DCE_TEXTDOMAIN),
+                'label' => __('Triangle position', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => -15,
@@ -423,7 +414,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_overlayandlabels', [
-                'label' => __('Overlay and Labels', DCE_TEXTDOMAIN),
+                'label' => __('Overlay and Labels', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
                     'no_overlay' => '',
@@ -432,13 +423,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'overlay_bg', [
-                'label' => __('Overlay background', DCE_TEXTDOMAIN),
+                'label' => __('Overlay background', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => 'rgba(0, 0, 0, 0.5)',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-overlay:hover' => 'background-color: {{VALUE}};',
                 ]
@@ -446,13 +434,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'label_color', [
-                'label' => __('Labels color', DCE_TEXTDOMAIN),
+                'label' => __('Labels color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#fff',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-before-label:before, {{WRAPPER}} .twentytwenty-after-label:before' => 'color: {{VALUE}};',
                 ]
@@ -460,13 +445,10 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'overlay_label_bg', [
-                'label' => __('Overlay label bg', DCE_TEXTDOMAIN),
+                'label' => __('Overlay label bg', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => 'rgba(#fff, .2)',
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .twentytwenty-before-label:before, {{WRAPPER}} .twentytwenty-after-label:before' => 'background-color: {{VALUE}};',
                 ]
@@ -475,7 +457,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         $this->add_control(
           'overlay_label_padding',
           [
-             'label' => __( 'Overlay label padding', DCE_TEXTDOMAIN ),
+             'label' => __( 'Overlay label padding', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::DIMENSIONS,
              'size_units' => [ 'px', '%', 'em' ],
              'selectors' => [
@@ -485,7 +467,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'label_radius', [
-                'label' => __('Labels radius', DCE_TEXTDOMAIN),
+                'label' => __('Labels radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 2,
@@ -507,7 +489,7 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
             Group_Control_Typography::get_type(), [
                 'name' => 'labels_typography',
                 'label' => 'Labels typography',
-                'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+                
                 'selector' => '{{WRAPPER}} .twentytwenty-before-label:before, {{WRAPPER}} .twentytwenty-after-label:before',
             ]
         );
@@ -530,8 +512,8 @@ class DCE_Widget_TwentyTwenty extends DCE_Widget_Prototype {
         return;
 
       echo '<div id="container-afterbefore" class="afterbefore-container">';
-      echo '<img src="'.__( $settings['before_image']['url'], DCE_TEXTDOMAIN.'_texts' ).'" />';
-      echo '<img src="'.__( $settings['after_image']['url'], DCE_TEXTDOMAIN.'_texts' ).'" />';
+      echo '<img src="'.__( $settings['before_image']['url'], 'dynamic-content-for-elementor'.'_texts' ).'" />';
+      echo '<img src="'.__( $settings['after_image']['url'], 'dynamic-content-for-elementor'.'_texts' ).'" />';
       echo '</div>';
         
     }

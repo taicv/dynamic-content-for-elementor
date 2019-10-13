@@ -23,7 +23,7 @@ class DCE_Widget_Woo_Stock extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('Stock', DCE_TEXTDOMAIN);
+        return __('Stock', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -39,7 +39,7 @@ class DCE_Widget_Woo_Stock extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         

@@ -63,7 +63,7 @@
 		var requestId = undefined;
 
 		TweenMax.set(scroller.target, {
-		  rotation: 0.01,
+		  //rotation: 0.01,
 		  force3D: true
 		});
 			
@@ -81,12 +81,12 @@
 		TweenMax.set(scroller.viewport, {
 												  overflow: 'hidden',
 												  position: 'fixed',
-												  height: '100%',
-												  width: '100%',
+												  //height: '100%',
+												  //width: '100%',
 												  top: 0,
 												  left: 0,
-												  right: 0,
-												  bottom: 0,
+												  //right: 0,
+												  //bottom: 0,
 												});
 		 updateScroller();  
 		 window.focus();

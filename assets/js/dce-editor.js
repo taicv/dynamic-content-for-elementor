@@ -52,7 +52,36 @@ function dce_get_setting_name(einput) {
     }
     return einput.data('setting');
 }
+function dce_toBase64(url, callback) {
+    var img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = function () {
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        canvas.height = this.height;
+        canvas.width = this.width;
+        ctx.drawImage(this, 0, 0);
 
+        var dataURL = canvas.toDataURL("image/png");
+        callback(dataURL);
+
+        canvas = null;
+      };
+      img.src = url;
+}
+function dce_getimageSizes(url, callback) {
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () {
+        var sizes = {};
+        sizes.height = this.height;
+        sizes.width = this.width;
+        sizes.coef =  sizes.height / sizes.width;     
+        callback(sizes);
+
+      };
+      img.src = url;
+}
 /*
 function dce_popup_toggle(cid, navigator) {
     var settings = elementorFrontend.config.elements.data[cid].attributes;
@@ -101,7 +130,10 @@ jQuery(window).load(function() {
 });
 
 jQuery(document).ready(function() {
-
+    
+    jQuery(document).on('mousedown','.elementor-control-show_points',function(e){
+        console.log(e);
+    });
     jQuery(document).on('mousedown','.elementor-control-repeater_shape_path .elementor-repeater-fields, .elementor-control-repeater_shape_polyline .elementor-repeater-fields',function(){
         var repeater_index = $(this).index();
         //alert('shape'+repeater_index);
@@ -160,7 +192,7 @@ jQuery(document).ready(function() {
             //tagSettings['value'] = tagValue;
             //console.log(tagSettings);
             tagSettings = encodeURIComponent(JSON.stringify(tagSettings) || {});
-            var settingValue = '[elementor-tag id="' + eid + '" name="post-id" settings="'+ tagSettings +'"]';
+            var settingValue = '[elementor-tag id="' + eid + '" name="dce-token" settings="'+ tagSettings +'"]';
             
             var dynamicSettings = {};        
             if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__) {    
@@ -187,7 +219,8 @@ jQuery(document).ready(function() {
     });
 
 });
-jQuery(window).on( 'load', function() { 
+*/
+/*jQuery(window).on( 'load', function() { 
     setInterval(function(){
         jQuery('.elementor-control-dynamic.elementor-control-dynamic-value').each(function(){
             var tagInput = jQuery(this).find('.elementor-control-tag-area').first();
@@ -206,8 +239,8 @@ jQuery(window).on( 'load', function() {
             }
         });
     }, 1000);
-});
-*/
+});*/
+
 
 // FILEBROWSER
 jQuery(window).on( 'load', function() {     
@@ -249,4 +282,108 @@ jQuery(window).on( 'load', function() {
             jQuery(this).select2();
         });
     }, 1000);
+});
+
+
+/******************************************************************************/
+
+jQuery(window).on('elementor:init', function () {
+// Query Control
+
+    var DCEControlQuery = elementor.modules.controls.Select2.extend({
+
+        cache: null,
+        isTitlesReceived: false,
+
+        getSelect2Placeholder: function getSelect2Placeholder() {
+            var self = this;
+            return {
+                id: '',
+                text: self.model.get('placeholder'), //'All',
+            };
+        },
+
+        getSelect2DefaultOptions: function getSelect2DefaultOptions() {
+            var self = this;
+
+            return jQuery.extend(elementor.modules.controls.Select2.prototype.getSelect2DefaultOptions.apply(this, arguments), {
+                ajax: {
+                    transport: function transport(params, success, failure) {
+                        var data = {
+                            q: params.data.q,
+                            query_type: self.model.get('query_type'),
+                            object_type: self.model.get('object_type'),
+                        };
+
+                        return elementorCommon.ajax.addRequest('dce_query_control_filter_autocomplete', {
+                            data: data,
+                            success: success,
+                            error: failure,
+                        });
+                    },
+                    data: function data(params) {
+                        return {
+                            q: params.term,
+                            page: params.page,
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function escapeMarkup(markup) {
+                    return markup;
+                },
+                minimumInputLength: 1
+            });
+        },
+
+        getValueTitles: function getValueTitles() {
+            var self = this,
+                    ids = this.getControlValue(),
+                    queryType = this.model.get('query_type');
+            objectType = this.model.get('object_type');
+
+            if (!ids || !queryType)
+                return;
+
+            if (!_.isArray(ids)) {
+                ids = [ids];
+            }
+
+            elementorCommon.ajax.loadObjects({
+                action: 'dce_query_control_value_titles',
+                ids: ids,
+                data: {
+                    query_type: queryType,
+                    object_type: objectType,
+                    unique_id: '' + self.cid + queryType,
+                },
+                success: function success(data) {
+                    self.isTitlesReceived = true;
+                    self.model.set('options', data);
+                    self.render();
+                },
+                before: function before() {
+                    self.addSpinner();
+                },
+            });
+        },
+
+        addSpinner: function addSpinner() {
+            this.ui.select.prop('disabled', true);
+            this.$el.find('.elementor-control-title').after('<span class="elementor-control-spinner dce-control-spinner">&nbsp;<i class="fa fa-spinner fa-spin"></i>&nbsp;</span>');
+        },
+
+        onReady: function onReady() {
+            setTimeout(elementor.modules.controls.Select2.prototype.onReady.bind(this));
+
+            if (!this.isTitlesReceived) {
+                this.getValueTitles();
+            }
+        }
+
+    });
+
+    // Add Control Handlers
+    elementor.addControlView('ooo_query', DCEControlQuery);
+
 });

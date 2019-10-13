@@ -15,7 +15,7 @@
 		$scope.find('.dce-modalwindow-section').on('click','[data-type="modal-trigger"]', function(){
 			var actionBtn = $(this),
 				scaleValue = retrieveScale(actionBtn.next('.cd-modal-bg'));
-				larghezza = $(this).outerWidth(),
+				larghezza = $(this).outerWidth();
 				altezza = $(this).outerHeight();
 				paddingL = elementSettings.fmw_padding.left;
 				paddingR = elementSettings.fmw_padding.right;

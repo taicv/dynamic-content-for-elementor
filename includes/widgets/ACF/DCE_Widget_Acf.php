@@ -2,8 +2,6 @@
 namespace DynamicContentForElementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Image_Size;
@@ -41,10 +39,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('ACF Fields', DCE_TEXTDOMAIN);
+        return __('ACF Fields', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Add a customized field realized with Advanced Custom Fields and check its features whether it is: text, text area, select, image or embed video', DCE_TEXTDOMAIN);
+        return __('Add a customized field realized with Advanced Custom Fields and check its features whether it is: text, text area, select, image or embed video', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/acf-fields/';
@@ -69,15 +67,16 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ********************************************************************************* Section BASE
         $this->start_controls_section(
             'section_content', [
-                'label' => __('ACF', DCE_TEXTDOMAIN)
+                'label' => __('ACF', 'dynamic-content-for-elementor')
             ]
         );
         $this->add_control(
             'acf_field_list', [
-                'label' => __('ACF Fields List', DCE_TEXTDOMAIN),
+                'label' => __('ACF Fields List', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
+                'label_block' => true,
                 //'options' => $this->get_acf_field(),
-                'groups' => DCE_Helper::get_all_acf(true),
+                'groups' => DCE_Helper::get_acf_fields('dyncontel-acf', true),
                 'default' => 'Select the Field',
                 /* 'condition' => [
                         'acf_group_list' => '',
@@ -86,48 +85,41 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_type', [
-                'label' => __('ACF type of field', DCE_TEXTDOMAIN),
+                'label' => __('ACF type of field', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'empty' => __('Empty', DCE_TEXTDOMAIN),
-                    'text' => __('Text', DCE_TEXTDOMAIN),
-                    'wysiwyg' => __('Wysiwyg Text Content', DCE_TEXTDOMAIN),
-                    'textarea' => __('TextArea', DCE_TEXTDOMAIN),
-                    'date' => __('Date', DCE_TEXTDOMAIN),
-                    'number' => __('Number', DCE_TEXTDOMAIN),
-                    'url' => __('Url', DCE_TEXTDOMAIN),
-                    'select' => __('Select', DCE_TEXTDOMAIN),
-                    'image' => __('Image', DCE_TEXTDOMAIN),
-                    'video' => __('Video oembed', DCE_TEXTDOMAIN),
-                    //'audio' => __( 'Audio', DCE_TEXTDOMAIN ),
-                    //'file' => __( 'File', DCE_TEXTDOMAIN ),
-                    //'map' => __( 'Map', DCE_TEXTDOMAIN ),
-                    //'gallery' => __( 'Gallery', DCE_TEXTDOMAIN ),
-                    //'terms-taxonomy' => __( 'Terms Taxonomy', DCE_TEXTDOMAIN )
+                    'empty' => __('Empty', 'dynamic-content-for-elementor'),
+                    'text' => __('Text', 'dynamic-content-for-elementor'),
+                    'wysiwyg' => __('Wysiwyg Text Content', 'dynamic-content-for-elementor'),
+                    'textarea' => __('TextArea', 'dynamic-content-for-elementor'),
+                    'date' => __('Date', 'dynamic-content-for-elementor'),
+                    'number' => __('Number', 'dynamic-content-for-elementor'),
+                    'url' => __('Url', 'dynamic-content-for-elementor'),
+                    'select' => __('Select', 'dynamic-content-for-elementor'),
+                    'image' => __('Image', 'dynamic-content-for-elementor'),
+                    'video' => __('Video oembed', 'dynamic-content-for-elementor'),
+                    //'audio' => __( 'Audio', 'dynamic-content-for-elementor' ),
+                    //'file' => __( 'File', 'dynamic-content-for-elementor' ),
+                    //'map' => __( 'Map', 'dynamic-content-for-elementor' ),
+                    //'gallery' => __( 'Gallery', 'dynamic-content-for-elementor' ),
+                    //'terms-taxonomy' => __( 'Terms Taxonomy', 'dynamic-content-for-elementor' )
                 ],
             'default' => 'text',
             ]
         );
         $this->add_control(
             'acf_text_before', [
-                'label' => __('Text before', DCE_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'default' => '',
-            ]
-        );
-        $this->add_control(
-            'acf_text_after', [
-                'label' => __('Text after', DCE_TEXTDOMAIN),
+                'label' => __('Text before', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );
         $this->add_responsive_control(
             'acf_text_before_block', [
-                'label' => __('List or Block', DCE_TEXTDOMAIN),
+                'label' => __('Before - Inline or Block', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('List', DCE_TEXTDOMAIN),
-                'label_on' => __('Block', DCE_TEXTDOMAIN),
+                'label_off' => __('Inline', 'dynamic-content-for-elementor'),
+                'label_on' => __('Block', 'dynamic-content-for-elementor'),
                 'return_value' => 'block',
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-before' => 'display: {{VALUE}};',
@@ -137,12 +129,19 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 ]
             ]
         );
+        $this->add_control(
+            'acf_text_after', [
+                'label' => __('Text after', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'default' => '',
+            ]
+        );
         $this->add_responsive_control(
             'acf_text_after_block', [
-                'label' => __('List or Block', DCE_TEXTDOMAIN),
+                'label' => __('After - List or Block', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('List', DCE_TEXTDOMAIN),
-                'label_on' => __('Block', DCE_TEXTDOMAIN),
+                'label_off' => __('List', 'dynamic-content-for-elementor'),
+                'label_on' => __('Block', 'dynamic-content-for-elementor'),
                 'return_value' => 'block',
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-after' => 'display: {{VALUE}};',
@@ -164,7 +163,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 'prefix_class' => 'elementor-drop-cap-',
                 'frontend_available' => true,
                 'condition' => [
-                    'acf_type' => ['text', 'textarea'],
+                    'acf_type' => ['text', 'textarea'], //wysiwyg
                 ]
             ]
         );
@@ -180,18 +179,18 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'div',
                 'condition' => [
@@ -200,51 +199,19 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             ]
         );
 
-        $this->add_responsive_control(
-            'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
-                    ],
-                    'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                    'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-justify',
-                    ],
-                ],
-                'default' => '',
-                'prefix_class' => 'align-dce-',
-                'selectors' => [
-                    '{{WRAPPER}}' => 'text-align: {{VALUE}};',
-                ],
-                'condition' => [
-                   'acf_type!' => 'empty',
-                ],
-            ]
-        );
         
         // Link
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
-                    'post_url' => __('Post URL', DCE_TEXTDOMAIN),
-                    'acf_url' => __('ACF URL', DCE_TEXTDOMAIN),
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
+                    'post_url' => __('Post URL', 'dynamic-content-for-elementor'),
+                    'acf_url' => __('ACF URL', 'dynamic-content-for-elementor'),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
                 'condition' => [
                     'acf_type!' => 'empty',
@@ -253,7 +220,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_field_url', [
-                'label' => __('ACF Field Url', DCE_TEXTDOMAIN),
+                'label' => __('ACF Field Url', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'groups' => DCE_Helper::get_acf_field_urlfile(true),
                 //'options' => $this->get_acf_field_urlfile(),
@@ -266,10 +233,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_field_url_target', [
-                'label' => __('Blank', DCE_TEXTDOMAIN),
+                'label' => __('Blank', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'condition' => [
                     //'acf_type' => ['url', 'file'],
                     'link_to' => 'acf_url',
@@ -278,9 +245,9 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'default' => [
                     'url' => '',
                 ],
@@ -294,7 +261,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Image_Size::get_type(), [
                 'name' => 'size',
-                'label' => __('Image Size', DCE_TEXTDOMAIN),
+                'label' => __('Image Size', 'dynamic-content-for-elementor'),
                 'default' => 'large',
                 'condition' => [
                     'acf_type' => ['image'],
@@ -303,19 +270,22 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'use_bg', [
-                'label' => __('Background', DCE_TEXTDOMAIN),
+                'label' => __('Background', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     '1' => [
-                        'title' => __('Yes', DCE_TEXTDOMAIN),
+                        'title' => __('Yes', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-check',
                     ],
                     '0' => [
-                        'title' => __('No', DCE_TEXTDOMAIN),
+                        'title' => __('No', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-ban',
                     ]
                 ],
+                'render_type' => 'template',
                 'default' => '0',
+                'separator' => 'before',
+                'prefix_class' => 'use-bg',
                 'condition' => [
                         'acf_type' => ['image'],
                     ]
@@ -324,20 +294,20 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_control(
           'bg_position',
           [
-             'label'       => __( 'Background position', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Background position', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT,
              'default' => 'top center',
              'options' => [
-                '' => __( 'Default', DCE_TEXTDOMAIN ),
-                'top left' => __( 'Top Left', DCE_TEXTDOMAIN ),
-                'top center' => __( 'Top Center', DCE_TEXTDOMAIN ),
-                'top right' => __( 'Top Right', DCE_TEXTDOMAIN ),
-                'center left' => __( 'Center Left', DCE_TEXTDOMAIN ),
-                'center center' => __( 'Center Center', DCE_TEXTDOMAIN ),
-                'center right' => __( 'Center Right', DCE_TEXTDOMAIN ),
-                'bottom left' => __( 'Bottom Left', DCE_TEXTDOMAIN ),
-                'bottom center' => __( 'Bottom Center', DCE_TEXTDOMAIN ),
-                'bottom right' => __( 'Bottom Right', DCE_TEXTDOMAIN ),
+                '' => __( 'Default', 'dynamic-content-for-elementor' ),
+                'top left' => __( 'Top Left', 'dynamic-content-for-elementor' ),
+                'top center' => __( 'Top Center', 'dynamic-content-for-elementor' ),
+                'top right' => __( 'Top Right', 'dynamic-content-for-elementor' ),
+                'center left' => __( 'Center Left', 'dynamic-content-for-elementor' ),
+                'center center' => __( 'Center Center', 'dynamic-content-for-elementor' ),
+                'center right' => __( 'Center Right', 'dynamic-content-for-elementor' ),
+                'bottom left' => __( 'Bottom Left', 'dynamic-content-for-elementor' ),
+                'bottom center' => __( 'Bottom Center', 'dynamic-content-for-elementor' ),
+                'bottom right' => __( 'Bottom Right', 'dynamic-content-for-elementor' ),
             ],
              'selectors' => [
                 '{{WRAPPER}} .dynamic-content-for-elementor-acfimage-bg' => 'background-position: {{VALUE}};',
@@ -348,28 +318,9 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 ],
           ]
         );
-        $this->add_control(
-            'bg_extend',
-            [
-                'label' => __( 'Extend Background', DCE_TEXTDOMAIN ),
-                'type' => Controls_Manager::SWITCHER,
-                'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
-                'return_value' => 'yes',
-                'condition' => [
-                    'use_bg' => '1',
-                ],
-                'prefix_class' => 'extendbg-',
-                'condition' => [
-                    'acf_type' => ['image'],
-                    'use_bg' => '1',
-                ],
-            ]
-        );
         $this->add_responsive_control(
             'height', [
-                'label' => __('Minimus Height', DCE_TEXTDOMAIN),
+                'label' => __('Bg Minimus Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 200,
@@ -406,12 +357,70 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 ],
             ]
         );
+        $this->add_responsive_control(
+            'bg_width', [
+                'label' => __('Bg width', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => '',
+                    'unit' => 'px',
+                ],
+                'tablet_default' => [
+                    'unit' => 'px',
+                ],
+                'mobile_default' => [
+                    'unit' => 'px',
+                ],
+                'size_units' => [ 'px', '%', 'vw'],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 1,
+                        'max' => 1000,
+                    ],
+                    'vh' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .dynamic-content-for-elementor-acfimage-bg' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'acf_type' => ['image'],
+                   'use_bg' => '1',
+                    /*'bg_extend' => ''*/
+                ],
+            ]
+        );
+        $this->add_control(
+            'bg_extend',
+            [
+                'label' => __( 'Extend Background', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => '',
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
+                'return_value' => 'yes',
+                'condition' => [
+                    'use_bg' => '1',
+                ],
+                'prefix_class' => 'extendbg-',
+                'condition' => [
+                    'acf_type' => ['image'],
+                    'use_bg' => '1',
+                ],
+            ]
+        );
         $this->end_controls_section();
 
         // ------------------------------------------------------------ [ OVERLAY Image ]
         $this->start_controls_section(
             'section_overlay', [
-                 'label' => __('Overlay Image', DCE_TEXTDOMAIN),
+                 'label' => __('Overlay Image', 'dynamic-content-for-elementor'),
                  'tab' => Controls_Manager::TAB_CONTENT,
                  'condition' => [
                     'acf_type' => [ 'image'],
@@ -421,7 +430,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_control(
             'overlay_heading',
             [
-                'label' => __( 'Overlay', DCE_TEXTDOMAIN ),
+                'label' => __( 'Overlay', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -431,11 +440,11 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );$this->add_control(
             'use_overlay',
             [
-                'label' => __( 'Overlay Image', DCE_TEXTDOMAIN ),
+                'label' => __( 'Overlay Image', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Show', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'Hide', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Show', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'Hide', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
 
             ]
@@ -455,7 +464,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ------------------------------------------------------------ [ SECTION Date ]
         $this->start_controls_section(
             'section_datetime', [
-                 'label' => __('Date time', DCE_TEXTDOMAIN),
+                 'label' => __('Date time', 'dynamic-content-for-elementor'),
                  'tab' => Controls_Manager::TAB_CONTENT,
                  'condition' => [
                     'acf_type' => 'date',
@@ -464,7 +473,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
                 'date_format', [
-            'label' => __('Format date', DCE_TEXTDOMAIN),
+            'label' => __('Format date', 'dynamic-content-for-elementor'),
             'description' => '<a target="_blank" href="https://www.php.net/manual/en/function.date.php">' . __('Use standard PHP format character') .'</a>',
             'type' => Controls_Manager::TEXT,
             'default' => 'F j, Y, g:i a',
@@ -475,7 +484,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ------------------------------------------------------------ [ SECTION Filters Image ]
         $this->start_controls_section(
             'section_filters', [
-                 'label' => __('Filters Image', DCE_TEXTDOMAIN),
+                 'label' => __('Filters Image', 'dynamic-content-for-elementor'),
                  'tab' => Controls_Manager::TAB_CONTENT,
                  'condition' => [
                     'acf_type' => [ 'image'],
@@ -494,7 +503,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_control(
             'blend_mode',
             [
-                'label' => __( 'Blend Mode', DCE_TEXTDOMAIN ),
+                'label' => __( 'Blend Mode', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     '' => __( 'Normal', 'elementor' ),
@@ -521,9 +530,54 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         
         // ********************************************************************************* Section STYLE
+
+
         $this->start_controls_section(
             'section_style', [
-                'label' => __('STYLE', DCE_TEXTDOMAIN),
+                'label' => __('Style', 'dynamic-content-for-elementor'),
+            'tab' => Controls_Manager::TAB_STYLE,
+            
+            ]
+        );
+        $this->add_responsive_control(
+            'align', [
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'right' => [
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                    'justify' => [
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-align-justify',
+                    ],
+                ],
+                'default' => '',
+                'prefix_class' => 'align-dce-',
+                'selectors' => [
+                    '{{WRAPPER}}' => 'text-align: {{VALUE}};',
+                ],
+                /*'condition' => [
+                   'acf_type!' => 'empty',
+                ],*/
+            ]
+        );
+        $this->end_controls_section();
+
+
+        /* ------------------ Style Align  ------------ */
+        $this->start_controls_section(
+            'section_style_text', [
+                'label' => __('Text', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
                     'acf_type' => ['text', 'date', 'textarea', 'select', 'wysiwyg', 'number','empty'],
@@ -531,22 +585,12 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             ]
         );
 
-
+        
         /* ------------------ Text TextArea Select ------------ */
-        $this->add_control(
-            'tx_heading',
-            [
-                'label' => __( 'Text', DCE_TEXTDOMAIN ),
-                'type' => Controls_Manager::HEADING,
-                'separator' => 'before',
-                'condition' => [
-                    'acf_type' => ['text', 'date', 'textarea', 'select', 'wysiwyg', 'number','empty'],
-                ]
-            ]
-        );
+        
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf .edc-acf' => 'color: {{VALUE}};',
@@ -559,7 +603,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'bg_color', [
-                'label' => __('Background Color', DCE_TEXTDOMAIN),
+                'label' => __('Background Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf' => 'background-color: {{VALUE}};',
@@ -572,7 +616,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'acf_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 
@@ -584,7 +628,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'acf_space', [
-                'label' => __('Space', DCE_TEXTDOMAIN),
+                'label' => __('Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 0,
@@ -604,7 +648,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'acf_shift', [
-                'label' => __('Shift', DCE_TEXTDOMAIN),
+                'label' => __('Shift', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -622,7 +666,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_tx',
-                'label' => __('Typography', DCE_TEXTDOMAIN),
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-acf',
                 'condition' => [
                     'acf_type' => ['text', 'date', 'textarea', 'select', 'wysiwyg', 'number','empty'],
@@ -640,7 +684,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_control(
             'txbefore_heading',
             [
-                'label' => __( 'Text before', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text before', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -650,7 +694,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'tx_before_color', [
-                'label' => __('Text Before Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Before Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-before' => 'color: {{VALUE}};',
@@ -664,7 +708,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_tx_before',
-                'label' => __('Font Before', DCE_TEXTDOMAIN),
+                'label' => __('Font Before', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-before',
                 'condition' => [
                     'acf_text_before!' => '',
@@ -678,7 +722,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_control(
             'txafter_heading',
             [
-                'label' => __( 'Text after', DCE_TEXTDOMAIN ),
+                'label' => __( 'Text after', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -688,7 +732,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'tx_after_color', [
-                'label' => __('Text After Color', DCE_TEXTDOMAIN),
+                'label' => __('Text After Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-after' => 'color: {{VALUE}};',
@@ -702,7 +746,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_tx_after',
-                'label' => __('Font After', DCE_TEXTDOMAIN),
+                'label' => __('Font After', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dynamic-content-for-elementor-acf span.tx-after',
                 'condition' => [
                     'acf_text_after!' => '',
@@ -716,7 +760,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_image', [
-                'label' => __('Image', DCE_TEXTDOMAIN),
+                'label' => __('Image', 'dynamic-content-for-elementor'),
             'tab' => Controls_Manager::TAB_STYLE,
             'condition' => [
                     'acf_type' => ['image'],
@@ -726,7 +770,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ***************** IMAGE
         $this->add_responsive_control(
             'space', [
-                'label' => __('Size (%)', DCE_TEXTDOMAIN),
+                'label' => __('Size (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     
@@ -758,10 +802,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'force_width', [
-                'label' => __('Force Width', DCE_TEXTDOMAIN),
+                'label' => __('Force Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'prefix_class' => 'forcewidth-',
                 'condition' => [
                     'acf_type' => ['image'],
@@ -782,7 +826,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
           );*/
         /*$this->add_responsive_control(
             'opacity', [
-                'label' => __('Opacity (%)', DCE_TEXTDOMAIN),
+                'label' => __('Opacity (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -804,7 +848,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'angle', [
-                'label' => __('Angle (deg)', DCE_TEXTDOMAIN),
+                'label' => __('Angle (deg)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'deg'],
                 'default' => [
@@ -830,7 +874,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'image_border',
-                'label' => __('Image Border', DCE_TEXTDOMAIN),
+                'label' => __('Image Border', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .acf-image',
                 'condition' => [
                     'acf_type' => ['image'],
@@ -839,7 +883,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'image_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -875,7 +919,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_color_hover', [
-                'label' => __('Text Color Hover', DCE_TEXTDOMAIN),
+                'label' => __('Text Color Hover', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf a:hover .edc-acf' => 'color: {{VALUE}};',
@@ -888,7 +932,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'acf_bgcolor_hover', [
-                'label' => __('Background Color Hover', DCE_TEXTDOMAIN),
+                'label' => __('Background Color Hover', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .dynamic-content-for-elementor-acf:hover' => 'background-color: {{VALUE}};',
@@ -900,7 +944,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_bgcolor_overlay_hover', [
-                'label' => __('Background overlay Hover', DCE_TEXTDOMAIN),
+                'label' => __('Background overlay Hover', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -909,7 +953,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             Group_Control_Background::get_type(),
             [
                 'name' => 'overlay_hover_color',
-                'label' => __('Background', DCE_TEXTDOMAIN),
+                'label' => __('Background', 'dynamic-content-for-elementor'),
                 'types' => [ 'classic', 'gradient' ],
                 'selector' => '{{WRAPPER}} .dce-overlay_hover',
                 'separator' => 'after',
@@ -923,7 +967,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // . . . . . . . . . . . . . . . .  Hover ElementorAMINATION
         $this->add_control(
             'hover_animation', [
-                'label' => __('Animation', DCE_TEXTDOMAIN),
+                'label' => __('Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 'condition' => [
                     'link_to!' => 'none',
@@ -936,7 +980,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             DCE_Group_Control_Filters_CSS::get_type(),
             [
                 'name' => 'filters_image_hover',
-                'label' => __('Filters', DCE_TEXTDOMAIN),
+                'label' => __('Filters', 'dynamic-content-for-elementor'),
                 //'selector' => '{{WRAPPER}} a:hover img, {{WRAPPER}} a:hover .dynamic-content-featuredimage-bg',
                 'selector' => '{{WRAPPER}} a:hover .wrap-filters',
                 'condition' => [
@@ -949,14 +993,13 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
        // . . . . . . . . . . . . . . . .  Hover EFFECTS
          $this->add_control(
             'hover_effects', [
-                'label' => __('Effects', DCE_TEXTDOMAIN),
+                'label' => __('Effects', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    '' => __('None', DCE_TEXTDOMAIN),
-                    'zoom' => __('Zoom', DCE_TEXTDOMAIN),
-                    'slow-zoom' => __('Slow Zoom', DCE_TEXTDOMAIN),
+                    '' => __('None', 'dynamic-content-for-elementor'),
+                    'zoom' => __('Zoom', 'dynamic-content-for-elementor'),
+                    'slow-zoom' => __('Slow Zoom', 'dynamic-content-for-elementor'),
                 ],
-                'default' => '',
                 'separator'   => 'before',
                 'prefix_class' => 'hovereffect-',
                 'condition' => [
@@ -972,7 +1015,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_settings_media', [
-                'label' => __('Media Settings', DCE_TEXTDOMAIN),
+                'label' => __('Media Settings', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'acf_type' => ['video', 'audio'],
                 ]
@@ -981,22 +1024,22 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ****** FIELDS ******
         $this->add_control(
             'video_type', [
-                'label' => __('Video Type', DCE_TEXTDOMAIN),
+                'label' => __('Video Type', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'youtube',
                 'options' => [
-                    'youtube' => __('YouTube', DCE_TEXTDOMAIN),
-                    'vimeo' => __('Vimeo', DCE_TEXTDOMAIN),
-                    //'hosted' => __( 'HTML5 Video', DCE_TEXTDOMAIN ),
+                    'youtube' => __('YouTube', 'dynamic-content-for-elementor'),
+                    'vimeo' => __('Vimeo', 'dynamic-content-for-elementor'),
+                    //'hosted' => __( 'HTML5 Video', 'dynamic-content-for-elementor' ),
                 ],
             ]
         );
     /*
         $this->add_control(
             'youtube_link', [
-                'label' => __( 'Youtube Link', DCE_TEXTDOMAIN ),
+                'label' => __( 'Youtube Link', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::TEXT,
-                'placeholder' => __( 'Enter your YouTube link', DCE_TEXTDOMAIN ),
+                'placeholder' => __( 'Enter your YouTube link', 'dynamic-content-for-elementor' ),
                 'default' => 'https://www.youtube.com/watch?v=9uOETcuFjbE',
                 'label_block' => true,
                 'condition' => [
@@ -1007,9 +1050,9 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_link', [
-                'label' => __( 'Vimeo Link', DCE_TEXTDOMAIN ),
+                'label' => __( 'Vimeo Link', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::TEXT,
-                'placeholder' => __( 'Enter your Vimeo link', DCE_TEXTDOMAIN ),
+                'placeholder' => __( 'Enter your Vimeo link', 'dynamic-content-for-elementor' ),
                 'default' => 'https://vimeo.com/170933924',
                 'label_block' => true,
                 'condition' => [
@@ -1021,9 +1064,9 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'hosted_link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
-                'placeholder' => __('Enter your video link', DCE_TEXTDOMAIN),
+                'placeholder' => __('Enter your video link', 'dynamic-content-for-elementor'),
                 'default' => '',
                 'label_block' => true,
                 'condition' => [
@@ -1034,7 +1077,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'aspect_ratio', [
-                'label' => __('Aspect Ratio', DCE_TEXTDOMAIN),
+                'label' => __('Aspect Ratio', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'frontend_available' => true,
                 'options' => [
@@ -1049,7 +1092,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'custom_height', [
-                'label' => __('Custom Height', DCE_TEXTDOMAIN),
+                'label' => __('Custom Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 300,
@@ -1083,7 +1126,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'heading_youtube', [
-                'label' => __('Video Options', DCE_TEXTDOMAIN),
+                'label' => __('Video Options', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -1092,10 +1135,8 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // YouTube
         $this->add_control(
             'yt_autoplay', [
-                'label' => __('Autoplay', DCE_TEXTDOMAIN),
+                'label' => __('Autoplay', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'condition' => [
                     'video_type' => 'youtube',
                 ],
@@ -1103,10 +1144,8 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'yt_loop', [
-                'label' => __('Loop', DCE_TEXTDOMAIN),
+                'label' => __('Loop', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'condition' => [
                     'video_type' => 'youtube',
                 ],
@@ -1114,10 +1153,8 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'yt_mute', [
-                'label' => __('Mute', DCE_TEXTDOMAIN),
+                'label' => __('Mute', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'condition' => [
                     'video_type' => 'youtube',
                 ],
@@ -1125,10 +1162,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'yt_rel', [
-                'label' => __('Suggested Videos', DCE_TEXTDOMAIN),
+                'label' => __('Suggested Videos', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'video_type' => 'youtube',
                 ],
@@ -1137,10 +1174,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'yt_controls', [
-                'label' => __('Player Control', DCE_TEXTDOMAIN),
+                'label' => __('Player Control', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'video_type' => 'youtube',
@@ -1150,10 +1187,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'yt_showinfo', [
-                'label' => __('Player Title & Actions', DCE_TEXTDOMAIN),
+                'label' => __('Player Title & Actions', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'video_type' => 'youtube',
@@ -1164,10 +1201,8 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // Vimeo
         $this->add_control(
             'vimeo_autoplay', [
-                'label' => __('Autoplay', DCE_TEXTDOMAIN),
+                'label' => __('Autoplay', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'condition' => [
                     'video_type' => 'vimeo',
                 ],
@@ -1176,10 +1211,8 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_loop', [
-                'label' => __('Loop', DCE_TEXTDOMAIN),
+                'label' => __('Loop', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
                 'condition' => [
                     'video_type' => 'vimeo',
                 ],
@@ -1188,10 +1221,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_title', [
-                'label' => __('Intro Title', DCE_TEXTDOMAIN),
+                'label' => __('Intro Title', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'video_type' => 'vimeo',
@@ -1201,10 +1234,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_portrait', [
-                'label' => __('Intro Portrait', DCE_TEXTDOMAIN),
+                'label' => __('Intro Portrait', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'video_type' => 'vimeo',
@@ -1214,10 +1247,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_byline', [
-                'label' => __('Intro Byline', DCE_TEXTDOMAIN),
+                'label' => __('Intro Byline', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
                 'default' => 'yes',
                 'condition' => [
                     'video_type' => 'vimeo',
@@ -1227,7 +1260,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'vimeo_color', [
-                'label' => __('Controls Color', DCE_TEXTDOMAIN),
+                'label' => __('Controls Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'condition' => [
@@ -1237,7 +1270,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'view', [
-                'label' => __('View', DCE_TEXTDOMAIN),
+                'label' => __('View', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HIDDEN,
                 'default' => 'youtube',
             ]
@@ -1247,7 +1280,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ********************************************************************************* Section VIDEO Image Overlay
         $this->start_controls_section(
             'section_image_overlay', [
-                'label' => __('Image Overlay', DCE_TEXTDOMAIN),
+                'label' => __('Image Overlay', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'acf_type' => 'video',
                 ],
@@ -1257,20 +1290,20 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'show_image_overlay', [
-                'label' => __('Enable Image Overlay', DCE_TEXTDOMAIN),
+                'label' => __('Enable Image Overlay', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('Hide', DCE_TEXTDOMAIN),
-                'label_on' => __('Show', DCE_TEXTDOMAIN),
+                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Show', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'image_overlay_type', [
-                'label' => __('Image Type', DCE_TEXTDOMAIN),
+                'label' => __('Image Type', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'custom',
                 'options' => [
-                    'custom' => __('Custom', DCE_TEXTDOMAIN),
-                    'acf' => __('ACF', DCE_TEXTDOMAIN),
+                    'custom' => __('Custom', 'dynamic-content-for-elementor'),
+                    'acf' => __('ACF', 'dynamic-content-for-elementor'),
                 ],
                 'condition' => [
                     'show_image_overlay' => 'yes',
@@ -1279,10 +1312,10 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'image_overlay_acf', [
-                'label' => __('Field Image', DCE_TEXTDOMAIN),
+                'label' => __('Field Image', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 //'options' => $this->get_acf_field_image(),
-                'groups' => DCE_Helper::get_all_acf(true, 'image'),
+                'groups' => DCE_Helper::get_acf_fields('image', true),
                 'default' => 'Select the Field',
                 'condition' => [
                     'image_overlay_type' => 'acf',
@@ -1292,7 +1325,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'image_overlay', [
-                'label' => __('Image', DCE_TEXTDOMAIN),
+                'label' => __('Image', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::MEDIA,
                 'default' => [
                     'url' => Utils::get_placeholder_image_src(),
@@ -1306,12 +1339,12 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'show_play_icon', [
-                'label' => __('Play Icon', DCE_TEXTDOMAIN),
+                'label' => __('Play Icon', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'yes',
                 'options' => [
-                    'yes' => __('Yes', DCE_TEXTDOMAIN),
-                    'no' => __('No', DCE_TEXTDOMAIN),
+                    'yes' => __('Yes', 'dynamic-content-for-elementor'),
+                    'no' => __('No', 'dynamic-content-for-elementor'),
                 ],
                 'condition' => [
                     'show_image_overlay' => 'yes',
@@ -1322,11 +1355,9 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'lightbox', [
-                'label' => __('Lightbox', DCE_TEXTDOMAIN),
+                'label' => __('Lightbox', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'frontend_available' => true,
-                'label_off' => __('Off', DCE_TEXTDOMAIN),
-                'label_on' => __('On', DCE_TEXTDOMAIN),
                 'condition' => [
                     'show_image_overlay' => 'yes',
                     'image_overlay[url]!' => '',
@@ -1337,7 +1368,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'lightbox_color', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '#elementor-video-modal-{{ID}}' => 'background-color: {{VALUE}};',
@@ -1352,7 +1383,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'lightbox_content_width', [
-                'label' => __('Content Width', DCE_TEXTDOMAIN),
+                'label' => __('Content Width', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'units' => [ '%'],
                 'default' => [
@@ -1376,13 +1407,13 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'lightbox_content_position', [
-                'label' => __('Content Position', DCE_TEXTDOMAIN),
+                'label' => __('Content Position', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'center center',
                 'frontend_available' => true,
                 'options' => [
-                    'center center' => __('Center', DCE_TEXTDOMAIN),
-                    'center top' => __('Top', DCE_TEXTDOMAIN),
+                    'center center' => __('Center', 'dynamic-content-for-elementor'),
+                    'center top' => __('Top', 'dynamic-content-for-elementor'),
                 ],
                 'condition' => [
                     'show_image_overlay' => 'yes',
@@ -1395,7 +1426,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->add_control(
             'lightbox_content_animation', [
-                'label' => __('Entrance Animation', DCE_TEXTDOMAIN),
+                'label' => __('Entrance Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::ANIMATION,
                 'default' => '',
                 'frontend_available' => true,
@@ -1451,10 +1482,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                     '{{WRAPPER}}.elementor-drop-cap-view-stacked .elementor-drop-cap' => 'background-color: {{VALUE}};',
                     '{{WRAPPER}}.elementor-drop-cap-view-framed .elementor-drop-cap, {{WRAPPER}}.elementor-drop-cap-view-default .elementor-drop-cap' => 'color: {{VALUE}}; border-color: {{VALUE}};',
                 ],
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'condition' => [
                     'drop_cap' => 'yes',
                 ],
@@ -1569,7 +1597,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // **************************************** Section TERMS & TAXONOMY
         /*$this->start_controls_section(
             'section_settings_termtax', [
-                'label' => __('Terms & Taxonomy Settings', DCE_TEXTDOMAIN),
+                'label' => __('Terms & Taxonomy Settings', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'acf_type' => ['terms-taxonomy'],
                 ]
@@ -1581,7 +1609,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic Content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic Content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
 
             ]
@@ -1589,18 +1617,18 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
          $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               
               //'options' => DCE_Helper::get_all_posts(),
@@ -1610,6 +1638,19 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         $this->end_controls_section();
     }
@@ -1623,9 +1664,12 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $id_page = $dce_data['id'];
         $type_page = $dce_data['type'];
         $global_is = $dce_data['is'];
+        $is_block = $dce_data['block'];
         // ------------------------------------------
+        
         //
         //echo $id_page;
+        // è probabile che sto passaggio non serve a una mazza perché (get_acffield_filtred) fa gia la stessa cosa.
         if (is_archive()) {
             if( $global_is != 'archive' && $global_is != 'user' &&  $global_is != 'singular' ){
                 $id_page = get_queried_object();
@@ -1664,7 +1708,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
         if ( $typeField == 'image' || $typeField == 'image_url' ){
             
-            $imageField = $this->get_acffield_filtred($idFields,$id_page);
+            $imageField = DCE_Helper::get_acffield_filtred($idFields,$id_page);
             
             //echo $idFields.' ... '.$typeField.': '.$imageField;
             if( is_string($imageField) ){
@@ -1696,11 +1740,11 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             //$acfResult = get_field( $idFields , $id_page);
            
             if( $typeField == 'select' ){
-                $acfResult = __($this->get_acffield_filtred($idFields,$id_page), DCE_TEXTDOMAIN.'_texts');
+                $acfResult = __(DCE_Helper::get_acffield_filtred($idFields,$id_page), 'dynamic-content-for-elementor'.'_texts');
             }else if($typeField == 'wysiwyg'){
-                $acfResult = wpautop($this->get_acffield_filtred($idFields,$id_page));
+                $acfResult = wpautop(DCE_Helper::get_acffield_filtred($idFields,$id_page));
             }else{
-                $acfResult = $this->get_acffield_filtred($idFields,$id_page);
+                $acfResult = DCE_Helper::get_acffield_filtred($idFields,$id_page);
             }
 
             
@@ -1725,26 +1769,35 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         }else if( $typeField == 'url' || 
                   $typeField == 'file'){
             
-            $acfResult = $this->get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page);
+            $acfResult = DCE_Helper::get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page);
 
             // Default ;-)
             if( $type_page == 'elementor_library' )
             if( $acfResult == '' ) $acfResult = '#';
 
         }else if($typeField == 'date'){
-            $acfResult = $this->get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page);
-            
+            $acfResult = DCE_Helper::get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page);
+            // zzz
             
             if( $acfResult == '' ){
                 $acfResult = '1972/01/12 00:00:00';
             }else{
 
                 $dataDate = get_field_object($idFields);
+                $dataDate = DCE_Helper::get_acf_field_settings($idFields);
+                //var_dump($dataDate);
                 $format_display = $settings['date_format'];
-                $timestamp = strtotime($acfResult);
+                if (!$format_display) {
+                    $format_display = $dataDate['return_format'];
+                }
                 $d = \DateTime::createFromFormat($dataDate['return_format'], $acfResult);
-                $acfResult = date($format_display, $timestamp);
-                //$acfResult = '<span class="acfdate">' . $d->format($settings['date_format']) . '</span>';
+                if ($d) {
+                    $acfResult = $d->format($format_display);
+                } else {
+                    $timestamp = strtotime($acfResult);
+                    $acfResult = date_i18n($format_display, $timestamp);
+                }
+                
             }
 
         }else if($typeField == 'image'){
@@ -1813,7 +1866,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             /*if ( empty( $imageField ) )
             return;*/
             //
-            // var_dump($imageField);
+            //var_dump($imageField);
             //
 
             $settings['html_tag'] = 'div';
@@ -1853,7 +1906,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             
 
         }else if($typeField == 'video'){
-            $videoField = $this->get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page, false);
+            $videoField = DCE_Helper::get_acffield_filtred($idFields,$id_page); //get_field( $idFields , $id_page, false);
 
             // Default ;-)
             if( $type_page == 'elementor_library' )
@@ -1906,7 +1959,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                         }else if( $settings['image_overlay_type'] == 'acf' ){
                             echo 'sono acf image';
                             //$immagine_acf_overlay = get_field( $settings['image_overlay_acf'], $id_page);
-                            $immagine_acf_overlay = $this->get_acffield_filtred( $settings['image_overlay_acf'], $id_page);
+                            $immagine_acf_overlay = DCE_Helper::get_acffield_filtred( $settings['image_overlay_acf'], $id_page);
                             if( is_string($immagine_acf_overlay) ){
                                 $immagine_acf_overlay = $immagine_acf_overlay;
                                 
@@ -1959,7 +2012,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
             case 'acf_url' :
                 //echo get_field( $settings['acf_field_url'] , $id_page);
-                if ( ! empty( $settings['acf_field_url'] ) ) {
+                if ( !empty( $settings['acf_field_url'] ) ) {
                     $link = esc_url( get_field( $settings['acf_field_url'] , $id_page) );
                     //$link = get_post_meta( $id_page, $settings['acf_field_url'], true );      
                     $target = $settings['acf_field_url_target'] ? 'target="_blank"' : '';
@@ -1987,15 +2040,18 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $html = '';
 
         $animation_class = ! empty( $settings['hover_animation'] ) ? 'elementor-animation-' . $settings['hover_animation'] : '';
-        
+        //echo $settings['acf_field_url'];
         // ------------------------
-        if( $acfResult != '' || $typeField == 'empty'){ 
+        if( $acfResult != '' || $typeField == 'empty'){
+            
+            //$acfResult = do_shortcode($acfResult); // if text contain an extra shortcode
+            $acfResult = \DynamicContentForElementor\DCE_Tokens::do_tokens($acfResult); // if text contain tokens
 
             if($typeField != 'empty') $acfResult = '<div class="edc-acf">'.$acfResult.'</div>';
             $tagField = 'div';
             if($settings['html_tag']) $tagField = $settings['html_tag'];
             $html = sprintf( '<%1$s class="dynamic-content-for-elementor-acf %2$s">', $tagField, $animation_class );
-            if($settings['acf_text_before'] != "" || $settings['acf_text_after'] != "") $acfResult = '<span class="tx-before">'.__($settings['acf_text_before'], DCE_TEXTDOMAIN.'_texts').'</span>'.$acfResult.'<span class="tx-after">'.__($settings['acf_text_after'], DCE_TEXTDOMAIN.'_texts').'</span>';
+            if($settings['acf_text_before'] != "" || $settings['acf_text_after'] != "") $acfResult = '<span class="tx-before">'.__($settings['acf_text_before'], 'dynamic-content-for-elementor'.'_texts').'</span>'.$acfResult.'<span class="tx-after">'.__($settings['acf_text_after'], 'dynamic-content-for-elementor'.'_texts').'</span>';
             if ( $link ) {
                 //echo $link;
                 $html .= sprintf( '<a href="%1$s" %2$s>%3$s</a>', $link, $target, $acfResult );
@@ -2014,29 +2070,6 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
     protected function _content_template() {
 
-    }
-    // ************************************** ADVANCED CUSTOM FIELDS
-    /**
-     * Get ACF - field e group
-     */
-    protected function get_acffield_filtred( $idFields,$id_page,$isOption = null ) {
-
-        if (is_post_type_archive() || is_tax() || is_category() || is_tag() ) {
-                
-                $term = get_queried_object();
-                $theField = get_field($idFields, $term);
-
-            }else if( is_author() ){
-
-                $author_id = get_the_author_meta('ID');
-                $theField = get_field($idFields, 'user_'. $author_id );
-
-            }else{
-
-                $theField = get_field( $idFields , $id_page);
-                
-            }
-            return $theField;
     }
     
     // ----- video -------

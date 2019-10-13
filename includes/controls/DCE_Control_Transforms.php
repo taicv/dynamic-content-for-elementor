@@ -84,43 +84,43 @@ class DCE_Control_Transforms extends Control_Base_Multiple {
 	public function get_sliders() {
 		return [
 			'angle' => [
-				'label' => __( 'Angle', DCE_TEXTDOMAIN ),
+				'label' => __( 'Angle', 'dynamic-content-for-elementor' ),
 				'min' => -360,
 				'max' => 360,
 				'step' => 1
 			],
 			'rotate_x' => [
-				'label' => __( 'Rotate X', DCE_TEXTDOMAIN ),
+				'label' => __( 'Rotate X', 'dynamic-content-for-elementor' ),
 				'min' => -360,
 				'max' => 360,
 				'step' => 1
 			],
 			'rotate_y' => [
-				'label' => __( 'Rotate Y', DCE_TEXTDOMAIN ),
+				'label' => __( 'Rotate Y', 'dynamic-content-for-elementor' ),
 				'min' => -360,
 				'max' => 360,
 				'step' => 1
 			],
 			'translate_x' => [
-				'label' => __( 'Translate X', DCE_TEXTDOMAIN ),
+				'label' => __( 'Translate X', 'dynamic-content-for-elementor' ),
 				'min' => -1000,
 				'max' => 1000,
 				'step' => 1
 			],
 			'translate_y' => [
-				'label' => __( 'Translate Y', DCE_TEXTDOMAIN ),
+				'label' => __( 'Translate Y', 'dynamic-content-for-elementor' ),
 				'min' => -1000,
 				'max' => 1000,
 				'step' => 1
 			],
 			'translate_z' => [
-				'label' => __( 'Translate Z', DCE_TEXTDOMAIN ),
+				'label' => __( 'Translate Z', 'dynamic-content-for-elementor' ),
 				'min' => -1000,
 				'max' => 1000,
 				'step' => 1
 			],
 			'scale' => [
-				'label' => __( 'Scale', DCE_TEXTDOMAIN ),
+				'label' => __( 'Scale', 'dynamic-content-for-elementor' ),
 				'min' => 0.1,
 				'max' => 3,
 				'step' => 0.1

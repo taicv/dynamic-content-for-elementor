@@ -17,8 +17,8 @@
             ext: '.' + elementSettings360.format_file, // extention for the assets
             height: elementSettings360.height.size,
             width: '100%',
-            navigation: 'yes' === elementSettings360.navigation, // false
-            responsive: 'yes' === elementSettings360.responsive, // true
+            navigation: Boolean( elementSettings360.navigation ), // false
+            responsive: Boolean( elementSettings360.responsive ), // true
         });
 
     };

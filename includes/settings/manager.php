@@ -25,7 +25,7 @@ class Manager extends GeneralManager {
 	}
 
 	private function add_panel_tabs() {
-		Controls_Manager::add_tab( self::PANEL_TAB_SETTINGS, __( 'Settings', DCE_TEXTDOMAIN ) );
+		Controls_Manager::add_tab( self::PANEL_TAB_SETTINGS, __( 'Settings', 'dynamic-content-for-elementor' ) );
 	}
 
 	// Get saved settings

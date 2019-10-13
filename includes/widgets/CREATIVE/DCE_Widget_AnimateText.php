@@ -29,7 +29,7 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
     }
 
     public function get_title() {
-        return __('AnimateText', DCE_TEXTDOMAIN);
+        return __('AnimateText', 'dynamic-content-for-elementor');
     }
 
     public function get_icon() {
@@ -53,30 +53,30 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
                 'section_animateText', [
-            'label' => __('AnimateText', DCE_TEXTDOMAIN),
+            'label' => __('AnimateText', 'dynamic-content-for-elementor'),
                 ]
         );
         $this->add_control(
       'animate_effect', [
-          'label' => __('Effects', DCE_TEXTDOMAIN),
+          'label' => __('Effects', 'dynamic-content-for-elementor'),
           'type' => Controls_Manager::SELECT,
           'options' => [
-              '1' => __('Effect 1', DCE_TEXTDOMAIN),
-              '2' => __('Effect 2', DCE_TEXTDOMAIN),
-              '3' => __('Effect 3', DCE_TEXTDOMAIN),
-              '4' => __('Effect 4', DCE_TEXTDOMAIN),
-              '5' => __('Effect 5', DCE_TEXTDOMAIN),
-              '6' => __('Effect 6', DCE_TEXTDOMAIN),
-              '7' => __('Effect 7', DCE_TEXTDOMAIN),
-              '8' => __('Effect 8', DCE_TEXTDOMAIN),
-              '9' => __('Effect 9', DCE_TEXTDOMAIN),
-              '10' => __('Effect 10', DCE_TEXTDOMAIN),
-              '11' => __('Effect 11', DCE_TEXTDOMAIN),
-              '12' => __('Effect 12', DCE_TEXTDOMAIN),
-              '13' => __('Effect 13', DCE_TEXTDOMAIN),
-              '14' => __('Effect 14', DCE_TEXTDOMAIN),
-              '15' => __('Effect 15', DCE_TEXTDOMAIN),
-              '16' => __('Effect 16', DCE_TEXTDOMAIN),
+              '1' => __('Effect 1', 'dynamic-content-for-elementor'),
+              '2' => __('Effect 2', 'dynamic-content-for-elementor'),
+              '3' => __('Effect 3', 'dynamic-content-for-elementor'),
+              '4' => __('Effect 4', 'dynamic-content-for-elementor'),
+              '5' => __('Effect 5', 'dynamic-content-for-elementor'),
+              '6' => __('Effect 6', 'dynamic-content-for-elementor'),
+              '7' => __('Effect 7', 'dynamic-content-for-elementor'),
+              '8' => __('Effect 8', 'dynamic-content-for-elementor'),
+              '9' => __('Effect 9', 'dynamic-content-for-elementor'),
+              '10' => __('Effect 10', 'dynamic-content-for-elementor'),
+              '11' => __('Effect 11', 'dynamic-content-for-elementor'),
+              '12' => __('Effect 12', 'dynamic-content-for-elementor'),
+              '13' => __('Effect 13', 'dynamic-content-for-elementor'),
+              '14' => __('Effect 14', 'dynamic-content-for-elementor'),
+              '15' => __('Effect 15', 'dynamic-content-for-elementor'),
+              '16' => __('Effect 16', 'dynamic-content-for-elementor'),
               
           ],
           'frontend_available' => true,
@@ -87,30 +87,27 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
         $repeater = new Repeater();
 
         $repeater->start_controls_tabs('tabs_repeater'); // start tabs ---------------------------------
-        $repeater->start_controls_tab('tab_content', [ 'label' => __('Content', DCE_TEXTDOMAIN)]);
+        $repeater->start_controls_tab('tab_content', [ 'label' => __('Content', 'dynamic-content-for-elementor')]);
         //
         
         $repeater->add_control(
             'text_word', [
-                'label' => __('Word', DCE_TEXTDOMAIN),
-                'description' => __('Text before elemnet', DCE_TEXTDOMAIN),
+                'label' => __('Word', 'dynamic-content-for-elementor'),
+                'description' => __('Text before elemnet', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 'default' => '',
             ]
         );
         
         $repeater->end_controls_tab();
-        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', DCE_TEXTDOMAIN)]);       
+        $repeater->start_controls_tab('tab_style', [ 'label' => __('Style', 'dynamic-content-for-elementor')]);       
         //
         
         $repeater->add_control(
             'color_item', [
-                'label' => __('Text color', DCE_TEXTDOMAIN),
+                'label' => __('Text color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .dce-grid-users {{CURRENT_ITEM}}.tx-el, {{WRAPPER}} .dce-grid-users {{CURRENT_ITEM}}.tx-el a' => 'color: {{VALUE}};',
                 ],
@@ -125,7 +122,7 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
             Group_Control_Typography::get_type(), [
                 'name' => 'typography_item',
                 'label' => 'Typography item',
-                'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+                
                 'selector' => '{{WRAPPER}} .dce-grid-users {{CURRENT_ITEM}}.tx-el',
                 'condition' => [
                     'meta!' => ['attachments','avatar']
@@ -143,7 +140,7 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
 
         $this->add_control(
             'words', [
-                'label' => __('Words', DCE_TEXTDOMAIN),
+                'label' => __('Words', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::REPEATER,
                 'default' => [
                     [

@@ -86,13 +86,13 @@ class DCE_Control_XY_Movement extends Control_Base_Multiple {
 	public function get_sliders() {
 		return [
 			'x' => [
-				'label' => __( 'X', DCE_TEXTDOMAIN ),
+				'label' => __( 'X', 'dynamic-content-for-elementor' ),
 				'min' => -100,
 				'max' => 100,
 				'step' => 1
 			],
 			'y' => [
-				'label' => __( 'Y', DCE_TEXTDOMAIN ),
+				'label' => __( 'Y', 'dynamic-content-for-elementor' ),
 				'min' => -100,
 				'max' => 100,
 				'step' => 1

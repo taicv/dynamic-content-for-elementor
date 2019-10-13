@@ -27,7 +27,7 @@ class DCE_Widget_CustomField extends DCE_Widget_Prototype {
         return false;
     }
     public function get_title() {
-        return __('CustomField', DCE_TEXTDOMAIN);
+        return __('CustomField', 'dynamic-content-for-elementor');
         
     }
     public function get_icon() {
@@ -39,14 +39,14 @@ class DCE_Widget_CustomField extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $post_type_object = get_post_type_object(get_post_type());
         $this->start_controls_section('section_pro_feature', array(
-            'label' => __('Custom Field', DCE_TEXTDOMAIN),
+            'label' => __('Custom Field', 'dynamic-content-for-elementor'),
         ));
 
         $this->end_controls_section();
 
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
 
             ]
@@ -54,18 +54,18 @@ class DCE_Widget_CustomField extends DCE_Widget_Prototype {
          $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               
               'groups' => DCE_Helper::get_all_posts(get_the_ID(), true),
@@ -74,6 +74,19 @@ class DCE_Widget_CustomField extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         $this->end_controls_section();
     }
@@ -91,7 +104,7 @@ class DCE_Widget_CustomField extends DCE_Widget_Prototype {
         if( $settings['data_source'] == 'yes' ){
             global $global_ID;
             global $global_TYPE;
-            global $is_blocks;
+            global $in_the_loop;
             global $global_is;
             //
             if(!empty($demoPage)){

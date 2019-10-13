@@ -37,7 +37,7 @@
 			// menu: '#menu',
 			// lockAnchors: false,
 			// anchors:['firstPage', 'secondPage'],
-			navigation: 'yes' === fullpageSettings.navigation,
+			navigation: Boolean( fullpageSettings.navigation ),
 			navigationPosition: fullpageSettings.navigationPosition || 'right', //'right',
 			navigationTooltips: dyn_sections_tt, //['firstSlide', 'secondSlide'],
 			showActiveTooltip: true,
@@ -45,22 +45,22 @@
 			// slidesNavPosition: 'bottom',
 
 			// //Scrolling
-			css3:  'yes' === fullpageSettings.css3,
+			css3:  Boolean( fullpageSettings.css3 ),
 			easing: fullpageSettings.easing || 'easeInOutCubic',
 			easingcss3: fullpageSettings.easing_css || 'ease',
 			scrollingSpeed: fullpageSettings.scrollingSpeed || 700,
 			
-			autoScrolling:  'yes' === fullpageSettings.autoScrolling,
+			autoScrolling:  Boolean( fullpageSettings.autoScrolling ),
 			// fitToSection: true,
 			// fitToSectionDelay: 1000,
 			// scrollBar: false,
 			
 			
-			loopBottom: 'yes' === fullpageSettings.loopTop, //false,
-	        loopTop: 'yes' === fullpageSettings.loopBottom, //false,
+			loopBottom: Boolean( fullpageSettings.loopTop ), //false,
+                        loopTop: Boolean( fullpageSettings.loopBottom ), //false,
 			
 			// loopHorizontal: true,
-			continuousVertical: 'yes' === fullpageSettings.continuousVertical, //false
+			continuousVertical: Boolean( fullpageSettings.continuousVertical ), //false
 			
 			// continuousHorizontal: false,
 			// scrollHorizontally: false,
@@ -85,8 +85,8 @@
 			// recordHistory: true,
 
 			// //Design
-			controlArrows: 'yes' === fullpageSettings.controlArrows, //true
-			verticalCentered: 'yes' === fullpageSettings.verticalCentered, //true
+			controlArrows: Boolean( fullpageSettings.controlArrows ), //true
+			verticalCentered: Boolean( fullpageSettings.verticalCentered ), //true
 			sectionsColor : dyn_sections_color,
 			// paddingTop: '3em',
 			// paddingBottom: '10px',

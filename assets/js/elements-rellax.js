@@ -60,8 +60,8 @@
                              relativeToWrapper: true,*/
 
                             //round: true,
-                            //vertical: 'yes' === elementSettings.vertical_rellax,
-                            //horizontal: 'yes' === elementSettings.horizontal_rellax,
+                            //vertical: Boolean( elementSettings.vertical_rellax,
+                            //horizontal: Boolean( elementSettings.horizontal_rellax,
                         }
                 );
                 

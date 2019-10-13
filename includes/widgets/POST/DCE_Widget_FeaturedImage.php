@@ -33,10 +33,10 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('Featured Image', DCE_TEXTDOMAIN);
+        return __('Featured Image', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Add a featured image on your article', DCE_TEXTDOMAIN);
+        return __('Add a featured image on your article', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/featured-image/';
@@ -55,7 +55,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $post_type_object = get_post_type_object(get_post_type());
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Image settings', DCE_TEXTDOMAIN),
+                'label' => __('Image settings', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
@@ -68,27 +68,27 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Image_Size::get_type(), [
                 'name' => 'size',
-                'label' => __('Image Size', DCE_TEXTDOMAIN),
+                'label' => __('Image Size', 'dynamic-content-for-elementor'),
                 'default' => 'large',
             ]
         );
         $this->add_responsive_control(
             'align',
             [
-                'label' => __( 'Alignment', DCE_TEXTDOMAIN ),
+                'label' => __( 'Alignment', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 
                 'options' => [
                     'left' => [
-                        'title' => __( 'Left', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Left', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __( 'Center', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Center', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __( 'Right', DCE_TEXTDOMAIN ),
+                        'title' => __( 'Right', 'dynamic-content-for-elementor' ),
                         'icon' => 'fa fa-align-right',
                     ],
                 ],
@@ -104,22 +104,22 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
        
        $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
                     'post' => 'Post URL',
-                    'acf_url' => __('ACF URL', DCE_TEXTDOMAIN),
-                    'file' => __('Media File URL', DCE_TEXTDOMAIN),
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'acf_url' => __('ACF URL', 'dynamic-content-for-elementor'),
+                    'file' => __('Media File URL', 'dynamic-content-for-elementor'),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
         $this->add_control(
             'acf_field_url', [
-                'label' => __('ACF Field Url', DCE_TEXTDOMAIN),
+                'label' => __('ACF Field Url', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'groups' => DCE_Helper::get_acf_field_urlfile(true),
                 //'options' => $this->get_acf_field_urlfile(),
@@ -131,10 +131,10 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'acf_field_url_target', [
-                'label' => __('Blank', DCE_TEXTDOMAIN),
+                'label' => __('Blank', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_off' => __('No', DCE_TEXTDOMAIN),
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'acf_url',
                 ]
@@ -142,9 +142,9 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'link', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -156,22 +156,22 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_placeholder', [
-                'label' => __('Placeholder', DCE_TEXTDOMAIN),
+                'label' => __('Placeholder', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'use_placeholter', [
-                'label' => __('Use placeholder Image', DCE_TEXTDOMAIN),
+                'label' => __('Use placeholder Image', 'dynamic-content-for-elementor'),
                 'description' => 'Use another image if the featured one does not exist.',
                 'type' => Controls_Manager::CHOOSE,
                 'toggle' => false,
                 'options' => [
                     '1' => [
-                        'title' => __('Yes', DCE_TEXTDOMAIN),
+                        'title' => __('Yes', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-check',
                     ],
                     '0' => [
-                        'title' => __('No', DCE_TEXTDOMAIN),
+                        'title' => __('No', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-ban',
                     ]
                 ],
@@ -183,7 +183,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
           'custom_placeholder_image',
           [
-             'label' => __( 'Placeholder Image', DCE_TEXTDOMAIN ),
+             'label' => __( 'Placeholder Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
              'default' => [
                 'url' => DCE_Helper::get_placeholder_image_src(),
@@ -199,21 +199,21 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $post_type_object = get_post_type_object(get_post_type());
         $this->start_controls_section(
             'section_backgroundimage', [
-                'label' => __('Background', DCE_TEXTDOMAIN),
+                'label' => __('Background', 'dynamic-content-for-elementor'),
             ]
         );
         $this->add_control(
             'use_bg', [
-                'label' => __('Background', DCE_TEXTDOMAIN),
+                'label' => __('Background', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'toggle' => false,
                 'options' => [
                     '1' => [
-                        'title' => __('Yes', DCE_TEXTDOMAIN),
+                        'title' => __('Yes', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-check',
                     ],
                     '0' => [
-                        'title' => __('No', DCE_TEXTDOMAIN),
+                        'title' => __('No', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-ban',
                     ]
                 ],
@@ -224,20 +224,20 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
           'bg_position',
           [
-             'label'       => __( 'Background position', DCE_TEXTDOMAIN ),
+             'label'       => __( 'Background position', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::SELECT,
              'default' => 'top center',
              'options' => [
-                '' => __( 'Default', DCE_TEXTDOMAIN ),
-                'top left' => __( 'Top Left', DCE_TEXTDOMAIN ),
-                'top center' => __( 'Top Center', DCE_TEXTDOMAIN ),
-                'top right' => __( 'Top Right', DCE_TEXTDOMAIN ),
-                'center left' => __( 'Center Left', DCE_TEXTDOMAIN ),
-                'center center' => __( 'Center Center', DCE_TEXTDOMAIN ),
-                'center right' => __( 'Center Right', DCE_TEXTDOMAIN ),
-                'bottom left' => __( 'Bottom Left', DCE_TEXTDOMAIN ),
-                'bottom center' => __( 'Bottom Center', DCE_TEXTDOMAIN ),
-                'bottom right' => __( 'Bottom Right', DCE_TEXTDOMAIN ),
+                '' => __( 'Default', 'dynamic-content-for-elementor' ),
+                'top left' => __( 'Top Left', 'dynamic-content-for-elementor' ),
+                'top center' => __( 'Top Center', 'dynamic-content-for-elementor' ),
+                'top right' => __( 'Top Right', 'dynamic-content-for-elementor' ),
+                'center left' => __( 'Center Left', 'dynamic-content-for-elementor' ),
+                'center center' => __( 'Center Center', 'dynamic-content-for-elementor' ),
+                'center right' => __( 'Center Right', 'dynamic-content-for-elementor' ),
+                'bottom left' => __( 'Bottom Left', 'dynamic-content-for-elementor' ),
+                'bottom center' => __( 'Bottom Center', 'dynamic-content-for-elementor' ),
+                'bottom right' => __( 'Bottom Right', 'dynamic-content-for-elementor' ),
             ],
              'selectors' => [
                 '{{WRAPPER}} .dynamic-content-featuredimage-bg' => 'background-position: {{VALUE}};',
@@ -250,11 +250,11 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
          $this->add_control(
             'bg_extend',
             [
-                'label' => __( 'Extend Background', DCE_TEXTDOMAIN ),
+                'label' => __( 'Extend Background', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
                 'condition' => [
                     'use_bg' => '1',
@@ -264,7 +264,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
          $this->add_responsive_control(
             'minimum_height', [
-                'label' => __('Minimum Height', DCE_TEXTDOMAIN),
+                'label' => __('Minimum Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => '',
@@ -304,7 +304,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'height', [
-                'label' => __('Height', DCE_TEXTDOMAIN),
+                'label' => __('Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 200,
@@ -368,7 +368,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             );
             $this->add_control(
                 'opacity_overlay', [
-                    'label' => __('Opacity', DCE_TEXTDOMAIN),
+                    'label' => __('Opacity', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'range' => [
                         'px' => [
@@ -402,7 +402,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             );
             $this->add_control(
                 'opacity_overlay_hover', [
-                    'label' => __('Opacity', DCE_TEXTDOMAIN),
+                    'label' => __('Opacity', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SLIDER,
                     'range' => [
                         'px' => [
@@ -442,7 +442,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         // overlay color ...
         /*$this->add_control(
             'overlay_color', [
-                'label' => __('Overlay Color', DCE_TEXTDOMAIN),
+                'label' => __('Overlay Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => Scheme_Color::get_type(),
@@ -469,7 +469,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'bghover_heading',
             [
-                'label' => __( 'Background color', DCE_TEXTDOMAIN ),
+                'label' => __( 'Background color', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -478,7 +478,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             Group_Control_Background::get_type(),
             [
                 'name' => 'overlay_hover_color',
-                'label' => __('Background', DCE_TEXTDOMAIN),
+                'label' => __('Background', 'dynamic-content-for-elementor'),
                 'description' => 'Background',
                 'types' => [ 'classic', 'gradient' ],
                 'selector' => '{{WRAPPER}} .dce-overlay_hover',
@@ -490,7 +490,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'bgoverlayhover_heading',
             [
-                'label' => __( 'Change background color of overlay', DCE_TEXTDOMAIN ),
+                'label' => __( 'Change background color of overlay', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -499,7 +499,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             Group_Control_Background::get_type(),
             [
                 'name' => 'overlay_color_on_hover',
-                'label' => __('Background overlay', DCE_TEXTDOMAIN),
+                'label' => __('Background overlay', 'dynamic-content-for-elementor'),
                 'description' => 'Background color of overlay',
                 'types' => [ 'classic', 'gradient' ],
                 'selector' => '{{WRAPPER}} a:hover .dce-overlay',
@@ -510,7 +510,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         /*$this->add_control(
             'overlay_hover_color', [
-                'label' => __('Hover Overlay Color', DCE_TEXTDOMAIN),
+                'label' => __('Hover Overlay Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
                 'scheme' => [
                     'type' => Scheme_Color::get_type(),
@@ -530,7 +530,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'imageanimations_heading',
             [
-                'label' => __( 'Rollover Animations', DCE_TEXTDOMAIN ),
+                'label' => __( 'Rollover Animations', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -538,7 +538,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         // . . . . . . . . . . . . . . . .  Hover ElementorAMINATION
         $this->add_control(
             'hover_animation', [
-                'label' => __('Animation', DCE_TEXTDOMAIN),
+                'label' => __('Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 
             ]
@@ -547,7 +547,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'imagefilters_heading',
             [
-                'label' => __( 'Rollover Filters', DCE_TEXTDOMAIN ),
+                'label' => __( 'Rollover Filters', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
@@ -556,18 +556,18 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             DCE_Group_Control_Filters_CSS::get_type(),
             [
                 'name' => 'filters_image_hover',
-                'label' => __('Filters', DCE_TEXTDOMAIN),
+                'label' => __('Filters', 'dynamic-content-for-elementor'),
                 //'selector' => '{{WRAPPER}} a:hover img, {{WRAPPER}} a:hover .dynamic-content-featuredimage-bg',
                 'selector' => '{{WRAPPER}} a:hover .wrap-filters',
             ]
         );
         /*$this->add_control(
             'enable_grey_effect', [
-                'label' => __('Black & White', DCE_TEXTDOMAIN),
+                'label' => __('Black & White', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'selectors' => [
                     '{{WRAPPER}} .grey-filters img, {{WRAPPER}} figure.grey-filters' => '-webkit-filter: grayscale(1); -moz-filter: grayscale(1); -ms-filter: grayscale(1); filter: grayscale(1);',
@@ -583,19 +583,19 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'imageeffects_heading',
             [
-                'label' => __( 'Rollover Effects', DCE_TEXTDOMAIN ),
+                'label' => __( 'Rollover Effects', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
             ]
         );
         $this->add_control(
             'hover_effects', [
-                'label' => __('Effects', DCE_TEXTDOMAIN),
+                'label' => __('Effects', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    '' => __('None', DCE_TEXTDOMAIN),
-                    'zoom' => __('Zoom', DCE_TEXTDOMAIN),
-                    /*'slow-zoom' => __('Slow Zoom', DCE_TEXTDOMAIN),*/
+                    '' => __('None', 'dynamic-content-for-elementor'),
+                    'zoom' => __('Zoom', 'dynamic-content-for-elementor'),
+                    /*'slow-zoom' => __('Slow Zoom', 'dynamic-content-for-elementor'),*/
                 ],
                 'default' => '',
                 'prefix_class' => 'hovereffect-',
@@ -615,14 +615,14 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Image', DCE_TEXTDOMAIN),
+                'label' => __('Image', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_responsive_control(
             'space', [
-                'label' => __('Size', DCE_TEXTDOMAIN),
+                'label' => __('Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                    
@@ -652,7 +652,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'maxheight', [
-                'label' => __('Max Height', DCE_TEXTDOMAIN),
+                'label' => __('Max Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                    
@@ -702,7 +702,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_control(
             'blend_mode',
             [
-                'label' => __( 'Blend Mode', DCE_TEXTDOMAIN ),
+                'label' => __( 'Blend Mode', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
                     '' => __( 'Normal', 'elementor' ),
@@ -727,7 +727,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         /*$this->add_responsive_control(
             'opacity', [
-                'label' => __('Opacity (%)', DCE_TEXTDOMAIN),
+                'label' => __('Opacity (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 1,
@@ -746,7 +746,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'angle', [
-                'label' => __('Angle (deg)', DCE_TEXTDOMAIN),
+                'label' => __('Angle (deg)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'deg'],
                 'default' => [ ],
@@ -771,7 +771,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'image_border',
-                'label' => __('Image Border', DCE_TEXTDOMAIN),
+                'label' => __('Image Border', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-featured-image',
                 'condition' => [
                     'use_bg' => '0',
@@ -782,7 +782,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         /*$this->add_group_control(
             Group_Control_Border::get_type(), [
                 'name' => 'bg_border',
-                'label' => __('Image Border', DCE_TEXTDOMAIN),
+                'label' => __('Image Border', 'dynamic-content-for-elementor'),
                 'selector' => '{{WRAPPER}} .dce-featured-image .dynamic-content-featuredimage-bg',
                 'condition' => [
                     'use_bg' => '1',
@@ -799,7 +799,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
       );*/
         $this->add_control(
             'image_border_radius', [
-                'label' => __('Border Radius', DCE_TEXTDOMAIN),
+                'label' => __('Border Radius', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -813,7 +813,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'image_padding', [
-                'label' => __('Padding', DCE_TEXTDOMAIN),
+                'label' => __('Padding', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%'],
                 'selectors' => [
@@ -848,7 +848,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
 
             ]
@@ -856,18 +856,18 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
          $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               'label_block' => true,
               'groups' => DCE_Helper::get_all_posts(get_the_ID(), true),
@@ -877,15 +877,28 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
                 'other_post_parent' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         $this->add_control(
             'other_post_parent',
             [
-                'label' => __( 'From post parent', DCE_TEXTDOMAIN ),
+                'label' => __( 'From post parent', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Yes', DCE_TEXTDOMAIN ),
-                'label_off' => __( 'No', DCE_TEXTDOMAIN ),
+                'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+                'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
                 'condition' => [
                     'data_source' => '',

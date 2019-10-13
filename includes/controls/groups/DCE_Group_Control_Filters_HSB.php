@@ -28,7 +28,7 @@ class DCE_Group_Control_Filters_HSB extends Group_Control_Base {
 			'default' => 'custom',
 		];
 		$controls['hue'] = [
-			'label' => _x( 'Hue', 'Filter Control', DCE_TEXTDOMAIN ),
+			'label' => _x( 'Hue', 'Filter Control', 'dynamic-content-for-elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -50,7 +50,7 @@ class DCE_Group_Control_Filters_HSB extends Group_Control_Base {
 			],
 		];
 		$controls['saturate'] = [
-			'label' => _x( 'Saturation', 'Filter Control', DCE_TEXTDOMAIN ),
+			'label' => _x( 'Saturation', 'Filter Control', 'dynamic-content-for-elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -69,7 +69,7 @@ class DCE_Group_Control_Filters_HSB extends Group_Control_Base {
 			],
 		];
 		$controls['brightness'] = [
-			'label' => _x( 'Brightness', 'Filter Control', DCE_TEXTDOMAIN ),
+			'label' => _x( 'Brightness', 'Filter Control', 'dynamic-content-for-elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -114,7 +114,7 @@ class DCE_Group_Control_Filters_HSB extends Group_Control_Base {
 		return [
 			//'popover' => true,
 			'popover' => [
-				'starter_title' => _x( 'Filters HSB', 'Filters HSB Control', DCE_TEXTDOMAIN ),
+				'starter_title' => _x( 'Filters HSB', 'Filters HSB Control', 'dynamic-content-for-elementor' ),
 				'starter_name' => 'filter_hsb',
 			],
 		];

@@ -50,14 +50,14 @@
 		    scrollSpeed: Number(settings_page.scrollSpeed.size) || 1100, //1100,
 		    offset : Number(settings_page.offset.size) || 0, //0,
 		    
-		    //scrollbars:  'yes' === settings_page.scrollbars, //true,
+		    //scrollbars:  Boolean( settings_page.scrollbars ), //true,
 		    
 		    // standardScrollElements: "",
 		    
-		    setHeights: 'yes' === settings_page.setHeights, //true,
-		    overflowScroll: 'yes' === settings_page.overflowScroll, //true,
-		    updateHash: 'yes' === settings_page.updateHash, //true,
-		    touchScroll: 'yes' === settings_page.touchScroll, //true,
+		    setHeights: Boolean( settings_page.setHeights ), //true,
+		    overflowScroll: Boolean( settings_page.overflowScroll ), //true,
+		    updateHash: Boolean( settings_page.updateHash ), //true,
+		    touchScroll: Boolean( settings_page.touchScroll ), //true,
 		    // before:function() {},
 		    // after:function() {},
 		    // afterResize:function() {},

@@ -34,7 +34,7 @@ var isAdminBar = false,
 			
 			// ------------ [ Isotope ] -----------
 			$layoutMode = 'masonry';
-			if( $objBlock_acfposts.data('fitrow') == 'yes' ) $layoutMode = 'fitRows';
+			if( $objBlock_acfposts.data('fitrow') ) $layoutMode = 'fitRows';
 			var $grid_dce_posts = $objBlock_acfposts.isotope({
 			  //columnWidth: 200,
 			  itemSelector: '.dce-item-user',
@@ -80,7 +80,7 @@ var isAdminBar = false,
 
 
 		// ====================================================================================== WOW
-		if ( elementSettings.enabled_wow == 'yes' ){
+		if ( elementSettings.enabled_wow ){
 			var wow = new WOW(
 			  {
 			    boxClass:     'wow',      // animated element css class (default is wow)

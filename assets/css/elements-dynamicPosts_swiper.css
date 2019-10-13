@@ -178,6 +178,7 @@
   background-size: 85px 85px;
   background-position: center;
   background-repeat: no-repeat;
+  outline: none;
 }
 .elementor-widget-dyncontel-acfposts.hoveranim-yes .swiper-button-prev:hover svg,
 .elementor-widget-dyncontel-acfposts.hoveranim-yes .swiper-button-next:hover svg{

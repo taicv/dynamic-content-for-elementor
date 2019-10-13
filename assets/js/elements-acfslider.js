@@ -82,36 +82,36 @@
 			centroDiapo = true;
 			cicloInfinito = false;
 		}else{
-			centroDiapo =  'yes' === elementSettings.centeredSlides;
-			cicloInfinito = 'yes' === elementSettings.loop;
+			centroDiapo =  Boolean( elementSettings.centeredSlides );
+			cicloInfinito = Boolean( elementSettings.loop );
 		}
 		//alert(swpEffect+' '+elementSettings.directionSlide);
 		var swiperOptions = {
 			//------------------- Base Settings
 			direction: String(elementSettings.directionSlide) || 'horizontal',
 			speed: Number(elementSettings.speedSlide) || 300,
-			//setWrapperSize: 'yes' === elementSettings.setWrapperSize,
-			//virtualTranslate:  'yes' === elementSettings.virtualTranslate,
-			autoHeight:  'yes' === elementSettings.autoHeight,
-			roundLengths:  'yes' === elementSettings.roundLengths,
-			nested: 'yes' === elementSettings.nested,
-			grabCursor: 'yes' === elementSettings.grabCursor,
+			//setWrapperSize: Boolean( elementSettings.setWrapperSize ),
+			//virtualTranslate:  Boolean( elementSettings.virtualTranslate ),
+			autoHeight:  Boolean( elementSettings.autoHeight ),
+			roundLengths:  Boolean( elementSettings.roundLengths ),
+			nested: Boolean( elementSettings.nested ),
+			grabCursor: Boolean( elementSettings.grabCursor ),
 			//------------------- Autoplay
 			//autoplay: Number(elementSettings.autoplay) || '',
-			//autoplayStopOnLast: 'yes' === elementSettings.autoplayStopOnLast, 
-			//autoplayDisableOnInteraction: 'yes' === elementSettings.autoplayDisableOnInteraction,
+			//autoplayStopOnLast: Boolean( elementSettings.autoplayStopOnLast ), 
+			//autoplayDisableOnInteraction: Boolean( elementSettings.autoplayDisableOnInteraction ),
 			//------------------- Progress
-			watchSlidesProgress: 'yes' === elementSettings.watchSlidesProgress,
-			watchSlidesVisibility: 'yes' === elementSettings.watchSlidesVisibility,
+			watchSlidesProgress: Boolean( elementSettings.watchSlidesProgress ),
+			watchSlidesVisibility: Boolean( elementSettings.watchSlidesVisibility ),
 			//------------------- Freemode 
-			freeMode: 'yes' === elementSettings.freeMode,
-			freeModeMomentum: 'yes' === elementSettings.freeModeMomentum,
+			freeMode: Boolean( elementSettings.freeMode ),
+			freeModeMomentum: Boolean( elementSettings.freeModeMomentum ),
 			freeModeMomentumRatio: Number(elementSettings.freeModeMomentumRatio) || 1,
 			freeModeMomentumVelocityRatio: Number(elementSettings.freeModeMomentumVelocityRatio) || 1, 
-			freeModeMomentumBounce: 'yes' === elementSettings.freeModeMomentumBounce, 
+			freeModeMomentumBounce: Boolean( elementSettings.freeModeMomentumBounce ), 
 			//freeModeMomentumBounceRatio: Number(elementSettings.speed) || 1, 
 			//freeModeMinimumVelocity: Number(elementSettings.speed) || 0.02, 
-			freeModeSticky: 'yes' === elementSettings.freeModeSticky,
+			freeModeSticky: Boolean( elementSettings.freeModeSticky ),
 			//------------------- Effects
 			effect: swpEffect,
 			/*coverflow: {
@@ -136,8 +136,8 @@
 			//------------------- Swiping / No
 			//------------------- Navigation
 			//------------------- Keyboard / Mousewheel
-			keyboard: 'yes' === elementSettings.keyboardControl,
-			mousewheel: 'yes' === elementSettings.mousewheelControl,
+			keyboard: Boolean( elementSettings.keyboardControl ),
+			mousewheel: Boolean( elementSettings.mousewheelControl ),
 			//------------------- Hash/History
 			//------------------- Images
 			//------------------- Loop
@@ -173,10 +173,10 @@
 					/*renderBullet: function (index, className) {
 					          return '<span class="' + className + '">' + (index + 1) + '</span>';
 					        },*/
-					renderFraction: function (swiper, currentClassName, totalClassName) {
-								return '<span class="' + currentClassName + '"></span>' +
+					renderFraction: function (currentClass, totalClass) {
+								return '<span class="' + currentClass + '"></span>' +
 								       '<span class="separator">' + String(elementSettings.fraction_separator) + '</span>' +
-								       '<span class="' + totalClassName + '"></span>';
+								       '<span class="' + totalClass + '"></span>';
 								},
 					/*renderProgressbar: function (progressbarFillClass) {
 						      return '<span class="' + progressbarFillClass + '"></span>';
@@ -198,7 +198,7 @@
 		    // Navigation arrows
 		    //nextButton: '.next-'+id_scope,
 		    //prevButton: '.prev-'+id_scope,
-
+		    spaceBetween: Number(elementSettings.slidesPerView) || 0,
 		    navigation: {
 			    nextEl: '.next-'+id_scope, //'.swiper-button-next',
 			    prevEl: '.prev-'+id_scope, //'.swiper-button-prev',
@@ -228,8 +228,9 @@
 			  },
 
 		};
-
-		if( 'yes' == elementSettings.useAutoplay ){
+		//alert(elementSettings.useAutoplay);
+		if( elementSettings.useAutoplay ){
+				//alert('autoPlay');
 				swiperOptions = $.extend(swiperOptions,{autoplay: true} );
 				
 			
@@ -237,12 +238,12 @@
 					//delay: Number(elementSettings.autoplay) || 3000, // 2500, // Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled
 					swiperOptions = $.extend(swiperOptions,{autoplay: { delay: Number(elementSettings.autoplay) }} );
 				}
-				if('yes' === elementSettings.autoplayDisableOnInteraction){
-					//disableOnInteraction:  'yes' === elementSettings.autoplayDisableOnInteraction, // false, // Set to false and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction
-					swiperOptions = $.extend(swiperOptions,{autoplay: { disableOnInteraction: 'yes' === elementSettings.autoplayDisableOnInteraction }} );
+				if(elementSettings.autoplayDisableOnInteraction){
+					//disableOnInteraction:  Boolean( elementSettings.autoplayDisableOnInteraction, // false, // Set to false and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction
+					swiperOptions = $.extend(swiperOptions,{autoplay: { disableOnInteraction: Boolean( elementSettings.autoplayDisableOnInteraction ) }} );
 				}
-				if('yes' === elementSettings.autoplayStopOnLast){	
-				    swiperOptions = $.extend(swiperOptions,{autoplay: { disableOnInteraction: 'yes' === elementSettings.autoplayStopOnLast }} );
+				if(elementSettings.autoplayStopOnLast){	
+				    swiperOptions = $.extend(swiperOptions,{autoplay: { disableOnInteraction: Boolean( elementSettings.autoplayStopOnLast ) }} );
 				}
 
 			}

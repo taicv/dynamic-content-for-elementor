@@ -56,7 +56,7 @@ class DCE_Metabox {
         $templates = DCE_Helper::get_all_template(true);
         $dyncontel_elementor_templates = get_post_meta($post_object->ID, 'dyncontel_elementor_templates', true);
         if (!empty($templates)) {
-            $html .= '<label for="dce_post_template"><strong><span class="dashicons dashicons-admin-generic"></span> ' . esc_html__('Template', DCE_TEXTDOMAIN)
+            $html .= '<label for="dce_post_template"><strong><span class="dashicons dashicons-admin-generic"></span> ' . esc_html__('Template', 'dynamic-content-for-elementor')
                     . '</strong></label><br /><select id="dce_post_template" name="dyncontel_elementor_templates" class="js-dce-select">';
             foreach ($templates as $akey => $atmp) {
                 $selected = ( $dyncontel_elementor_templates && $dyncontel_elementor_templates == $akey ) ? ' selected="selected"' : '';
@@ -66,7 +66,7 @@ class DCE_Metabox {
 
             if (/* is_page($post_object->ID) && */ $post_object->post_parent) {
                 $dyncontel_elementor_templates_parent = get_post_meta($post_object->ID, 'dyncontel_elementor_templates_parent', true);
-                $html .= '<br /><label for="dce_post_template_parent"><input type="checkbox" value="1" name="dyncontel_elementor_templates_parent" id="dce_post_template_parent"' . ($dyncontel_elementor_templates_parent ? ' checked' : '') . '>' . __('From Parent', DCE_TEXTDOMAIN) . '</label>';
+                $html .= '<br /><label for="dce_post_template_parent"><input type="checkbox" value="1" name="dyncontel_elementor_templates_parent" id="dce_post_template_parent"' . ($dyncontel_elementor_templates_parent ? ' checked' : '') . '>' . __('From Parent', 'dynamic-content-for-elementor') . '</label>';
             }
         }
         echo $html;
@@ -121,7 +121,7 @@ class DCE_Metabox {
         $demo_id = get_post_meta($post_object->ID, 'demo_id', true);
 
         if (!empty($all_posts)) {
-            $html .= '<label for="dce_post_demoid"><strong><span class="dashicons dashicons-admin-network"></span> ' . esc_html__('Select post', DCE_TEXTDOMAIN)
+            $html .= '<label for="dce_post_demoid"><strong><span class="dashicons dashicons-admin-network"></span> ' . esc_html__('Select post', 'dynamic-content-for-elementor')
                     . '</strong></label><br /><select id="dce_post_demoid" name="demo_id" class="js-dce-select">';
             foreach ($all_posts as $tkey => $ttmp) {
                 if (isset($ttmp['options'])) {
@@ -202,7 +202,7 @@ class DCE_Metabox {
         ?>
         <div id="dce_termbox" class="dce-term-box">
             <div class="dce-term-head">
-                <h3><?php _e('Dynamic Template', DCE_TEXTDOMAIN); ?></h3>
+                <h3><?php _e('Dynamic Template', 'dynamic-content-for-elementor'); ?></h3>
             </div>
             <div class="form-field dce-term dce-term-add">
         <?php
@@ -223,7 +223,7 @@ class DCE_Metabox {
         ?>
         <tr class="form-field dce-term dce-term-edit">
             <th scope="row" valign="top">
-                <label for="dynamic_content"><?php _e('Dynamic Template', DCE_TEXTDOMAIN); ?></label>
+                <label for="dynamic_content"><?php _e('Dynamic Template', 'dynamic-content-for-elementor'); ?></label>
             </th>
             <td>
                 <?php

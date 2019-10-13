@@ -2,8 +2,6 @@
 namespace DynamicContentForElementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use DynamicContentForElementor\DCE_Helper;
@@ -29,10 +27,10 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         return true;
     }
     public function get_title() {
-        return __('Content', DCE_TEXTDOMAIN);
+        return __('Content', 'dynamic-content-for-elementor');
     }
     public function get_description() {
-        return __('Put a content of an article', DCE_TEXTDOMAIN);
+        return __('Put a content of an article', 'dynamic-content-for-elementor');
     }
     public function get_docs() {
         return 'https://www.dynamic.ooo/widget/content/';
@@ -52,27 +50,27 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Content', DCE_TEXTDOMAIN),
+                'label' => __('Content', 'dynamic-content-for-elementor'),
             ]
         );
          $this->add_control(
             'use_filters_content', [
-                'label' => __('Use the content-filters', DCE_TEXTDOMAIN),
+                'label' => __('Use the content-filters', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
             ]
         );
         $this->add_control(
             'use_content_limit', [
-                'label' => __('Use the content limit', DCE_TEXTDOMAIN),
-                'description' => __('This option strip all tags', DCE_TEXTDOMAIN),
+                'label' => __('Use the content limit', 'dynamic-content-for-elementor'),
+                'description' => __('This option strip all tags', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                  'condition' => [
                     'use_filters_content' => ''
@@ -81,11 +79,11 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'use_content_autop', [
-                'label' => __('Use the content auto-p.', DCE_TEXTDOMAIN),
+                'label' => __('Use the content auto-p.', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Yes', DCE_TEXTDOMAIN),
-                'label_off' => __('No', DCE_TEXTDOMAIN),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 /*'condition' => [
                     'use_filters_content' => ''
@@ -94,7 +92,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'count_content_limit', [
-                'label' => __('Number of characters', DCE_TEXTDOMAIN),
+                'label' => __('Number of characters', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => '15',
                 'condition' => [
@@ -106,41 +104,41 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
        
         $this->add_control(
             'html_tag', [
-                'label' => __('HTML Tag', DCE_TEXTDOMAIN),
+                'label' => __('HTML Tag', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __('H1', DCE_TEXTDOMAIN),
-                    'h2' => __('H2', DCE_TEXTDOMAIN),
-                    'h3' => __('H3', DCE_TEXTDOMAIN),
-                    'h4' => __('H4', DCE_TEXTDOMAIN),
-                    'h5' => __('H5', DCE_TEXTDOMAIN),
-                    'h6' => __('H6', DCE_TEXTDOMAIN),
-                    'p' => __('p', DCE_TEXTDOMAIN),
-                    'div' => __('div', DCE_TEXTDOMAIN),
-                    'span' => __('span', DCE_TEXTDOMAIN),
+                    'h1' => __('H1', 'dynamic-content-for-elementor'),
+                    'h2' => __('H2', 'dynamic-content-for-elementor'),
+                    'h3' => __('H3', 'dynamic-content-for-elementor'),
+                    'h4' => __('H4', 'dynamic-content-for-elementor'),
+                    'h5' => __('H5', 'dynamic-content-for-elementor'),
+                    'h6' => __('H6', 'dynamic-content-for-elementor'),
+                    'p' => __('p', 'dynamic-content-for-elementor'),
+                    'div' => __('div', 'dynamic-content-for-elementor'),
+                    'span' => __('span', 'dynamic-content-for-elementor'),
                 ],
                 'default' => 'div',
             ]
         );
         $this->add_responsive_control(
             'align', [
-                'label' => __('Alignment', DCE_TEXTDOMAIN),
+                'label' => __('Alignment', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __('Left', DCE_TEXTDOMAIN),
+                        'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-left',
                     ],
                     'center' => [
-                        'title' => __('Center', DCE_TEXTDOMAIN),
+                        'title' => __('Center', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-center',
                     ],
                     'right' => [
-                        'title' => __('Right', DCE_TEXTDOMAIN),
+                        'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-right',
                     ],
                     'justify' => [
-                        'title' => __('Justified', DCE_TEXTDOMAIN),
+                        'title' => __('Justified', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-align-justify',
                     ],
                 ],
@@ -152,22 +150,22 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'link_to', [
-                'label' => __('Link to', DCE_TEXTDOMAIN),
+                'label' => __('Link to', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => [
-                    'none' => __('None', DCE_TEXTDOMAIN),
-                    'home' => __('Home URL', DCE_TEXTDOMAIN),
-                    'post' => __('Post URL', DCE_TEXTDOMAIN),
-                    'custom' => __('Custom URL', DCE_TEXTDOMAIN),
+                    'none' => __('None', 'dynamic-content-for-elementor'),
+                    'home' => __('Home URL', 'dynamic-content-for-elementor'),
+                    'post' => __('Post URL', 'dynamic-content-for-elementor'),
+                    'custom' => __('Custom URL', 'dynamic-content-for-elementor'),
                 ],
             ]
         );
         $this->add_control(
             'link', [
-                'label' => __('Link', DCE_TEXTDOMAIN),
+                'label' => __('Link', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::URL,
-                'placeholder' => __('http://your-link.com', DCE_TEXTDOMAIN),
+                'placeholder' => __('http://your-link.com', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'link_to' => 'custom',
                 ],
@@ -181,9 +179,9 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $this->add_control(
                 'no_shortcode',
                 [
-                    'label' => __('Remove Shortcode', DCE_TEXTDOMAIN),
+                    'label' => __('Remove Shortcode', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::SWITCHER,
-                    'description' => __( 'Remove all Visual Composer & Shortcodes', DCE_TEXTDOMAIN ),
+                    'description' => __( 'Remove all Visual Composer & Shortcodes', 'dynamic-content-for-elementor' ),
                 ]
             );
 
@@ -191,8 +189,8 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $this->add_control(
             'enable_unfold',
             [
-              'label' => __( 'Enable Unfold', DCE_TEXTDOMAIN ),
-              'description' => __( 'Useful when you want to limit the display of the content', DCE_TEXTDOMAIN ),
+              'label' => __( 'Enable Unfold', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Useful when you want to limit the display of the content', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'frontend_available' => true,
               'separator' => 'before'
@@ -200,7 +198,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'height_content', [
-                'label' => __('Height', DCE_TEXTDOMAIN),
+                'label' => __('Height', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'frontend_available' => true,
                 'default' => [
@@ -227,19 +225,15 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         // ------------------------------------------------ STYLE
         $this->start_controls_section(
             'section_style', [
-                'label' => __('Content', DCE_TEXTDOMAIN),
+                'label' => __('Content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
             'color', [
-                'label' => __('Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} .dce-content, {{WRAPPER}} .dce-content a.dce-content-link' => 'color: {{VALUE}};',
                 ],
@@ -248,7 +242,6 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $this->add_group_control(
             Group_Control_Typography::get_type(), [
                 'name' => 'typography',
-                'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 'selector' => '{{WRAPPER}} .dce-content',
             ]
         );
@@ -261,7 +254,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'space', [
-                'label' => __('Space', DCE_TEXTDOMAIN),
+                'label' => __('Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 0,
@@ -282,7 +275,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $this->add_control(
             'rollhover_heading',
             [
-                'label' => __( 'Roll-Hover', DCE_TEXTDOMAIN ),
+                'label' => __( 'Roll-Hover', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
                 'condition' => [
@@ -292,12 +285,8 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_color', [
-                'label' => __('Hover Text Color', DCE_TEXTDOMAIN),
+                'label' => __('Hover Text Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} .dce-content:hover' => 'color: {{VALUE}};',
                 ],
@@ -308,7 +297,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'hover_animation', [
-                'label' => __('Hover Animation', DCE_TEXTDOMAIN),
+                'label' => __('Hover Animation', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 'condition' => [
                     'link_to!' => 'none',
@@ -320,7 +309,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
 
         $this->start_controls_section(
             'section_style_unfold', [
-                'label' => __('Unfold', DCE_TEXTDOMAIN),
+                'label' => __('Unfold', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'enable_unfold' => 'yes',
@@ -330,20 +319,27 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
 
         $this->add_control(
             'unfold_color', [
-                'label' => __('Color', DCE_TEXTDOMAIN),
+                'label' => __('Color', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type' => Scheme_Color::get_type(),
-                    'value' => Scheme_Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .unfold-btn a' => 'color: {{VALUE}};',
                 ],
             ]
         );
+        $this->add_control(
+            'unfold_color_hover', [
+                'label' => __('Rollover Color', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                
+                'selectors' => [
+                    '{{WRAPPER}} .unfold-btn a:hover' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
         $this->add_responsive_control(
             'unfold_size', [
-                'label' => __('Size', DCE_TEXTDOMAIN),
+                'label' => __('Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'frontend_available' => true,
                 'default' => [
@@ -366,7 +362,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         );
         $this->add_responsive_control(
             'unfold_space', [
-                'label' => __('Space', DCE_TEXTDOMAIN),
+                'label' => __('Space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 15,
@@ -388,25 +384,25 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         // ------------------------------------------------ SETTINGS 
         $this->start_controls_section(
             'section_dce_settings', [
-                'label' => __('Dynamic Content', DCE_TEXTDOMAIN),
+                'label' => __('Dynamic Content', 'dynamic-content-for-elementor'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
             ]
         );
          $this->add_control(
             'data_source',
             [
-              'label' => __( 'Source', DCE_TEXTDOMAIN ),
-              'description' => __( 'Select the data source', DCE_TEXTDOMAIN ),
+              'label' => __( 'Source', 'dynamic-content-for-elementor' ),
+              'description' => __( 'Select the data source', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'default' => 'yes',
-              'label_on' => __( 'Same', DCE_TEXTDOMAIN ),
-              'label_off' => __( 'other', DCE_TEXTDOMAIN ),
+              'label_on' => __( 'Same', 'dynamic-content-for-elementor' ),
+              'label_off' => __( 'other', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
             ]
         );
-        $this->add_control(
+        /*$this->add_control(
             'other_post_source', [
-              'label' => __('Select from other source post', DCE_TEXTDOMAIN),
+              'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::SELECT,
               
               'groups' => DCE_Helper::get_all_posts(get_the_ID(),true),
@@ -416,13 +412,26 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
                 'data_source' => '',
               ], 
             ]
+        );*/
+        $this->add_control(
+                'other_post_source',
+                [
+                    'label' => __('Select from other source post', 'dynamic-content-for-elementor'),
+                    'type' 		=> 'ooo_query',
+                    'placeholder'	=> __( 'Post Title', 'dynamic-content-for-elementor' ),
+                    'label_block' 	=> true,
+                    'query_type'	=> 'posts',
+                    'condition' => [
+                        'data_source' => '',
+                    ],
+                ]
         );
         /*$this->add_control(
           'go_to_page',
           [
              'type'    => Controls_Manager::RAW_HTML,
              'raw' => '<a target="_blank" class="dce-go-to-page-template dce-btn" href="#">
-                <i class="fa fa-pencil"></i>'. __( 'Edit Page', DCE_TEXTDOMAIN ).'</a>',
+                <i class="fa fa-pencil"></i>'. __( 'Edit Page', 'dynamic-content-for-elementor' ).'</a>',
              'content_classes' => 'dce-btn-go-page',
              'separator' => 'after',
              //'render_type' => 'template',
@@ -435,10 +444,10 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
             'mod_page',
             [
                 'type' => Controls_Manager::BUTTON,
-                'label' => __( 'Modify', DCE_TEXTDOMAIN ),
+                'label' => __( 'Modify', 'dynamic-content-for-elementor' ),
                 'label_block' => true,
                 'show_label' => false,
-                'text' => __( 'View page', DCE_TEXTDOMAIN ),
+                'text' => __( 'View page', 'dynamic-content-for-elementor' ),
                 'separator' => 'none',
                 'event' => 'dceMain:previewPage',
                 'condition' => [
@@ -470,7 +479,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         //
         global $global_ID;
         global $global_TYPE;
-        global $is_blocks;
+        global $in_the_loop;
         global $global_is;
         //
         if( $settings['data_source'] == 'yes' ){
@@ -538,9 +547,9 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
             if ($settings['use_content_limit'])
                 $content = wp_strip_all_tags(substr($content, 0, $settings['count_content_limit']) . ' ...');
             //
-            $html = sprintf('<%1$s class="dce-content %2$s">', $settings['html_tag'], $animation_class);
+            $html = sprintf('<%1$s class="dce-content %2$s"><div class="dce-content-wrapper">', $settings['html_tag'], $animation_class);
             $html .= $content;
-            $html .= sprintf('</%s>', $settings['html_tag']);
+            $html .= sprintf('</div></%s>', $settings['html_tag']);
             //$html .= $id_page;
         }else{
 
@@ -678,13 +687,13 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
                     break;
             }
 
-            $html = sprintf('<%1$s class="dce-content %2$s">', $settings['html_tag'], $animation_class);
+            $html = sprintf('<%1$s class="dce-content %2$s"><div class="dce-content-wrapper">', $settings['html_tag'], $animation_class);
             if ($link) {
                 $html .= sprintf('<a class="dce-content-link" href="%1$s" %2$s>%3$s</a>', $link, $target, $content);
             } else {
                 $html .= $content;
             }
-            $html .= sprintf('</%s>', $settings['html_tag']);
+            $html .= sprintf('</div></%s>', $settings['html_tag']);
         }
 
         if ($settings['no_shortcode']) {
@@ -710,7 +719,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $settings = $this->get_settings_for_display();
         
         echo '<a target="_blank" class="dce-edit-template" href="'.get_permalink($settings['other_post_source']).'">
-                <i class="fa fa-pencil"></i>'. __( 'Edit other source', DCE_TEXTDOMAIN ).'</a>';
+                <i class="fa fa-pencil"></i>'. __( 'Edit other source', 'dynamic-content-for-elementor' ).'</a>';
         ?>
         
         <?php
@@ -722,7 +731,7 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         $settings = $this->get_settings_for_display();
         //
         echo '<a target="_blank" class="dce-edit-template" href="'.get_permalink($settings['other_post_source']).'">
-                <i class="fa fa-pencil"></i>'. __( 'Edit other source', DCE_TEXTDOMAIN ).'</a>';
+                <i class="fa fa-pencil"></i>'. __( 'Edit other source', 'dynamic-content-for-elementor' ).'</a>';
         //
 
         ?>

@@ -24,7 +24,7 @@ class DCE_Widget_Woo_User extends DCE_Widget_Prototype {
     }
     
     public function get_title() {
-        return __('Page User', DCE_TEXTDOMAIN);
+        return __('Page User', 'dynamic-content-for-elementor');
     }
     
     public function get_icon() {
@@ -42,7 +42,7 @@ class DCE_Widget_Woo_User extends DCE_Widget_Prototype {
     protected function _register_controls() {
         $this->start_controls_section(
             'section_content', [
-                'label' => __('Settings', DCE_TEXTDOMAIN),
+                'label' => __('Settings', 'dynamic-content-for-elementor'),
             ]
         );
         
