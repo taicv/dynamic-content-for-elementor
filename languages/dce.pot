@@ -1,0 +1,5638 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: widgets/DCE_ACF_GoogleMaps.php:201 documents/scrollify.php:157
+#: class/controls/groups/animation.php:56
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Package Name\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-12 12:58+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dynamic-content-for-elementor.php:102
+#, php-format
+msgid ""
+"You need %1$s\"Elementor\"%2$s for the %1$s\"Dynamic Content Elements\"%2$s "
+"plugin to work and updated."
+msgstr ""
+
+#: dynamic-content-for-elementor.php:192 widgets/DCE_DynamicPosts.php:3180
+#: class/plugin.php:797 class/plugin.php:808
+msgid "Dynamic Content"
+msgstr ""
+
+#: dynamic-content-for-elementor.php:202 dynamic-content-for-elementor.php:214
+msgid "Dynamic Content - "
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:33
+msgid "PagePiling"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:47
+#: widgets/DCE_CREATIVE_PageScroll.php:102
+#: widgets/DCE_CREATIVE_FullPage.php:47
+msgid "Pages Sections"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:54 widgets/DCE_DynamicPosts.php:2870
+#: widgets/DCE_CREATIVE_Swiper.php:154 widgets/DCE_CREATIVE_Parallax.php:258
+#: widgets/DCE_CREATIVE_FullPage.php:54 widgets/DCE_Prototype.php:821
+msgid "Item"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:57
+#: widgets/DCE_WOOCOMMERCE_rating.php:173 widgets/DCE_DynamicPosts.php:3574
+#: widgets/DCE_CREATIVE_Swiper.php:157 widgets/DCE_CREATIVE_PageScroll.php:113
+#: widgets/DCE_CREATIVE_FullPage.php:57
+msgid "Name"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:58 widgets/DCE_CREATIVE_Swiper.php:158
+#: widgets/DCE_CREATIVE_PageScroll.php:114
+#: widgets/DCE_CREATIVE_FullPage.php:58
+msgid "Il nome LABEL della sezione."
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:65 widgets/DCE_CREATIVE_Swiper.php:165
+#: widgets/DCE_CREATIVE_PageScroll.php:121
+#: widgets/DCE_CREATIVE_FullPage.php:65
+msgid "Slug"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:66
+msgid ""
+"Lo SLUG della sezione, usato nell'indirizzo URL e negli identificativi "
+"interni."
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:74 widgets/DCE_CREATIVE_Tilt.php:52
+#: widgets/DCE_ModalWindow.php:65 widgets/DCE_DynamicPosts.php:3200
+#: widgets/DCE_CREATIVE_Swiper.php:194 widgets/DCE_CREATIVE_PageScroll.php:130
+#: widgets/DCE_CREATIVE_FullPage.php:74 widgets/DCE_Template.php:53
+#: class/controls/groups/ajaxpage.php:101
+msgid "Select Template"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:83
+msgid "BG Image"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:92
+#: widgets/DCE_CREATIVE_PageScroll.php:202
+msgid "BG image position"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:95 widgets/DCE_ACF_Gallery.php:360
+#: widgets/DCE_POST_Title.php:285 widgets/DCE_DynamicPosts.php:1978
+#: widgets/DCE_CREATIVE_PageScroll.php:205 widgets/DCE_ACF_Acf.php:1239
+msgid "Top"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:96 widgets/DCE_ACF_Gallery.php:330
+#: widgets/DCE_POST_Content.php:123 widgets/DCE_POST_Title.php:84
+#: widgets/DCE_POST_Title.php:277 widgets/DCE_POST_Title.php:309
+#: widgets/DCE_POST_Breadcrumbs.php:90 widgets/DCE_DynamicPosts.php:2078
+#: widgets/DCE_DynamicPosts.php:3076 widgets/DCE_DynamicPosts.php:4102
+#: widgets/DCE_POST_Terms.php:117 widgets/DCE_ACF_Slider.php:91
+#: widgets/DCE_POST_TitleType.php:104 widgets/xx.php:75
+#: widgets/DCE_POST_Date.php:133 widgets/DCE_POST_Excerpt.php:84
+#: widgets/DCE_POST_FeaturedImage.php:83
+#: widgets/DCE_CREATIVE_PageScroll.php:206
+#: widgets/DCE_TAX_TitleTaxonomy.php:92 widgets/DCE_POST_Author.php:86
+#: widgets/DCE_CREATIVE_PosterSlider.php:163 widgets/DCE_POST_ReadMore.php:91
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:220 widgets/DCE_DynamicUsers.php:889
+#: widgets/DCE_DynamicUsers.php:973 widgets/DCE_LIST_ParentChildMenu.php:281
+#: widgets/DCE_ACF_Acf.php:185 widgets/DCE_ACF_Acf.php:1238
+#: widgets/DCE_Prototype.php:490 widgets/DCE_POST_IconFormat.php:119
+msgid "Center"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:97 widgets/DCE_POST_Title.php:289
+#: widgets/DCE_CREATIVE_PageScroll.php:207
+msgid "Bottom"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:104
+#: widgets/DCE_CREATIVE_PageScroll.php:187
+msgid "BG image Mode"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:108 widgets/DCE_ACF_Gallery.php:642
+#: widgets/DCE_ACF_Gallery.php:843 widgets/DCE_POST_Content.php:147
+#: widgets/DCE_POST_Title.php:108 widgets/DCE_DynamicPosts.php:243
+#: widgets/DCE_DynamicPosts.php:2070 widgets/DCE_DynamicPosts.php:2888
+#: widgets/DCE_DynamicPosts.php:2908 widgets/DCE_DynamicPosts.php:3036
+#: widgets/DCE_DynamicPosts.php:4094 widgets/DCE_POST_Terms.php:141
+#: widgets/DCE_ACF_Slider.php:428 widgets/DCE_ACF_Slider.php:1788
+#: widgets/DCE_POST_TitleType.php:129 widgets/xx.php:98 widgets/xx.php:379
+#: widgets/DCE_POST_Date.php:158 widgets/DCE_POST_Excerpt.php:109
+#: widgets/DCE_POST_FeaturedImage.php:107
+#: widgets/DCE_POST_FeaturedImage.php:481
+#: widgets/DCE_CREATIVE_PageScroll.php:54
+#: widgets/DCE_CREATIVE_PageScroll.php:191
+#: widgets/DCE_TAX_TitleTaxonomy.php:117 widgets/DCE_POST_Author.php:110
+#: widgets/DCE_POST_ReadMore.php:117 widgets/DCE_DynamicUsers.php:881
+#: widgets/DCE_ACF_Acf.php:214 widgets/DCE_ACF_Acf.php:499
+#: widgets/DCE_Prototype.php:457 class/helper.php:266
+#: class/controls/groups/outline.php:50
+#: class/controls/groups/animation.php:291
+msgid "None"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:109
+#: widgets/DCE_CREATIVE_PageScroll.php:59
+#: widgets/DCE_CREATIVE_PageScroll.php:192
+msgid "Fixed"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:116 widgets/DCE_DynamicPosts.php:3913
+#: widgets/DCE_DynamicPosts.php:4013 widgets/DCE_POST_NextPrev.php:355
+#: widgets/DCE_CREATIVE_Swiper.php:175 widgets/DCE_CREATIVE_PageScroll.php:142
+#: widgets/DCE_CREATIVE_FullPage.php:86 widgets/DCE_POST_ReadMore.php:219
+msgid "Background Color"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:126
+msgid "Normal Scroll (non ho capito se funziona!)"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:129
+#: widgets/DCE_CREATIVE_PagePiling.php:139
+#: widgets/DCE_CREATIVE_PagePiling.php:248
+#: widgets/DCE_CREATIVE_PagePiling.php:259
+#: widgets/DCE_CREATIVE_PagePiling.php:281
+#: widgets/DCE_CREATIVE_PagePiling.php:336
+#: widgets/DCE_CREATIVE_PagePiling.php:347
+#: widgets/DCE_CREATIVE_PagePiling.php:358
+#: widgets/DCE_CREATIVE_PagePiling.php:376
+#: widgets/DCE_CREATIVE_PagePiling.php:408
+#: widgets/DCE_CREATIVE_PagePiling.php:422
+#: widgets/DCE_CREATIVE_PagePiling.php:548 widgets/DCE_ACF_Gallery.php:94
+#: widgets/DCE_ACF_Gallery.php:244 widgets/DCE_ACF_Gallery.php:516
+#: widgets/DCE_ACF_Gallery.php:787 widgets/DCE_ACF_Gallery.php:812
+#: widgets/DCE_LIST_FileBrowser.php:63 widgets/DCE_LIST_FileBrowser.php:82
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:99
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:110
+#: widgets/DCE_CREATIVE_Tilt.php:247 widgets/DCE_CREATIVE_Tilt.php:258
+#: widgets/DCE_CREATIVE_Tilt.php:269 widgets/DCE_POST_Content.php:52
+#: widgets/DCE_POST_Content.php:62 widgets/DCE_POST_Content.php:75
+#: widgets/DCE_POST_Title.php:439 widgets/DCE_POST_Breadcrumbs.php:55
+#: widgets/DCE_DynamicPosts.php:135 widgets/DCE_DynamicPosts.php:149
+#: widgets/DCE_DynamicPosts.php:173 widgets/DCE_DynamicPosts.php:367
+#: widgets/DCE_DynamicPosts.php:430 widgets/DCE_DynamicPosts.php:461
+#: widgets/DCE_DynamicPosts.php:476 widgets/DCE_DynamicPosts.php:502
+#: widgets/DCE_DynamicPosts.php:527 widgets/DCE_DynamicPosts.php:615
+#: widgets/DCE_DynamicPosts.php:700 widgets/DCE_DynamicPosts.php:712
+#: widgets/DCE_DynamicPosts.php:759 widgets/DCE_DynamicPosts.php:805
+#: widgets/DCE_DynamicPosts.php:828 widgets/DCE_DynamicPosts.php:861
+#: widgets/DCE_DynamicPosts.php:1078 widgets/DCE_DynamicPosts.php:1468
+#: widgets/DCE_DynamicPosts.php:1489 widgets/DCE_DynamicPosts.php:1516
+#: widgets/DCE_DynamicPosts.php:1531 widgets/DCE_DynamicPosts.php:1554
+#: widgets/DCE_DynamicPosts.php:1566 widgets/DCE_DynamicPosts.php:1589
+#: widgets/DCE_DynamicPosts.php:1627 widgets/DCE_DynamicPosts.php:1639
+#: widgets/DCE_DynamicPosts.php:1651 widgets/DCE_DynamicPosts.php:1663
+#: widgets/DCE_DynamicPosts.php:1675 widgets/DCE_DynamicPosts.php:1687
+#: widgets/DCE_DynamicPosts.php:1707 widgets/DCE_DynamicPosts.php:1719
+#: widgets/DCE_DynamicPosts.php:1868 widgets/DCE_DynamicPosts.php:1884
+#: widgets/DCE_DynamicPosts.php:1948 widgets/DCE_DynamicPosts.php:2101
+#: widgets/DCE_DynamicPosts.php:2119 widgets/DCE_DynamicPosts.php:2137
+#: widgets/DCE_DynamicPosts.php:2160 widgets/DCE_DynamicPosts.php:2178
+#: widgets/DCE_DynamicPosts.php:2196 widgets/DCE_DynamicPosts.php:2214
+#: widgets/DCE_DynamicPosts.php:2233 widgets/DCE_DynamicPosts.php:2353
+#: widgets/DCE_DynamicPosts.php:2473 widgets/DCE_DynamicPosts.php:2561
+#: widgets/DCE_DynamicPosts.php:2667 widgets/DCE_DynamicPosts.php:2680
+#: widgets/DCE_DynamicPosts.php:2941 widgets/DCE_DynamicPosts.php:3134
+#: widgets/DCE_DynamicPosts.php:3189 widgets/DCE_DynamicPosts.php:3217
+#: widgets/DCE_DynamicPosts.php:3246 widgets/DCE_DynamicPosts.php:3261
+#: widgets/DCE_DynamicPosts.php:3286 widgets/DCE_DynamicPosts.php:4215
+#: widgets/DCE_ACF_Slider.php:321 widgets/DCE_ACF_Slider.php:370
+#: widgets/DCE_ACF_Slider.php:386 widgets/DCE_ACF_Slider.php:450
+#: widgets/DCE_ACF_Slider.php:556 widgets/DCE_ACF_Slider.php:641
+#: widgets/DCE_ACF_Slider.php:904 widgets/DCE_ACF_Slider.php:1295
+#: widgets/DCE_ACF_Slider.php:1329 widgets/DCE_ACF_Slider.php:1341
+#: widgets/DCE_ACF_Slider.php:1360 widgets/DCE_ACF_Slider.php:1383
+#: widgets/DCE_ACF_Slider.php:1395 widgets/DCE_ACF_Slider.php:1417
+#: widgets/DCE_ACF_Slider.php:1429 widgets/DCE_ACF_Slider.php:1476
+#: widgets/DCE_ACF_Slider.php:1522 widgets/DCE_ACF_Slider.php:1577
+#: widgets/DCE_ACF_Slider.php:1589 widgets/DCE_ACF_Slider.php:1649
+#: widgets/DCE_ACF_Slider.php:1661 widgets/DCE_ACF_Slider.php:1673
+#: widgets/DCE_ACF_Slider.php:1685 widgets/DCE_ACF_Slider.php:1697
+#: widgets/DCE_ACF_Slider.php:1709 widgets/DCE_ACF_Slider.php:1732
+#: widgets/DCE_ACF_Slider.php:1757 widgets/DCE_POST_NextPrev.php:123
+#: widgets/DCE_CREATIVE_Swiper.php:290 widgets/DCE_CREATIVE_Swiper.php:309
+#: widgets/DCE_CREATIVE_Swiper.php:321 widgets/DCE_CREATIVE_Swiper.php:333
+#: widgets/DCE_CREATIVE_Swiper.php:345 widgets/DCE_CREATIVE_Swiper.php:357
+#: widgets/DCE_CREATIVE_Swiper.php:369 widgets/DCE_CREATIVE_Swiper.php:461
+#: widgets/DCE_CREATIVE_Swiper.php:473 widgets/DCE_CREATIVE_Swiper.php:492
+#: widgets/DCE_CREATIVE_Swiper.php:504 widgets/DCE_CREATIVE_Swiper.php:526
+#: widgets/DCE_CREATIVE_Swiper.php:538 widgets/DCE_CREATIVE_Swiper.php:585
+#: widgets/DCE_CREATIVE_Swiper.php:631 widgets/DCE_CREATIVE_Swiper.php:686
+#: widgets/DCE_CREATIVE_Swiper.php:698 widgets/DCE_CREATIVE_Swiper.php:733
+#: widgets/xx.php:133 widgets/DCE_CREATIVE_Parallax.php:60
+#: widgets/DCE_CREATIVE_Parallax.php:70 widgets/DCE_CREATIVE_Parallax.php:80
+#: widgets/DCE_CREATIVE_Parallax.php:98 widgets/DCE_CREATIVE_Parallax.php:108
+#: widgets/DCE_CREATIVE_Parallax.php:118 widgets/DCE_CREATIVE_Parallax.php:128
+#: widgets/DCE_CREATIVE_Parallax.php:230
+#: widgets/DCE_POST_FeaturedImage.php:142
+#: widgets/DCE_POST_FeaturedImage.php:186
+#: widgets/DCE_POST_FeaturedImage.php:704
+#: widgets/DCE_CREATIVE_PageScroll.php:71
+#: widgets/DCE_CREATIVE_PageScroll.php:81 widgets/DCE_ACF_GoogleMaps.php:135
+#: widgets/DCE_ACF_GoogleMaps.php:216 widgets/DCE_ACF_GoogleMaps.php:226
+#: widgets/DCE_ACF_GoogleMaps.php:237 widgets/DCE_ACF_GoogleMaps.php:247
+#: widgets/DCE_ACF_GoogleMaps.php:257 widgets/DCE_ACF_GoogleMaps.php:267
+#: widgets/DCE_ACF_GoogleMaps.php:284
+#: widgets/DCE_CREATIVE_PosterSlider.php:121
+#: widgets/DCE_CREATIVE_PosterSlider.php:140
+#: widgets/DCE_CREATIVE_FullPage.php:100 widgets/DCE_CREATIVE_FullPage.php:279
+#: widgets/DCE_CREATIVE_FullPage.php:290 widgets/DCE_CREATIVE_FullPage.php:301
+#: widgets/DCE_CREATIVE_FullPage.php:323 widgets/DCE_CREATIVE_FullPage.php:396
+#: widgets/DCE_CREATIVE_FullPage.php:407 widgets/DCE_CREATIVE_FullPage.php:418
+#: widgets/DCE_CREATIVE_FullPage.php:436 widgets/DCE_CREATIVE_FullPage.php:468
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:84
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:112
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:130
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:152 widgets/DCE_DynamicUsers.php:72
+#: widgets/DCE_DynamicUsers.php:212 widgets/DCE_DynamicUsers.php:226
+#: widgets/DCE_DynamicUsers.php:240 widgets/DCE_DynamicUsers.php:806
+#: widgets/DCE_LIST_ParentChildMenu.php:51
+#: widgets/DCE_LIST_ParentChildMenu.php:68
+#: widgets/DCE_LIST_ParentChildMenu.php:82
+#: widgets/DCE_LIST_ParentChildMenu.php:131
+#: widgets/DCE_LIST_ParentChildMenu.php:149
+#: widgets/DCE_LIST_ParentChildMenu.php:167
+#: widgets/DCE_LIST_ParentChildMenu.php:192
+#: widgets/DCE_LIST_ParentChildMenu.php:226 widgets/DCE_ACF_Acf.php:241
+#: widgets/DCE_ACF_Acf.php:289 widgets/DCE_ACF_Acf.php:724
+#: widgets/DCE_ACF_Acf.php:953 widgets/DCE_ACF_Acf.php:964
+#: widgets/DCE_ACF_Acf.php:975 widgets/DCE_ACF_Acf.php:1025
+#: widgets/DCE_ACF_Acf.php:1037 widgets/DCE_ACF_Acf.php:1167
+#: documents/scrollify.php:127 documents/scrollify.php:228
+#: documents/scrollify.php:243 documents/scrollify.php:258
+#: documents/scrollify.php:273 documents/scrollify.php:289
+#: class/controls/groups/ajaxpage.php:93
+#: class/controls/groups/animation.php:50
+msgid "Yes"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:130
+#: widgets/DCE_CREATIVE_PagePiling.php:140
+#: widgets/DCE_CREATIVE_PagePiling.php:249
+#: widgets/DCE_CREATIVE_PagePiling.php:260
+#: widgets/DCE_CREATIVE_PagePiling.php:282
+#: widgets/DCE_CREATIVE_PagePiling.php:337
+#: widgets/DCE_CREATIVE_PagePiling.php:348
+#: widgets/DCE_CREATIVE_PagePiling.php:359
+#: widgets/DCE_CREATIVE_PagePiling.php:377
+#: widgets/DCE_CREATIVE_PagePiling.php:409
+#: widgets/DCE_CREATIVE_PagePiling.php:423
+#: widgets/DCE_CREATIVE_PagePiling.php:549 widgets/DCE_ACF_Gallery.php:95
+#: widgets/DCE_ACF_Gallery.php:245 widgets/DCE_ACF_Gallery.php:517
+#: widgets/DCE_ACF_Gallery.php:788 widgets/DCE_ACF_Gallery.php:813
+#: widgets/DCE_LIST_FileBrowser.php:62 widgets/DCE_LIST_FileBrowser.php:81
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:100
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:111
+#: widgets/DCE_CREATIVE_Tilt.php:248 widgets/DCE_CREATIVE_Tilt.php:259
+#: widgets/DCE_CREATIVE_Tilt.php:270 widgets/DCE_POST_Content.php:53
+#: widgets/DCE_POST_Content.php:63 widgets/DCE_POST_Content.php:76
+#: widgets/DCE_POST_Title.php:440 widgets/DCE_POST_Breadcrumbs.php:56
+#: widgets/DCE_DynamicPosts.php:136 widgets/DCE_DynamicPosts.php:150
+#: widgets/DCE_DynamicPosts.php:174 widgets/DCE_DynamicPosts.php:368
+#: widgets/DCE_DynamicPosts.php:431 widgets/DCE_DynamicPosts.php:462
+#: widgets/DCE_DynamicPosts.php:477 widgets/DCE_DynamicPosts.php:503
+#: widgets/DCE_DynamicPosts.php:528 widgets/DCE_DynamicPosts.php:616
+#: widgets/DCE_DynamicPosts.php:701 widgets/DCE_DynamicPosts.php:713
+#: widgets/DCE_DynamicPosts.php:760 widgets/DCE_DynamicPosts.php:806
+#: widgets/DCE_DynamicPosts.php:829 widgets/DCE_DynamicPosts.php:862
+#: widgets/DCE_DynamicPosts.php:1079 widgets/DCE_DynamicPosts.php:1469
+#: widgets/DCE_DynamicPosts.php:1490 widgets/DCE_DynamicPosts.php:1517
+#: widgets/DCE_DynamicPosts.php:1532 widgets/DCE_DynamicPosts.php:1555
+#: widgets/DCE_DynamicPosts.php:1567 widgets/DCE_DynamicPosts.php:1590
+#: widgets/DCE_DynamicPosts.php:1628 widgets/DCE_DynamicPosts.php:1640
+#: widgets/DCE_DynamicPosts.php:1652 widgets/DCE_DynamicPosts.php:1664
+#: widgets/DCE_DynamicPosts.php:1676 widgets/DCE_DynamicPosts.php:1688
+#: widgets/DCE_DynamicPosts.php:1708 widgets/DCE_DynamicPosts.php:1720
+#: widgets/DCE_DynamicPosts.php:1869 widgets/DCE_DynamicPosts.php:1885
+#: widgets/DCE_DynamicPosts.php:1949 widgets/DCE_DynamicPosts.php:2105
+#: widgets/DCE_DynamicPosts.php:2123 widgets/DCE_DynamicPosts.php:2141
+#: widgets/DCE_DynamicPosts.php:2164 widgets/DCE_DynamicPosts.php:2182
+#: widgets/DCE_DynamicPosts.php:2200 widgets/DCE_DynamicPosts.php:2218
+#: widgets/DCE_DynamicPosts.php:2237 widgets/DCE_DynamicPosts.php:2352
+#: widgets/DCE_DynamicPosts.php:2474 widgets/DCE_DynamicPosts.php:2565
+#: widgets/DCE_DynamicPosts.php:2668 widgets/DCE_DynamicPosts.php:2681
+#: widgets/DCE_DynamicPosts.php:2942 widgets/DCE_DynamicPosts.php:3138
+#: widgets/DCE_DynamicPosts.php:3190 widgets/DCE_DynamicPosts.php:3218
+#: widgets/DCE_DynamicPosts.php:3247 widgets/DCE_DynamicPosts.php:3262
+#: widgets/DCE_DynamicPosts.php:3287 widgets/DCE_DynamicPosts.php:4216
+#: widgets/DCE_ACF_Slider.php:322 widgets/DCE_ACF_Slider.php:371
+#: widgets/DCE_ACF_Slider.php:387 widgets/DCE_ACF_Slider.php:451
+#: widgets/DCE_ACF_Slider.php:557 widgets/DCE_ACF_Slider.php:642
+#: widgets/DCE_ACF_Slider.php:905 widgets/DCE_ACF_Slider.php:1296
+#: widgets/DCE_ACF_Slider.php:1330 widgets/DCE_ACF_Slider.php:1342
+#: widgets/DCE_ACF_Slider.php:1361 widgets/DCE_ACF_Slider.php:1384
+#: widgets/DCE_ACF_Slider.php:1396 widgets/DCE_ACF_Slider.php:1418
+#: widgets/DCE_ACF_Slider.php:1430 widgets/DCE_ACF_Slider.php:1477
+#: widgets/DCE_ACF_Slider.php:1523 widgets/DCE_ACF_Slider.php:1578
+#: widgets/DCE_ACF_Slider.php:1590 widgets/DCE_ACF_Slider.php:1650
+#: widgets/DCE_ACF_Slider.php:1662 widgets/DCE_ACF_Slider.php:1674
+#: widgets/DCE_ACF_Slider.php:1686 widgets/DCE_ACF_Slider.php:1698
+#: widgets/DCE_ACF_Slider.php:1710 widgets/DCE_ACF_Slider.php:1733
+#: widgets/DCE_ACF_Slider.php:1758 widgets/DCE_POST_NextPrev.php:127
+#: widgets/DCE_POST_NextPrev.php:162 widgets/DCE_CREATIVE_Swiper.php:291
+#: widgets/DCE_CREATIVE_Swiper.php:310 widgets/DCE_CREATIVE_Swiper.php:322
+#: widgets/DCE_CREATIVE_Swiper.php:334 widgets/DCE_CREATIVE_Swiper.php:346
+#: widgets/DCE_CREATIVE_Swiper.php:358 widgets/DCE_CREATIVE_Swiper.php:370
+#: widgets/DCE_CREATIVE_Swiper.php:462 widgets/DCE_CREATIVE_Swiper.php:474
+#: widgets/DCE_CREATIVE_Swiper.php:493 widgets/DCE_CREATIVE_Swiper.php:505
+#: widgets/DCE_CREATIVE_Swiper.php:527 widgets/DCE_CREATIVE_Swiper.php:539
+#: widgets/DCE_CREATIVE_Swiper.php:586 widgets/DCE_CREATIVE_Swiper.php:632
+#: widgets/DCE_CREATIVE_Swiper.php:687 widgets/DCE_CREATIVE_Swiper.php:699
+#: widgets/DCE_CREATIVE_Swiper.php:734 widgets/xx.php:137
+#: widgets/DCE_CREATIVE_Parallax.php:61 widgets/DCE_CREATIVE_Parallax.php:71
+#: widgets/DCE_CREATIVE_Parallax.php:81 widgets/DCE_CREATIVE_Parallax.php:99
+#: widgets/DCE_CREATIVE_Parallax.php:109 widgets/DCE_CREATIVE_Parallax.php:119
+#: widgets/DCE_CREATIVE_Parallax.php:129 widgets/DCE_CREATIVE_Parallax.php:231
+#: widgets/DCE_POST_FeaturedImage.php:146
+#: widgets/DCE_POST_FeaturedImage.php:187
+#: widgets/DCE_POST_FeaturedImage.php:705
+#: widgets/DCE_CREATIVE_PageScroll.php:72
+#: widgets/DCE_CREATIVE_PageScroll.php:82 widgets/DCE_ACF_GoogleMaps.php:136
+#: widgets/DCE_ACF_GoogleMaps.php:217 widgets/DCE_ACF_GoogleMaps.php:227
+#: widgets/DCE_ACF_GoogleMaps.php:238 widgets/DCE_ACF_GoogleMaps.php:248
+#: widgets/DCE_ACF_GoogleMaps.php:258 widgets/DCE_ACF_GoogleMaps.php:268
+#: widgets/DCE_ACF_GoogleMaps.php:285
+#: widgets/DCE_CREATIVE_PosterSlider.php:125
+#: widgets/DCE_CREATIVE_PosterSlider.php:144
+#: widgets/DCE_CREATIVE_FullPage.php:101 widgets/DCE_CREATIVE_FullPage.php:280
+#: widgets/DCE_CREATIVE_FullPage.php:291 widgets/DCE_CREATIVE_FullPage.php:302
+#: widgets/DCE_CREATIVE_FullPage.php:324 widgets/DCE_CREATIVE_FullPage.php:397
+#: widgets/DCE_CREATIVE_FullPage.php:408 widgets/DCE_CREATIVE_FullPage.php:419
+#: widgets/DCE_CREATIVE_FullPage.php:437 widgets/DCE_CREATIVE_FullPage.php:469
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:88
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:116
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:134
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:156 widgets/DCE_DynamicUsers.php:73
+#: widgets/DCE_DynamicUsers.php:213 widgets/DCE_DynamicUsers.php:227
+#: widgets/DCE_DynamicUsers.php:241 widgets/DCE_DynamicUsers.php:807
+#: widgets/DCE_LIST_ParentChildMenu.php:55
+#: widgets/DCE_LIST_ParentChildMenu.php:69
+#: widgets/DCE_LIST_ParentChildMenu.php:83
+#: widgets/DCE_LIST_ParentChildMenu.php:135
+#: widgets/DCE_LIST_ParentChildMenu.php:153
+#: widgets/DCE_LIST_ParentChildMenu.php:171
+#: widgets/DCE_LIST_ParentChildMenu.php:193
+#: widgets/DCE_LIST_ParentChildMenu.php:230 widgets/DCE_ACF_Acf.php:240
+#: widgets/DCE_ACF_Acf.php:293 widgets/DCE_ACF_Acf.php:723
+#: widgets/DCE_ACF_Acf.php:952 widgets/DCE_ACF_Acf.php:963
+#: widgets/DCE_ACF_Acf.php:974 widgets/DCE_ACF_Acf.php:1024
+#: widgets/DCE_ACF_Acf.php:1036 widgets/DCE_ACF_Acf.php:1168
+#: documents/scrollify.php:128 documents/scrollify.php:229
+#: documents/scrollify.php:244 documents/scrollify.php:259
+#: documents/scrollify.php:274 documents/scrollify.php:290
+#: class/controls/groups/ajaxpage.php:94
+#: class/controls/groups/animation.php:51
+msgid "No"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:136 widgets/DCE_DynamicPosts.php:1647
+#: widgets/DCE_ACF_Slider.php:1669 widgets/DCE_CREATIVE_Swiper.php:329
+#: widgets/DCE_CREATIVE_FullPage.php:97
+msgid "Auto Height"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:152 widgets/DCE_ACF_Gallery.php:315
+#: widgets/DCE_POST_Title.php:156 widgets/DCE_DynamicPosts.php:343
+#: widgets/DCE_DynamicPosts.php:349 widgets/DCE_DynamicPosts.php:2935
+#: widgets/DCE_ACF_Slider.php:440 widgets/DCE_CREATIVE_Swiper.php:214
+#: widgets/DCE_CREATIVE_PageScroll.php:223
+#: widgets/DCE_CREATIVE_FullPage.php:184 widgets/DCE_POST_ReadMore.php:278
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:59
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:288 widgets/DCE_DynamicUsers.php:280
+#: widgets/DCE_DynamicUsers.php:705 widgets/DCE_LIST_ParentChildMenu.php:107
+#: widgets/DCE_LIST_ParentChildMenu.php:440 widgets/DCE_Prototype.php:824
+msgid "Style"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:226
+#: widgets/DCE_CREATIVE_PageScroll.php:233
+#: widgets/DCE_CREATIVE_FullPage.php:258
+msgid "Sections"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:239
+#: widgets/DCE_WOOCOMMERCE_search.php:45 widgets/DCE_WOOCOMMERCE_stock.php:42
+#: widgets/DCE_WOOCOMMERCE_rating.php:45 widgets/DCE_CREATIVE_Swiper.php:239
+#: widgets/DCE_CREATIVE_PageScroll.php:46
+#: widgets/DCE_WOOCOMMERCE_productImage.php:50
+#: widgets/DCE_WOOCOMMERCE_saleFlash.php:45
+#: widgets/DCE_CREATIVE_FullPage.php:271 widgets/DCE_WOOCOMMERCE_tabs.php:45
+#: widgets/DCE_POST_ReadMore.php:50 widgets/DCE_WOOCOMMERCE_price.php:47
+#: widgets/DCE_WOOCOMMERCE_share.php:47 widgets/DCE_WOOCOMMERCE_meta.php:47
+#: widgets/DCE_WOOCOMMERCE_addToCart.php:45
+#: widgets/DCE_WOOCOMMERCE_additionalInformation.php:47 class/plugin.php:1288
+msgid "Settings"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:245
+#: widgets/DCE_CREATIVE_FullPage.php:298
+msgid "Vertical Centered"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:256
+msgid "Enabled Hash Url (#slug)"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:267
+#: widgets/DCE_CREATIVE_FullPage.php:309
+msgid "scrollingSpeed"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:278
+#: widgets/DCE_CREATIVE_FullPage.php:320
+msgid "Easing: CSS3(yes) or Javascript(no)"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:289
+#: widgets/DCE_CREATIVE_FullPage.php:331 widgets/DCE_CREATIVE_FullPage.php:375
+msgid "Easing"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:292
+#: widgets/DCE_CREATIVE_FullPage.php:334 widgets/DCE_CREATIVE_FullPage.php:378
+#: class/helper.php:267
+msgid "Linear"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:293
+#: widgets/DCE_CREATIVE_FullPage.php:335
+msgid "easeInSine"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:294
+#: widgets/DCE_CREATIVE_FullPage.php:336
+msgid "easeOutSine"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:295
+#: widgets/DCE_CREATIVE_FullPage.php:337
+msgid "easeInOutSine"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:296
+#: widgets/DCE_CREATIVE_FullPage.php:338
+msgid "easeInQuad"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:297
+#: widgets/DCE_CREATIVE_FullPage.php:339
+msgid "easeOutQuad"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:298
+#: widgets/DCE_CREATIVE_FullPage.php:340
+msgid "easeInOutQuad"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:299
+#: widgets/DCE_CREATIVE_FullPage.php:341
+msgid "easeInCubic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:300
+#: widgets/DCE_CREATIVE_PagePiling.php:301
+#: widgets/DCE_CREATIVE_FullPage.php:342 widgets/DCE_CREATIVE_FullPage.php:343
+msgid "easeOutCubic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:302
+#: widgets/DCE_CREATIVE_FullPage.php:344
+msgid "easeInOutCubic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:303
+#: widgets/DCE_CREATIVE_FullPage.php:345
+msgid "easeInQuart"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:304
+#: widgets/DCE_CREATIVE_FullPage.php:346
+msgid "easeOutQuart"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:305
+#: widgets/DCE_CREATIVE_FullPage.php:347
+msgid "easeInOutQuart"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:306
+#: widgets/DCE_CREATIVE_FullPage.php:348 class/helper.php:273
+msgid "easeInQuint"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:307
+#: widgets/DCE_CREATIVE_FullPage.php:349 class/helper.php:274
+msgid "easeOutQuint"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:308
+#: widgets/DCE_CREATIVE_FullPage.php:350 class/helper.php:275
+msgid "easeInOutQuint"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:309
+#: widgets/DCE_CREATIVE_FullPage.php:351 class/helper.php:282
+msgid "easeOutExpo"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:310
+#: widgets/DCE_CREATIVE_FullPage.php:352 class/helper.php:283
+msgid "easeInOutExpo"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:311
+#: widgets/DCE_CREATIVE_FullPage.php:353 class/helper.php:277
+msgid "easeInCirc"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:312
+#: widgets/DCE_CREATIVE_FullPage.php:354 class/helper.php:278
+msgid "easeOutCirc"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:313
+#: widgets/DCE_CREATIVE_FullPage.php:355 class/helper.php:279
+msgid "easeInOutCirc"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:314
+#: widgets/DCE_CREATIVE_FullPage.php:356 class/helper.php:285
+msgid "easeInBack"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:315
+#: widgets/DCE_CREATIVE_FullPage.php:357 class/helper.php:286
+msgid "easeOutBack"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:316
+#: widgets/DCE_CREATIVE_FullPage.php:358 class/helper.php:287
+msgid "easeInOutBack"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:317
+#: widgets/DCE_CREATIVE_FullPage.php:359
+msgid "easeInElastic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:318
+#: widgets/DCE_CREATIVE_FullPage.php:360
+msgid "easeOutElastic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:319
+#: widgets/DCE_CREATIVE_FullPage.php:361
+msgid "easeInOutElastic"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:320
+#: widgets/DCE_CREATIVE_FullPage.php:362
+msgid "easeInBounce"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:321
+#: widgets/DCE_CREATIVE_FullPage.php:363
+msgid "easeOutBounce"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:322
+#: widgets/DCE_CREATIVE_FullPage.php:364
+msgid "easeInOutBounce"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:333
+#: widgets/DCE_CREATIVE_FullPage.php:393
+msgid "Continuous Vertical"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:344
+#: widgets/DCE_CREATIVE_FullPage.php:404
+msgid "Loop Top"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:355
+#: widgets/DCE_CREATIVE_FullPage.php:415
+msgid "Loop Bottom"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:368
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:96
+#: widgets/DCE_CREATIVE_FullPage.php:428
+msgid "Navigation"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:373
+#: widgets/DCE_CREATIVE_FullPage.php:433
+msgid "Enabled Navigation"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:384 widgets/DCE_POST_Title.php:268
+#: widgets/DCE_CREATIVE_FullPage.php:444
+msgid "Position"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:388 widgets/DCE_ACF_Gallery.php:326
+#: widgets/DCE_POST_Content.php:119 widgets/DCE_POST_Title.php:80
+#: widgets/DCE_POST_Title.php:305 widgets/DCE_POST_Breadcrumbs.php:86
+#: widgets/DCE_DynamicPosts.php:1980 widgets/DCE_DynamicPosts.php:2074
+#: widgets/DCE_DynamicPosts.php:3072 widgets/DCE_DynamicPosts.php:4098
+#: widgets/DCE_POST_Terms.php:113 widgets/DCE_ACF_Slider.php:87
+#: widgets/DCE_POST_TitleType.php:100 widgets/xx.php:71
+#: widgets/DCE_POST_Date.php:129 widgets/DCE_POST_Excerpt.php:80
+#: widgets/DCE_POST_FeaturedImage.php:79 widgets/DCE_TAX_TitleTaxonomy.php:88
+#: widgets/DCE_POST_Author.php:82 widgets/DCE_CREATIVE_PosterSlider.php:159
+#: widgets/DCE_CREATIVE_FullPage.php:448 widgets/DCE_POST_ReadMore.php:87
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:216 widgets/DCE_DynamicUsers.php:885
+#: widgets/DCE_DynamicUsers.php:969 widgets/DCE_LIST_ParentChildMenu.php:277
+#: widgets/DCE_ACF_Acf.php:181 widgets/DCE_Prototype.php:486
+#: widgets/DCE_POST_IconFormat.php:115
+msgid "Left"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:392 widgets/DCE_ACF_Gallery.php:334
+#: widgets/DCE_POST_Content.php:127 widgets/DCE_POST_Title.php:88
+#: widgets/DCE_POST_Title.php:281 widgets/DCE_POST_Title.php:313
+#: widgets/DCE_POST_Breadcrumbs.php:94 widgets/DCE_DynamicPosts.php:1981
+#: widgets/DCE_DynamicPosts.php:2082 widgets/DCE_DynamicPosts.php:3080
+#: widgets/DCE_DynamicPosts.php:4106 widgets/DCE_POST_Terms.php:121
+#: widgets/DCE_ACF_Slider.php:95 widgets/DCE_POST_TitleType.php:108
+#: widgets/xx.php:79 widgets/DCE_POST_Date.php:137
+#: widgets/DCE_POST_Excerpt.php:88 widgets/DCE_POST_FeaturedImage.php:87
+#: widgets/DCE_TAX_TitleTaxonomy.php:96 widgets/DCE_POST_Author.php:90
+#: widgets/DCE_CREATIVE_PosterSlider.php:167
+#: widgets/DCE_CREATIVE_FullPage.php:452 widgets/DCE_POST_ReadMore.php:95
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:224 widgets/DCE_DynamicUsers.php:893
+#: widgets/DCE_DynamicUsers.php:977 widgets/DCE_LIST_ParentChildMenu.php:285
+#: widgets/DCE_ACF_Acf.php:189 widgets/DCE_Prototype.php:494
+#: widgets/DCE_POST_IconFormat.php:123
+msgid "Right"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:405
+msgid "Enable Tooltips"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:419
+msgid "Enable Tooltips Label"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:433 widgets/DCE_DynamicPosts.php:1331
+#: widgets/DCE_ACF_Slider.php:1157
+msgid "Bullets Color"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:448 widgets/DCE_POST_Content.php:179
+#: widgets/DCE_POST_Title.php:344 widgets/DCE_POST_Breadcrumbs.php:152
+#: widgets/DCE_DynamicPosts.php:2962 widgets/DCE_DynamicPosts.php:3479
+#: widgets/DCE_DynamicPosts.php:3584 widgets/DCE_DynamicPosts.php:3636
+#: widgets/DCE_DynamicPosts.php:3696 widgets/DCE_DynamicPosts.php:3896
+#: widgets/DCE_DynamicPosts.php:3996 widgets/DCE_DynamicPosts.php:4166
+#: widgets/DCE_POST_Terms.php:156 widgets/DCE_POST_TitleType.php:166
+#: widgets/DCE_POST_Date.php:220 widgets/DCE_POST_Date.php:255
+#: widgets/DCE_POST_Date.php:295 widgets/DCE_POST_Excerpt.php:146
+#: widgets/DCE_TAX_TitleTaxonomy.php:151 widgets/DCE_POST_Author.php:148
+#: widgets/DCE_POST_ReadMore.php:203
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:303 widgets/DCE_DynamicUsers.php:294
+#: widgets/DCE_LIST_ParentChildMenu.php:458
+#: widgets/DCE_LIST_ParentChildMenu.php:535 widgets/DCE_ACF_Acf.php:540
+msgid "Text Color"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:463 widgets/DCE_ACF_Slider.php:738
+#: widgets/DCE_ACF_Slider.php:1097
+msgid "Vertical position"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:487
+msgid "Bullet space"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:511
+msgid "Bullet size"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:537 widgets/xx.php:376
+#: widgets/DCE_POST_FeaturedImage.php:478 widgets/DCE_ACF_Acf.php:496
+msgid "Effects"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PagePiling.php:545
+msgid "Scale effect"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:43
+msgid "ACF Gallery"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:70 widgets/DCE_DynamicPosts.php:2874
+#: widgets/DCE_ACF_Slider.php:75 widgets/DCE_ACF_Acf.php:66
+msgid "ACF Fields List"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:83 widgets/DCE_DynamicUsers.php:160
+#: widgets/DCE_ACF_Acf.php:99 widgets/DCE_ACF_Acf.php:571
+msgid "Text before"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:84 widgets/DCE_POST_TitleType.php:62
+#: widgets/DCE_TAX_TitleTaxonomy.php:50 widgets/DCE_ACF_Acf.php:100
+msgid "Un testo prima dell'elemento"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:91 widgets/DCE_DynamicPosts.php:3283
+msgid "Enabled WOW animation"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:115
+msgid "Gallery Type"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:118 widgets/DCE_DynamicPosts.php:353
+#: widgets/DCE_DynamicUsers.php:710
+msgid "Row"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:119 widgets/DCE_DynamicPosts.php:1806
+msgid "Grid"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:120
+msgid "Masonry"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:121
+msgid "Diamond"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:122
+msgid "Hexagon"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:131
+msgid "Items per row"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:158
+msgid "Min Diamond per Row"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:180 widgets/DCE_ACF_Slider.php:338
+#: widgets/DCE_POST_FeaturedImage.php:510 documents/scrollify.php:326
+msgid "Size"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:227
+msgid "Gap Diamond"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:241
+msgid "Hide Incomplete Row"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:255
+msgid "Size Hexagon"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:271
+msgid "Gap Hexagon"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:322 widgets/DCE_POST_Content.php:115
+#: widgets/DCE_POST_Title.php:76 widgets/DCE_POST_Title.php:301
+#: widgets/DCE_POST_Breadcrumbs.php:82 widgets/DCE_DynamicPosts.php:2066
+#: widgets/DCE_DynamicPosts.php:4090 widgets/DCE_POST_Terms.php:109
+#: widgets/DCE_ACF_Slider.php:83 widgets/DCE_POST_TitleType.php:96
+#: widgets/xx.php:67 widgets/DCE_POST_Date.php:125
+#: widgets/DCE_POST_Excerpt.php:76 widgets/DCE_POST_FeaturedImage.php:75
+#: widgets/DCE_TAX_TitleTaxonomy.php:84 widgets/DCE_POST_Author.php:78
+#: widgets/DCE_POST_ReadMore.php:83 widgets/DCE_DynamicUsers.php:877
+#: widgets/DCE_ACF_Acf.php:177 widgets/DCE_POST_IconFormat.php:111
+msgid "Alignment"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:348
+msgid "Vertical Alignment"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:352
+msgid "Down"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:356
+msgid "Middle"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:375
+msgid "Paddings Items"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:388 widgets/DCE_ModalWindow.php:204
+#: widgets/DCE_DynamicPosts.php:3843 widgets/DCE_DynamicPosts.php:3956
+#: widgets/DCE_DynamicPosts.php:4119 widgets/DCE_DynamicPosts.php:4495
+#: widgets/DCE_ACF_Slider.php:467 widgets/xx.php:536
+#: widgets/DCE_POST_FeaturedImage.php:633 widgets/DCE_POST_Author.php:260
+#: widgets/DCE_POST_ReadMore.php:285 widgets/DCE_DynamicUsers.php:662
+#: widgets/DCE_ACF_Acf.php:802
+msgid "Border Radius"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:402 widgets/DCE_DynamicPosts.php:3384
+#: widgets/DCE_DynamicPosts.php:3833 widgets/DCE_ACF_Slider.php:458
+#: widgets/xx.php:511 widgets/DCE_POST_FeaturedImage.php:605
+#: widgets/DCE_POST_Author.php:251 widgets/DCE_ACF_Acf.php:793
+msgid "Image Border"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:504 widgets/DCE_DynamicPosts.php:2510
+#: widgets/DCE_ACF_Slider.php:309 widgets/xx.php:59
+#: widgets/DCE_POST_FeaturedImage.php:67
+#: widgets/DCE_CREATIVE_PosterSlider.php:110 widgets/DCE_DynamicUsers.php:427
+#: widgets/DCE_DynamicUsers.php:524 widgets/DCE_ACF_Acf.php:276
+msgid "Image Size"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:513 widgets/DCE_ACF_Slider.php:318
+#: widgets/DCE_ACF_Acf.php:721
+msgid "Force Width"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:530 widgets/DCE_DynamicPosts.php:2519
+#: widgets/xx.php:422 widgets/DCE_POST_Author.php:175
+#: widgets/DCE_ACF_Acf.php:697
+msgid "Size (%)"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:631 widgets/DCE_ACF_Slider.php:430
+#: widgets/DCE_DynamicUsers.php:147 widgets/DCE_Prototype.php:509
+msgid "Description"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:638 widgets/DCE_ACF_Slider.php:424
+msgid "Descrizione"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:639
+msgid "Seleziona cosa usare nella descrizione"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:656 widgets/DCE_POST_Title.php:195
+#: widgets/DCE_ACF_Acf.php:1194 widgets/DCE_Prototype.php:578
+#: widgets/DCE_Prototype.php:588 documents/scrollify.php:426
+msgid "Color"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:674 widgets/DCE_POST_Breadcrumbs.php:180
+#: widgets/DCE_Prototype.php:534
+msgid "Typography"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:684
+msgid "space"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:709 widgets/DCE_DynamicPosts.php:3296
+msgid "Coefficiente di ritardo"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:710 widgets/DCE_DynamicPosts.php:3297
+msgid "Il coefficiente di ritardo."
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:723 widgets/DCE_DynamicPosts.php:3310
+msgid "Wow Animation Effect"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:784 widgets/DCE_ACF_Slider.php:1729
+msgid "Eneble LightBox"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:795 widgets/DCE_ACF_Slider.php:1740
+msgid "Lightbox Type"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:798 widgets/DCE_ACF_Slider.php:403
+#: widgets/DCE_ACF_Slider.php:1743 widgets/xx.php:152
+#: widgets/DCE_POST_FeaturedImage.php:161 widgets/DCE_ACF_Acf.php:310
+msgid "Default"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:809 widgets/DCE_ACF_Slider.php:1754
+msgid "Overlay Hover"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:840 widgets/DCE_ACF_Slider.php:1785
+msgid "Hover Effects"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:844 widgets/DCE_ACF_Slider.php:1789
+#: widgets/xx.php:380 widgets/DCE_POST_FeaturedImage.php:482
+#: widgets/DCE_ACF_Acf.php:500
+msgid "Zoom"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:858 widgets/DCE_POST_Content.php:239
+#: widgets/DCE_POST_Title.php:404 widgets/DCE_ACF_Slider.php:1824
+#: widgets/xx.php:563 widgets/DCE_POST_Excerpt.php:207
+#: widgets/DCE_POST_FeaturedImage.php:668 widgets/DCE_ACF_GoogleMaps.php:360
+#: widgets/DCE_ACF_Acf.php:1283
+msgid "Dynamic content"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:866 widgets/DCE_POST_Content.php:246
+#: widgets/DCE_POST_Title.php:412 widgets/DCE_ACF_Slider.php:1832
+#: widgets/xx.php:571 widgets/DCE_POST_Excerpt.php:215
+#: widgets/DCE_POST_FeaturedImage.php:676 widgets/DCE_ACF_GoogleMaps.php:368
+#: widgets/DCE_POST_ReadMore.php:143 widgets/DCE_ACF_Acf.php:1291
+#: widgets/DCE_Template.php:63
+#: class/plugins/class-tgm-plugin-activation.php:2548
+msgid "Source"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:867 widgets/DCE_POST_Content.php:247
+#: widgets/DCE_POST_Title.php:413 widgets/DCE_ACF_Slider.php:1833
+#: widgets/xx.php:572 widgets/DCE_POST_Excerpt.php:216
+#: widgets/DCE_POST_FeaturedImage.php:677 widgets/DCE_ACF_GoogleMaps.php:369
+#: widgets/DCE_POST_ReadMore.php:144 widgets/DCE_ACF_Acf.php:1292
+#: widgets/DCE_Template.php:64
+msgid "Select the data source"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:870 widgets/DCE_POST_Content.php:250
+#: widgets/DCE_POST_Title.php:416 widgets/DCE_DynamicPosts.php:187
+#: widgets/DCE_DynamicPosts.php:202 widgets/DCE_ACF_Slider.php:1836
+#: widgets/xx.php:575 widgets/DCE_POST_Excerpt.php:219
+#: widgets/DCE_POST_FeaturedImage.php:680 widgets/DCE_ACF_GoogleMaps.php:372
+#: widgets/DCE_POST_ReadMore.php:147 widgets/DCE_ACF_Acf.php:1295
+#: widgets/DCE_Template.php:67
+msgid "Same"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:871 widgets/DCE_POST_Content.php:251
+#: widgets/DCE_POST_Title.php:417 widgets/DCE_DynamicPosts.php:188
+#: widgets/DCE_DynamicPosts.php:203 widgets/DCE_ACF_Slider.php:1837
+#: widgets/xx.php:576 widgets/DCE_POST_Excerpt.php:220
+#: widgets/DCE_POST_FeaturedImage.php:681 widgets/DCE_ACF_GoogleMaps.php:373
+#: widgets/DCE_POST_ReadMore.php:148 widgets/DCE_ACF_Acf.php:1296
+#: widgets/DCE_Template.php:68
+msgid "other"
+msgstr ""
+
+#: widgets/DCE_ACF_Gallery.php:877 widgets/DCE_POST_Content.php:257
+#: widgets/DCE_POST_Title.php:423 widgets/DCE_ACF_Slider.php:1843
+#: widgets/xx.php:582 widgets/DCE_POST_Excerpt.php:226
+#: widgets/DCE_POST_FeaturedImage.php:687 widgets/DCE_ACF_GoogleMaps.php:379
+#: widgets/DCE_POST_ReadMore.php:158 widgets/DCE_ACF_Acf.php:1302
+#: widgets/DCE_Template.php:75
+msgid "Select from other source post"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:30 widgets/DCE_LIST_FileBrowser.php:45
+msgid "FileBrowser"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:51
+msgid "Root Folder"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:60
+msgid "Show folder title"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:70
+msgid "Accessible for"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:79
+msgid "Hidden if not accessible"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:105
+msgid "PRIVATE FILES, you need more <abbr title=\""
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:105
+msgid "Please login."
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:109
+msgid "Root folder not found"
+msgstr ""
+
+#: widgets/DCE_LIST_FileBrowser.php:112
+msgid "Select root folder"
+msgstr ""
+
+#: widgets/DCE_DEV_RawPhp.php:29 widgets/DCE_DEV_RawPhp.php:39
+msgid "RawPHP"
+msgstr ""
+
+#: widgets/DCE_DEV_RawPhp.php:45
+msgid "Custom PHP"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:29
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:43
+msgid "ThreesixtySlider"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:48
+#: widgets/DCE_DynamicPosts.php:2483 widgets/DCE_ACF_Slider.php:108
+#: widgets/DCE_CREATIVE_Swiper.php:51 widgets/xx.php:188
+#: widgets/DCE_POST_FeaturedImage.php:237 widgets/DCE_ACF_GoogleMaps.php:103
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:188
+#: widgets/DCE_LIST_ParentChildMenu.php:248
+msgid "Height"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:86
+msgid "Path images"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:87
+msgid ""
+"Il percorso assoluto delle immagini per la costruzione del 360. ( default: "
+"http://SITO/wp-content/plugins/dynamic-content-for-elementor/assets/lib/"
+"threesixty-slider/imagestest360// )"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_ThreesixtySlider.php:107
+msgid "Responsive"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:33 widgets/DCE_CREATIVE_Tilt.php:47
+msgid "Tilt"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:85
+msgid "Translate Z"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:137 widgets/DCE_CREATIVE_PageScroll.php:88
+msgid "Background color of back"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:163
+msgid "Max Tilt"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:179
+msgid "Perspective"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:223 widgets/DCE_DynamicPosts.php:976
+msgid "Scale"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:233
+msgid "Speed"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:244
+msgid "Transition"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:255
+msgid "Reset"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:266
+msgid "Glare"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Tilt.php:294
+msgid "Max Glare"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_search.php:29
+msgid "Search Commerce"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_search.php:120
+msgid "Search for:"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_search.php:121
+msgid "Search products&hellip;"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_search.php:122
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_svg.php:30 widgets/DCE_CREATIVE_svg.php:45
+msgid "Creative SVG"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_svg.php:51
+msgid "SVG file"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_stock.php:26
+msgid "Stock"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:30 widgets/DCE_POST_Content.php:44
+#: widgets/DCE_POST_Content.php:172 widgets/DCE_DynamicPosts.php:2310
+#: widgets/DCE_DynamicPosts.php:2876 widgets/DCE_DynamicPosts.php:3883
+#: widgets/DCE_Prototype.php:805
+msgid "Content"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:49
+msgid "Use the content-filters"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:59
+msgid "Use the content limit."
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:72
+msgid "Use the content auto-p."
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:85 widgets/DCE_DynamicPosts.php:2322
+msgid "Number of characters"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:97 widgets/DCE_POST_Title.php:56
+#: widgets/DCE_DynamicPosts.php:2282 widgets/DCE_DynamicPosts.php:2885
+#: widgets/DCE_POST_Terms.php:57 widgets/DCE_POST_TitleType.php:77
+#: widgets/DCE_POST_Date.php:68 widgets/DCE_POST_Excerpt.php:57
+#: widgets/DCE_TAX_TitleTaxonomy.php:65 widgets/DCE_POST_Author.php:60
+#: widgets/DCE_POST_ReadMore.php:56 widgets/DCE_ACF_Acf.php:155
+msgid "HTML Tag"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:100 widgets/DCE_POST_Title.php:59
+#: widgets/DCE_DynamicPosts.php:2285 widgets/DCE_DynamicPosts.php:2889
+#: widgets/DCE_POST_Terms.php:60 widgets/DCE_POST_TitleType.php:80
+#: widgets/DCE_POST_Date.php:71 widgets/DCE_POST_Excerpt.php:60
+#: widgets/DCE_TAX_TitleTaxonomy.php:68 widgets/DCE_POST_Author.php:63
+#: widgets/DCE_POST_ReadMore.php:60 widgets/DCE_ACF_Acf.php:158
+msgid "H1"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:101 widgets/DCE_POST_Title.php:60
+#: widgets/DCE_DynamicPosts.php:2286 widgets/DCE_DynamicPosts.php:2890
+#: widgets/DCE_POST_Terms.php:61 widgets/DCE_POST_TitleType.php:81
+#: widgets/DCE_POST_Date.php:72 widgets/DCE_POST_Excerpt.php:61
+#: widgets/DCE_TAX_TitleTaxonomy.php:69 widgets/DCE_POST_Author.php:64
+#: widgets/DCE_POST_ReadMore.php:61 widgets/DCE_ACF_Acf.php:159
+msgid "H2"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:102 widgets/DCE_POST_Title.php:61
+#: widgets/DCE_DynamicPosts.php:2287 widgets/DCE_DynamicPosts.php:2891
+#: widgets/DCE_POST_Terms.php:62 widgets/DCE_POST_TitleType.php:82
+#: widgets/DCE_POST_Date.php:73 widgets/DCE_POST_Excerpt.php:62
+#: widgets/DCE_TAX_TitleTaxonomy.php:70 widgets/DCE_POST_Author.php:65
+#: widgets/DCE_POST_ReadMore.php:62 widgets/DCE_ACF_Acf.php:160
+msgid "H3"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:103 widgets/DCE_POST_Title.php:62
+#: widgets/DCE_DynamicPosts.php:2288 widgets/DCE_DynamicPosts.php:2892
+#: widgets/DCE_POST_Terms.php:63 widgets/DCE_POST_TitleType.php:83
+#: widgets/DCE_POST_Date.php:74 widgets/DCE_POST_Excerpt.php:63
+#: widgets/DCE_TAX_TitleTaxonomy.php:71 widgets/DCE_POST_Author.php:66
+#: widgets/DCE_POST_ReadMore.php:63 widgets/DCE_ACF_Acf.php:161
+msgid "H4"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:104 widgets/DCE_POST_Title.php:63
+#: widgets/DCE_DynamicPosts.php:2289 widgets/DCE_DynamicPosts.php:2893
+#: widgets/DCE_POST_Terms.php:64 widgets/DCE_POST_TitleType.php:84
+#: widgets/DCE_POST_Date.php:75 widgets/DCE_POST_Excerpt.php:64
+#: widgets/DCE_TAX_TitleTaxonomy.php:72 widgets/DCE_POST_Author.php:67
+#: widgets/DCE_POST_ReadMore.php:64 widgets/DCE_ACF_Acf.php:162
+msgid "H5"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:105 widgets/DCE_POST_Title.php:64
+#: widgets/DCE_DynamicPosts.php:2290 widgets/DCE_DynamicPosts.php:2894
+#: widgets/DCE_POST_Terms.php:65 widgets/DCE_POST_TitleType.php:85
+#: widgets/DCE_POST_Date.php:76 widgets/DCE_POST_Excerpt.php:65
+#: widgets/DCE_TAX_TitleTaxonomy.php:73 widgets/DCE_POST_Author.php:68
+#: widgets/DCE_POST_ReadMore.php:65 widgets/DCE_ACF_Acf.php:163
+msgid "H6"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:106 widgets/DCE_POST_Title.php:65
+#: widgets/DCE_DynamicPosts.php:2291 widgets/DCE_DynamicPosts.php:2895
+#: widgets/DCE_POST_Terms.php:66 widgets/DCE_POST_TitleType.php:86
+#: widgets/DCE_POST_Date.php:77 widgets/DCE_POST_Excerpt.php:66
+#: widgets/DCE_TAX_TitleTaxonomy.php:74 widgets/DCE_POST_Author.php:69
+#: widgets/DCE_POST_ReadMore.php:66 widgets/DCE_ACF_Acf.php:164
+msgid "p"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:107 widgets/DCE_POST_Title.php:66
+#: widgets/DCE_DynamicPosts.php:2292 widgets/DCE_DynamicPosts.php:2896
+#: widgets/DCE_POST_Terms.php:67 widgets/DCE_POST_TitleType.php:87
+#: widgets/DCE_POST_Date.php:78 widgets/DCE_POST_Excerpt.php:67
+#: widgets/DCE_TAX_TitleTaxonomy.php:75 widgets/DCE_POST_Author.php:70
+#: widgets/DCE_POST_ReadMore.php:67 widgets/DCE_ACF_Acf.php:165
+msgid "div"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:108 widgets/DCE_POST_Title.php:67
+#: widgets/DCE_DynamicPosts.php:2293 widgets/DCE_DynamicPosts.php:2897
+#: widgets/DCE_POST_Terms.php:68 widgets/DCE_POST_TitleType.php:88
+#: widgets/DCE_POST_Date.php:79 widgets/DCE_POST_Date.php:196
+#: widgets/DCE_POST_Excerpt.php:68 widgets/DCE_TAX_TitleTaxonomy.php:76
+#: widgets/DCE_POST_Author.php:71 widgets/DCE_POST_ReadMore.php:68
+#: widgets/DCE_ACF_Acf.php:166
+msgid "span"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:131 widgets/DCE_POST_Breadcrumbs.php:98
+#: widgets/DCE_POST_Terms.php:125 widgets/DCE_POST_TitleType.php:112
+#: widgets/DCE_POST_Date.php:141 widgets/DCE_POST_Excerpt.php:92
+#: widgets/DCE_TAX_TitleTaxonomy.php:100 widgets/DCE_POST_Author.php:94
+#: widgets/DCE_POST_ReadMore.php:99 widgets/DCE_LIST_ParentChildMenu.php:289
+#: widgets/DCE_ACF_Acf.php:193
+msgid "Justified"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:143 widgets/DCE_POST_Title.php:104
+#: widgets/DCE_DynamicPosts.php:2904 widgets/DCE_POST_Terms.php:137
+#: widgets/DCE_POST_TitleType.php:125 widgets/xx.php:94 widgets/xx.php:108
+#: widgets/DCE_POST_Date.php:154 widgets/DCE_POST_Excerpt.php:105
+#: widgets/DCE_POST_FeaturedImage.php:103
+#: widgets/DCE_POST_FeaturedImage.php:117
+#: widgets/DCE_TAX_TitleTaxonomy.php:113 widgets/DCE_POST_Author.php:106
+#: widgets/DCE_POST_ReadMore.php:113 widgets/DCE_DynamicUsers.php:250
+#: widgets/DCE_ACF_Acf.php:210
+msgid "Link to"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:148 widgets/DCE_POST_Title.php:109
+#: widgets/DCE_DynamicPosts.php:2909 widgets/DCE_POST_TitleType.php:130
+#: widgets/xx.php:99 widgets/DCE_POST_Date.php:159
+#: widgets/DCE_POST_Excerpt.php:110 widgets/DCE_POST_FeaturedImage.php:108
+#: widgets/DCE_TAX_TitleTaxonomy.php:118 widgets/DCE_POST_Author.php:111
+#: widgets/DCE_POST_ReadMore.php:118 widgets/DCE_ACF_Acf.php:215
+msgid "Home URL"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:149 widgets/DCE_POST_Excerpt.php:111
+msgid "Post URL"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:150 widgets/DCE_POST_Title.php:112
+#: widgets/DCE_DynamicPosts.php:2911 widgets/DCE_POST_TitleType.php:132
+#: widgets/xx.php:102 widgets/DCE_POST_Date.php:161
+#: widgets/DCE_POST_Excerpt.php:112 widgets/DCE_POST_FeaturedImage.php:111
+#: widgets/DCE_TAX_TitleTaxonomy.php:120 widgets/DCE_POST_Author.php:117
+#: widgets/DCE_POST_ReadMore.php:120 widgets/DCE_ACF_Acf.php:217
+msgid "Custom URL"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:156 widgets/DCE_POST_Title.php:119
+#: widgets/DCE_POST_TitleType.php:139 widgets/DCE_POST_Date.php:168
+#: widgets/DCE_POST_Excerpt.php:119 widgets/DCE_TAX_TitleTaxonomy.php:127
+#: widgets/DCE_POST_Author.php:123 widgets/DCE_POST_ReadMore.php:127
+#: widgets/DCE_ACF_Acf.php:250 widgets/DCE_ACF_Acf.php:879
+msgid "Link"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:158 widgets/DCE_POST_Title.php:121
+#: widgets/DCE_POST_TitleType.php:141 widgets/xx.php:110
+#: widgets/DCE_POST_Date.php:170 widgets/DCE_POST_Excerpt.php:121
+#: widgets/DCE_POST_FeaturedImage.php:119
+#: widgets/DCE_TAX_TitleTaxonomy.php:129 widgets/DCE_POST_Author.php:125
+#: widgets/DCE_POST_ReadMore.php:129 widgets/DCE_ACF_Acf.php:252
+msgid "http://your-link.com"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:201 widgets/DCE_POST_Title.php:366
+#: widgets/DCE_POST_TitleType.php:189 widgets/DCE_POST_NextPrev.php:386
+#: widgets/DCE_POST_Excerpt.php:169 widgets/DCE_POST_ReadMore.php:311
+msgid "Roll-Hover"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:211 widgets/DCE_POST_Title.php:376
+#: widgets/DCE_POST_TitleType.php:199 widgets/DCE_POST_NextPrev.php:393
+#: widgets/DCE_POST_Excerpt.php:179
+msgid "Hover Text Color"
+msgstr ""
+
+#: widgets/DCE_POST_Content.php:227 widgets/DCE_POST_Title.php:392
+#: widgets/DCE_ModalWindow.php:131 widgets/DCE_DynamicPosts.php:3123
+#: widgets/DCE_POST_Terms.php:191 widgets/DCE_POST_TitleType.php:215
+#: widgets/DCE_POST_NextPrev.php:406 widgets/DCE_POST_Excerpt.php:195
+#: widgets/DCE_TAX_TitleTaxonomy.php:174 widgets/DCE_POST_Author.php:244
+#: widgets/DCE_POST_ReadMore.php:354
+msgid "Hover Animation"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:29
+msgid "Rating"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:130
+#, php-format
+msgid "%1$s review for %2$s"
+msgid_plural "%1$s reviews for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:132
+msgid "Reviews"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:154
+msgid "There are no reviews yet."
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:167
+msgid "Add a review"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:167
+#, php-format
+msgid "Be the first to review &ldquo;%s&rdquo;"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:168
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:175 widgets/DCE_DynamicUsers.php:142
+msgid "Email"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:178
+msgid "Submit"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:184
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a review."
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:188
+msgid "Your rating"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:189
+msgid "Rate&hellip;"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:190
+msgid "Perfect"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:191
+msgid "Good"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:192
+msgid "Average"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:193
+msgid "Not that bad"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:194
+msgid "Very poor"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:198
+msgid "Your review"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_rating.php:207
+msgid ""
+"Only logged in customers who have purchased this product may leave a review."
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:33 widgets/DCE_POST_Title.php:50
+#: widgets/DCE_POST_Title.php:337 widgets/DCE_DynamicPosts.php:2252
+#: widgets/DCE_DynamicPosts.php:2876 widgets/DCE_DynamicPosts.php:3466
+#: widgets/DCE_TAX_TitleTaxonomy.php:144
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:369
+#: widgets/DCE_LIST_ParentChildMenu.php:589 widgets/DCE_Prototype.php:508
+#: widgets/DCE_Prototype.php:798
+msgid "Title"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:134
+msgid "Enable dividers"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:137 widgets/DCE_POST_NextPrev.php:54
+#: widgets/DCE_POST_NextPrev.php:64 widgets/DCE_POST_NextPrev.php:231
+#: widgets/DCE_POST_NextPrev.php:242 widgets/xx.php:177
+#: widgets/DCE_POST_Date.php:185 widgets/DCE_ACF_Acf.php:335
+#: widgets/DCE_ACF_Acf.php:413 widgets/DCE_ACF_Acf.php:986
+#: widgets/DCE_ACF_Acf.php:998 widgets/DCE_ACF_Acf.php:1011
+#: widgets/DCE_ACF_Acf.php:1049 widgets/DCE_ACF_Acf.php:1062
+#: widgets/DCE_ACF_Acf.php:1075 widgets/DCE_ACF_Acf.php:1118
+#: widgets/DCE_Prototype.php:472 widgets/DCE_CREATIVE_Bubbles.php:54
+msgid "Show"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:138 widgets/DCE_POST_NextPrev.php:55
+#: widgets/DCE_POST_NextPrev.php:65 widgets/DCE_POST_NextPrev.php:232
+#: widgets/DCE_POST_NextPrev.php:243 widgets/xx.php:178
+#: widgets/DCE_POST_Date.php:186 widgets/DCE_ACF_Acf.php:336
+#: widgets/DCE_ACF_Acf.php:414 widgets/DCE_ACF_Acf.php:985
+#: widgets/DCE_ACF_Acf.php:997 widgets/DCE_ACF_Acf.php:1010
+#: widgets/DCE_ACF_Acf.php:1048 widgets/DCE_ACF_Acf.php:1061
+#: widgets/DCE_ACF_Acf.php:1074 widgets/DCE_ACF_Acf.php:1117
+#: widgets/DCE_Prototype.php:473 widgets/DCE_CREATIVE_Bubbles.php:55
+msgid "Hide"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:147
+msgid "Dividers"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:159 widgets/DCE_Prototype.php:453
+msgid "Solid"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:160 widgets/DCE_Prototype.php:456
+msgid "Double"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:161 widgets/DCE_Prototype.php:455
+msgid "Dotted"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:162 widgets/DCE_DynamicPosts.php:952
+#: widgets/DCE_ACF_Slider.php:866 widgets/DCE_Prototype.php:454
+msgid "Dashed"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:175
+msgid "Weight"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:211 widgets/DCE_POST_NextPrev.php:174
+#: class/controls/groups/outline.php:61
+msgid "Width"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:241
+msgid "Gap"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:273
+msgid "Leftp"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:436 widgets/DCE_POST_FeaturedImage.php:701
+msgid "From post parent"
+msgstr ""
+
+#: widgets/DCE_POST_Title.php:511
+msgid "Title of post"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:30
+msgid "Breadcrumbs"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:45
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:72 widgets/DCE_DynamicUsers.php:55
+#: widgets/DCE_LIST_ParentChildMenu.php:119
+msgid "Options"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:52
+msgid "Enable Home text"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:63
+msgid "Home text"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:74 widgets/DCE_POST_Breadcrumbs.php:233
+#: widgets/DCE_DynamicPosts.php:2638 widgets/DCE_DynamicPosts.php:3057
+#: widgets/DCE_POST_Terms.php:75 widgets/DCE_DynamicUsers.php:954
+msgid "Separator"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:110 widgets/DCE_DynamicPosts.php:2690
+#: widgets/DCE_DynamicPosts.php:3528 widgets/DCE_DynamicPosts.php:3610
+#: widgets/DCE_DynamicPosts.php:3664 widgets/DCE_DynamicPosts.php:3739
+#: widgets/DCE_POST_Terms.php:83 widgets/DCE_POST_ReadMore.php:242
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:238
+#: widgets/DCE_LIST_ParentChildMenu.php:303 documents/scrollify.php:401
+msgid "Space"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:138 widgets/DCE_POST_Breadcrumbs.php:145
+#: widgets/DCE_CREATIVE_Parallax.php:410
+msgid "Items"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:166 widgets/DCE_DynamicPosts.php:4029
+#: widgets/DCE_DynamicPosts.php:4179 widgets/DCE_POST_Terms.php:170
+#: widgets/DCE_POST_ReadMore.php:321
+msgid "Text Color Hover"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:193
+msgid "Home"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:202
+msgid "Home text color"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:220
+msgid "Typography home text"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:242
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:170
+msgid "Separator Color"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:257
+msgid "Typography separator"
+msgstr ""
+
+#: widgets/DCE_POST_Breadcrumbs.php:392
+#: widgets/DCE_CREATIVE_PageScroll.php:109
+msgid "Page"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:35 widgets/DCE_ModalWindow.php:50
+msgid "Modal Window"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:56
+msgid "Text Button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:57
+msgid "Il testo all'interno del bottone"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:98
+msgid "Modal"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:103
+msgid "Vertical position of close button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:126 widgets/DCE_DynamicPosts.php:3098
+msgid "Hover effect"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:145
+msgid "Color of text button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:158
+msgid "Color of background button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:171
+msgid "Color HOVER of text button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:191
+msgid "Color HOVER of background button"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:248
+msgid "Button Border"
+msgstr ""
+
+#: widgets/DCE_ModalWindow.php:263
+msgid "Color Background of modal"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:39
+msgid "Dynamic Posts"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:55 widgets/DCE_ACF_GoogleMaps.php:275
+msgid "Post Type Query"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:62 widgets/DCE_ACF_GoogleMaps.php:293
+msgid "Query Type"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:89 widgets/DCE_DynamicPosts.php:215
+#: widgets/DCE_ACF_GoogleMaps.php:346
+msgid "Pages"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:103 widgets/DCE_ACF_GoogleMaps.php:333
+msgid "Relations (ACF)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:118 widgets/DCE_ACF_GoogleMaps.php:318
+#: widgets/DCE_CREATIVE_PosterSlider.php:45
+#: widgets/DCE_CREATIVE_PosterSlider.php:50
+msgid "Post Type"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:132 widgets/DCE_LIST_ParentChildMenu.php:79
+msgid "Exclude myself"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:146
+msgid "Exclude page parent"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:159
+msgid "Parent PAGE options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:170
+msgid "From page parent"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:184
+msgid "Parent Source"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:199
+msgid "Child Source"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:240 widgets/DCE_DynamicPosts.php:2609
+#: widgets/DCE_DynamicPosts.php:2917 widgets/DCE_POST_Terms.php:48
+msgid "Taxonomy"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:266
+msgid "Terms ID"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:267 widgets/DCE_CREATIVE_PosterSlider.php:59
+msgid "Comma separated list of category ids"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:277
+msgid "Number of Post"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:287 widgets/DCE_CREATIVE_PosterSlider.php:78
+msgid "Post Offset"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:297 widgets/DCE_CREATIVE_PosterSlider.php:86
+msgid "Order By"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:308 widgets/DCE_CREATIVE_PosterSlider.php:95
+msgid "Order"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:326 widgets/DCE_POST_ReadMore.php:176
+msgid "Ajax"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:354 widgets/DCE_DynamicUsers.php:711
+msgid "Flex Grid"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:355 widgets/DCE_DynamicUsers.php:712
+msgid "Grid Masonry"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:356 widgets/DCE_DynamicPosts.php:381
+#: widgets/DCE_DynamicPosts.php:4381
+msgid "Carousel"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:357 widgets/DCE_CREATIVE_Swiper.php:32
+#: widgets/DCE_CREATIVE_Swiper.php:46
+msgid "Swiper"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:358 widgets/DCE_DynamicPosts.php:4508
+msgid "Timeline"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:364
+msgid "Usa gli anni sopra al blocco"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:394
+msgid "Slides to Show"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:413
+msgid "Slides to Scroll"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:427
+msgid "Arrows"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:441
+msgid "Arrow Style"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:446 widgets/DCE_DynamicPosts.php:2023
+msgid "Inside"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:447 widgets/DCE_DynamicPosts.php:2024
+msgid "Outside"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:458
+msgid "Dots"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:473 widgets/DCE_DynamicPosts.php:1585
+#: widgets/DCE_ACF_Slider.php:1351 widgets/DCE_ACF_Slider.php:1356
+#: widgets/DCE_CREATIVE_Swiper.php:724 widgets/DCE_CREATIVE_Swiper.php:729
+#: widgets/DCE_ACF_Acf.php:961 widgets/DCE_ACF_Acf.php:1034
+msgid "Loop"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:488
+msgid "Animation Speed"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:499 widgets/DCE_DynamicPosts.php:1497
+#: widgets/DCE_ACF_Slider.php:1313 widgets/DCE_CREATIVE_Swiper.php:445
+msgid "Auto Play"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:513
+msgid "Autoplay Speed"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:524
+msgid "Center Mode"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:538
+msgid "Effect"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:542 widgets/DCE_DynamicPosts.php:598
+#: widgets/DCE_ACF_Slider.php:538 widgets/DCE_CREATIVE_Swiper.php:273
+msgid "Slide"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:543 widgets/DCE_DynamicPosts.php:599
+#: widgets/DCE_ACF_Slider.php:539 widgets/DCE_CREATIVE_Swiper.php:274
+msgid "Fade"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:561
+msgid "Swiper Settings"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:569 widgets/DCE_ACF_Slider.php:509
+#: widgets/DCE_CREATIVE_Swiper.php:244
+msgid "Direzione"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:570 widgets/DCE_ACF_Slider.php:510
+#: widgets/DCE_CREATIVE_Swiper.php:245
+msgid "La direzione dello slider"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:573 widgets/DCE_ACF_Slider.php:513
+#: widgets/DCE_CREATIVE_Swiper.php:248
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:62
+#: widgets/DCE_LIST_ParentChildMenu.php:110
+msgid "Horizontal"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:574 widgets/DCE_ACF_Slider.php:514
+#: widgets/DCE_POST_NextPrev.php:239 widgets/DCE_CREATIVE_Swiper.php:249
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:63
+#: widgets/DCE_LIST_ParentChildMenu.php:111
+msgid "Vertical"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:582 widgets/DCE_ACF_Slider.php:522
+#: widgets/DCE_CREATIVE_Swiper.php:257
+msgid "Velocità"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:583 widgets/DCE_ACF_Slider.php:523
+#: widgets/DCE_CREATIVE_Swiper.php:258
+msgid "Durata della transizione tra diapositive (in ms)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:594 widgets/DCE_ACF_Slider.php:534
+#: widgets/DCE_CREATIVE_Swiper.php:269
+msgid "Effect of transition"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:595 widgets/DCE_ACF_Slider.php:535
+#: widgets/DCE_CREATIVE_Swiper.php:270
+msgid "L'effetto di transizione tra le slides"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:600 widgets/DCE_ACF_Slider.php:540
+#: widgets/DCE_CREATIVE_Swiper.php:275
+msgid "Cube"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:601 widgets/DCE_ACF_Slider.php:541
+#: widgets/DCE_CREATIVE_Swiper.php:276
+msgid "Coverflow"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:602 widgets/DCE_ACF_Slider.php:542
+#: widgets/DCE_CREATIVE_Swiper.php:277
+msgid "Flip"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:611 widgets/DCE_ACF_Slider.php:552
+#: widgets/DCE_CREATIVE_Swiper.php:286
+msgid "Centered Slides"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:612 widgets/DCE_ACF_Slider.php:553
+msgid "Se è si, la diapositiva attiva sarà centrata, non sul lato sinistro."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:624
+msgid "Slide per wiew"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:632 widgets/DCE_ACF_Slider.php:564
+#: widgets/DCE_CREATIVE_Swiper.php:395
+msgid "Space Between"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:633 widgets/DCE_CREATIVE_Swiper.php:396
+msgid "Distanza tra diapositive in px."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:646 widgets/DCE_ACF_Slider.php:601
+#: widgets/DCE_CREATIVE_Swiper.php:409
+msgid "Slides Per View"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:647 widgets/DCE_DynamicPosts.php:661
+#: widgets/DCE_ACF_Slider.php:602 widgets/DCE_CREATIVE_Swiper.php:410
+msgid ""
+"Numero di diapositive per visualizzazione (diapositive visibili allo stesso "
+"tempo sul contenitore) Se il valore è 0 indica \"auto\" (NOTA: auto non è "
+"compatibile con: slidesPerColumn > 1). Se viene impostato \"auto\" e anche "
+"\"loop\", è necessario impostare \"loopedSlides\"."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:660
+msgid "Slides Column"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:674 widgets/DCE_ACF_Slider.php:615
+#: widgets/DCE_CREATIVE_Swiper.php:423
+msgid "Slides Per Group"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:675 widgets/DCE_ACF_Slider.php:616
+#: widgets/DCE_CREATIVE_Swiper.php:424
+msgid ""
+"Nmposta i numeri di diapositive per definire e abilitare la scorrimento del "
+"gruppo. Utile da utilizzare con diapositivePerView > 1"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:689 widgets/DCE_DynamicPosts.php:696
+#: widgets/DCE_ACF_Slider.php:1413 widgets/DCE_CREATIVE_Swiper.php:522
+msgid "Free Mode"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:697 widgets/DCE_ACF_Slider.php:1414
+#: widgets/DCE_CREATIVE_Swiper.php:523
+msgid "Se true, le diapositive non avranno posizioni fisse"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:708 widgets/DCE_ACF_Slider.php:1425
+#: widgets/DCE_CREATIVE_Swiper.php:534
+msgid "Free Mode Momentum"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:709 widgets/DCE_ACF_Slider.php:1426
+#: widgets/DCE_CREATIVE_Swiper.php:535
+msgid ""
+"Se è vero, allora la diapositiva continuerà a muoversi per un po' dopo "
+"averlo rilasciato"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:723 widgets/DCE_ACF_Slider.php:1440
+#: widgets/DCE_CREATIVE_Swiper.php:549
+msgid "Free Mode Momentum Ratio"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:724 widgets/DCE_ACF_Slider.php:1441
+#: widgets/DCE_CREATIVE_Swiper.php:550
+msgid ""
+"Il valore più elevato produce distanza più grande di slancio dopo aver "
+"rilasciato il dispositivo di scorrimento"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:739 widgets/DCE_DynamicPosts.php:786
+#: widgets/DCE_ACF_Slider.php:1456 widgets/DCE_ACF_Slider.php:1503
+#: widgets/DCE_CREATIVE_Swiper.php:565 widgets/DCE_CREATIVE_Swiper.php:612
+msgid "Free Mode Momentum Velocity Ratio"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:740 widgets/DCE_ACF_Slider.php:1457
+#: widgets/DCE_CREATIVE_Swiper.php:566
+msgid ""
+"Il valore più elevato produce una velocità di slancio maggiore dopo aver "
+"rilasciato il dispositivo di scorrimento"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:755 widgets/DCE_ACF_Slider.php:1472
+#: widgets/DCE_CREATIVE_Swiper.php:581
+msgid "Free Mode Momentum Bounce"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:756 widgets/DCE_ACF_Slider.php:1473
+#: widgets/DCE_CREATIVE_Swiper.php:582
+msgid ""
+"Impostare su false se si desidera disattivare il rimbalzo della moto in "
+"modalità libera"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:770 widgets/DCE_ACF_Slider.php:1487
+#: widgets/DCE_CREATIVE_Swiper.php:596
+msgid "Free Mode Momentum Bounce Ratio"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:771 widgets/DCE_ACF_Slider.php:1488
+#: widgets/DCE_CREATIVE_Swiper.php:597
+msgid ""
+"Il valore più elevato produce un effetto di rimbalzo più grande del momento"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:787 widgets/DCE_ACF_Slider.php:1504
+#: widgets/DCE_CREATIVE_Swiper.php:613
+msgid ""
+"Velocità di spostamento minima necessaria per attivare la mossa di modalità "
+"libera"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:801 widgets/DCE_ACF_Slider.php:1518
+#: widgets/DCE_CREATIVE_Swiper.php:627
+msgid "Free Mode Sticky"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:802 widgets/DCE_ACF_Slider.php:1519
+#: widgets/DCE_CREATIVE_Swiper.php:628
+msgid ""
+"Impostare su true per abilitare lo snap a scorrimento delle posizioni in "
+"modalità libera"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:817 widgets/DCE_ACF_Slider.php:630
+msgid "Navigation options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:824 widgets/DCE_ACF_Slider.php:637
+msgid "Use Navigation"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:825 widgets/DCE_ACF_Slider.php:638
+msgid "Se è si, utilizzerai le frecce per la navigazione."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:838 widgets/DCE_ACF_Slider.php:768
+msgid "Il colore delle freccine"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:857
+msgid "Use animation in roll-hover"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:858
+msgid "Se è si, al roll-hover avverà una breve animazione."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:873
+msgid "Il colore in HOVER"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:892 widgets/DCE_ACF_Slider.php:806
+msgid "Stroke Arrow"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:921 widgets/DCE_ACF_Slider.php:836
+msgid "Stroke Line"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1006
+msgid "Horozontal Position"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1036
+msgid "Verical Position"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1067 widgets/DCE_ACF_Slider.php:893
+msgid "Pagination options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1074 widgets/DCE_ACF_Slider.php:900
+msgid "Use Pagination"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1075 widgets/DCE_ACF_Slider.php:901
+msgid ""
+"Se è si, utilizzerai il sistema di visulizzazione della progressione delle "
+"diapositive (\"bullets\", \"fraction\", \"progress\")."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1086 widgets/DCE_ACF_Slider.php:912
+msgid "Pagination Type"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1089 widgets/DCE_ACF_Slider.php:915
+msgid "Bullets"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1090 widgets/DCE_ACF_Slider.php:916
+msgid "Fraction"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1091 widgets/DCE_DynamicPosts.php:1696
+#: widgets/DCE_ACF_Slider.php:917 widgets/DCE_ACF_Slider.php:1374
+#: widgets/DCE_CREATIVE_Swiper.php:483
+msgid "Progress"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1104 widgets/DCE_ACF_Slider.php:930
+msgid "Fraction text separator"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1105 widgets/DCE_ACF_Slider.php:931
+#: widgets/DCE_POST_Date.php:114
+msgid "Il testo che separ i 2 numeri"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1117 widgets/DCE_DynamicPosts.php:1241
+#: widgets/DCE_ACF_Slider.php:943 widgets/DCE_ACF_Slider.php:1067
+msgid "Spaziatura"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1147 widgets/DCE_ACF_Slider.php:973
+msgid "Il colore dei numeri"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1166 widgets/DCE_ACF_Slider.php:992
+#: widgets/DCE_Prototype.php:554
+msgid "Typography numeri"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1177 widgets/DCE_ACF_Slider.php:1003
+msgid "Il colore del numero corrente"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1196 widgets/DCE_ACF_Slider.php:1022
+msgid "Typography numero corrente"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1208 widgets/DCE_ACF_Slider.php:1034
+msgid "Il colore del separatore"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1226 widgets/DCE_ACF_Slider.php:1052
+msgid "fraction_typography_separator"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1271 widgets/DCE_ACF_Slider.php:1127
+msgid "La dimensione dei pallini"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1301
+msgid "Spostamento"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1350 widgets/DCE_ACF_Slider.php:1176
+msgid "Dullets border"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1360 widgets/DCE_ACF_Slider.php:1186
+msgid "La dimensione del pallino attivo"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1391 widgets/DCE_ACF_Slider.php:1217
+msgid "Active bullet color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1410 widgets/DCE_ACF_Slider.php:1236
+msgid "Active bullet border"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1420 widgets/DCE_ACF_Slider.php:1247
+msgid "Progress color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1438 widgets/DCE_ACF_Slider.php:1265
+msgid "Progressbar color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1457 widgets/DCE_ACF_Slider.php:1284
+msgid "Scrollbar options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1464 widgets/DCE_ACF_Slider.php:1291
+msgid "Use Scrollbar"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1465 widgets/DCE_ACF_Slider.php:1292
+msgid "Se è si, utilizzerai una scrollbar che viualizza la navigazione."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1478
+msgid "Autoplay options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1485
+msgid "Use Autoplay"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1486
+msgid "Se è si, utilizzerai la riproduzione automaica."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1498 widgets/DCE_ACF_Slider.php:1314
+#: widgets/DCE_CREATIVE_Swiper.php:446
+msgid ""
+"Ritardo tra transizioni (in ms). Se questo parametro non è specificato (di "
+"default), la riproduzione automatica sarà disattivata"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1512 widgets/DCE_ACF_Slider.php:1325
+#: widgets/DCE_CREATIVE_Swiper.php:457
+msgid "Autoplay stop on last slide"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1513 widgets/DCE_ACF_Slider.php:1326
+#: widgets/DCE_CREATIVE_Swiper.php:458
+msgid ""
+"Abilitare questo parametro e l'autoplay verrà interrotto quando raggiunge "
+"l'ultima diapositiva (non ha alcun effetto in modalità loop/ciclico)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1527 widgets/DCE_ACF_Slider.php:1337
+#: widgets/DCE_CREATIVE_Swiper.php:469
+msgid "Autoplay Disable on interaction"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1528 widgets/DCE_ACF_Slider.php:1338
+#: widgets/DCE_CREATIVE_Swiper.php:470
+msgid ""
+"Impostato su NO e l'autoplay non verrà disattivato dopo le interazioni "
+"utente (swipes), verrà riavviato ogni volta dopo l'interazione"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1543 widgets/DCE_ACF_Slider.php:1568
+#: widgets/DCE_CREATIVE_Swiper.php:677
+msgid "Keyboard / Mousewheel"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1550 widgets/DCE_ACF_Slider.php:1573
+#: widgets/DCE_CREATIVE_Swiper.php:682
+msgid "Keyboard Control"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1551 widgets/DCE_ACF_Slider.php:1574
+#: widgets/DCE_CREATIVE_Swiper.php:683
+msgid "Impostare su true per abilitare lo scorrimento da tastiera"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1562 widgets/DCE_ACF_Slider.php:1585
+#: widgets/DCE_CREATIVE_Swiper.php:694
+msgid "Mousewheel Control"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1563 widgets/DCE_ACF_Slider.php:1586
+#: widgets/DCE_CREATIVE_Swiper.php:695
+msgid "Impostare su true per abilitare lo scorrimento con la rotella del mouse"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1578
+msgid "Cicle / Loop"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1586 widgets/DCE_ACF_Slider.php:1357
+#: widgets/DCE_CREATIVE_Swiper.php:730
+msgid "Impostare su true per abilitare la modalità di ciclo continuo"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1607
+msgid "Swiper Special Options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1616 widgets/DCE_ACF_Slider.php:1638
+#: widgets/DCE_CREATIVE_Swiper.php:298
+msgid "Specials options"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1623 widgets/DCE_ACF_Slider.php:1645
+#: widgets/DCE_CREATIVE_Swiper.php:305
+msgid "Set Wrapper Size"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1624 widgets/DCE_ACF_Slider.php:1646
+#: widgets/DCE_CREATIVE_Swiper.php:306
+msgid ""
+"imposta la larghezza / altezza sul wrapper swiper pari alla dimensione "
+"totale di tutte le diapositive. Principalmente dovrebbe essere utilizzato "
+"come opzione di backup di compatibilità per il browser che non supporta bene "
+"il layout di flessibilità"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1635 widgets/DCE_ACF_Slider.php:1657
+#: widgets/DCE_CREATIVE_Swiper.php:317
+msgid "Virtual Translate"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1636 widgets/DCE_ACF_Slider.php:1658
+#: widgets/DCE_CREATIVE_Swiper.php:318
+msgid ""
+"Utile quando è necessario creare una transizione personalizzata (vedi "
+"effects)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1648 widgets/DCE_ACF_Slider.php:1670
+#: widgets/DCE_CREATIVE_Swiper.php:330
+msgid ""
+"Impostato su SI e lo slider wrapper adotterà la sua altezza all'altezza "
+"della diapositiva attualmente attiva"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1659 widgets/DCE_ACF_Slider.php:1681
+#: widgets/DCE_CREATIVE_Swiper.php:341
+msgid "Round Lengths"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1660 widgets/DCE_ACF_Slider.php:1682
+#: widgets/DCE_CREATIVE_Swiper.php:342
+msgid ""
+"Impostare valori veraci a valori rotondi della larghezza e dell'altezza "
+"delle diapositive per evitare testi sfocati sulle schermate di risoluzione "
+"usuali (se si dispone di tali)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1671 widgets/DCE_ACF_Slider.php:1693
+#: widgets/DCE_CREATIVE_Swiper.php:353
+msgid "Nidificato"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1672 widgets/DCE_ACF_Slider.php:1694
+#: widgets/DCE_CREATIVE_Swiper.php:354
+msgid ""
+"Impostare su SI su Swiper nidificato, per intercettazioni corrette degli "
+"eventi di tocco. Utilizzare solo su spazzole annidate che utilizzano la "
+"stessa direzione del genitore"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1683 widgets/DCE_ACF_Slider.php:1705
+#: widgets/DCE_CREATIVE_Swiper.php:365
+msgid "Grab Cursor"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1684 widgets/DCE_ACF_Slider.php:1706
+#: widgets/DCE_CREATIVE_Swiper.php:366
+msgid ""
+"Questa opzione può un po' migliorare l'usabilità del desktop. Se è vero , "
+"l'utente vedrà il cursore afferrare quando si trova su Swiper"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1703 widgets/DCE_ACF_Slider.php:1379
+#: widgets/DCE_CREATIVE_Swiper.php:488
+msgid "Watch Slides Progress"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1704 widgets/DCE_ACF_Slider.php:1380
+#: widgets/DCE_CREATIVE_Swiper.php:489
+msgid ""
+"Attiva questa funzionalità per calcolare ogni progresso delle diapositive"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1715 widgets/DCE_ACF_Slider.php:1391
+#: widgets/DCE_CREATIVE_Swiper.php:500
+msgid "Watch Slides Visibility"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1716 widgets/DCE_ACF_Slider.php:1392
+#: widgets/DCE_CREATIVE_Swiper.php:501
+msgid ""
+"Abilita questa opzione e le diapositive che sono in visualizzazione avranno "
+"una classe visibile supplementare"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1832 widgets/DCE_DynamicUsers.php:350
+#: widgets/DCE_DynamicUsers.php:447 widgets/DCE_DynamicUsers.php:718
+msgid "Columns"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1865
+msgid "Fit Row"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1881
+msgid "Same Height"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1896 widgets/DCE_DynamicUsers.php:380
+#: widgets/DCE_DynamicUsers.php:477 widgets/DCE_DynamicUsers.php:752
+msgid "Flex grow"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1900 widgets/DCE_DynamicUsers.php:384
+#: widgets/DCE_DynamicUsers.php:481 widgets/DCE_DynamicUsers.php:756
+msgid "1"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1904 widgets/DCE_DynamicUsers.php:388
+#: widgets/DCE_DynamicUsers.php:485 widgets/DCE_DynamicUsers.php:764
+msgid "0"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1920 widgets/DCE_DynamicUsers.php:403
+#: widgets/DCE_DynamicUsers.php:500 widgets/DCE_DynamicUsers.php:779
+msgid "Alignment grid"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1945 widgets/DCE_DynamicUsers.php:803
+msgid "Show Filters"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1961
+msgid "Layout"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1972
+msgid "Image Position"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1982 class/controls/groups/animation.php:268
+msgid "Alternate"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:1989
+msgid "Distribuzione"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2019 widgets/DCE_DynamicPosts.php:2332
+msgid "Text Position"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2032
+msgid "Vertical Text Movement"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2097 widgets/DCE_POST_NextPrev.php:51
+#: widgets/DCE_CREATIVE_PosterSlider.php:117
+msgid "Show Title"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2115 widgets/DCE_CREATIVE_PosterSlider.php:136
+msgid "Show Image"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2133
+msgid "Show Content"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2145 widgets/DCE_POST_Excerpt.php:33
+#: widgets/DCE_POST_Excerpt.php:51
+msgid "Excerpt"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2156
+msgid "Show Meta Data"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2174
+msgid "Show Author"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2192
+msgid "Show Date"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2210
+msgid "Show Readmore Button"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2228
+msgid "Show ACF"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2265
+msgid "Title inside or outside of box"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2268 widgets/DCE_DynamicPosts.php:2625
+#: widgets/DCE_DynamicPosts.php:2712 widgets/DCE_DynamicPosts.php:2817
+msgid "In"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2269 widgets/DCE_DynamicPosts.php:2626
+#: widgets/DCE_DynamicPosts.php:2713 widgets/DCE_DynamicPosts.php:2818
+msgid "Out"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2335
+msgid "Bottom (in)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2336
+msgid "Bottom (out)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2337
+msgid "Top (out)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2349
+msgid "Nuvoletta"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2396
+msgid "Scostamento Orizzontale Arrow"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2425
+msgid "Dimensione Arrow"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2457 widgets/DCE_DynamicPosts.php:3728
+#: widgets/DCE_CREATIVE_Swiper.php:185 widgets/xx.php:415
+#: widgets/DCE_CREATIVE_Parallax.php:262
+#: widgets/DCE_POST_FeaturedImage.php:503
+#: widgets/DCE_CREATIVE_PageScroll.php:177 widgets/DCE_ACF_Acf.php:86
+#: widgets/DCE_ACF_Acf.php:687 widgets/DCE_ACF_Acf.php:1149
+msgid "Image"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2470
+msgid "Background Image"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2557 widgets/DCE_DynamicPosts.php:3130
+#: widgets/DCE_ACF_Acf.php:400
+msgid "Overlay"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2578
+msgid "Overlay Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2597 widgets/DCE_DynamicPosts.php:4153
+msgid "Meta Data"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2622
+msgid "Metadata inside or outside of box"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2652 widgets/DCE_DynamicPosts.php:3565
+#: widgets/DCE_POST_Author.php:32 widgets/DCE_POST_Author.php:47
+#: widgets/DCE_POST_Author.php:52 widgets/DCE_DynamicUsers.php:68
+msgid "Author"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2664
+msgid "Show image"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2677
+msgid "Show biography"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2709
+msgid "Author inside or outside of box"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2728 widgets/DCE_DynamicPosts.php:2876
+#: widgets/DCE_DynamicPosts.php:4226 widgets/DCE_POST_Date.php:30
+#: widgets/DCE_POST_Date.php:50 widgets/DCE_POST_Date.php:204
+#: widgets/DCE_POST_Date.php:213 widgets/DCE_Prototype.php:520
+msgid "Date"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2740 widgets/DCE_POST_Date.php:56
+msgid "Date Type"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2743 widgets/DCE_POST_Date.php:59
+msgid "Publish Date"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2744 widgets/DCE_POST_Date.php:60
+msgid "Last Modified Date"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2754 widgets/DCE_POST_Date.php:86
+msgid "Format date"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2755 widgets/DCE_POST_Date.php:87
+#: widgets/DCE_POST_Date.php:95 widgets/DCE_POST_Date.php:103
+msgid "The format of date."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2765
+msgid "Format date 2"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2766
+msgid "The format of date 2."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2776
+msgid "Format date 3"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2777
+msgid "The format of date 3."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2791 widgets/DCE_DynamicPosts.php:3983
+msgid "Read More Button"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2803
+msgid "Text button"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2806
+msgid "Read More"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2814
+msgid "Read More button inside or outside of box"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2855 widgets/DCE_ACF_Acf.php:42
+#: widgets/DCE_ACF_Acf.php:61 widgets/DCE_ACF_Acf.php:1128
+msgid "ACF"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2876
+msgid "Taxonomy MetaData"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2938 widgets/DCE_DynamicPosts.php:4212
+#: widgets/DCE_ACF_Acf.php:118 widgets/DCE_ACF_Acf.php:133
+msgid "Block"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2949 widgets/DCE_DynamicPosts.php:3512
+#: widgets/DCE_DynamicPosts.php:3856 widgets/DCE_DynamicPosts.php:3930
+#: widgets/DCE_DynamicPosts.php:4062 widgets/DCE_DynamicPosts.php:4192
+#: widgets/DCE_DynamicPosts.php:4666 widgets/DCE_POST_NextPrev.php:136
+#: widgets/DCE_POST_ReadMore.php:249 widgets/DCE_DynamicUsers.php:284
+#: widgets/DCE_DynamicUsers.php:672 widgets/DCE_DynamicUsers.php:1092
+msgid "Padding"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:2976 widgets/DCE_DynamicPosts.php:3496
+#: widgets/DCE_DynamicUsers.php:312
+msgid "Hover Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3003
+msgid "ACF Items"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3022 widgets/DCE_DynamicPosts.php:4558
+#: widgets/xx.php:350 widgets/DCE_POST_FeaturedImage.php:444
+#: widgets/DCE_DynamicUsers.php:910 widgets/DCE_ACF_Acf.php:487
+msgid "Filters"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3033
+msgid "Data Filters (Taxonomy)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3045
+msgid "Data Filters (ACF)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3068 widgets/DCE_DynamicUsers.php:965
+msgid "Filters Alignment"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3104
+msgid "Hover Opacity (%)"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3167 widgets/xx.php:124 widgets/xx.php:129
+#: widgets/xx.php:309 widgets/DCE_POST_FeaturedImage.php:133
+#: widgets/DCE_POST_FeaturedImage.php:138 widgets/DCE_ACF_Acf.php:285
+#: widgets/DCE_ACF_Acf.php:465 widgets/DCE_Prototype.php:409
+msgid "Background"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3185
+msgid "Enable Template"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3186 widgets/DCE_DynamicPosts.php:3214
+msgid ""
+"Abilita un template per gestire l'estetica dei singoli elementi della "
+"griglia "
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3213
+msgid "Enable Template 2"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3228
+msgid "Select Template 2"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3242
+msgid "Enable Native Template"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3243
+msgid ""
+"Usa il template associato al type (Menu: Elementor > Dynamic Contemt) per "
+"gestire l'estetica dei singoli elementi della griglia "
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3257
+msgid "Linkable"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3258
+msgid "Usa il link su tutto il blocco template."
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3275
+msgid "Wow animation"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3363 class/plugin.php:175
+msgid "Blocks"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3370
+msgid "Blocks Background Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3391
+msgid "Blocks Padding"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3404
+msgid "Blocks Margin"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3418
+msgid "Block Border Radius"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3429
+msgid "Text Zone"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3436
+msgid "Padding Text Area"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3449
+msgid "Text Area Background Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3629
+msgid "Biography"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3686
+msgid "Anno sopra al blocco"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:3943 widgets/DCE_DynamicPosts.php:4076
+#: widgets/DCE_POST_ReadMore.php:267
+msgid "Margin"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4046 widgets/DCE_POST_ReadMore.php:338
+msgid "Background Color Hover"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4238
+msgid "Date Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4255
+msgid "Date Padding"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4283
+msgid "Date2 Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4301
+msgid "Date2 Padding"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4331
+msgid "Date3 Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4349
+msgid "Date3 Padding"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4390
+msgid "Arrows Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4403
+msgid "Arrows Color Hover"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4416
+msgid "Arrows Background Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4429
+msgid "Arrows Background Color Hover"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4442
+msgid "Arrows size"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4465
+msgid "Vertical Shift Arrows"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4517
+msgid "Content Background Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4532
+msgid "Content Border Radius"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4568 widgets/DCE_DynamicUsers.php:994
+msgid "Filters Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4581 widgets/DCE_DynamicUsers.php:1007
+msgid "Filters Color Hover"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4594 widgets/DCE_DynamicUsers.php:1020
+msgid "Filters Color Active"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4608 widgets/DCE_DynamicUsers.php:1034
+msgid "Divider Filters Color"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4622 widgets/DCE_DynamicUsers.php:1048
+msgid "Typography Filters"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4629 widgets/DCE_DynamicUsers.php:1055
+msgid "Typography Divider"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4636 widgets/DCE_DynamicUsers.php:1062
+msgid "Spazio tra i filtri"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:4679 widgets/DCE_DynamicUsers.php:1105
+msgid "Vertical Shift Divider"
+msgstr ""
+
+#: widgets/DCE_DynamicPosts.php:5001 widgets/DCE_DynamicUsers.php:1169
+msgid "All"
+msgstr ""
+
+#: widgets/DCE_POST_Terms.php:32 widgets/DCE_POST_Terms.php:43
+#: widgets/DCE_POST_Terms.php:150
+msgid "Terms"
+msgstr ""
+
+#: widgets/DCE_POST_Terms.php:51 extensions/extension_Prototype.php:198
+msgid "Dynamic"
+msgstr ""
+
+#: widgets/DCE_POST_Terms.php:142
+msgid "Term"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:43 widgets/DCE_ACF_Slider.php:70
+msgid "ACF Slider"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:146 widgets/DCE_CREATIVE_Swiper.php:86
+msgid "Spazio Vericale"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:181 widgets/DCE_CREATIVE_Swiper.php:121
+msgid "Spazio Orizzontale"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:224
+msgid "Image Settings"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:367
+msgid "Force Height"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:383
+msgid "Usa come immagine di sfondo e no come img tag."
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:399 widgets/xx.php:148
+#: widgets/DCE_POST_FeaturedImage.php:157 widgets/DCE_ACF_Acf.php:306
+msgid "Background position"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:404 widgets/xx.php:153
+#: widgets/DCE_POST_FeaturedImage.php:162 widgets/DCE_ACF_Acf.php:311
+msgid "Top Left"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:405 widgets/xx.php:154
+#: widgets/DCE_POST_FeaturedImage.php:163 widgets/DCE_ACF_Acf.php:312
+msgid "Top Center"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:406 widgets/xx.php:155
+#: widgets/DCE_POST_FeaturedImage.php:164 widgets/DCE_ACF_Acf.php:313
+msgid "Top Right"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:407 widgets/xx.php:156
+#: widgets/DCE_POST_FeaturedImage.php:165 widgets/DCE_ACF_Acf.php:314
+msgid "Center Left"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:408 widgets/xx.php:157
+#: widgets/DCE_POST_FeaturedImage.php:166 widgets/DCE_ACF_Acf.php:315
+msgid "Center Center"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:409 widgets/xx.php:158
+#: widgets/DCE_POST_FeaturedImage.php:167 widgets/DCE_ACF_Acf.php:316
+msgid "Center Right"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:410 widgets/xx.php:159
+#: widgets/DCE_POST_FeaturedImage.php:168 widgets/DCE_ACF_Acf.php:317
+msgid "Bottom Left"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:411 widgets/xx.php:160
+#: widgets/DCE_POST_FeaturedImage.php:169 widgets/DCE_ACF_Acf.php:318
+msgid "Bottom Center"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:412 widgets/xx.php:161
+#: widgets/DCE_POST_FeaturedImage.php:170 widgets/DCE_ACF_Acf.php:319
+msgid "Bottom Right"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:425
+msgid "Seleziona cosa usare nella descrizione."
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:429
+msgid "Caption"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:447
+msgid "Enable Style"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:493
+msgid "Filters image"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:504
+msgid "Slider Settings"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:543 widgets/DCE_CREATIVE_Swiper.php:278
+msgid "Custom1"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:591 widgets/DCE_CREATIVE_Swiper.php:388
+msgid "Slides Grid"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:648
+msgid "La dimensione dei navigatori"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:678
+msgid "La dimensione delle freccine"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:708
+msgid "Horizontal position"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:787
+msgid "Il colore delle freccine in hover"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:1053
+msgid "Typography separatore"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:1308 widgets/DCE_CREATIVE_Swiper.php:440
+#: widgets/DCE_ACF_Acf.php:950 widgets/DCE_ACF_Acf.php:1022
+msgid "Autoplay"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:1408 widgets/DCE_CREATIVE_Swiper.php:517
+msgid "Freemode"
+msgstr ""
+
+#: widgets/DCE_ACF_Slider.php:1632
+msgid "Other Options"
+msgstr ""
+
+#: widgets/DCE_POST_TitleType.php:32
+msgid "Title Type"
+msgstr ""
+
+#: widgets/DCE_POST_TitleType.php:61 widgets/DCE_TAX_TitleTaxonomy.php:49
+#: widgets/DCE_DynamicUsers.php:545
+msgid "Text Before"
+msgstr ""
+
+#: widgets/DCE_POST_TitleType.php:69 widgets/DCE_TAX_TitleTaxonomy.php:57
+msgid "Text After"
+msgstr ""
+
+#: widgets/DCE_POST_TitleType.php:70 widgets/DCE_TAX_TitleTaxonomy.php:58
+#: widgets/DCE_ACF_Acf.php:108
+msgid "Un testo dopo dell'elemento"
+msgstr ""
+
+#: widgets/DCE_POST_TitleType.php:158
+#, php-format
+msgid "%s Title"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:32
+msgid "Prev Next"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:46
+msgid "NextPrev"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:61
+msgid "Show PrevNext Text"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:71
+msgid "Icon Right"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:91
+msgid "Icon Left"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:111
+msgid "Taxonomy Type"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:119
+msgid "Same term"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:154 widgets/DCE_POST_NextPrev.php:158
+msgid "Custom Width"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:228
+msgid "Floating"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:257 widgets/DCE_POST_IconFormat.php:48
+msgid "Icon Size"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:279
+msgid "Icon space"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:299
+msgid "Scostamento Icona"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:327
+msgid "Color Navigation"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:341
+msgid "Post title Color"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:463
+msgid "Precedente"
+msgstr ""
+
+#: widgets/DCE_POST_NextPrev.php:464
+msgid "Successivo"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Swiper.php:166
+msgid ""
+"Lo SLUG della slide, usato nell'indirizzo URL e negli identificativi "
+"interni. (deve essere univoco)"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Swiper.php:225
+msgid "Slides"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Swiper.php:287
+msgid "Se è vero, la diapositiva attiva sarà centrata, non sul lato sinistro."
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Swiper.php:380
+msgid "Slider/Coveflow Grid"
+msgstr ""
+
+#: widgets/xx.php:31 widgets/DCE_POST_FeaturedImage.php:37
+msgid "Featured Image"
+msgstr ""
+
+#: widgets/xx.php:46 widgets/DCE_POST_FeaturedImage.php:54
+msgid "Image settings"
+msgstr ""
+
+#: widgets/xx.php:101 widgets/DCE_POST_FeaturedImage.php:110
+msgid "Media File URL"
+msgstr ""
+
+#: widgets/xx.php:174 widgets/DCE_POST_FeaturedImage.php:183
+#: widgets/DCE_ACF_Acf.php:332
+msgid "Extend Background"
+msgstr ""
+
+#: widgets/xx.php:259 widgets/DCE_POST_FeaturedImage.php:308
+#: widgets/DCE_CREATIVE_PageScroll.php:58
+msgid "Opacity"
+msgstr ""
+
+#: widgets/xx.php:340 widgets/DCE_POST_FeaturedImage.php:426
+#: widgets/DCE_ACF_Acf.php:477
+msgid "Animation"
+msgstr ""
+
+#: widgets/xx.php:381 widgets/DCE_ACF_Acf.php:501
+msgid "Slow Zoom"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:94
+msgid "2 - Format date"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:102
+msgid "3 - Format date"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:113
+msgid "Date text separator"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:182
+msgid "Float left"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:192
+msgid "Use Block"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:195
+msgid "block"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:245
+msgid "Date 2"
+msgstr ""
+
+#: widgets/DCE_POST_Date.php:285
+msgid "Date 3"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:32 widgets/DCE_CREATIVE_Parallax.php:52
+#: widgets/DCE_CREATIVE_PageScroll.php:60
+msgid "Parallax"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:57
+msgid "Relative Input"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:67
+msgid "Clip Relative Input"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:77
+msgid "Hover Only"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:87
+msgid "Input Element"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:95
+msgid "Calibrate X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:105
+msgid "Calibrate Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:115
+msgid "Invert X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:125
+msgid "Invert Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:135
+msgid "Linit X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:145
+msgid "Linit Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:155
+msgid "Scalar X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:169
+msgid "Scalar Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:183
+msgid "Friction X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:193
+msgid "Friction Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:207
+msgid "Origin X"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:217
+msgid "Origin Y"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:227
+msgid "Pointer Events"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:238
+msgid "Parallax ITEMS"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:245
+msgid "Coefficiente di profondità"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:246
+msgid "Viene usato se il valore DepthFactor è 0."
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:271
+msgid "Depth Factor"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Parallax.php:336
+msgid "Transform"
+msgstr ""
+
+#: widgets/DCE_POST_Excerpt.php:138
+#, php-format
+msgid "%s Excerpt"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:197
+msgid "Minimum Height"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:357
+msgid "Background color on hover"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:366
+msgid "Background hover color"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:378
+msgid "Change background color of overlay"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:387
+msgid "Background overlay"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:418
+msgid "Hover animations"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:435
+msgid "Hover filters"
+msgstr ""
+
+#: widgets/DCE_POST_FeaturedImage.php:471
+msgid "Hover effects"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:32
+msgid "PageScroll"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:51
+msgid "Animation Effects"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:55
+msgid "Scale Down"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:56
+msgid "Rotate"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:57 widgets/DCE_Prototype.php:384
+msgid "Gallery"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:68
+msgid "Enable Arrows"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:78
+msgid "Enable Hijacking"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PageScroll.php:122
+#: widgets/DCE_CREATIVE_FullPage.php:66
+msgid ""
+"Lo SLUG della sezione, usato nell'indirizzo URL e negli identificativi "
+"interni. (deve essere univoco)"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_productImage.php:31
+msgid "Product Image"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_productImage.php:144
+msgid "Awaiting product image"
+msgstr ""
+
+#: widgets/DCE_POST_CustomField.php:30
+msgid "CustomField"
+msgstr ""
+
+#: widgets/DCE_POST_CustomField.php:39
+msgid "Custom Field"
+msgstr ""
+
+#: widgets/DCE_TAX_TitleTaxonomy.php:32
+msgid "Title Taxonomy"
+msgstr ""
+
+#: widgets/DCE_TAX_TitleTaxonomy.php:44
+msgid "Taxonomy Title"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_saleFlash.php:29
+msgid "Sale-Flash"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_saleFlash.php:123
+msgid "Sale!"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:29
+msgid "ACF Google Maps"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:47
+msgid "Map"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:52 widgets/DCE_ACF_GoogleMaps.php:160
+msgid "Map (ACF)"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:60 widgets/DCE_ACF_GoogleMaps.php:185
+msgid "Map Type"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:64 widgets/DCE_ACF_GoogleMaps.php:75
+msgid "Address"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:65
+msgid "Latitude Longitude"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:76
+msgid "Address Default se ACF non è impostato."
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:86
+msgid "Zoom Level"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:132
+msgid "Scroll"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:147 widgets/DCE_ACF_Acf.php:1095
+msgid "View"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:155
+msgid "Marker"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:168
+msgid "Marker Image"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:180
+msgid "Styles"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:189
+msgid "Roadmap"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:190
+msgid "Satellite"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:191
+msgid "Hybrid"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:192
+msgid "Terrain"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:199
+msgid "Snazzy Json Style Map"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:208 widgets/DCE_Prototype.php:439
+msgid "Controls"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:213
+msgid "mapTypeControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:223
+msgid "panControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:234
+msgid "rotateControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:244
+msgid "scaleControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:254
+msgid "streetViewControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:264
+msgid "zoomControl"
+msgstr ""
+
+#: widgets/DCE_ACF_GoogleMaps.php:281
+msgid "Use Query"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:114
+#, php-format
+msgid "%s URL"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:116
+msgid "Author URL"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:141
+#, php-format
+msgid "%s Author"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:198
+msgid "Opacity (%)"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:220
+msgid "Angle (deg)"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:387 widgets/DCE_DynamicUsers.php:146
+#: widgets/DCE_DynamicUsers.php:1348
+msgid "First Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:388 widgets/DCE_DynamicUsers.php:145
+#: widgets/DCE_DynamicUsers.php:1349
+msgid "Last Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:389 widgets/DCE_DynamicUsers.php:1350
+msgid "First Name + Last Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:390 widgets/DCE_DynamicUsers.php:1351
+msgid "Last Name + First Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:391 widgets/DCE_DynamicUsers.php:1352
+msgid "Nick Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:392 widgets/DCE_DynamicUsers.php:144
+#: widgets/DCE_DynamicUsers.php:1353
+msgid "Display Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:393 widgets/DCE_DynamicUsers.php:1354
+msgid "User Name"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:394 widgets/DCE_DynamicUsers.php:1355
+msgid "User Bio"
+msgstr ""
+
+#: widgets/DCE_POST_Author.php:395 widgets/DCE_DynamicUsers.php:1356
+msgid "User Image"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PosterSlider.php:31
+msgid "Poster Slider (acf)"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PosterSlider.php:58
+msgid "Category ID"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PosterSlider.php:70
+msgid "Number of SliderPoster"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_PosterSlider.php:155
+msgid "Image Alignment"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:33
+msgid "FullPage"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:276
+msgid "AutoScrolling"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:287
+msgid "Control Arrows"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:379
+msgid "ease"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:380
+msgid "ease-in"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:381
+msgid "ease-out"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:382
+msgid "ease-in-out"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_FullPage.php:465
+msgid "Enabled Tooltips"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_tabs.php:29
+msgid "Tabs"
+msgstr ""
+
+#: widgets/DCE_Idea.php:30 widgets/DCE_Idea.php:42
+msgid "Idea"
+msgstr ""
+
+#: widgets/DCE_Idea.php:49
+msgid "<div>Questo è un widget che diventerà un'idea.</div>"
+msgstr ""
+
+#: widgets/DCE_DEV_IncludeFile.php:29 widgets/DCE_DEV_IncludeFile.php:39
+msgid "Includefile"
+msgstr ""
+
+#: widgets/DCE_DEV_IncludeFile.php:44
+msgid "Path of file"
+msgstr ""
+
+#: widgets/DCE_DEV_IncludeFile.php:45
+msgid "The path of file to include (ex: folder/file.html) "
+msgstr ""
+
+#: widgets/DCE_POST_ReadMore.php:37 widgets/DCE_POST_ReadMore.php:197
+msgid "Readmore"
+msgstr ""
+
+#: widgets/DCE_POST_ReadMore.php:59 widgets/DCE_Prototype.php:510
+msgid "Button"
+msgstr ""
+
+#: widgets/DCE_POST_ReadMore.php:75
+msgid "Content HTML"
+msgstr ""
+
+#: widgets/DCE_DEV_DoShortcode.php:28 widgets/DCE_DEV_DoShortcode.php:38
+msgid "DoShortcode"
+msgstr ""
+
+#: widgets/DCE_DEV_DoShortcode.php:44
+msgid "Shortcode"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_price.php:31
+msgid "Price"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:29
+msgid "Taxonomy Terms Menu"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:43
+msgid "Menu of terms from Taxonomy"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:49
+msgid "Select Taxonomy"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:80
+msgid "Show Taxonomy Name"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:98
+msgid "Taxonomy text"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:99
+msgid "If you do not want to use your native label"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:108
+#: widgets/DCE_LIST_ParentChildMenu.php:145
+msgid "Show Child List"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:126
+#: widgets/DCE_LIST_ParentChildMenu.php:163
+msgid "Show Border"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:138
+#: widgets/DCE_LIST_ParentChildMenu.php:175
+msgid "Any"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:148
+#: widgets/DCE_LIST_ParentChildMenu.php:222
+msgid "Show Separator"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:212
+#: widgets/DCE_LIST_ParentChildMenu.php:273
+msgid "Text Alignment"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:246
+#: widgets/DCE_LIST_ParentChildMenu.php:314
+msgid "Header Space"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:267
+#: widgets/DCE_LIST_ParentChildMenu.php:360
+#: widgets/DCE_LIST_ParentChildMenu.php:417
+msgid "Indent"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:295
+#: widgets/DCE_LIST_ParentChildMenu.php:447
+msgid "List items"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:321
+#: widgets/DCE_LIST_ParentChildMenu.php:476
+#: widgets/DCE_LIST_ParentChildMenu.php:557
+msgid "Text Hover Color"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:339
+#: widgets/DCE_LIST_ParentChildMenu.php:494
+msgid "Text Active Color"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:377
+#: widgets/DCE_LIST_ParentChildMenu.php:600
+msgid "Title Color"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:395
+#: widgets/DCE_LIST_ParentChildMenu.php:618
+msgid "Title Hover Color"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:420 widgets/DCE_DynamicUsers.php:655
+#: widgets/DCE_LIST_ParentChildMenu.php:649 widgets/DCE_Prototype.php:639
+msgid "Border"
+msgstr ""
+
+#: widgets/DCE_LIST_TaxonomyTermsMenu.php:431
+#: widgets/DCE_LIST_ParentChildMenu.php:660
+msgid "Border Color"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_share.php:31
+msgid "Share"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:38
+msgid "Dynamic Users"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:61
+msgid "Single author"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:81
+msgid "Filters Query"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:88
+msgid "Roles"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:110
+msgid "Meta Filter"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:120
+msgid "Meta value"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:121
+msgid "Il valore che deve avere il filtro"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:132 widgets/DCE_DynamicUsers.php:137
+#: widgets/DCE_WOOCOMMERCE_meta.php:31
+msgid "Meta"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:141
+msgid "User Login"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:143
+msgid "Nik Name"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:148 widgets/DCE_DynamicUsers.php:625
+msgid "Avatar"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:149
+msgid "WebSite"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:150
+msgid "Role"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:151
+msgid "Custom Meta"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:152 class/plugin.php:859
+msgid "ID"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:153
+msgid "Attachments"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:154
+msgid "Articles"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:161
+msgid "Text before elemnet"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:180
+msgid "All Meta"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:183
+msgid "La chiave del campo personalizzato"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:194
+msgid "Article Post Type"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:209
+msgid "Attachment URL"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:223
+msgid "Articles URL"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:237
+msgid "Link to page"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:254
+msgid "User page"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:255
+msgid "Meta URL"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:265 widgets/DCE_ACF_Acf.php:226
+msgid "ACF Field Url"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:555
+msgid "Text before Color"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:591
+msgid "User Meta Items"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:633
+msgid "Avatar Size"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:699
+msgid "Grid style"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:760
+msgid "2"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:817
+msgid "Column Space"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:847
+msgid "Row Space"
+msgstr ""
+
+#: widgets/DCE_DynamicUsers.php:920
+msgid "Filters Meta"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_meta.php:127
+msgid "SKU:"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_meta.php:127
+msgid "N/A"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_meta.php:131
+msgid "Category:"
+msgid_plural "Categories:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: widgets/DCE_WOOCOMMERCE_meta.php:133
+msgid "Tag:"
+msgid_plural "Tags:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:28
+msgid "Parent Child Menu"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:41
+msgid "Menu of pages from parent"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:47
+msgid "Dynamic page parent/child"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:65
+msgid "Use second level"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:94
+msgid "Parent Page"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:127
+msgid "Show parent page Title"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:189
+msgid "Force Block width"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:200
+msgid "Box Width"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:338
+#: widgets/DCE_LIST_ParentChildMenu.php:394
+msgid "List Space"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:382
+msgid "Space of level 2"
+msgstr ""
+
+#: widgets/DCE_LIST_ParentChildMenu.php:523
+msgid "Level 2"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_addToCart.php:29
+msgid "Add to cart"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:77
+msgid "ACF type of field"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:80 widgets/DCE_ACF_Acf.php:530
+#: widgets/DCE_Prototype.php:135
+msgid "Text"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:81
+msgid "Wysiwyg Text Content"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:82 widgets/DCE_Prototype.php:148
+msgid "TextArea"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:83 widgets/DCE_Prototype.php:184
+msgid "Number"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:84
+msgid "Url"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:85 widgets/DCE_Prototype.php:449
+msgid "Select"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:87
+msgid "Video oembed"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:107 widgets/DCE_ACF_Acf.php:629
+msgid "Text after"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:115 widgets/DCE_ACF_Acf.php:130
+msgid "List or Block"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:117 widgets/DCE_ACF_Acf.php:132
+msgid "List"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:216
+msgid "ACF URL"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:238
+msgid "Blank"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:349
+msgid "Minimus Height"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:390 widgets/DCE_ACF_Acf.php:410
+msgid "Overlay Image"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:434
+msgid "Filters Image"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:517
+msgid "STYLE"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:558
+msgid "Font"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:581
+msgid "Text Before Color"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:600
+msgid "Font Before"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:639
+msgid "Text After Color"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:658
+msgid "Font After"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:830
+msgid "Media Settings"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:839
+msgid "Video Type"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:843
+msgid "YouTube"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:844
+msgid "Vimeo"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:881
+msgid "Enter your video link"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:892
+msgid "Aspect Ratio"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:907
+msgid "Custom Height"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:941
+msgid "Video Options"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:972
+msgid "Mute"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:983
+msgid "Suggested Videos"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:995
+msgid "Player Control"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1008
+msgid "Player Title & Actions"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1046
+msgid "Intro Title"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1059
+msgid "Intro Portrait"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1072
+msgid "Intro Byline"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1085
+msgid "Controls Color"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1105 widgets/DCE_ACF_Acf.php:1115
+msgid "Image Overlay"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1123
+msgid "Image Type"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1127
+msgid "Custom"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1137
+msgid "Field Image"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1163
+msgid "Play Icon"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1179
+msgid "Lightbox"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1182
+msgid "Off"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1183
+msgid "On"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1209
+msgid "Content Width"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1233
+msgid "Content Position"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1252
+msgid "Entrance Animation"
+msgstr ""
+
+#: widgets/DCE_ACF_Acf.php:1271
+msgid "Terms & Taxonomy Settings"
+msgstr ""
+
+#: widgets/DCE_Template.php:30
+msgid "Dynamic Template"
+msgstr ""
+
+#: widgets/DCE_Template.php:48 class/plugin.php:818 class/plugin.php:869
+msgid "Template"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:40 widgets/DCE_Prototype.php:109
+msgid "Prototype"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:118
+msgid ""
+"Prototype raggruppa un esempio di tutti i widget elementor, utile allo "
+"sviluppo dei futuri."
+msgstr ""
+
+#: widgets/DCE_Prototype.php:126
+msgid "Prototype TEXT"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:137
+msgid "Default title text"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:138
+msgid "Type your title text here"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:150 widgets/DCE_Prototype.php:161
+msgid "Default description"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:159
+msgid "TinyMCE WYSIWYG"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:168
+msgid "Prototype NUMBERS"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:174
+msgid "Numbers"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:196
+msgid "Responsive Number"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:219
+msgid "Slider"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:244
+msgid "Responsive Slider"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:283 widgets/DCE_CREATIVE_Bubbles.php:63
+msgid "Dimension"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:294
+msgid "Limited Dimension"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:306
+msgid "Responsive Dimension"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:342
+msgid "Prototype MEDIA"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:350
+msgid "Website URL"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:363
+msgid "Media Image"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:373
+msgid "Choose Image"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:394
+msgid "Add Images"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:433
+msgid "Prototype CONTROLS"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:469
+msgid "Switcher"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:482
+msgid "Choose"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:505
+msgid "Select2"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:528
+msgid "Prototype TYPOGRAPY"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:543
+msgid "Font Family"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:572
+msgid "Prototype DESIGN"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:602 widgets/DCE_Prototype.php:612
+msgid "Icons"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:619
+msgid "Social Icon"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:647
+msgid "Borders"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:657 widgets/DCE_Prototype.php:665
+msgid "Box Shadow"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:691
+msgid "Prototype CODE"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:698
+msgid "HTML Code"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:706
+msgid "Custom HTML"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:730
+msgid "JS Code"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:738
+msgid "Custom JS"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:767
+msgid "Prototype REPEATER"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:773
+msgid "Repeater"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:783
+msgid "Repeater List"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:787
+msgid "Title #1"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:788 widgets/DCE_Prototype.php:792
+msgid "Item content. Click the edit button to change this text."
+msgstr ""
+
+#: widgets/DCE_Prototype.php:791
+msgid "Title #2"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:800
+msgid "List Title"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:807
+msgid "List Content"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:832
+msgid "Tabs Repeater"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:845
+msgid "Tabs Prototype"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:855
+msgid "xxxxx"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:864
+msgid "yyyyy"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:879
+msgid "Elementor Groups fields"
+msgstr ""
+
+#: widgets/DCE_Prototype.php:895
+msgid "DCE Groups fields"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:30 widgets/DCE_CREATIVE_Bubbles.php:45
+msgid "Bubbles"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:51
+msgid "Enable Indicatore"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:90
+msgid "Starting Depth"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:117
+msgid "Power"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:121
+#: class/controls/groups/animation.php:108
+msgctxt "Animation Control"
+msgid "Short"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:122
+#: class/controls/groups/animation.php:109
+msgctxt "Animation Control"
+msgid "Medium"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:123
+#: class/controls/groups/animation.php:110
+msgctxt "Animation Control"
+msgid "Long"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:133
+msgid "Bubbles Color"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:148
+msgid "Bubbles Color A"
+msgstr ""
+
+#: widgets/DCE_CREATIVE_Bubbles.php:163
+msgid "Bubbles Color B"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_additionalInformation.php:31
+msgid "Additional Information"
+msgstr ""
+
+#: widgets/DCE_WOOCOMMERCE_additionalInformation.php:120
+msgid "Additional information"
+msgstr ""
+
+#: widgets/DCE_POST_IconFormat.php:31 widgets/DCE_POST_IconFormat.php:43
+msgid "Icon Format"
+msgstr ""
+
+#: widgets/DCE_POST_IconFormat.php:67
+msgid "Padding Size"
+msgstr ""
+
+#: widgets/DCE_POST_IconFormat.php:85
+msgid "Color Icon"
+msgstr ""
+
+#: widgets/DCE_POST_IconFormat.php:98
+msgid "Color Background"
+msgstr ""
+
+#: extensions/animations.php:49
+msgid "Predefined CSS-Animations with keyframe. By Poglie.com"
+msgstr ""
+
+#: documents/document_Prototype.php:204
+msgid "Dynamic Page"
+msgstr ""
+
+#: documents/scrollify.php:51
+msgid "Scroll snap for sections."
+msgstr ""
+
+#: documents/scrollify.php:124
+msgid "Enabled Scrollify"
+msgstr ""
+
+#: documents/scrollify.php:140
+msgid "Update changes to page"
+msgstr ""
+
+#: documents/scrollify.php:142
+msgid "Apply"
+msgstr ""
+
+#: documents/scrollify.php:155
+msgid "Interstitial Section"
+msgstr ""
+
+#: documents/scrollify.php:158
+msgid "header, footer"
+msgstr ""
+
+#: documents/scrollify.php:168
+msgid "Scroll Speed"
+msgstr ""
+
+#: documents/scrollify.php:190
+msgid "Offset"
+msgstr ""
+
+#: documents/scrollify.php:212 class/helper.php:268
+msgid "Ease"
+msgstr ""
+
+#: documents/scrollify.php:225
+msgid "Set Heights"
+msgstr ""
+
+#: documents/scrollify.php:240
+msgid "Overflow Scroll"
+msgstr ""
+
+#: documents/scrollify.php:255
+msgid "Update Hash"
+msgstr ""
+
+#: documents/scrollify.php:270
+msgid "Touch Scroll"
+msgstr ""
+
+#: documents/scrollify.php:286
+msgid "Enable navigation"
+msgstr ""
+
+#: documents/scrollify.php:351
+msgid "Border size"
+msgstr ""
+
+#: documents/scrollify.php:376
+msgid "Active border size"
+msgstr ""
+
+#: documents/scrollify.php:445
+msgid "Active color"
+msgstr ""
+
+#: admin/plugin-info.php:5
+msgid "Introducing <strong>Dynamic Content Elements</strong>"
+msgstr ""
+
+#: admin/plugin-info.php:12
+msgid "Important:"
+msgstr ""
+
+#: admin/plugin-info.php:17
+#, php-format
+msgid ""
+"As usual, review all your widgets before updating to a live environment to "
+"make sure everything looks good. <a href=\"%s\">See the full changelog.</a>"
+msgstr ""
+
+#: admin/plugin-info.php:23
+msgid "Titolo delle nuove caratteristiche da presentare."
+msgstr ""
+
+#: admin/plugin-info.php:29 admin/plugin-info.php:35 admin/plugin-info.php:41
+msgid "Titolo caratteristica"
+msgstr ""
+
+#: admin/plugin-info.php:30 admin/plugin-info.php:36 admin/plugin-info.php:42
+msgid "Descrizione della caratteristica in questione."
+msgstr ""
+
+#: admin/plugin-info.php:47
+msgid "Complete changelog"
+msgstr ""
+
+#: admin/plugin-info.php:51
+#, php-format
+msgid "Here's the complete list of changes in %s."
+msgstr ""
+
+#: template/user.php:93
+msgid "No posts by this author."
+msgstr ""
+
+#: template/page_template/search.php:14
+msgid "Search"
+msgstr ""
+
+#: template/page_template/search.php:20 template/page_template/search.php:37
+#, php-format
+msgid "Hai cercato: %s"
+msgstr ""
+
+#: template/page_template/search.php:39
+msgid "Nessun risultato"
+msgstr ""
+
+#: template/page_template/search.php:42
+msgid "Effettua una nuova ricarca"
+msgstr ""
+
+#: template/page_template/entry/meta.php:42
+#: template/page_template/single/meta.php:45
+msgid "0 Comments"
+msgstr ""
+
+#: template/page_template/entry/meta.php:42
+#: template/page_template/single/meta.php:45
+msgid "1 Comment"
+msgstr ""
+
+#: template/page_template/entry/meta.php:42
+#: template/page_template/single/meta.php:45
+msgid "% Comments"
+msgstr ""
+
+#: template/page_template/entry/readmore.php:14
+#: template/page_template/single/next-prev.php:24
+msgid "Continue Reading"
+msgstr ""
+
+#: template/page_template/single/related-posts.php:19
+msgid "You Might Also Like"
+msgstr ""
+
+#: template/page_template/single/content.php:43
+msgid "Pages:"
+msgstr ""
+
+#: template/page_template/single/author-bio.php:32
+#: template/page_template/single/author-bio.php:43
+msgid "Visit Author Page"
+msgstr ""
+
+#: class/license.php:187
+msgid "Your key"
+msgstr ""
+
+#: class/license.php:192
+msgid "La tua licenza è valida e attiva."
+msgstr ""
+
+#: class/license.php:193
+msgid "Grazie per aver scelto di usare il nostro plugin."
+msgstr ""
+
+#: class/license.php:193
+msgid "Sentiti libero di creare il tuo nuovo sito dinamico e creativo."
+msgstr ""
+
+#: class/license.php:193
+msgid ""
+"Se pensi che i nostri widget siano fantastici non dimenticarti di "
+"consigliarlo ai tuoi amici."
+msgstr ""
+
+#: class/license.php:195
+msgid ""
+"Inserisci qui la tua licenza per poter mentenere aggiornato il plugin, "
+"ottenendo nuovi widget, compatibilità futura, maggiore stabilità e sicurezza."
+msgstr ""
+
+#: class/license.php:196
+msgid "Non ne hai ancora una? Ottienila subito:"
+msgstr ""
+
+#: class/license.php:196
+msgid "visita la nostra pagina ufficiale"
+msgstr ""
+
+#: class/plugin.php:188
+msgid "Single"
+msgstr ""
+
+#: class/plugin.php:325
+msgid "Dynamic Content for Elementor"
+msgstr ""
+
+#: class/plugin.php:331 class/plugin.php:343
+msgid "Dynamic Content for Elementor - "
+msgstr ""
+
+#: class/plugin.php:848
+msgid "DEMO"
+msgstr ""
+
+#: class/plugin.php:1164
+msgid "Use blank template"
+msgstr ""
+
+#: class/plugin.php:1176
+msgid "Descrizione della sezione relativa al POST TYPE - "
+msgstr ""
+
+#: class/plugin.php:1203
+msgid "red pill"
+msgstr ""
+
+#: class/plugin.php:1217
+msgid "Seleziona il template da associare per questo tipo."
+msgstr ""
+
+#: class/plugin.php:1255
+msgid "Dynamic Content Elements"
+msgstr ""
+
+#: class/plugin.php:1276
+msgid "Settings Saved"
+msgstr ""
+
+#: class/plugin.php:1291
+msgid "Widgets"
+msgstr ""
+
+#: class/plugin.php:1294 class/notice.php:39
+msgid "License"
+msgstr ""
+
+#: class/plugin.php:1307
+msgid "Seleziona i widgets che intendi visualizzare su Elementor:"
+msgstr ""
+
+#: class/plugin.php:1321
+msgid ""
+"Le tue preferenze sono state salvate. Visualizzerai solo i widget attivi."
+msgstr ""
+
+#: class/plugin.php:1341
+msgid "Required plugins"
+msgstr ""
+
+#: class/plugin.php:1362
+msgid "Your preferences have been saved."
+msgstr ""
+
+#: class/plugin.php:1374
+msgid "Save Settings"
+msgstr ""
+
+#: class/helper.php:269
+msgid "Ease In"
+msgstr ""
+
+#: class/helper.php:270
+msgid "Ease Out"
+msgstr ""
+
+#: class/helper.php:271
+msgid "Ease In Out"
+msgstr ""
+
+#: class/helper.php:281
+msgid "easeInExpo"
+msgstr ""
+
+#: class/notice.php:14
+msgid "Welcome to Dynamic Content for Elementor"
+msgstr ""
+
+#: class/notice.php:15
+msgid "Your copy seems to be not activated, please <a href=\""
+msgstr ""
+
+#: class/notice.php:22
+msgid "There was a problem establishing a connection to the API server"
+msgstr ""
+
+#: class/notice.php:43
+msgid "Configuration"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:79
+msgid "Year"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:88
+msgid "Month"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:112
+msgid "Day"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:120
+msgid "Hour"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:128
+msgid "Minute"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-datetime.php:136
+msgid "Second"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:66
+msgid "Add image"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:67
+msgid "Set as image"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:68
+msgid "Choose image"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:69
+msgid "Change image"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:70
+msgid "Remove image"
+msgstr ""
+
+#: class/metabox/butterbean/inc/controls/class-control-image.php:71
+msgid "No image selected"
+msgstr ""
+
+#: class/metabox/butterbean/tmpl/control-datetime.php:46
+#, php-format
+msgid "%1$s %2$s, %3$s @ %4$s:%5$s:%6$s"
+msgstr ""
+
+#: class/metabox/butterbean/tmpl/control-datetime.php:52
+#, php-format
+msgid "%1$s %2$s, %3$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:327
+msgid "Install Required Plugins"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:328
+msgid "Install Plugins"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:330
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:332
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:333
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:336
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:342
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:348
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:354
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:360
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:366
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:371
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:376
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:381
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:385
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:386
+#: class/plugins/class-tgm-plugin-activation.php:827
+#: class/plugins/class-tgm-plugin-activation.php:2533
+#: class/plugins/class-tgm-plugin-activation.php:3580
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:387
+#: class/plugins/class-tgm-plugin-activation.php:3159
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:388
+#: class/plugins/class-tgm-plugin-activation.php:2952
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:390
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:392
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:394
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:395
+msgid "Dismiss this notice"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:396
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:397
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:522
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:523
+msgid "Update Required"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:934
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:934
+#: class/plugins/class-tgm-plugin-activation.php:937
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:937
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:1121
+#: class/plugins/class-tgm-plugin-activation.php:2948
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:1982
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2273
+msgid "Required"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2276
+msgid "Recommended"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2292
+msgid "WordPress Repository"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2295
+msgid "External Source"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2298
+msgid "Pre-Packaged"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2315
+msgid "Not Installed"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2319
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2321
+msgid "Active"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2327
+msgid "Required Update not Available"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2330
+msgid "Requires Update"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2333
+msgid "Update recommended"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2342
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2388
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2392
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2396
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2400
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2482
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2490
+msgid "Installed version:"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2498
+msgid "Minimum required version:"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2510
+msgid "Available version:"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2533
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2547
+msgid "Plugin"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2549
+msgid "Type"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2553
+msgid "Version"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2554
+msgid "Status"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2603
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2608
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2614
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2684
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2717
+msgid "Install"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2723
+msgid "Update"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2726
+msgid "Activate"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2757
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2759
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2800
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2802
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2908
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:2934
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3158
+msgid "Plugin activation failed."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3498
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3501
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3503
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3507
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3509
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3509
+#: class/plugins/class-tgm-plugin-activation.php:3517
+msgid "Show Details"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3509
+#: class/plugins/class-tgm-plugin-activation.php:3517
+msgid "Hide Details"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3510
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3512
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3515
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3517
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3518
+msgid "All installations have been completed."
+msgstr ""
+
+#: class/plugins/class-tgm-plugin-activation.php:3520
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:42 class/controls/groups/ajaxpage.php:63
+msgctxt "Ajax Page"
+msgid "None"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:43 class/controls/groups/ajaxpage.php:64
+msgctxt "Ajax Page"
+msgid "Fade"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:44 class/controls/groups/ajaxpage.php:65
+msgctxt "Ajax Page"
+msgid "Left"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:45 class/controls/groups/ajaxpage.php:66
+msgctxt "Ajax Page"
+msgid "Right"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:46 class/controls/groups/ajaxpage.php:67
+msgctxt "Ajax Page"
+msgid "Top"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:47 class/controls/groups/ajaxpage.php:68
+msgctxt "Ajax Page"
+msgid "Bottom"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:48 class/controls/groups/ajaxpage.php:69
+msgctxt "Ajax Page"
+msgid "Zoom Back"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:49 class/controls/groups/ajaxpage.php:70
+msgctxt "Ajax Page"
+msgid "Zoom Front"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:50 class/controls/groups/ajaxpage.php:71
+msgctxt "Ajax Page"
+msgid "Flip Left"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:51 class/controls/groups/ajaxpage.php:72
+msgctxt "Ajax Page"
+msgid "Flip Right"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:52 class/controls/groups/ajaxpage.php:73
+msgctxt "Ajax Page"
+msgid "Flip Top"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:53 class/controls/groups/ajaxpage.php:74
+msgctxt "Ajax Page"
+msgid "Flip Bottom"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:90
+msgid "Enabled Ajax Page"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:120
+msgid "Animation MODAL"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:128
+msgctxt "Animation Control"
+msgid "Enter modal from"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:140
+msgctxt "Animation Control"
+msgid "Close modal to"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:152
+#: class/controls/groups/ajaxpage.php:269
+msgid "Timing Function"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:159
+msgctxt "Animation Control"
+msgid "Enter modal"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:171
+msgctxt "Animation Control"
+msgid "Close modal"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:183
+#: class/controls/groups/ajaxpage.php:300
+msgid "Time"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:190
+#: class/controls/groups/ajaxpage.php:307
+#: class/controls/groups/animation.php:177
+msgctxt "Animation Control"
+msgid "Duration"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:214
+msgctxt "Animation Control"
+msgid "Enter delay"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:237
+msgid "Animation BODY"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:245
+msgctxt "Animation Control"
+msgid "Exit body to"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:257
+msgctxt "Animation Control"
+msgid "Return body from"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:276
+msgctxt "Animation Control"
+msgid "Exit"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:288
+msgctxt "Animation Control"
+msgid "Return"
+msgstr ""
+
+#: class/controls/groups/ajaxpage.php:331
+msgctxt "Animation Control"
+msgid "Return delay"
+msgstr ""
+
+#: class/controls/groups/transform.php:49
+msgctxt "Opacity Control"
+msgid "Opacity"
+msgstr ""
+
+#: class/controls/groups/transform.php:70
+msgctxt "Angle Control"
+msgid "Angle"
+msgstr ""
+
+#: class/controls/groups/transform.php:93
+msgctxt "Scale Control"
+msgid "Scale"
+msgstr ""
+
+#: class/controls/groups/transform.php:149
+msgctxt "Transform Control"
+msgid "Transform"
+msgstr ""
+
+#: class/controls/groups/outline.php:47
+msgctxt "Outline Control"
+msgid "Outline Type"
+msgstr ""
+
+#: class/controls/groups/outline.php:51
+msgctxt "Outline Control"
+msgid "Solid"
+msgstr ""
+
+#: class/controls/groups/outline.php:52
+msgctxt "Outline Control"
+msgid "Double"
+msgstr ""
+
+#: class/controls/groups/outline.php:53
+msgctxt "Outline Control"
+msgid "Dotted"
+msgstr ""
+
+#: class/controls/groups/outline.php:54
+msgctxt "Outline Control"
+msgid "Dashed"
+msgstr ""
+
+#: class/controls/groups/outline.php:82
+msgctxt "Outline Control"
+msgid "Offset"
+msgstr ""
+
+#: class/controls/groups/outline.php:103
+msgctxt "Outline Control"
+msgid "Color"
+msgstr ""
+
+#: class/controls/groups/outline.php:124
+msgctxt "Outline Control"
+msgid "Outline"
+msgstr ""
+
+#: class/controls/groups/animation.php:47
+msgid "Enabled Animations"
+msgstr ""
+
+#: class/controls/groups/animation.php:61
+msgid "Play"
+msgstr ""
+
+#: class/controls/groups/animation.php:65
+msgid "Pause"
+msgstr ""
+
+#: class/controls/groups/animation.php:80
+msgctxt "Animation Control"
+msgid "Animation Type"
+msgstr ""
+
+#: class/controls/groups/animation.php:84
+msgctxt "Animation Control"
+msgid "Galleggia"
+msgstr ""
+
+#: class/controls/groups/animation.php:85
+msgctxt "Animation Control"
+msgid "Attraversa"
+msgstr ""
+
+#: class/controls/groups/animation.php:86
+msgctxt "Animation Control"
+msgid "Pulsa"
+msgstr ""
+
+#: class/controls/groups/animation.php:87
+msgctxt "Animation Control"
+msgid "Dondola"
+msgstr ""
+
+#: class/controls/groups/animation.php:88
+msgctxt "Animation Control"
+msgid "Cresci"
+msgstr ""
+
+#: class/controls/groups/animation.php:89
+msgctxt "Animation Control"
+msgid "Esplodi"
+msgstr ""
+
+#: class/controls/groups/animation.php:90
+msgctxt "Animation Control"
+msgid "Brilla"
+msgstr ""
+
+#: class/controls/groups/animation.php:91
+msgctxt "Animation Control"
+msgid "Risali o Affonda"
+msgstr ""
+
+#: class/controls/groups/animation.php:93
+msgctxt "Animation Control"
+msgid "Rotola"
+msgstr ""
+
+#: class/controls/groups/animation.php:94
+msgctxt "Animation Control"
+msgid "Rimbalza"
+msgstr ""
+
+#: class/controls/groups/animation.php:104
+msgctxt "Animation Control"
+msgid "Animation Variation"
+msgstr ""
+
+#: class/controls/groups/animation.php:122
+msgctxt "Animation Control"
+msgid "Transform origin"
+msgstr ""
+
+#: class/controls/groups/animation.php:126
+msgctxt "Animation Control"
+msgid "Top Left"
+msgstr ""
+
+#: class/controls/groups/animation.php:127
+msgctxt "Animation Control"
+msgid "Top Center"
+msgstr ""
+
+#: class/controls/groups/animation.php:128
+msgctxt "Animation Control"
+msgid "Top Right"
+msgstr ""
+
+#: class/controls/groups/animation.php:129
+msgctxt "Animation Control"
+msgid "Center Left"
+msgstr ""
+
+#: class/controls/groups/animation.php:130
+msgctxt "Animation Control"
+msgid "Center Center"
+msgstr ""
+
+#: class/controls/groups/animation.php:131
+msgctxt "Animation Control"
+msgid "Center Right"
+msgstr ""
+
+#: class/controls/groups/animation.php:132
+msgctxt "Animation Control"
+msgid "Bottom Left"
+msgstr ""
+
+#: class/controls/groups/animation.php:133
+msgctxt "Animation Control"
+msgid "Bottom Center"
+msgstr ""
+
+#: class/controls/groups/animation.php:134
+msgctxt "Animation Control"
+msgid "Bottom Right"
+msgstr ""
+
+#: class/controls/groups/animation.php:144
+msgid "Iteration Mode"
+msgstr ""
+
+#: class/controls/groups/animation.php:147
+msgid "Infinite"
+msgstr ""
+
+#: class/controls/groups/animation.php:148
+msgid "Count"
+msgstr ""
+
+#: class/controls/groups/animation.php:159
+msgid "Iteration Count"
+msgstr ""
+
+#: class/controls/groups/animation.php:199
+msgctxt "Animation Control"
+msgid "Delay"
+msgstr ""
+
+#: class/controls/groups/animation.php:222
+msgctxt "Animation Control"
+msgid "Timing Function"
+msgstr ""
+
+#: class/controls/groups/animation.php:255
+msgid "Direction"
+msgstr ""
+
+#: class/controls/groups/animation.php:260
+msgid "Normal"
+msgstr ""
+
+#: class/controls/groups/animation.php:264
+msgid "Reverse"
+msgstr ""
+
+#: class/controls/groups/animation.php:272
+msgid "Alternate Reverse"
+msgstr ""
+
+#: class/controls/groups/animation.php:286
+msgid "Fill Mode"
+msgstr ""
+
+#: class/controls/groups/animation.php:295
+msgid "Backwards"
+msgstr ""
+
+#: class/controls/groups/animation.php:299
+msgid "Both"
+msgstr ""
+
+#: class/controls/groups/animation.php:303
+msgid "Forwards"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:59
+msgctxt "Filter Control"
+msgid "Blur"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:82
+msgctxt "Filter Control"
+msgid "Brightness"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:102
+msgctxt "Filter Control"
+msgid "Contrast"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:121
+msgctxt "Filter Control"
+msgid "Saturation"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:140
+msgctxt "Filter Control"
+msgid "HueRotate"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:159
+msgctxt "Filter Control"
+msgid "Invert"
+msgstr ""
+
+#: class/controls/groups/filters_css.php:217
+msgctxt "Filters CSS Control"
+msgid "Filters CSS"
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Vcs/PluginUpdateChecker.php:98
+msgid "There is no changelog available."
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:395
+msgid "Check for updates"
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:432
+msgid "View details"
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:455
+#, php-format
+msgid "More information about %s"
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:548
+#, php-format
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:550
+#, php-format
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:552
+#, php-format
+msgctxt "the plugin title"
+msgid "Could not determine if updates are available for %s."
+msgstr ""
+
+#: plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:558
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr ""

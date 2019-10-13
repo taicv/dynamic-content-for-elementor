@@ -1,0 +1,271 @@
+20/07/2019
+1.5.3
+ - New: Token type Date ([date], [date|Y m d], [date:+1 mounth|]
+ - New: PODS Gallery Widget
+ - Add: Pagination options on Views Widget
+ - Add: Period trigger on Visibility extension
+ - Add: Random trigger on Visibility extension
+ - Add: Max trigger on Visibility extension
+ - Add: Text manipulation on Meta Widget
+ - Add: File Browser Widget can select from "Media Library" and "Post Medias"
+ - Tweak: The Animations are now compatible with motion effects, work together. In continuous movement and at the same time animated in scroll. (this compatibility requires re-enabling)
+ - Tweak: Select2 on all select controls
+ - Tweak: Page Scrolling animations
+ - Tweak: Tokens are supported in all Text widgets (WP native and Elementor's)
+ - Fix: ACF Google Map Marker ACF Image
+ - Fix: ACF Field Wysiwyg autop
+ - Fix: ACF Gallery Lightbox
+ - Fix: ACF Gallery support all field return type (array, url, id)
+ - Fix: Visibility with Elementor Free v2.6.x
+
+25/06/2019
+1.5.2
+ - New: Widget SVG Morphing
+ - New: All our widgets now support Token in text fields controls
+ - New: Pods Relationship widget
+ - New: Toolset Relationship widget
+ - New: GeoIP based trigger for Visibility ("GeoIP Detection" plugin needed)
+ - New: setting to remove shortcode (like Visual Composer) in Post Content Widget
+ - New: advanced configuration for Excerpt Widget
+ - Improvement: Current Post based trigger for Visibility
+ - Improvement: Period based trigger for Visibility
+ - Improvement: sortable post in Single Post List widget
+ - Optimization: compression and minimization on all dce js
+ - Tweak: Dynamic Posts native Template from term and taxonomy
+ - Tweak: debug mode for Visibility
+ - Update: more settings on Views widget
+ - Fix: compatible with Elementor Free v2.6.0-beta1
+ - Fix: Image Acf in Dynamic Posts
+ - Fix: Rendering Template
+ - Fix: Minor fixies
+
+06/06/2019
+1.5.1
+ - Improvement: File Browser, custom folder path and dynamic folder via meta_field
+ - Improvement: Modals Widget close button
+ - Added: Modals close button X Style
+ - Optimized: rendering of template
+ - Fix: Modals changed class name (required resave)
+ - Fix: Visibility
+
+04/06/2019
+1.5.0
+ - Improvement: Visibility extension:
+ -- Move: from Advanced tab to his new own dedicated, divided by section
+ -- Add: Parameter condition
+ -- Add: Debug mode to show trigger in frontend
+ -- Add: Keep HTML
+ -- Add: Responsive condition
+ -- Fix: Specific User
+ - Improvement: Dynamic Posts
+ -- Improved UX
+ -- New Layout:
+ --- New mode of ordering elements
+ --- Changed layout Position Image
+ --- Added order image
+ --- Added Text-Zone: Float in front
+ -- Added style Text-Zone x/y movement
+ -- Added style for modal in Ajax Page Load
+ -- Image-Overlay Color/Image/Gradient and Opacity
+ -- Removed in/out option for title, meta, author, read more
+ -- Improved MetaData: Icon, taxonomy block, Space
+ -- Improved Author: Align, Space, Avatar image style
+ -- Improved ReadMore Button: Tabs Colors
+ -- Fix: Infinite Scroll if number of posts is less than total element, if the value is 0 or empty get default number
+ - Improvement: ACF Field:
+ -- now get the field in Archive and User template
+ - Improvement: List Widgets Style
+ -- border Weight and width
+ -- ux label_block
+ - Improvement: Advanced Transforms structure
+ - Fix: Post-Content in Archive for Home Category and Tag.
+
+17/05/2019
+1.4.2
+ - Added: ACF Map Dynamic mode for same Terms
+ - Added: support for multiple Post Meta in Widget Meta
+ - Added: activation domain check
+ - Tweak: List widgets
+ - Tweak: Remote content
+
+08/05/2019
+1.4.1
+ - Added: InfoWindow in ACF Map
+ - Fix: Dynamic Posts Carousel (Slick)
+ - Fix: Template system user and search
+ - Fix: Template system get from Single and Archive by Theme Builder Elementor Pro
+
+26/04/2019
+1.4.0
+ - New: Widget Toolset Field
+ - New: Widget ACF Relationship
+ - New: Widget Views
+ - New: Document Inertia Scroll
+ - New: Post Widget Meta
+ - New: Post Widget Meta
+ - New: Unfold option in Content Post
+ - Tweak: Widget Views with ajax and infinite scroll
+ - Tweak: update engine crawler for Remote Content
+ - Tweak: Document page scroll effects
+ - Tweak: Widget Views with Pagination and Exposed sorting
+ - Tweak: Post Breadcrumb use Yoast if is active
+ - Tweak: ACF Slider Force-Width, Force-Height and Background-Mode
+ - Fix: compatibility with PHP 7.3
+ - Fix: Dynamic pots offset value
+ - Fix: Document page snap scroll
+ - Fix: Post Content strip all tags if use the content limit
+ - Fix: minor fix
+ - Added: Support ACF Field date in Dynamic Posts, Act Field Widget.
+ - Added: Now Tokens support string Filters
+ - Updated: vendor plugin-update-checker
+ - Optimization: less memory utilization in Visibility for section
+ - Security: more secure method to verify Custom condition in Visibility
+
+07/03/2019
+1.3.1.1
+ - Fix: Template System after element template in archive
+ - Fix: Dynmic Posts Dynamic-mode in home and term archive
+ - Fix: Pagination of document snap-scroll
+ - Fix: minor fix
+
+05/03/2019
+1.3.1
+ - New: Template System rebuild ui
+ - New: Scrolling effects for page controls
+ - New: Widget Pods Field
+ - New: Widget Tilt
+ - New: Document Setting > Page Scroll
+ - New: Document Setting > Page Scroll Effect
+ - New: Custom condition for Visibility
+ - Tweak: Dynamic Posts - Dynamic Taxonomy and Terms
+ - Tweak: Change name of widget "Popups" to "Modals"
+ - Fix: compatibility with Visibility in Editor
+ - Fix: Compatibility with Elementor 2.5.1
+ - Fix: Visibility condition
+
+11/01/2019
+1.2.1.1
+ - Update: more settings for FileBrowser
+ - Update: Visibility integration with Elementor Editor (Navigator and Context menu)
+ - Fix: compatibility with deprecated PHP version (5.6)
+
+06/01/2019
+1.2.1
+ - Optimization: Complete code refactoring
+ - New: added pagination in Dynamic Posts
+ - New: "Load More" button in Dynamic Posts
+ - New: InfiniteScroll in Dynamic Posts
+ - New: set your own API keys on Google Maps
+ - New: Visibility now works also with Sections
+ - New Advanced: RevealFx
+ - Update: more choice for Visibility (Context, Conditional Tags, ecc), please check compatibility
+ - Update: Advanced Rellax responsive value
+ - Fix: compatibility with Customization setting in OceanWP
+
+12/11/2018
+1.1.2
+ - Fix: minor fix
+
+01/11/2018
+1.1.1
+ - Tweak: FireModalWindow: padding, border radius, icon after/before, UX
+ - Tweak: Dynamic Content > Settings (UI)
+ - Tweak: Dynamic Content > Settings for Search page
+ - Tweak: Optimized for WPML
+ - Tweak: ReadMore post hover-style
+ - Optimization: Plugin Core for future release
+ - Upgrade: Library (Swiper, Anime, Reveal, Rellax)
+ - New: Widget List-Single-Posts-Menu
+ - New: Widget PopUps
+ - New: Dashboard Info
+ - New: Backend Column (Dynamic Content template) for Pages, Posts, CPT and Taxonomy
+
+13/09/2018
+1.1.0.1
+ - Fix: Ajax Page Open, compatibility with Astra Theme
+
+12/09/2018
+1.1.0
+ - New: Taxonomy in TemplateSystem global settings
+ - Tweak: Transform, added condition Enabled Transforms (Requred activation for the elements used)
+ - Tweak: ACF Maps, added Snazzy Style
+ - Tweak: Dynamic Posts, Query Parent-child logic
+
+06/09/2018
+1.0.8.2:
+ - Fix: Ajax Page Open (thanks Sylvia)
+ - Tweak: Single Template blank page
+ - Fix: Minor bugfix
+
+01/09/2018
+1.0.8.1:
+ - Fix: Transform
+
+31/08/2018
+1.0.8:
+ - Fix: Dynamic Posts pophover transforms for single items
+ - Fix: Post Title
+ - Fix: ACF Fields
+ - Fix: ACF Gallery
+ - Fix: SnapScroll
+ - Minor Fixes
+
+27/08/2018
+1.0.7:
+ - New: Advanced Parallax for any widget (with Rellax https://dixonandmoe.com/rellax/)
+ - Tweak: Post content shortcodes
+ - Security: Dev widget configurable only by admin
+ - Fix: Remote Content Cache working well and introduced Max Connection Time
+ - Tweak: PhpRaw check for working code before save
+ - Fix: Minor bugfix
+
+25/08/2018
+1.0.6:
+ - Tweak: Template settings archive for home
+ - Tweak: TwentyTwenty Before/After Dynamic fields (Pro)
+ - Tweak: FileBrowser style tab
+ - New: Now the transformations controls is advanced for any widget
+ - New: Group Controls HSB
+
+20/08/2018
+1.0.5:
+ - New: Creative widget Panorama
+ - New: Creative widget TwentyTwenty Before/After
+ - Fix: Transforms container
+
+12/08/2018
+1.0.4:
+ - New: Transformations responsive Controls
+ - New: Creative widget Parallax
+ - New: Creative widget Threesixty 360, image rotator
+ - New: Dev widget RemoteContent
+ - Fix: Fixed counter hits for FileBrowser
+ - Fix: Minor bugfix
+
+07/08/2018
+1.0.3:
+ - Tweak: Transform on Featured-image and ACF-image
+ - Tweak: Dynamic Posts, Query "From specific post "get from all cpt
+ - Tweak: Enchanted FileBrowser with native WP Media meta
+ - Fix: Minor bugfix
+
+27/07/2018
+1.0.2:
+ - Tweak: Featured Image
+ - Tweak: ACF Fields / ACF Gallery / ACF Map
+ - Added: Blend Mode and Filters
+ - Added: In transform TranslateX/Y
+ - Fix: Minor bugfix
+
+25/07/2018
+1.0.1:
+ - Tweak: ACF Fields / ACF Gallery / ACF Slider / ACF Map
+ - Tweak: Updated Swiper library to v4.3.3
+ - Compatibility for Elementor 2.1.0
+ - Fix: Minor bugfix
+
+26/06/2018
+1.0.0: Initial relese
+
+03/05/2017
+0.0.1: First steps

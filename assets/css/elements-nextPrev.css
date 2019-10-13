@@ -1,0 +1,107 @@
+/* --------- Prev-next -------- */
+.single .elementor-widget-dyncontel-post-nextprev nav.post-navigation {
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: none;
+}
+.single .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous{
+  border: none;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation span,
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation i.fa{
+  transition: color 0.5s ease;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-title > span{
+  display: inline-block;
+}
+/* -------------------------------------------- */
+/* Next Prev */
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next .fa, 
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous .fa{
+  position: relative;
+  margin: 0;
+  line-height: 20px;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next .fa{
+  float: right;
+} 
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous .fa{
+  float: left;
+}
+
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-post-title{
+  display: block;
+}
+/*.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next .nav-post-title{
+  float: right;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous .nav-post-title{
+  float: left;
+}*/
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous{
+  text-align: left;
+  float: left;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next{
+  text-align: right;
+  float: right;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation:after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous{
+    display: inline-block;
+    /*width: auto;
+    padding: 0;*/
+    border: none;
+}
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next:after, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous:after,
+.elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-next:before, .elementor-widget-dyncontel-post-nextprev nav.post-navigation .nav-previous:before{
+    content: "";
+    display: block;
+    clear: both;
+}
+.elementor-widget-dyncontel-post-nextprev.floatyes nav.post-navigation .nav-previous{
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 10;
+}
+.elementor-widget-dyncontel-post-nextprev.floatyes nav.post-navigation .nav-next{
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: 10;
+}
+.elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-previous{
+ 
+  -moz-transform: rotate(-90deg) translateX(-50%);
+  -webkit-transform: rotate(-90deg) translateX(-50%);
+  -ms-transform: rotate(-90deg) translateX(-50%);
+  transform: rotate(-90deg) translateX(-50%);
+
+  -moz-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-next{
+  
+  -moz-transform: rotate(-90deg) translateX(100%);
+  -webkit-transform: rotate(-90deg) translateX(100%);
+  -ms-transform: rotate(-90deg) translateX(100%);
+  transform: rotate(-90deg) translateX(100%);
+  
+  -moz-transform-origin: 100% 100%;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+.elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-next .fa{
+  transform: rotate(90deg);
+}
+.elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-previous .fa{
+  transform: rotate(90deg);
+}
