@@ -245,13 +245,14 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                       '' => __('None', 'dynamic-content-for-elementor'),
                       'duotone' => __('Duotone', 'dynamic-content-for-elementor'),
                       'broken' => __('Broken', 'dynamic-content-for-elementor'),
-                      //'rgbOfset' => __('RGB Ofset', 'dynamic-content-for-elementor'),
                       'squiggly' => __('Squiggly', 'dynamic-content-for-elementor'),
                       'sketch' => __('Sketch Frame', 'dynamic-content-for-elementor'),
                       'glitch' => __('Glitch', 'dynamic-content-for-elementor'),
                       'x-rays' => __('X-rays', 'dynamic-content-for-elementor'),
                       'morphology' => __('Morphology', 'dynamic-content-for-elementor'),
                       'posterize' => __('Posterize', 'dynamic-content-for-elementor'),
+                      'rgbOfset' => __('RGB Ofset', 'dynamic-content-for-elementor'),
+                      'pixelate' => __('Pixelate', 'dynamic-content-for-elementor'),
                   ],
                   //'frontend_available' => true,
                   'default' => 'duotone',
@@ -265,8 +266,30 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 'description' => __( 'Parameters of shpape.', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'condition' => [
-                        'fe_filtereffect' => ['morphology','duotone','squiggly','broken','sketch','posterize']
+                        'fe_filtereffect' => ['morphology','duotone','squiggly','broken','sketch','posterize','glitch','pixelate']
                     ],
+            ]
+        );
+        $this->add_control(
+            'size_pixelate', [
+                'label' => __('Pixel size', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => '5',
+                    'unit' => 'px',
+                ],
+                'size_units' => ['px'],
+                'range' => [
+                    
+                    'px' => [
+                        'min' => 1,
+                        'max' => 20,
+                        'step' => 1
+                    ]
+                ],
+                'condition' => [
+                  'fe_filtereffect' => 'glitch',
+                ]
             ]
         );
         $this->add_control(
@@ -978,6 +1001,7 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                ],
             ]
         );
+
         $this->add_group_control(
           Group_Control_Image_Size::get_type(),
           [
@@ -1122,6 +1146,18 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
               'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
               'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
               'return_value' => 'yes',
+            ]
+        );
+      $this->add_control(
+        'fe_output_direct',
+        [
+            'label' => __( 'Directly to element', 'dynamic-content-for-elementor' ),
+            'description' => __('.', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'default' => '',
+            'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+            'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
+            'return_value' => 'yes',
             ]
         );
        $this->add_control(
@@ -1367,7 +1403,7 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 <?php }else if($settings['fe_filtereffect'] == 'posterize'){ ?>
                   
                   <feComponentTransfer result="poster">
-          <!-- <feFuncR type="discrete" tableValues="0 .5 1"/> .25 .4 .5 .75 1 -->
+                    <!-- <feFuncR type="discrete" tableValues="0 .5 1"/> .25 .4 .5 .75 1 -->
                     <feFuncR type="discrete" tableValues="<?php echo $posterR; ?>" />
                     <feFuncG type="discrete" tableValues="<?php echo $posterG; ?>" />
                     <feFuncB type="discrete" tableValues="<?php echo $posterB; ?>" />
@@ -1376,6 +1412,12 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                   <?php if($desatureposter){ ?>
                     <feColorMatrix type="saturate" values="0" in="poster" result="saturate"/>
                   <?php } ?>
+                <?php }else if($settings['fe_filtereffect'] == 'pixelate'){ ?>
+                    <feFlood x="4" y="4" height="2" width="2"/>
+                    <feComposite width="10" height="10"/>
+                    <feTile result="a"/>
+                    <feComposite in="SourceGraphic" in2="a" operator="in"/>
+                    <feMorphology operator="dilate" radius="5"/>
                 <?php }else if($settings['fe_filtereffect'] == 'glitch'){ ?>
                 
                     <feColorMatrix in="SourceGraphic" mode="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
@@ -1402,7 +1444,141 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                     <feBlend in="r" in2="g" mode="screen" result="blend" />
                     
                     <feBlend in="blend" in2="b" mode="screen" result="blend" />
-                  
+                <?php }else if($settings['fe_filtereffect'] == 'glitch_shadow'){ ?>
+                    
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="0" result="blur"></feGaussianBlur>
+                      <feOffset dx="0" dy="0" result="offsetblur">
+                        <animate 
+                          attributeName="dx"
+                          from="0" 
+                          to="0" 
+                          begin="0s" 
+                          dur="0.1s" 
+                          repeatCount="indefinite"
+                          values        = "-5;-2;-2;-2;5;0"
+                          keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                        ></animate>
+                        <animate 
+                          attributeName="dy"
+                          from="0" 
+                          to="0" 
+                          begin="0s" 
+                          dur="0.1s" 
+                          repeatCount="indefinite"
+                          values        = "1;1.5;3;1.7;-1.7;0"
+                          keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                        ></animate>
+                      </feOffset>
+                      <feOffset dx="60" dy="-12" result="offsetblur2" in="blur">
+                        <animate 
+                          attributeName="dx"
+                          from="0" 
+                          to="0" 
+                          begin="0s" 
+                          dur="0.1s" 
+                          repeatCount="indefinite"
+                          values        = "0;5;-2;-2;-2;-5"
+                          keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                        ></animate>
+                        <animate 
+                          attributeName="dy"
+                          from="0" 
+                          to="0" 
+                          begin="0s" 
+                          dur="0.1s" 
+                          repeatCount="indefinite"
+                          values        = "0;-1.7;1.7;-3;1.5;1"
+                          keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                        ></animate>
+                      </feOffset>
+                      <feComponentTransfer result="shadow1" in="offsetblur">
+                        <feFuncA type="linear" slope=".8"></feFuncA>
+                        <feFuncR type="discrete" tableValues="0"></feFuncR>/>
+                        <feFuncG type="discrete" tableValues="1"></feFuncG>/>
+                        <feFuncB type="discrete" tableValues="1"></feFuncB>/>
+                      </feComponentTransfer>
+                      <feComponentTransfer result="shadow2" in="offsetblur2">
+                        <feFuncA type="linear" slope=".8"></feFuncA>/>
+                        <feFuncR type="discrete" tableValues="1"></feFuncR>/>
+                        <feFuncG type="discrete" tableValues="0"></feFuncG>/>
+                        <feFuncB type="discrete" tableValues="1"></feFuncB>/>
+                      </feComponentTransfer>
+                      <feMerge> 
+                        <feMergeNode in="shadow1"></feMergeNode>/>
+                        <feMergeNode in="shadow2"></feMergeNode>/>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>/> 
+                      </feMerge>
+                    <!-- <feFlood flood-color="black" result="black" />
+                    <feFlood flood-color="red" result="flood1" />
+                    <feFlood flood-color="limegreen" result="flood2" />
+                    <feOffset in="SourceGraphic" dx="3" dy="0" result="off1a"/>
+                    <feOffset in="SourceGraphic" dx="2" dy="0" result="off1b"/>
+                    <feOffset in="SourceGraphic" dx="-3" dy="0" result="off2a"/>
+                    <feOffset in="SourceGraphic" dx="-2" dy="0" result="off2b"/>
+                    <feComposite in="flood1" in2="off1a" operator="in"  result="comp1" />
+                    <feComposite in="flood2" in2="off2a" operator="in" result="comp2" />
+
+                    <feMerge x="0" width="100%" result="merge1">
+                        <feMergeNode in = "black" />
+                        <feMergeNode in = "comp1" />
+                        <feMergeNode in = "off1b" />
+
+                        <animate 
+                            attributeName="y" 
+                            id = "y"
+                            dur ="4s"
+                            
+                            values = '104px; 104px; 30px; 105px; 30px; 2px; 2px; 50px; 40px; 105px; 105px; 20px; 6ßpx; 40px; 104px; 40px; 70px; 10px; 30px; 104px; 102px'
+
+                            keyTimes = '0; 0.362; 0.368; 0.421; 0.440; 0.477; 0.518; 0.564; 0.593; 0.613; 0.644; 0.693; 0.721; 0.736; 0.772; 0.818; 0.844; 0.894; 0.925; 0.939; 1'
+
+                            repeatCount = "indefinite" />
+         
+                        <animate attributeName="height" 
+                            id = "h" 
+                            dur ="4s"
+                            
+                            values = '10px; 0px; 10px; 30px; 50px; 0px; 10px; 0px; 0px; 0px; 10px; 50px; 40px; 0px; 0px; 0px; 40px; 30px; 10px; 0px; 50px'
+
+                            keyTimes = '0; 0.362; 0.368; 0.421; 0.440; 0.477; 0.518; 0.564; 0.593; 0.613; 0.644; 0.693; 0.721; 0.736; 0.772; 0.818; 0.844; 0.894; 0.925; 0.939; 1'
+
+                            repeatCount = "indefinite" />
+                    </feMerge>
+                    
+
+                    <feMerge x="0" width="100%" y="60px" height="65px" result="merge2">
+                        <feMergeNode in = "black" />
+                        <feMergeNode in = "comp2" />
+                        <feMergeNode in = "off2b" />
+
+                        <animate attributeName="y" 
+                            id = "y"
+                            dur ="4s"
+                            values = '103px; 104px; 69px; 53px; 42px; 104px; 78px; 89px; 96px; 100px; 67px; 50px; 96px; 66px; 88px; 42px; 13px; 100px; 100px; 104px;' 
+
+                            keyTimes = '0; 0.055; 0.100; 0.125; 0.159; 0.182; 0.202; 0.236; 0.268; 0.326; 0.357; 0.400; 0.408; 0.461; 0.493; 0.513; 0.548; 0.577; 0.613; 1'
+
+                            repeatCount = "indefinite" />
+         
+                        <animate attributeName="height" 
+                            id = "h"
+                            dur = "4s"
+                            
+                            values = '0px; 0px; 0px; 16px; 16px; 12px; 12px; 0px; 0px; 5px; 10px; 22px; 33px; 11px; 0px; 0px; 10px'
+
+                            keyTimes = '0; 0.055; 0.100; 0.125; 0.159; 0.182; 0.202; 0.236; 0.268; 0.326; 0.357; 0.400; 0.408; 0.461; 0.493; 0.513;  1'
+                             
+                            repeatCount = "indefinite" />
+                    </feMerge>
+                    
+                    <feMerge>
+                        <feMergeNode in="SourceGraphic" />  
+
+                        <feMergeNode in="merge1" /> 
+                    <feMergeNode in="merge2" />
+
+                    </feMerge> -->
+                 
                 <?php
                   }
                 ?>
@@ -1416,7 +1592,9 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 <?php echo $filterId; ?> />
 
             <style>
-              <?php if($settings['fe_output'] && $settings['id_svg_class'] != ''){ ?>
+              <?php if($settings['fe_output'] && $settings['id_svg_class'] != ''){ 
+
+                if(!$settings['fe_output_direct']) { ?>
                   .<?php echo $id_svg_class; ?> img,
                   .<?php echo $id_svg_class; ?> p,
                   .<?php echo $id_svg_class; ?> svg > img,
@@ -1424,17 +1602,20 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                   .<?php echo $id_svg_class; ?> svg polyline,
                   .<?php echo $id_svg_class; ?> .elementor-heading-title,
                   .<?php echo $id_svg_class; ?> .elementor-icon i:before,
-                  .<?php echo $id_svg_class; ?> .elementor-button{
-                      -webkit-filter: url(#fe_effect-<?php echo $widgetId; ?>);
-                      filter: url(#fe_effect-<?php echo $widgetId; ?>);
+                  .<?php echo $id_svg_class; ?> .elementor-button
+                <?php }else{ 
+                    echo '.'.$id_svg_class;
+                } ?>
+                {
+                  -webkit-filter: url(#fe_effect-<?php echo $widgetId; ?>);
+                  filter: url(#fe_effect-<?php echo $widgetId; ?>);
 
-                  }
-                
-                  #dce-svg-<?php echo $widgetId; ?> {
+                }
+                #dce-svg-<?php echo $widgetId; ?> {
                     position: absolute;
                     width: 0;
                     height: 0;
-                  }
+                }
                <?php } ?>
             </style>
         </svg>
@@ -1455,6 +1636,7 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
       var viewBoxW = settings.viewbox_width;
       var viewBoxH = settings.viewbox_height;
       var fe_output = settings.fe_output;
+      var fe_output_direct = settings.fe_output_direct;
       var maxWidth = settings.image_max_width.size;
       var baseImage = settings.base_image.url;
       
@@ -1609,14 +1791,16 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                         <feFuncB type="table" tableValues="{{color1_B}} {{color2_B}}"></feFuncB>
                     </feComponentTransfer>
                   <# } else if(fe_filtereffect == 'broken'){ #>
-                      <feTurbulence type="turbulence" baseFrequency="0.002 0.008" numOctaves="2" seed="2" stitchTiles="stitch" result="turbulence"/>
+                      <!-- <feTurbulence type="turbulence" baseFrequency="0.002 0.008" numOctaves="2" seed="2" stitchTiles="stitch" result="turbulence"/>
                       <feColorMatrix type="saturate" values="30" in="turbulence" result="colormatrix"/>
                       <feColorMatrix type="matrix" values="1 0 0 0 0
                     0 1 0 0 0
                     0 0 1 0 0
                     0 0 0 150 -15" in="colormatrix" result="colormatrix1"/>
                       <feComposite in="SourceGraphic" in2="colormatrix1" operator="in" result="composite"/>
-                      <feDisplacementMap in="SourceGraphic" in2="colormatrix1" scale="{{size_broken}}" xChannelSelector="R" yChannelSelector="A" result="displacementMap"/>
+                      <feDisplacementMap in="SourceGraphic" in2="colormatrix1" scale="{{size_broken}}" xChannelSelector="R" yChannelSelector="A" result="displacementMap"/> -->
+            <AnimFeTurbulence type="fractalNoise" baseFrequency={freq} numOctaves="1.5" result="TURB" seed="8" />
+            <AnimFeDisplacementMap xChannelSelector="R" yChannelSelector="G" in="SourceGraphic" in2="TURB" result="DISP" scale={scale} />
 
                   <# } else if(fe_filtereffect == 'rgbOfset'){ #>
                       <feFlood flood-color="#FF0000" flood-opacity="0.5" result="RED" />
@@ -1682,6 +1866,12 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                      <# if( desatureposter ){ #>
                     <feColorMatrix type="saturate" values="0" in="poster" result="saturate"/>
                     <# } #>
+                  <# }else if(fe_filtereffect == 'pixelate'){ #>
+                    <feFlood x="4" y="4" height="2" width="2"/>
+                    <feComposite width="10" height="10"/>
+                    <feTile result="a"/>
+                    <feComposite in="SourceGraphic" in2="a" operator="in"/>
+                    <feMorphology operator="dilate" radius="5"/>
                   <# }else if(fe_filtereffect == 'glitch'){ #>
 
                         <feColorMatrix in="SourceGraphic" mode="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" />
@@ -1708,7 +1898,142 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                         <feBlend in="r" in2="g" mode="screen" result="blend" />
                         
                         <feBlend in="blend" in2="b" mode="screen" result="blend" />
-                      
+                  <# }else if(fe_filtereffect == 'glitch_shadow'){ #>
+
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="0" result="blur"></feGaussianBlur>
+                          <feOffset dx="0" dy="0" result="offsetblur">
+                            <animate 
+                              attributeName="dx"
+                              from="0" 
+                              to="0" 
+                              begin="0s" 
+                              dur="0.1s" 
+                              repeatCount="indefinite"
+                              values        = "-5;-2;-2;-2;5;0"
+                              keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                            ></animate>
+                            <animate 
+                              attributeName="dy"
+                              from="0" 
+                              to="0" 
+                              begin="0s" 
+                              dur="0.1s" 
+                              repeatCount="indefinite"
+                              values        = "1;1.5;3;1.7;-1.7;0"
+                              keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                            ></animate>
+                          </feOffset>
+                          <feOffset dx="60" dy="-12" result="offsetblur2" in="blur">
+                            <animate 
+                              attributeName="dx"
+                              from="0" 
+                              to="0" 
+                              begin="0s" 
+                              dur="0.1s" 
+                              repeatCount="indefinite"
+                              values        = "0;5;-2;-2;-2;-5"
+                              keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                            ></animate>
+                            <animate 
+                              attributeName="dy"
+                              from="0" 
+                              to="0" 
+                              begin="0s" 
+                              dur="0.1s" 
+                              repeatCount="indefinite"
+                              values        = "0;-1.7;1.7;-3;1.5;1"
+                              keyTimes      = "0;0.125;0.275;0.625;0.875;1"
+                            ></animate>
+                          </feOffset>
+                          <feComponentTransfer result="shadow1" in="offsetblur">
+                            <feFuncA type="linear" slope=".8"></feFuncA>
+                            <feFuncR type="discrete" tableValues="0"></feFuncR>/>
+                            <feFuncG type="discrete" tableValues="1"></feFuncG>/>
+                            <feFuncB type="discrete" tableValues="1"></feFuncB>/>
+                          </feComponentTransfer>
+                          <feComponentTransfer result="shadow2" in="offsetblur2">
+                            <feFuncA type="linear" slope=".8"></feFuncA>/>
+                            <feFuncR type="discrete" tableValues="1"></feFuncR>/>
+                            <feFuncG type="discrete" tableValues="0"></feFuncG>/>
+                            <feFuncB type="discrete" tableValues="1"></feFuncB>/>
+                          </feComponentTransfer>
+                          <feMerge> 
+                            <feMergeNode in="shadow1"></feMergeNode>/>
+                            <feMergeNode in="shadow2"></feMergeNode>/>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>/> 
+                          </feMerge>
+
+                        <!-- <feFlood flood-color="black" result="black" />
+                        <feFlood flood-color="red" result="flood1" />
+                        <feFlood flood-color="limegreen" result="flood2" />
+                        <feOffset in="SourceGraphic" dx="3" dy="0" result="off1a"/>
+                        <feOffset in="SourceGraphic" dx="2" dy="0" result="off1b"/>
+                        <feOffset in="SourceGraphic" dx="-3" dy="0" result="off2a"/>
+                        <feOffset in="SourceGraphic" dx="-2" dy="0" result="off2b"/>
+                        <feComposite in="flood1" in2="off1a" operator="in"  result="comp1" />
+                        <feComposite in="flood2" in2="off2a" operator="in" result="comp2" />
+
+                        <feMerge x="0" width="100%" result="merge1">
+                            <feMergeNode in = "black" />
+                            <feMergeNode in = "comp1" />
+                            <feMergeNode in = "off1b" />
+
+                            <animate 
+                                attributeName="y" 
+                                id = "y"
+                                dur ="4s"
+                                
+                                values = '104px; 104px; 30px; 105px; 30px; 2px; 2px; 50px; 40px; 105px; 105px; 20px; 6ßpx; 40px; 104px; 40px; 70px; 10px; 30px; 104px; 102px'
+
+                                keyTimes = '0; 0.362; 0.368; 0.421; 0.440; 0.477; 0.518; 0.564; 0.593; 0.613; 0.644; 0.693; 0.721; 0.736; 0.772; 0.818; 0.844; 0.894; 0.925; 0.939; 1'
+
+                                repeatCount = "indefinite" />
+             
+                            <animate attributeName="height" 
+                                id = "h" 
+                                dur ="4s"
+                                
+                                values = '10px; 0px; 10px; 30px; 50px; 0px; 10px; 0px; 0px; 0px; 10px; 50px; 40px; 0px; 0px; 0px; 40px; 30px; 10px; 0px; 50px'
+
+                                keyTimes = '0; 0.362; 0.368; 0.421; 0.440; 0.477; 0.518; 0.564; 0.593; 0.613; 0.644; 0.693; 0.721; 0.736; 0.772; 0.818; 0.844; 0.894; 0.925; 0.939; 1'
+
+                                repeatCount = "indefinite" />
+                        </feMerge>
+                        
+
+                        <feMerge x="0" width="100%" y="60px" height="65px" result="merge2">
+                            <feMergeNode in = "black" />
+                            <feMergeNode in = "comp2" />
+                            <feMergeNode in = "off2b" />
+
+                            <animate attributeName="y" 
+                                id = "y"
+                                dur ="4s"
+                                values = '103px; 104px; 69px; 53px; 42px; 104px; 78px; 89px; 96px; 100px; 67px; 50px; 96px; 66px; 88px; 42px; 13px; 100px; 100px; 104px;' 
+
+                                keyTimes = '0; 0.055; 0.100; 0.125; 0.159; 0.182; 0.202; 0.236; 0.268; 0.326; 0.357; 0.400; 0.408; 0.461; 0.493; 0.513; 0.548; 0.577; 0.613; 1'
+
+                                repeatCount = "indefinite" />
+             
+                            <animate attributeName="height" 
+                                id = "h"
+                                dur = "4s"
+                                
+                                values = '0px; 0px; 0px; 16px; 16px; 12px; 12px; 0px; 0px; 5px; 10px; 22px; 33px; 11px; 0px; 0px; 10px'
+
+                                keyTimes = '0; 0.055; 0.100; 0.125; 0.159; 0.182; 0.202; 0.236; 0.268; 0.326; 0.357; 0.400; 0.408; 0.461; 0.493; 0.513;  1'
+                                 
+                                repeatCount = "indefinite" />
+                        </feMerge>
+                        
+                        <feMerge>
+                            <feMergeNode in="SourceGraphic" />  
+
+                            <feMergeNode in="merge1" /> 
+                        <feMergeNode in="merge2" />
+
+                        </feMerge> -->
+
                   <# } #>
                   </filter>
               </defs>
@@ -1719,8 +2044,9 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 
              <style>
                
-                <# if( fe_output && id_svg_class != ''){ #>
-
+                <# if( fe_output && id_svg_class != '' ){ 
+                    if( fe_output_direct == '' ){
+                    #>
                 .{{id_svg_class}} svg > image,
                 .{{id_svg_class}} svg > p,
                 .{{id_svg_class}} svg > path,
@@ -1728,7 +2054,11 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 .{{id_svg_class}} img,
                 .{{id_svg_class}} .elementor-heading-title,
                 .{{id_svg_class}} .elementor-icon i:before,
-                .{{id_svg_class}} .elementor-button{
+                .{{id_svg_class}} .elementor-button
+                <# }else{ #>
+                .{{id_svg_class}}
+                <# } #>
+                {
                     -webkit-filter: url(#fe_effect-{{idWidget}});
                     filter: url(#fe_effect-{{idWidget}});
                 }
@@ -1740,6 +2070,7 @@ class DCE_Widget_SvgFilterEffects extends DCE_Widget_Prototype {
                 <# } #>
             </style>
           </svg>
+
          </div>
        </div>
        <#

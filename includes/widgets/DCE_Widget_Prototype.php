@@ -34,6 +34,29 @@ if (!defined('ABSPATH'))
 
 class DCE_Widget_Prototype extends Widget_Base {
     
+    /**
+    * Settings.
+    *
+    * Holds the object settings.
+    *
+    * @access public
+    *
+    * @var array
+    */
+    public $settings;
+    
+    /**
+    * Raw Data.
+    *
+    * Holds all the raw data including the element type, the child elements,
+    * the user data.
+    *
+    * @access public
+    *
+    * @var null|array
+    */
+    public $data;
+    
     public $docs = 'https://www.dynamic.ooo';
 
     public function get_name() {
@@ -66,6 +89,10 @@ class DCE_Widget_Prototype extends Widget_Base {
 
     static public function is_enabled() {
         return false;
+    }
+    
+    public function is_reload_preview_required() {
+            return false;
     }
 
     public function get_categories() {

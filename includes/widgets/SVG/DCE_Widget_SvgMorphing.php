@@ -115,8 +115,6 @@ class DCE_Widget_SvgMorphing extends DCE_Widget_Prototype {
                 'label' => __( 'One by one', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
-                'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
                 'return_value' => 'yes',
                 //'render_type' => 'template',
                 'frontend_available' => true,

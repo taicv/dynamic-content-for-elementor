@@ -1,4 +1,4 @@
-/* 
+/*
  * DCE EDITOR
  * dynamic.ooo
  */
@@ -16,6 +16,13 @@ function getUrlParam(parameter, defaultvalue){
         urlparameter = getUrlVars()[parameter];
     }
     return urlparameter;
+}
+
+var dce_model_cid = null;
+function dce_get_element_id_from_cid(cid) {
+    var iFrameDOM = jQuery("iframe#elementor-preview-iframe").contents();
+    var eid = iFrameDOM.find('.elementor-element[data-model-cid='+cid+']').data('id');
+    return eid;
 }
 
 function dce_disable_save_button() {
@@ -76,7 +83,7 @@ function dce_getimageSizes(url, callback) {
         var sizes = {};
         sizes.height = this.height;
         sizes.width = this.width;
-        sizes.coef =  sizes.height / sizes.width;     
+        sizes.coef =  sizes.height / sizes.width;
         callback(sizes);
 
       };
@@ -109,8 +116,8 @@ jQuery(window).load(function() {
     //console.log(elementor);
     if (jQuery('#elementor-preview-iframe').length) {
         setInterval(function(){
-            if (iFrameDOM.find("div.elementor-widget-dce-rawphp").length) { 
-                if (iFrameDOM.find("div.elementor-widget-dce-rawphp.elementor-loading").length) { 
+            if (iFrameDOM.find("div.elementor-widget-dce-rawphp").length) {
+                if (iFrameDOM.find("div.elementor-widget-dce-rawphp.elementor-loading").length) {
                     //&& iFrameDOM.find("div[data-id=<?php echo $this->get_id(); ?>]").hasClass('elementor-loading')) {
                     dce_disable_save_button();
                     jQuery('#elementor-panel-saver-button-publish').addClass('elementor-saver-disabled-dce');
@@ -130,7 +137,7 @@ jQuery(window).load(function() {
 });
 
 jQuery(document).ready(function() {
-    
+
     jQuery(document).on('mousedown','.elementor-control-show_points',function(e){
         console.log(e);
     });
@@ -162,7 +169,7 @@ jQuery(document).ready(function() {
             // ------------
             morphed.attr('data-run',runAnimation);
 
-            //morphed.data("run", runAnimation).trigger('changeData'); 
+            //morphed.data("run", runAnimation).trigger('changeData');
             //alert(morphed.attr('class')+repeater_index);
             //alert(eid);
             //alert( runAnimation );
@@ -193,9 +200,9 @@ jQuery(document).ready(function() {
             //console.log(tagSettings);
             tagSettings = encodeURIComponent(JSON.stringify(tagSettings) || {});
             var settingValue = '[elementor-tag id="' + eid + '" name="dce-token" settings="'+ tagSettings +'"]';
-            
-            var dynamicSettings = {};        
-            if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__) {    
+
+            var dynamicSettings = {};
+            if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__) {
                dynamicSettings = elementorFrontend.config.elements.data[cid].attributes.__dynamic__;
             }
             var newSetting = {
@@ -205,9 +212,9 @@ jQuery(document).ready(function() {
             newSetting[settingKey] = settingValue;
             jQuery.extend(dynamicSettings, newSetting);
             elementorFrontend.config.elements.data[cid].attributes.__dynamic__ = dynamicSettings;
-            
-            var dynamicActive = {};        
-            if (elementorFrontend.config.elements.data[cid].attributes.dynamic) {    
+
+            var dynamicActive = {};
+            if (elementorFrontend.config.elements.data[cid].attributes.dynamic) {
                dynamicActive = elementorFrontend.config.elements.data[cid].attributes.dynamic;
             }
             newActive = { 'active': true };
@@ -220,7 +227,7 @@ jQuery(document).ready(function() {
 
 });
 */
-/*jQuery(window).on( 'load', function() { 
+/*jQuery(window).on( 'load', function() {
     setInterval(function(){
         jQuery('.elementor-control-dynamic.elementor-control-dynamic-value').each(function(){
             var tagInput = jQuery(this).find('.elementor-control-tag-area').first();
@@ -243,9 +250,9 @@ jQuery(document).ready(function() {
 
 
 // FILEBROWSER
-jQuery(window).on( 'load', function() {     
-    jQuery(document).on("click", ".elementor-control-medias .remove_media", function() { 
-        //alert("add3"); 
+jQuery(window).on( 'load', function() {
+    jQuery(document).on("click", ".elementor-control-medias .remove_media", function() {
+        //alert("add3");
         var editorId = jQuery(this).data('editor');
         tinyMCE.editors[editorId].setContent('');
     });
@@ -257,33 +264,6 @@ jQuery(window).on( 'load', function() {
         });
     }, 1000);
 });
-
-/******************************************************************************/
-
-
-// SELECT2 everywhere
-jQuery(window).on( 'load', function() {     
-    elementorFrontend.hooks.addAction( 'frontend/element_ready/global', function( $scope ) {
-        jQuery('.elementor-control-type-select select').select2();
-    } );
-    elementor.hooks.addAction( 'panel/open_editor/section', function( panel, model, view ) {
-        jQuery('.elementor-control-type-select select').select2();
-    } );
-    elementor.hooks.addAction( 'panel/open_editor/column', function( panel, model, view ) {
-        jQuery('.elementor-control-type-select select').select2();
-    } ); 
-    elementor.hooks.addAction( 'panel/open_editor/widget', function( panel, model, view ) {
-        jQuery('.elementor-control-type-select select').select2();
-    } );
-    
-    setInterval(function(){
-        // add navigator element toggle
-        jQuery('.elementor-control-type-select select').not('.select2-hidden-accessible').each(function(){
-            jQuery(this).select2();
-        });
-    }, 1000);
-});
-
 
 /******************************************************************************/
 

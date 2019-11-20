@@ -42,7 +42,10 @@ class DCE_Widget_Content extends DCE_Widget_Prototype {
         return 2;
     }
     public function get_script_depends() {
-        return ['imagesloaded','dce-content'];
+        return ['imagesloaded'];
+    }
+    public function get_dce_script_depends() {
+        return ['dce-content'];
     }
     protected function _register_controls() {
 

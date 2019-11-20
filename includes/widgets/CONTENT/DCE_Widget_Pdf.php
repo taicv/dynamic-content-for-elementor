@@ -26,7 +26,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
     }
 
     static public function is_enabled() {
-        return false;
+        return true;
     }
 
     public function get_title() {
@@ -34,7 +34,15 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
     }
 
     public function get_icon() {
-        return 'eicon-button';
+        return 'icon-dyn-buttonpdf';
+    }
+    
+    public function get_description() {
+        return __('Export your content in PDF, generate them dynamically and stylized', 'dynamic-content-for-elementor');
+    }
+
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/pdf-button/';
     }
 
     /**
@@ -126,6 +134,9 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
                     'label' => __('Force Download', 'elementor'),
                     'type' => Controls_Manager::SWITCHER,
                     'separator' => 'after',
+                    'condition' => [
+                        'is_external' => '',
+                    ]
                 ]
         );
 
@@ -211,7 +222,22 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
                     ],
                 ]
         );
-
+        $this->add_control(
+                'icon_size',
+                [
+                    'label' => __('Icon Size', 'elementor'),
+                    'type' => Controls_Manager::SLIDER,
+                    'range' => [
+                        'px' => [
+                            'min' => 10,
+                            'max' => 60,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .elementor-button .elementor-button-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+                    ],
+                ]
+        );
         $this->add_control(
                 'view',
                 [
@@ -437,7 +463,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
                 [
                     'label' => __('Html Container', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'default' => '.elementor-[post:ID]',
+                    'default' => '.elementor-inner',
                     'placeholder' => __('body', 'dynamic-content-for-elementor'),
                     'label_block' => true,
                     'description' => 'Use jQuery selector to identify the content for this PDF.',
@@ -500,7 +526,38 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
                 'dce_pdf_button_margin', [
             'label' => __('Page Margin', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::DIMENSIONS,
+            'default' => [
+                'top' => 20,
+                'right' => 20,
+                'bottom' => 20,
+                'left' => 20,
+                'unit' => 'px',
+                'isLinked' => true,
+            ],
             'size_units' => ['px', '%', 'em'],
+                ]
+        );
+        
+        $this->add_control(
+                'dce_pdf_button_styles', [
+            'label' => __('Use Styles', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::CHOOSE,
+            'options' => [
+                'unstyled' => [
+                    'title' => __('No Style', 'dynamic-content-for-elementor'),
+                    'icon' => 'fa fa-circle-o',
+                ],
+                'elementor' => [
+                    'title' => __('Only Elementor', 'dynamic-content-for-elementor'),
+                    'icon' => 'fa fa-adjust',
+                ],
+                'all' => [
+                    'title' => __('Elementor & Theme', 'dynamic-content-for-elementor'),
+                    'icon' => 'fa fa-circle',
+                ]
+            ],
+            'toggle' => false,
+            'default' => 'elementor',
                 ]
         );
         
@@ -549,6 +606,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
         } else { 
             $pdf_url .= '&container=' . urlencode($settings['dce_pdf_button_container']);
         }
+        $pdf_url .= '&styles=' . $settings['dce_pdf_button_styles'];
         
         $pdf_url .= '&title=' . $settings['dce_pdf_button_title'];
         $pdf_url .= '&size=' . $settings['dce_pdf_button_size'];
@@ -627,7 +685,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
 
         $this->add_render_attribute([
             'content-wrapper' => [
-                'class' => 'elementor-button-content-wrapper',
+                'class' => ['elementor-button-content-wrapper','dce-flexbox'],
             ],
             'icon-align' => [
                 'class' => [

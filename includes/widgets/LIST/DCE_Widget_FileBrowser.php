@@ -51,8 +51,11 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
     }
 
     public function get_style_depends() {
-
-        return ['dce-file-icon', 'dce-filebrowser'];
+        return ['dce-file-icon'];
+    }
+    
+    public function get_dce_style_depends() {
+        return ['dce-filebrowser'];
     }
 
     protected function _register_controls() {
@@ -485,7 +488,19 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                     'search_quick',
                     [
                         'label' => __('Quick search', 'dynamic-content-for-elementor'),
+                        'description' => __('Search on input change, no buttons needed', 'dynamic-content-for-elementor'),
                         'type' => Controls_Manager::SWITCHER,
+                    ]
+            );
+            $this->add_control(
+                    'search_find_text',
+                    [
+                        'label' => __('Find Text', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::TEXT,
+                        'default' => __('Find', 'dynamic-content-for-elementor'),
+                        'condition' => [
+                            'search_quick' => '',
+                        ]
                     ]
             );
             $this->add_control(
@@ -495,6 +510,18 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                         'type' => Controls_Manager::SWITCHER,
                         'condition' => [
                             'search_quick' => '',
+                        ]
+                    ]
+            );
+            $this->add_control(
+                    'search_reset_text',
+                    [
+                        'label' => __('Reset Text', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::TEXT,
+                        'default' => __('Reset', 'dynamic-content-for-elementor'),
+                        'condition' => [
+                            'search_quick' => '',
+                            'search_reset!' => ''
                         ]
                     ]
             );
@@ -2425,7 +2452,6 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
     }
 
     public function dirToHtml($dir, $hidden = false, $files = array(), $dirs = array()) {
-        global $wpdb;
         $image_exts = array('jpg', 'jpeg', 'jpe', 'gif', 'png');
         $settings = $this->get_settings_for_display();
 
@@ -2559,7 +2585,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                             <?php echo $hideHtml; ?>
                                 <a class="<?php echo ($customTitle ? 'inline-' : ''); ?>block folder-dir" data-toggle="collapse" id="<?php echo $kdir; ?>" data-target="#<?php echo $kdir; ?>-ul" href="#<?php echo $kdir; ?>" onClick="jQuery(this).siblings('ul').slideToggle(); return false;">
                                     <span class="middle fiv-viv fiv-icon-folder"></span>
-                                    <!--<img class="hidden dce-file-icon" alt="Icon" src="'.DCE_URL.'/assets/file-icon/folder.png" width="56" height="56">-->
+                                    <!--<img class="hidden dce-file-icon" alt="Icon" src="'.DCE_URL.'/assets/lib/file-icon/icons/vivid/folder.svg" width="56" height="56">-->
                             <?php if ($customTitle) { ?>
                                     </a> <input type="text" class="dce-dir-title" data-dir="<?php echo $kdir; ?>" name="dce-dir-browser[<?php echo $kdir; ?>][title]" value="<?php echo $title; ?>" /> <a class="inline-block" href="<?php echo DCE_Helper::path_to_url($fulldir); ?>" target="_blank">
                             <?php } else { ?>
@@ -2633,7 +2659,9 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                             //echo $post_id;
                         }*/
                         //echo $rdir;
-                        $post_id = DCE_Helper::get_image_id($rdir);
+                        if ($settings['enable_metadata']) {
+                            $post_id = DCE_Helper::get_image_id($rdir);
+                        }
 
                         $hide = false;
                         if ($settings['enable_metadata'] && $settings['enable_metadata_hide']) {
@@ -2667,12 +2695,12 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
 
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode() || !$hide) {
 
-                            if (file_exists(DCE_PATH . '/assets/file-icon/' . $ext . '.svg')) {
-                                $icon = DCE_URL . '/assets/file-icon/' . $ext . '.svg';
+                            if (file_exists(DCE_PATH . '/assets/lib/file-icon/icons/vivid/' . $ext . '.svg')) {
+                                $icon = DCE_URL . '/assets/lib/file-icon/icons/vivid/' . $ext . '.svg';
                             } else {
-                                $icon = DCE_URL . '/assets/file-icon/unknown.svg';
+                                $icon = DCE_URL . '/assets/lib/file-icon/icons/vivid/unknown.svg';
                             }
-                            if (!file_exists(DCE_PATH . '/assets/css/icons/vivid/' . $ext . '.svg')) {
+                            if (!file_exists(DCE_PATH . '/assets/lib/file-icon/icons/vivid/' . $ext . '.svg')) {
                                 $ext = 'blank';
                             }
 
@@ -2697,8 +2725,13 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                             }
                             echo '<a class="' . ($customTitle ? 'inline-' : '') . 'block btn-block dce-file-download" href="' . DCE_Helper::path_to_url($fulldir) . '"  data-md5="' . $md5 . '"' . ($post_id ? ' data-post-id="' . $post_id . '"' : '') . ' target="_blank">';
 
-                            if (isset($settings['img_icon']) && $settings['img_icon'] && $post_id && in_array($ext, $image_exts)) {
-                                echo wp_get_attachment_image($post_id, array(100, 100), true, array('class' => 'middle dce-img-icon'));
+                            if (!empty($settings['img_icon']) && in_array($ext, $image_exts) && $post_id) {
+                                if ($post_id) {
+                                    //echo wp_get_attachment_image($post_id, array(100, 100), true, array('class' => 'middle dce-img-icon'));
+                                    echo wp_get_attachment_image($post_id, 'thumbnail', true, array('class' => 'middle dce-img-icon'));
+                                } else {
+                                    // TODO: img preview for non media
+                                }
                             } else {
                                 echo '<span class="middle fiv-viv fiv-icon-' . $ext . '"></span>'; // <img class="hidden dce-file-icon" alt='.__('File Icon', 'dynamic-content-for-elementor').'" src="'.$icon.'" width="56" height="56">';
                             }
@@ -2719,7 +2752,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                             }
                             if ($customTitle) {
                                 echo '</a>';
-                                if ($settings['enable_metadata_wp_title'] && $post_id) {
+                                if (!empty($settings['enable_metadata']) && $settings['enable_metadata_wp_title'] && $post_id) {
                                     echo '<strong class="dce-file-title"><a target="_blank" onclick="window.open(jQuery(this).attr(\'href\'));" href="' . get_site_url() . '/wp-admin/post.php?post=' . $post_id . '&action=edit"><span class="dashicons dashicons-edit" style="vertical-align: middle;"></span> ' . $title . '</a></strong>';
                                 } else {
                                     echo '<input type="text" class="dce-file-title" data-md5="' . $md5 . '"' . ($post_id ? ' data-post-id="' . $post_id . '"' : '') . ' name="dce-file-browser[' . $md5 . '][title]" value="' . $title . '" />';
@@ -2729,18 +2762,18 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                                 echo '<strong class="dce-file-title">' . $title . '</strong>';
                             }
 
-                            if (isset($settings['enable_metadata']) && $settings['enable_metadata'] && $settings['enable_metadata_size']) {
-                                echo ' <small class="label label-default dce-file-size-label">(' . $this->humanFilesize(filesize($fulldir), 0) . ')</small>';
+                            if (!empty($settings['enable_metadata']) && $settings['enable_metadata_size']) {
+                                echo ' <small class="label label-default dce-file-size-label">(' . $this->readableFilesize(filesize($fulldir), 0) . ')</small>';
                             }
 
-                            if (isset($settings['enable_metadata']) && $settings['enable_metadata'] && $settings['enable_metadata_hits']) {
+                            if (!empty($settings['enable_metadata']) && $settings['enable_metadata_hits']) {
                                 echo ' <small class="label label-default dce-file-hits-label"><i class="fa fa-download" aria-hidden="true"></i> <b>' . $this->get_file_meta(($post_id ? $post_id : $md5), 'hits', 0) . '</b></small>';
                             }
 
                             echo '</span>';
                             echo '</a>';
 
-                            if (isset($settings['enable_metadata']) && $settings['enable_metadata']) {
+                            if (!empty($settings['enable_metadata'])) {
                                 if (isset($settings['enable_metadata_description']) && $settings['enable_metadata_description']) {
                                     if ($settings['enable_metadata_wp_description'] && $post_id) {
                                         $description = wp_get_attachment_caption($post_id);
@@ -2767,6 +2800,21 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
                 }
             
             return '';
+        }
+        
+        public function readableFilesize($size, $precision = 2, $space = '') {
+            if( $size <= 0 ) {
+                return '0' . $space . 'KB';
+            }
+            if( $size === 1 ) {
+                return '1' . $space . 'byte';
+            }
+            $mod = 1024;
+            $units = array('bytes', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for( $i = 0; $size > $mod && $i < count($units) - 1; ++$i ) {
+                $size /= $mod;
+            }
+            return round($size, $precision) . $space . $units[$i];
         }
 
         public function humanFilesize($bytes, $decimals = 2) {
@@ -2815,7 +2863,7 @@ class DCE_Widget_FileBrowser extends DCE_Widget_Prototype {
         <?php if ($settings['search_text'] != '') echo '<'.$settings['search_text_size'].' class="dce-file-search-form-title">' . __($settings['search_text'], 'dynamic-content-for-elementor') . '</'.$settings['search_text_size'].'>'; ?>
             <div class="form-control"><input type="text" class="filetxt" name="filetxt" value=""></div>
             <?php if ($settings['search_notice']) { ?><div class="dce-search-desc"><small><?php _e($settings['search_notice'], 'dynamic-content-for-elementor'); ?></small></div><?php } ?>
-            <?php if (!$settings['search_quick']) { ?><div class="text-right dce-search-buttons"><?php if ($settings['search_reset']) { ?><input class="reset" type="reset" value="<?php _e('Reset', 'dynamic-content-for-elementor'); ?>"> <?php } ?><input class="find" type="submit" value="<?php _e('Find', 'dynamic-content-for-elementor'); ?>"></div><?php } ?>
+            <?php if (!$settings['search_quick']) { ?><div class="text-right dce-search-buttons"><?php if ($settings['search_reset']) { ?><input class="reset" type="reset" value="<?php echo $settings['search_reset_text']; ?>""> <?php } ?><input class="find" type="submit" value="<?php echo $settings['search_find_text']; ?>"></div><?php } ?>
         </form>
         <br />
         <?php

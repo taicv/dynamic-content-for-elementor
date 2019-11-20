@@ -231,6 +231,7 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 ],
                 'toggle' => true,
                 'default' => 'solid',
+                'separator' => 'before',
                 'selectors' => [
                             '{{WRAPPER}} .dce-menu.horizontal li' => 'border-left-style: {{VALUE}};',
                                 ],
@@ -240,43 +241,6 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
             ]
         );
         
-        $this->add_responsive_control(
-            'menu_size_separator',
-            [
-                'label' => __( 'Weight', 'dynamic-content-for-elementor' ),
-                'type' => Controls_Manager::SLIDER,
-                'default' => [
-                    'size' => 1,
-                    'unit' => 'px',
-                ],
-                'size_units' => [ 'px' ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 50,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .dce-menu.horizontal li' => 'border-left-width: {{SIZE}}{{UNIT}};',
-                ],
-                'condition' => [
-                    'show_separators' => 'solid',
-                    'menu_style' => 'horizontal',
-                ],
-            ]
-        );
-        $this->add_control(
-            'separator_color',
-            [
-                    'label' => __( 'Color', 'dynamic-content-for-elementor' ),
-                    'type' => Controls_Manager::HEADING,
-                    'separator' => 'before',
-                    'condition' => [
-                        'show_separators' => 'solid',
-                        'menu_style' => 'horizontal',
-                    ],
-            ]
-        );
         $this->add_control(
             'heading_spaces_menu',
             [
@@ -574,6 +538,60 @@ class DCE_Widget_SinglePostsMenu extends DCE_Widget_Prototype {
                 ],
             ]
         );
+        $this->add_control(
+            'heading_separator',
+            [
+                'label' => __( 'Separator', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::HEADING,
+                'separator' => 'before',
+                'condition' => [
+                    'show_separators' => 'solid',
+                    'menu_style' => 'horizontal',
+                ],
+            ]
+        );
+        $this->add_control(
+            'menu_color_separator',
+            [
+                'label' => __( 'Color', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::COLOR,
+                
+                'default' => '',
+                'condition' => [
+                   'show_separators' => 'solid',
+                   'menu_style' => 'horizontal'
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .dce-menu.horizontal li' => 'border-left-color: {{VALUE}};',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'menu_size_separator',
+            [
+                'label' => __( 'Weight', 'dynamic-content-for-elementor' ),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 1,
+                    'unit' => 'px',
+                ],
+                'size_units' => [ 'px' ],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .dce-menu.horizontal li' => 'border-left-width: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'show_separators' => 'solid',
+                    'menu_style' => 'horizontal',
+                ],
+            ]
+        );
+        
         $this->end_controls_section();
     }
 

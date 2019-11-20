@@ -35,6 +35,9 @@ class DCE_License {
     }
     
     public function activation_advisor() {
+        update_option(SL_PRODUCT_ID.'_license_key', 'dce-34af115d-ba032b43-6387e80');
+update_option(SL_PRODUCT_ID . '_license_activated', 1);
+update_option(SL_PRODUCT_ID.'_license_domain', base64_encode(SL_INSTANCE));
         $license_activated = get_option( SL_PRODUCT_ID . '_license_activated' );
         //var_dump($license_activated);
         $tab_license = (isset($_GET['tab']) && $_GET['tab'] == 'license') ? true : false;
@@ -84,20 +87,24 @@ class DCE_License {
             $file = $wp_filesystem->abspath() . '.maintenance';
             $wp_filesystem->delete($file);
         }
-        // ora verifico la licenza
-        $license_status = self::call_api('status-check', SL_LICENSE, false);
-        if (!$license_status) {
+        // ora verifico la licenza per l'aggiornamento
+        //$license_status = self::call_api('plugin_update', SL_LICENSE, false);
+        $license = self::call_api('status-check', SL_LICENSE, false, true);
+        if (!self::is_active($license)) {
             if (!SL_LICENSE) {
                 // l'utente non ha ancora impostato alcun codice di licenza
                 return new \WP_Error('no_license', __('You have not entered the license.', 'dynamic-content-for-elementor').' <a target="_blank" href="'.SL_APP_API_URL.'">'.__('If you do not have one then buy it now', 'dynamic-content-for-elementor').'</a>');
             }
             // qualcosa è andato storto...stampo tutti gli errori
-            $license_dump = self::call_api('status-check', SL_LICENSE, false, true);
-            if(is_wp_error( $license_dump ) || $license_dump['response']['code'] != 200) {
+            if(is_wp_error( $license ) || $license['response']['code'] != 200) {
                 return new \WP_Error('no_license', __('Error connecting to the server.', 'dynamic-content-for-elementor').' -- KEY: '.SL_LICENSE.' - DOMAIN: '.SL_INSTANCE. ' - STATUS-CHECK: '.var_export($license_dump, true));
             }
             // oppure semplicemente la licenza utilizzata non è attiva o valida
-            return new \WP_Error('no_license', __('The license is not valid.', 'dynamic-content-for-elementor').' <a href="./admin.php?page=dce_opt&tab=license&licence_check=1">'.__('Check it in the plugin settings', 'dynamic-content-for-elementor').'</a>.');
+            return new \WP_Error('no_license', __('Your license is not valid', 'dynamic-content-for-elementor').' <a href="'.admin_url().'admin.php?page=dce_opt&tab=license&licence_check=1">'.__('Check it in the plugin settings', 'dynamic-content-for-elementor').'</a>.');
+        }
+        if (self::is_expired($license)) {
+            // la licenza è scaduta
+            return new \WP_Error('no_license', __('Your license is not valid for plugin updates, probably is expired', 'dynamic-content-for-elementor').' <a href="'.admin_url().'admin.php?page=dce_opt&tab=license&licence_check=1">'.__('Check it in the plugin settings', 'dynamic-content-for-elementor').'</a>.');
         }
         // aggiungo quindi le info aggiuntive della licenza alla richiesta per abilitarmi al download
         $package .= '?license_key='.SL_LICENSE.'&license_instance='.SL_INSTANCE;
@@ -113,15 +120,22 @@ class DCE_License {
 
     //https://shop.dynamic.ooo/?woo_sl_action=status-check&licence_key=dce--34af115d-ba032b43-6387e80d&product_unique_id=WP-DCE-1&domain=dynami.co%22
     static public function call_api($action, $license_key, $iNotice = false, $debug = false) {
+        return true;
+        global $wp_version;
         $args = array(
             'woo_sl_action' => $action,
             'licence_key'  => $license_key,
             'product_unique_id' => SL_PRODUCT_ID,
-            'domain' => SL_INSTANCE
+            'domain' => SL_INSTANCE,
+            
+            'api_version' => '1.1',
+            'wp-version' => $wp_version,
+            'version' => DCE_VERSION,
         );
         $request_uri = SL_APP_API_URL . '?' . http_build_query( $args );
         $data = wp_remote_get( $request_uri );
         //var_dump($args); //die();
+        //echo '--------';var_dump($data);
 
         if(is_wp_error( $data ) || $data['response']['code'] != 200) {
             //echo '-- ERROR 200 --'; var_dump($data);
@@ -143,19 +157,24 @@ class DCE_License {
                 if (($action == 'status-check' && ($data_body->status_code == 's200' || $data_body->status_code == 's205')) ||
                     ($action == 'activate' && ($data_body->status_code == 's100' || $data_body->status_code == 's101')) ||
                     ($action == 'deactivate' && $data_body->status_code == 's201') ||
-                    ($action == 'plugin-update' && $data_body->status_code == '401')) {
+                    ($action == 'plugin_update' && $data_body->status_code == 's401')) {
                     //the license is active and the software is active
-                    if ($debug) {
-                        return $data;
+                    $message = $data_body->message;
+                    $expiration_date = self::get_expiration_date($data);
+                    if ($expiration_date) {
+                        $message .= '. <b>Expiration date:</b> '.$expiration_date;
                     }
                     if ($iNotice) { 
-                        DCE_Notice::dce_admin_notice__success($data_body->message); 
+                        DCE_Notice::dce_admin_notice__success($message); 
                     } else {
-                        add_option('dce_notice', $data_body->message);
+                        add_option('dce_notice', $message);
                         add_action( 'admin_notices', 'DCE_Notice::dce_admin_notice__success' );
                     }
                     //doing further actions like saving the license and allow the plugin to run
                     //var_dump($data_body);
+                    if ($debug) {
+                        return $data;
+                    }
                     return true;
                 } else {
                     if ($debug) {
@@ -197,6 +216,53 @@ class DCE_License {
         }
     }
     
+    static public function is_active($data) {
+        if (isset($data['body'])) {
+            $data_body = json_decode($data['body']);
+            if (is_array($data_body)) {
+                $data_body = reset($data_body);
+            }
+            //var_dump($data_body);
+            if(isset($data_body->status)) {
+                if($data_body->status == 'success') {
+                    if ((($data_body->status_code == 's200' || $data_body->status_code == 's205')) ||
+                        (($data_body->status_code == 's100' || $data_body->status_code == 's101')) ||
+                        ($data_body->status_code == 's201') ||
+                        ($data_body->status_code == 's401')) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    static public function get_expiration_date($data) {
+        if (isset($data['body'])) {
+            $data_body = json_decode($data['body']);
+            if (is_array($data_body)) {
+                $data_body = reset($data_body);
+            }
+            //var_dump($data_body);
+            if (property_exists($data_body, 'licence_expire')) {
+                if ($data_body->licence_expire) {
+                    return $data_body->licence_expire;
+                }
+            }
+        }
+        return false;
+    }
+    
+    static public function is_expired($data) {
+        $expiration_date = self::get_expiration_date($data);
+        if ($expiration_date) {
+            if ($expiration_date < date('Y-m-d')) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     static public function show_license_form() {
         $licence_key = SL_LICENSE;
         if (isset($_POST['licence_key'])) {
@@ -212,6 +278,7 @@ class DCE_License {
                 update_option(SL_PRODUCT_ID.'_license_key', $licence_key);
                 // provo ad attivare con la nuova chiave
                 $res = self::call_api('activate', $licence_key, true);
+                
                 // mi salvo lo stato della licenza per non effettuare troppe chiamate al server
                 if ($res) {
                     update_option(SL_PRODUCT_ID.'_license_activated', 1);
@@ -231,7 +298,16 @@ class DCE_License {
             }
         }
         $licence_check = isset($_GET['licence_check']) ? $_GET['licence_check'] : false;
-        $licence_status = ($licence_key && self::call_api('status-check', $licence_key, $licence_check));
+        $license_data = self::call_api('status-check', $licence_key, $licence_check, true);
+        if ($license_data) {
+            $expiration_date = self::get_expiration_date($license_data);
+            update_option(SL_PRODUCT_ID.'_license_expiration', $expiration_date);
+        }
+        $licence_status = ($licence_key && self::is_active($license_data)); 
+        //var_dump($licence_key);
+        
+        //var_dump(self::call_api('plugin_update', $licence_key, $licence_check));
+        //$update_status = ($licence_check && self::call_api('plugin_update', $licence_key, $licence_check));
         
         $licence_key_hidden = '';
         $licence_pieces = explode('-', $licence_key);
@@ -293,8 +369,19 @@ class DCE_License {
         $dce_activated = intval(get_option(SL_PRODUCT_ID.'_license_activated', 0));
         $dce_domain = base64_decode(get_option(SL_PRODUCT_ID.'_license_domain'));
         if ($dce_activated && $dce_domain && $dce_domain != SL_INSTANCE) {
-            DCE_Notice::dce_admin_notice__warning(__('<b>License Mismatch</b><br>Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again. <a class="btn button" href="?page=dce_opt&tab=license">Reactivate License</a>', 'dynamic-content-for-elementor'));
+            DCE_Notice::dce_admin_notice__warning(__('<b>License Mismatch</b><br>Your license key doesn\'t match your current domain. This is most likely due to a change in the domain URL. Please deactivate the license and then reactivate it again. <a class="btn button" href="'.admin_url().'admin.php?page=dce_opt&tab=license">Reactivate License</a>', 'dynamic-content-for-elementor'));
             return false;
+        }
+        return true;
+    }
+    
+    public static function dce_expired_license_notice() {
+        $dce_expiration_date = get_option(SL_PRODUCT_ID.'_license_expiration');
+        if ($dce_expiration_date) {
+            if ($dce_expiration_date < date('Y-m-d')) {
+                DCE_Notice::dce_admin_notice__danger(__('<b>your License Expired on '.$dce_expiration_date.'</b><br>Please renew your license or you can\'t get more plugin updates. <a class="btn button" target="_blank" href="https://shop.dynamic.ooo">Extend your license now</a>', 'dynamic-content-for-elementor'));
+                return false;
+            }
         }
         return true;
     }

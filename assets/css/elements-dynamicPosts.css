@@ -27,7 +27,7 @@ clear: both;
 
 
 .dce-post-item{
-
+  
 }
 .flexgrid-style .dce-post-item, .grid-style .dce-post-item{
   float: left;
@@ -183,6 +183,10 @@ clear: both;
 }
 
 /* ----- Metadata ACF Posts ------ */
+.dce_metadata-wrap{
+  position: relative;
+  z-index: 1;
+}
 .dce_metadata{
   display: inline-block;
   padding-right: 3px;
@@ -195,18 +199,16 @@ clear: both;
 }*/
 /* ----- Author ACF Posts ------ */
 .dce_author-wrap{
-  align-items: flex-start;
+  display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .acfposts-align-left .dce_author-wrap{
-  display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .acfposts-align-right .dce_author-wrap{
-  display: flex;
-  justify-content: flex-end;
   flex-direction: row-reverse;
 }
 

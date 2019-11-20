@@ -59,9 +59,15 @@ class DCE_Widget_Gallery extends DCE_Widget_Prototype {
     }
 
     public function get_script_depends() {
-        return ['jquery-masonry', 'wow', 'photoswipe', 'photoswipe-ui', 'diamonds', 'homeycombs', 'justifiedGallery-lib', 'dce-acfgallery'];
+        return ['jquery-masonry', 'wow', 'photoswipe', 'photoswipe-ui', 'diamonds', 'homeycombs', 'justifiedGallery-lib'];
     }
-
+    public function get_dce_script_depends() {
+        return ['dce-acfgallery'];
+    }
+            
+    public function get_style_depends() {
+      return ['dce-photoSwipe_default','dce-photoSwipe_skin','dce-justifiedGallery'];
+    }
     static public function get_position() {
         return 2;
     }
@@ -210,7 +216,7 @@ class DCE_Widget_Gallery extends DCE_Widget_Prototype {
         );
         $this->add_control(
             'justified_margin', [
-                'label' => __('Row Height', 'dynamic-content-for-elementor'),
+                'label' => __('Images space', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
                     'size' => '',
@@ -1090,7 +1096,7 @@ class DCE_Widget_Gallery extends DCE_Widget_Prototype {
         
         $this->start_controls_section(
                 'section_style_image_link', [
-            'label' => 'Image Link', 'dynamic-content-for-elementor',
+            'label' => 'Rollover', 'dynamic-content-for-elementor',
             'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -1100,6 +1106,7 @@ class DCE_Widget_Gallery extends DCE_Widget_Prototype {
                 [
                     'name' => 'background',
                     'types' => ['classic', 'gradient'],
+                    'label' => 'Overlay',
                     'selector' => '{{WRAPPER}} .acfgallery-overlay_hover, {{WRAPPER}} .inner_span',
                     'popover' => true,
                 /* 'condition' => [
@@ -1267,7 +1274,7 @@ class DCE_Widget_Gallery extends DCE_Widget_Prototype {
                 $lightbox_type = ' ' . $settings['lightbox_type'];
                 $data_elementor_open_lightbox = 'data-elementor-open-lightbox="no"';
             } else {
-                $lightbox_type = ' gallery';
+                $lightbox_type = ' dce-gallery';
                 $data_elementor_slideshow = ' data-elementor-lightbox-slideshow="' . $this->get_id() . '"';
                 $elementor_lightbox = ' gallery-lightbox';
                 $data_elementor_open_lightbox = 'data-elementor-open-lightbox="yes"';

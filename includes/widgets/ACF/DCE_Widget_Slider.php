@@ -26,10 +26,6 @@ if (!defined('ABSPATH')) {
  */
 class DCE_Widget_Slider extends DCE_Widget_Prototype {
 
-    private $idACF = "";
-    private $settings = [];
-    private $acfContents = [];
-
     public function get_name() {
         return 'dyncontel-acfslider';
     }
@@ -59,6 +55,9 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
      * */
     public function get_script_depends() {
         return ['photoswipe', 'photoswipe-ui', 'imagesloaded','swiper', 'dce-acfslider'];
+    }
+    public function get_style_depends() {
+      return ['dce-photoSwipe_default','dce-photoSwipe_skin'];
     }
     /*public function get_style_depends() {
         return [ 'dce-photoSwipe_default','dce-photoSwipe_skin','dce-acfSlider' ];
@@ -505,9 +504,10 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
           Group_Control_Border::get_type(), [
             'name' => 'image_border',
             'label' => __('Image Border', 'dynamic-content-for-elementor'),
-            'selector' => '{{WRAPPER}} .wrap-item-acfslider',
+            'selector' => '{{WRAPPER}} .wrap-item-acfslider img',
             'condition' => [
                 'enable_image_style' => 'yes',
+                
             ]
           ]
         );
@@ -517,7 +517,7 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', '%'],
             'selectors' => [
-                '{{WRAPPER}} .wrap-item-acfslider' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .wrap-item-acfslider img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'condition' => [
                 'enable_image_style' => 'yes',
@@ -564,7 +564,7 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
                 'cube' => __('Cube', 'dynamic-content-for-elementor'),
                 'coverflow' => __('Coverflow', 'dynamic-content-for-elementor'),
                 'flip' => __('Flip', 'dynamic-content-for-elementor'),
-                'custom1' => __('Custom1', 'dynamic-content-for-elementor'),
+                //'custom1' => __('Custom1', 'dynamic-content-for-elementor'),
             ],
             'default' => 'slide',
             'frontend_available' => true,
@@ -644,7 +644,7 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
         $this->add_responsive_control(
             'slidesPerView', [
               'label' => __('Slides Per View', 'dynamic-content-for-elementor'),
-              'description' => __('Number of slides per view (slides visible at the same time on slider\'s container). If you use it with "auto" value and along with loop: true then you need to specify loopedSlides parameter with amount of slides to loop (duplicate). SlidesPerView: \'auto\' is currently not compatible with multirow mode, when slidesPerColumn > 1', 'dynamic-content-for-elementor'),
+              'description' => __('Number of slides per view (slides visible at the same time on slider\'s container). If you use it with "auto" value and along with loop: true then you need to specify loopedSlides parameter with amount of slides to loop (duplicate). SlidesPerView: \'auto\' is currently not compatible with multirow mode, when slidesPerColumn greater than one', 'dynamic-content-for-elementor'),
               'type' => Controls_Manager::NUMBER,
               'default' => '1',
               //'tablet_default' => '',
@@ -1165,10 +1165,10 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .swiper-pagination' => 'bottom: {{SIZE}}{{UNIT}};',
             ],
             'condition' => [
-                'pagination_type' => 'bullets',
+                'pagination_type' => ['bullets','fraction'],
                 'usePagination' => 'yes',
             ]
           ]
@@ -1995,8 +1995,8 @@ class DCE_Widget_Slider extends DCE_Widget_Prototype {
             ?>
             <div class="dynamic_acfslider<?php echo $enable_lightbox . $lightbox_type . $elementor_lightbox . $overlay_hover_class; ?>" itemscope itemtype="http://schema.org/ImageGallery">
                 <?php
-                $effect = ' ' . $settings['effects'];
-                $direction = ' direction-' . $settings['directionSlide'];
+                $effect = ' dce-' . $settings['effects'];
+                $direction = ' dce-direction-' . $settings['directionSlide'];
                 //
                 echo '<div class="dyncontel-swiper' . $effect . $direction . '">';
                 echo '  <div class="swiper-container">';

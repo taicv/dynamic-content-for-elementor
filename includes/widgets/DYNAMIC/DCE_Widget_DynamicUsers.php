@@ -1805,7 +1805,7 @@ class DCE_Widget_DynamicUsers extends DCE_Widget_Prototype {
                         }
                         //echo $settings['users_render'];
 
-                        echo do_shortcode('[dce-elementor-template author_id="'.$user->ID.'" id="' . $settings['users_render_template'] . '" '.$inlinecss.']');
+                        echo do_shortcode('[dce-elementor-template user_id="'.$user->ID.'" author_id="'.$user->ID.'" id="' . $settings['users_render_template'] . '" '.$inlinecss.']');
                     }
                     // x/x/x/x/x/x/x/
 

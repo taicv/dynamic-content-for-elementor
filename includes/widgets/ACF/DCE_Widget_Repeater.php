@@ -95,14 +95,14 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                 ]
         );
         //"text", "textarea", "number", "range", "email", "url", "password", "image", "file", "wysiwyg", "oembed", "gallery", "select", "checkbox", "radio", "button_group", "true_false", "link", "post_object", "page_link", "relationship", "taxonomy", "user", "google_map", "date_picker", "date_time_picker", "time_picker", "color_picker", "message", "accordion", "tab", "group", "repeater", "flexible_content", "clone"
-        $supported_types = ['text', 'textarea', 'wysiwyg', 'date_picker', 'date_time', 'date_time_picker', 'number', 'select', 'image'];
+        $supported_types = ['text', 'textarea', 'wysiwyg', 'date_picker', 'time_picker', 'date_time_picker', 'number', 'select', 'image', 'url'];
         foreach ($repeaters as $arepeater => $arepeater_title) {
             if ($arepeater) {
                 $arepeater_fields = DCE_Helper::get_acf_repeater_fields($arepeater);
                 //var_dump($arepeater_fields);die();
                 $default = [];
                 foreach ($arepeater_fields as $key => $acfitem) {
-                    if (!in_array($acfitem['type'], $supported_types))
+                    if (false && !in_array($acfitem['type'], $supported_types))
                         continue;
                     $default[] = [
                         'dce_acf_repeater_field_name' => $key,
@@ -168,6 +168,24 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                                 'p' => 'p',
                             ],
                             'default' => 'div',
+                        ]
+                );
+                $repeater_fields->add_control(
+                        'dce_acf_repeater_label_tag',
+                        [
+                            'label' => __('HTML Label', 'elementor'),
+                            'type' => Controls_Manager::SELECT,
+                            'options' => [
+                                '' => 'None',
+                                'label' => 'label',
+                                'div' => 'div',
+                                'span' => 'span',
+                                'p' => 'p',
+                            ],
+                            'default' => 'label',
+                            'condition' => [
+                                'dce_views_select_field_label!' => '',
+                            ]
                         ]
                 );
                 $repeater_fields->end_controls_tab();
@@ -239,54 +257,56 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                     ]
                         ]
                 );
+               
                 $repeater_fields->add_control(
-                        'dce_acf_repeater_field_color', [
-                    'label' => __('Text Color', 'dynamic-content-for-elementor'),
-                    'type' => Controls_Manager::COLOR,
-                    //'render_type' => 'ui',
-                    'selectors' => [
-                        '{{WRAPPER}} {{CURRENT_ITEM}}' => 'color: {{VALUE}};',
-                        '{{WRAPPER}} {{CURRENT_ITEM}} a' => 'color: {{VALUE}};',
-                    ],
-                    'condition' => [
-                        'dce_acf_repeater_field_type' => ['text', 'textarea', 'wysiwyg', 'date_picker', 'date_time', 'date_time_picker', 'number', 'select'],
-                    ]
+                    'dce_acf_repeater_field_color', [
+                        'label' => __('Text Color', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::COLOR,
+                        //'render_type' => 'ui',
+                        'selectors' => [
+                            '{{WRAPPER}} {{CURRENT_ITEM}}' => 'color: {{VALUE}};',
+                            '{{WRAPPER}} {{CURRENT_ITEM}} a' => 'color: {{VALUE}};',
+                        ],
+                        'condition' => [
+                            'dce_acf_repeater_field_type' => ['text', 'textarea', 'wysiwyg', 'date_picker', 'date_time', 'date_time_picker', 'number', 'select'],
                         ]
+                    ]
                 );
-                /* $repeater_fields->add_control(
-                  'dce_acf_repeater_field_hover_color', [
-                  'label' => __('Hover Color', 'dynamic-content-for-elementor'),
-                  'type' => Controls_Manager::COLOR,
-                  'selectors' => [
-                  '{{WRAPPER}} {{CURRENT_ITEM}} a:hover' => 'color: {{VALUE}};',
-                  ],
-                  'condition' => [
-                  'dce_acf_repeater_field_type' => ['text','textarea','wysiwyg','date_picker','date_time','date_time_picker','number','select'],
-                  ]
-                  ]
-                  ); */
+                 $repeater_fields->add_control(
+                      'dce_acf_repeater_field_hover_color', [
+                          'label' => __('Hover Color', 'dynamic-content-for-elementor'),
+                          'type' => Controls_Manager::COLOR,
+                          'selectors' => [
+                          '{{WRAPPER}} {{CURRENT_ITEM}} a:hover' => 'color: {{VALUE}};',
+                          ],
+                          'condition' => [
+                            'dce_acf_repeater_field_type' => ['text','textarea','wysiwyg','date_picker','date_time','date_time_picker','number','select'],
+                            'dce_acf_repeater_enable_link!' => '',
+                          ]
+                      ]
+                  ); 
                 $repeater_fields->add_group_control(
-                        Group_Control_Typography::get_type(), [
-                    'name' => 'dce_acf_repeater_field_typography',
-                    'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}',
-                    //'render_type' => 'ui',
-                    'pop_hover' => true,
-                    'condition' => [
-                        'dce_acf_repeater_field_type' => ['text', 'textarea', 'wysiwyg', 'date_picker', 'date_time', 'date_time_picker', 'number', 'select'],
-                    ]
+                    Group_Control_Typography::get_type(), [
+                        'name' => 'dce_acf_repeater_field_typography',
+                        'selector' => '{{WRAPPER}} {{CURRENT_ITEM}}',
+                        //'render_type' => 'ui',
+                        'pop_hover' => true,
+                        'condition' => [
+                            'dce_acf_repeater_field_type' => ['text', 'textarea', 'wysiwyg', 'date_picker', 'date_time', 'date_time_picker', 'number', 'select'],
                         ]
+                    ]
                 );
 
 
                 // ---------- Image
                 $repeater_fields->add_control(
-                        'dce_acf_repeater_h_image', [
-                    'label' => __('Image', 'dynamic-content-for-elementor'),
-                    'type' => Controls_Manager::HEADING,
-                    'condition' => [
-                        'dce_acf_repeater_field_type' => ['image'],
-                    ]
+                    'dce_acf_repeater_h_image', [
+                        'label' => __('Image', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::HEADING,
+                        'condition' => [
+                            'dce_acf_repeater_field_type' => ['image'],
                         ]
+                    ]
                 );
                 $repeater_fields->add_responsive_control(
                         'dce_acf_repeater_field_size_image', [
@@ -374,6 +394,42 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                 );
                 $repeater_fields->end_controls_tab();
 
+                $repeater_fields->start_controls_tab('tab_link', ['label' => __('Link', 'dynamic-content-for-elementor')]);
+                
+                $repeater_fields->add_control(
+                    'dce_acf_repeater_enable_link', [
+                        'label' => __('Enable link', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SWITCHER,
+                    //'render_type' => 'template'
+                    ]
+                );
+                $link_fields = DCE_Helper::get_acf_fields('url');
+                $repeater_fields->add_control(
+                    'dce_acf_repeater_acfield_link', [
+                        'label' => __('URL Field', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SELECT,
+                        'label_block' => true,
+                        'groups' => $link_fields,
+                        'default' => 0,
+                        'frontend_available' => true,
+                        'condition' => [
+                            'dce_acf_repeater_enable_link!' => '',
+                        ]
+                    ]
+                );
+                $repeater_fields->add_control(
+                    'dce_acf_repeater_target_link', [
+                        'label' => __('Open in new window', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SWITCHER,
+                        'condition' => [
+                            'dce_acf_repeater_enable_link!' => '',
+                            'dce_acf_repeater_acfield_link!' => ''
+                        ]
+                    //'render_type' => 'template'
+                    ]
+                );
+                $repeater_fields->end_controls_tab();
+                
                 $repeater_fields->end_controls_tabs();
 
                 $this->add_control(
@@ -561,6 +617,18 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
             'default' => 'grid',
                 ]
         );
+        
+        // -------------------------------- SHOW LABEL ON GRID
+        $this->add_control(
+            'dce_acf_repeater_grid_label', [
+        'label' => __('Show label', 'dynamic-content-for-elementor'),
+        'type' => Controls_Manager::SWITCHER,
+        'condition' => [
+            'dce_acf_repeater_format' => 'grid',
+        ],
+            ]
+        );
+        
         $this->add_control(
                 'dce_acf_repeater_separator', [
             'label' => __('Separator', 'dynamic-content-for-elementor'),
@@ -1905,7 +1973,15 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                                 $fields = $settings['dce_acf_repeater_fields_' . $settings['dce_acf_repeater']];
                                 if (!empty($fields)) {
                                     foreach ($fields as $key => $acfitem) {
-                                        echo '<th>' . $acfitem['dce_views_select_field_label'] . '</th>';
+                                        echo '<th>';
+                                        if ($acfitem['dce_acf_repeater_label_tag']) {
+                                                echo '<' . $acfitem['dce_acf_repeater_label_tag'] . '>';
+                                        }
+                                        echo $acfitem['dce_views_select_field_label'];
+                                        if ($acfitem['dce_acf_repeater_label_tag']) {
+                                                echo '</' . $acfitem['dce_acf_repeater_label_tag'] . '>';
+                                        }
+                                        echo '</th>';
                                     }
                                 }
                             } else {
@@ -1988,13 +2064,38 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                                                     default:
                                                 }
                                             }
+                                            if( !empty($row_fields[$acfitem['dce_acf_repeater_acfield_link']]) && !empty($acfitem['dce_acf_repeater_enable_link']) ){
+                                                //var_dump($row_fields[$acfitem['dce_acf_repeater_acfield_link']]);
+                                                //echo DCE_Helper::get_acf_field_settings($acfitem['dce_acf_repeater_acfield_link']);
+                                                $targetLink = '';
+                                                if(!empty($row_fields[$acfitem['dce_acf_repeater_target_link']])) $targetLink = ' target="_blank"';
+                                                $value = '<a href="'.$row_fields[$acfitem['dce_acf_repeater_acfield_link']].'"'.$targetLink.' >'.$value.'</a>';
+                                            }
+                                            
+                                            switch ($settings['dce_acf_repeater_format']) {
+                                                case 'grid':
+                                                    if ($settings['dce_acf_repeater_grid_label'] && $acfitem['dce_views_select_field_label'] && $value) {
+                                                        $label = '';
+                                                        if ($acfitem['dce_acf_repeater_label_tag']) {
+                                                            $label .= '<' . $acfitem['dce_acf_repeater_label_tag'] . '>';
+                                                        }
+                                                        $label .= $acfitem['dce_views_select_field_label'];
+                                                        if ($acfitem['dce_acf_repeater_label_tag']) {
+                                                            $label .= '</' . $acfitem['dce_acf_repeater_label_tag'] . '>';
+                                                        }
+                                                        $value = $label . $value;
+                                                    }
+                                                    break;
+                                            }
 
                                             if ($acfitem['dce_acf_repeater_field_tag']) {
                                                 $value = '<' . $acfitem['dce_acf_repeater_field_tag'] . ' class="repeater-item elementor-repeater-item-' . $acfitem['_id'] . '">' . $value . '</' . $acfitem['dce_acf_repeater_field_tag'] . '>';
                                             }
+
                                             switch ($settings['dce_acf_repeater_format']) {
                                                 case 'table':
                                                     echo '<td>';
+                                                    break;
                                             }
                                             echo $value;
                                             switch ($settings['dce_acf_repeater_format']) {
@@ -2008,7 +2109,9 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                             case 'html':
                                 $text = $settings['dce_acf_repeater_html'];
                                 //var_dump($text);
+                                
                                 echo \DynamicContentForElementor\DCE_Tokens::replace_var_tokens($text, 'ROW', $row_fields);
+                                                                
                                 break;
                             case 'template':
                                 echo $row_fields['template'];
@@ -2032,6 +2135,7 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                             case 'table':
                                 echo '</tr>';
                         }
+
                     }
                 }
 

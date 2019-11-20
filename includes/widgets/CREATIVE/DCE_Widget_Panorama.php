@@ -50,14 +50,48 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
               'label' => __('Panorama', 'dynamic-content-for-elementor'),
             ]
         );
+         $this->add_control(
+            'image_source', [
+                  'label' => __('Source image', 'dynamic-content-for-elementor'),
+                  'type' => Controls_Manager::SELECT,
+                  'frontend_available' => true,
+                  'options' => [
+                      'from_media' => __('From media library', 'dynamic-content-for-elementor'),
+                      'custom_url' => __('Custom URL', 'dynamic-content-for-elementor'),
+                  ],
+                  'default' => 'from_media',
+                  
+            ]
+        );
+        $this->add_control(
+          'custom_url_panorama_image', [
+            'label' => __('Custom URL', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => __('https://www...', 'dynamic-content-for-elementor'),
+            'label_block' => true,
+            'dynamic' => [
+                'active' => true,
+            ],
+            'condition' => [
+                
+                'image_source' => 'custom_url'
+            ]
+          ]
+        );
         $this->add_control(
           'panorama_image',
           [
              'label' => __( 'Panorama Image', 'dynamic-content-for-elementor' ),
              'type' => Controls_Manager::MEDIA,
+             'dynamic' => [
+                    'active' => true,
+             ],
              'default' => [
                 'url' => DCE_Helper::get_placeholder_image_src(),
              ],
+             'condition' => [
+                      'image_source' => 'from_media'
+                    ],
           ]
         );
         $this->add_responsive_control(
@@ -104,10 +138,6 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
             [
                 'label' => __( 'Fullscreen', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::SWITCHER,
-                'default' => '',
-                'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
-                'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
-                'return_value' => 'yes',
             ]
         );
         $this->add_control(
@@ -115,10 +145,6 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
           [
               'label' => __( 'VR mode UI', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
-              'default' => '',
-              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
-              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
-              'return_value' => 'yes',
           ]
         );
         $this->add_control(
@@ -127,10 +153,6 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
               'label' => __( 'Keyboard Shortcuts', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
               'description' => __('Enables the shortcut to press "F" to enter VR.','dynamic-content-for-elementor'),
-              'default' => '',
-              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
-              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
-              'return_value' => 'yes',
           ]
         );
         $this->add_control(
@@ -138,10 +160,6 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
           [
               'label' => __( 'Reverse mouse control', 'dynamic-content-for-elementor' ),
               'type' => Controls_Manager::SWITCHER,
-              'default' => '',
-              'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
-              'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
-              'return_value' => 'yes',
           ]
         );
         $this->end_controls_section();
@@ -169,18 +187,28 @@ class DCE_Widget_Panorama extends DCE_Widget_Prototype {
         //'<a-entity camera look-controls="reverseMouseDrag: true"></a-entity>';
       }
       // fog="type: exponential; color: #AAA"
+      $url_image = $settings['panorama_image']['url'];
+      if( $settings['image_source'] == 'custom_url' && $settings['custom_url_panorama_image'] != '' ){
+        $url_image = $settings['custom_url_panorama_image'];
+      }
       ?>
       <a-scene <?php echo $fullScreen.$keyboard.$vrmodeui; ?>>
         <?php echo $reversemousecontrol; ?>
-        <a-sky src="<?php echo $settings['panorama_image']['url']; ?>" rotation="0 -130 0"></a-sky>
+        <a-sky src="<?php echo $url_image; ?>" rotation="0 -130 0"></a-sky>
       </a-scene>
        <?php
     }
 
     protected function _content_template_() {
       ?>
+      <#
+      var url_image = settings.panorama_image.url;
+      if(settings.image_source == 'custom_url' && settings.custom_url_panorama_image != ''){
+        url_image = settings.custom_url_panorama_image;
+      }
+      #>
       <a-scene embedded vr-mode-ui="enabled: false" keyboard-shortcuts="enterVR: false">
-        <a-sky src="{{settings.panorama_image.url}}" rotation="0 -130 0"></a-sky>
+        <a-sky src="{{url_image}}" rotation="0 -130 0"></a-sky>
       </a-scene>
       <?php
         

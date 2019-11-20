@@ -41,7 +41,7 @@ class DCE_Widget_PodsRelationship extends DCE_Widget_Prototype {
     }
 
     public function get_docs() {
-        return 'https://www.dynamic.ooo/widget/';
+        return 'https://www.dynamic.ooo/widget/pods-relationship/';
     }
 
     public function get_icon() {

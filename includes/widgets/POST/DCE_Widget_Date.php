@@ -208,11 +208,7 @@ class DCE_Widget_Date extends DCE_Widget_Prototype {
         $this->add_control(
             'float', [
                 'label' => __('Float left', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::SWITCHER,
-                'default' => '',
-                'label_on' => __('Show', 'dynamic-content-for-elementor'),
-                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
-                'return_value' => 'yes',
+                'type' => Controls_Manager::HIDDEN,
             ]
         );
         $this->add_control(

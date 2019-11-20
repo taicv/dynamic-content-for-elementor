@@ -14,7 +14,7 @@
  * Plugin Name:       Dynamic Content for Elementor
  * Plugin URI:        https://www.dynamic.ooo/
  * Description:       Improve your website’s potential through additional widgets, expanding Elementor’s functionality. New creative widgets, every and each of them with the purpose of building pages with amazing contents.
- * Version:           1.6.0.1
+ * Version:           1.7.1
  * Author:            Dynamic.ooo
  * Author URI:        https://www.dynamic.ooo/
  * Text Domain:       dynamic-content-for-elementor
@@ -62,8 +62,8 @@
  */
 
 // If this file is called directly, abort.
-if (!defined( 'WPINC' )) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -72,15 +72,15 @@ if (!defined('ABSPATH')) {
 define('DCE__FILE__', __FILE__);
 define('DCE_URL', plugins_url('/', __FILE__));
 define('DCE_PATH', plugin_dir_path(__FILE__));
-define('DCE_PLUGIN_BASE', plugin_basename( DCE__FILE__ ) );
-define('DCE_VERSION', '1.6.0.1');
+define('DCE_PLUGIN_BASE', plugin_basename(DCE__FILE__));
+define('DCE_VERSION', '1.7.1');
 define('DCE_ELEMENTOR_VERSION_REQUIRED', '2.6.0');
 define('DCE_ELEMENTOR_PRO_VERSION_REQUIRED', '2.6.0');
 define('DCE_PHP_VERSION_REQUIRED', '7.1');
 define('DCE_TEXTDOMAIN', 'dynamic-content-for-elementor');
 define('DCE_OPTIONS', 'dyncontel_options');
 
-/************************LICENSE******************************/
+/* ***********************LICENSE***************************** */
 require_once( __DIR__ . '/class/DCE_Notice.php' );
 require_once( __DIR__ . '/class/DCE_License.php' );
 \DynamicContentForElementor\DCE_License::set_constant();
@@ -114,7 +114,7 @@ function dce_load() {
     $dce_plugin = new DynamicContentForElementor\DCE_Plugin();
 
     // Verify updates
-    $info = 'https://shop.dynamic.ooo/dce/info.php?s='.SL_INSTANCE.'&v='.DCE_VERSION;
+    $info = 'https://shop.dynamic.ooo/dce/info.php?s=' . SL_INSTANCE . '&v=' . DCE_VERSION;
     //var_dump($info);
     if (get_option('dce_beta', false)) {
         $info .= '&beta=true';
@@ -125,7 +125,6 @@ function dce_load() {
         __FILE__,
         'dynamic-content-for-elementor'
     );
-
 }
 
 /**
@@ -158,6 +157,7 @@ function dce_activate() {
 function dce_save_activation_error() {
     update_option( 'dce_plugin_error',  ob_get_contents() );
 }
+
 if (WP_DEBUG) {
     add_action( 'activated_plugin', 'dce_save_activation_error' );
     /* Then to display the error message: */

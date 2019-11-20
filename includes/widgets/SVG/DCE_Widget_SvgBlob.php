@@ -230,7 +230,7 @@ class DCE_Widget_SvgBlob extends DCE_Widget_Prototype {
         [
             'label' => __( 'Show Points', 'dynamic-content-for-elementor' ),
             'type' => Controls_Manager::SWITCHER,
-            'default' => 'dilate',
+            'default' => 'yes',
             'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
             'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
             'return_value' => 'yes',
@@ -638,7 +638,7 @@ class DCE_Widget_SvgBlob extends DCE_Widget_Prototype {
 
         $widgetId = $this->get_id();
 
-        $maxWidth = $settings['image_max_width']['size'];
+        //$maxWidth = $settings['image_max_width']['size'];
         //$viewBoxW = $settings['viewbox_width'];
         //$viewBoxH = $settings['viewbox_height'];
 
@@ -714,7 +714,7 @@ class DCE_Widget_SvgBlob extends DCE_Widget_Prototype {
         var iFrameDOM = jQuery("iframe#elementor-preview-iframe").contents();
         var scope = iFrameDOM.find('.elementor-element[data-id='+idWidget+']');
 
-        var maxWidth = settings.image_max_width.size;
+        //var maxWidth = settings.image_max_width.size;
 
         //var viewBoxW = settings.viewbox_width;
         //var viewBoxH = settings.viewbox_height;

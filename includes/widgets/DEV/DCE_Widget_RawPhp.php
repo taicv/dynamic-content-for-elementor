@@ -111,7 +111,9 @@ class DCE_Widget_RawPhp extends DCE_Widget_Prototype {
                 }
             }
         }else{
-            _e( 'Add Custom PHP Code', 'dynamic-content-for-elementor' );
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                _e( 'Add Custom PHP Code', 'dynamic-content-for-elementor' );
+            }
         }
     }
     

@@ -18,7 +18,7 @@
             $scope.find('.justified-grid').imagesLoaded().progress(function () {
                 
             });
-
+            console.log($scope.find('.justified-grid').length);
             $scope.find('.justified-grid').justifiedGallery({
                 rowHeight : Number(elementSettingsACFGallery.justified_rowHeight.size) || 170,
                 maxRowHeight : -1,

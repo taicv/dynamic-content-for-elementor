@@ -9,8 +9,4 @@ return array(
     'stringEncode' => array($vendorDir . '/paquettg/string-encode/src'),
     'Sunra\\PhpSimple\\HtmlDomParser' => array($vendorDir . '/sunra/php-simple-html-dom-parser/Src'),
     'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
-    'Puc_v4p8_' => array($vendorDir . '/yahnis-elsts/plugin-update-checker'),
-    'Puc_v4_' => array($vendorDir . '/yahnis-elsts/plugin-update-checker'),
-    'PucReadmeParser' => array($vendorDir . '/yahnis-elsts/plugin-update-checker/vendor'),
-    'Parsedown' => array($vendorDir . '/yahnis-elsts/plugin-update-checker/vendor'),
 );

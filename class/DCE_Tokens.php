@@ -115,7 +115,7 @@ class DCE_Tokens {
         //$current_user = wp_get_current_user();
         $current_user_id = get_current_user_id();
         if (!$current_user_id) {
-            $current_user_id = get_the_author_meta('ID');
+            //$current_user_id = get_the_author_meta('ID');
         }
         $user_id = $current_user_id;
         // user field
@@ -133,6 +133,7 @@ class DCE_Tokens {
                     }
                     $pezzoTmp = reset($morePezzi);
                     $altriPezzi = explode('|', $pezzoTmp, 2);
+                    $single = null;
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
                         foreach ($filtersTmp as $afilter) {
@@ -142,12 +143,18 @@ class DCE_Tokens {
                             if ($afilter == 'author') {
                                 $user_id = get_the_author_meta('ID');
                             }
+                            if ($afilter == 'single') {
+                                $single = true;
+                            }
+                            if ($afilter == 'multiple') {
+                                $single = false;
+                            }
                         }
                     }
                     $metaName = reset($altriPezzi);
                     $metaKey = explode(':', $metaName);
                     $field = array_shift($metaKey);
-                    $metaValue = DCE_Helper::get_user_value($user_id, $field);
+                    $metaValue = DCE_Helper::get_user_value($user_id, $field, $single);
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
                     if (count($altriPezzi) == 2) {
                         // APPLY FILTERS
@@ -186,12 +193,19 @@ class DCE_Tokens {
                     $pezzoTmp = reset($morePezzi);
 
                     // GET FILTERS or ID
+                    $single = null;
                     $altriPezzi = explode('|', $pezzoTmp, 2);
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
                         foreach ($filtersTmp as $afilter) {
                             if (is_numeric($afilter) && intval($afilter) > 0) {
                                 $post_id = intval($afilter);
+                            }
+                            if ($afilter == 'single') {
+                                $single = true;
+                            }
+                            if ($afilter == 'multiple') {
+                                $single = false;
                             }
                         }
                     }
@@ -203,7 +217,7 @@ class DCE_Tokens {
                     $field = array_shift($metaKey);
                     $metaValue = '';
                     if ($post_id) {
-                        $metaValue = DCE_Helper::get_post_value($post_id, $field);
+                        $metaValue = DCE_Helper::get_post_value($post_id, $field, $single);
                     }
 
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
@@ -246,21 +260,39 @@ class DCE_Tokens {
                     // GET SUB ARRAY
                     $metaKey = explode(':', $metaName);
                     $metaKeyName = array_shift($metaKey);
+                    $metaValue = array();
                     switch($metaKeyName) {
                         case 'get':
+                        case '_get':
+                        case '_GET':
                             $metaValue = $_GET;
                             break;
                         case 'post':
+                        case '_post':
+                        case '_POST':
                             $metaValue = $_POST;
                             break;
+                        case '_reuqest':
+                        case '_REQUEST':
                         case 'request':
                             $metaValue = $_REQUEST;
                             break;
+                        case 'cookie':
+                        case '_cookie':
+                        case '_COOKIE':
+                            $metaValue = $_COOKIE;
+                            break;
                         case 'server':
+                        case '_server':
+                        case '_SERVER':
                             $metaValue = $_SERVER;
                             break;
                         default:
-                            $metaValue = array();
+                            if (defined($metaKeyName)) {
+                                $metaValue = constant($metaKeyName);
+                            } else if (defined(strtoupper($metaKeyName))) {
+                                $metaValue = constant(strtoupper($metaKeyName));
+                            }
                     }
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
                     
@@ -332,6 +364,8 @@ class DCE_Tokens {
         $current_post_id = $post_id = get_the_ID();
         if (is_object($var_value)) {
             $var_value = get_object_vars($var_value);
+        } else {
+            $var_value = maybe_unserialize($var_value);
         }
         //if (trim($text) == '['.$var_name.']') {
             $text = str_replace('['.$var_name.']', DCE_Helper::to_string($var_value), $text); // simple
@@ -421,10 +455,17 @@ class DCE_Tokens {
 
                     // GET FILTERS or ID
                     $tterms = $terms;
+                    $single = null;
                     $altriPezzi = explode('|', $pezzoTmp, 2);
                     if (count($altriPezzi) == 2) {
                         $filtersTmp = explode('|', end($altriPezzi));
                         foreach ($filtersTmp as $afilter) {
+                            if ($afilter == 'single') {
+                                $single = true;
+                            }
+                            if ($afilter == 'multiple') {
+                                $single = false;
+                            }
                             if (is_numeric($afilter) && intval($afilter) > 0) {
                                 $term_id = $afilter;
                                 if ($term_id) {
@@ -462,7 +503,7 @@ class DCE_Tokens {
                     $replaceValue = array();
                     if (!empty($tterms)) {
                         foreach ($tterms as $key => $aterm) {
-                            $metaValue = DCE_Helper::get_term_value($aterm, $field);
+                            $metaValue = DCE_Helper::get_term_value($aterm, $field, $single);
                             $metaValue = self::check_array_value($metaValue, $metaKey);
                             if (count($altriPezzi) == 2) {
                                 // APPLY FILTERS
@@ -597,10 +638,15 @@ class DCE_Tokens {
                 //$replaceValue = $fallback;
                 $post_ids = array();
                 if (is_array(reset($replaceValue))) {
-                    foreach ($replaceValue as $apost) {
-                        $post_ids[] = $apost['ID'];
+                    $first = reset($replaceValue);
+                    if (isset($first['ID'])) {
+                        foreach ($replaceValue as $apost) {
+                            if (isset($apost['ID'])) {
+                                $post_ids[] = $apost['ID'];
+                            }
+                        }
+                        $replaceValue = $post_ids;
                     }
-                    $replaceValue = $post_ids;
                 }
                 if (is_object(reset($replaceValue))) {
                     if (get_class(reset($replaceValue)) == 'WP_Post') {
@@ -741,7 +787,19 @@ class DCE_Tokens {
                 
                 if ($afilter == 'concatenate' || $afilter == 'concat') {
                     $string2 = reset($parameters);
-                    $replaceValue = self::concatenate($replaceValue, $string2);
+                    $replaceValue = self::concatenate($replaceValue, $string2, count($parameters) > 1);
+                    continue;
+                }
+                
+                if ($afilter == 'add' || $afilter == 'sum') {
+                    $string2 = reset($parameters);
+                    $replaceValue = self::sum($replaceValue, $string2);
+                    continue;
+                }
+                
+                if ($afilter == 'opts' || $afilter == 'options') {
+                    $string2 = reset($parameters);
+                    $replaceValue = DCE_Helper::array_options($replaceValue, $string2);
                     continue;
                 }
 
@@ -768,7 +826,7 @@ class DCE_Tokens {
                     continue;
                 }
                 
-                if ($afilter && is_callable($afilter)) {
+                if ($afilter && is_callable($afilter) && $replaceValue != '') {
                     if (empty($parameters)) {                        
                         $replaceValue = $afilter($replaceValue);
                         //$replaceValue = call_user_func_array($afilter, $replaceValue);
@@ -779,6 +837,7 @@ class DCE_Tokens {
                         if ($afilter == 'date') {
                             $afilter = 'date_i18n';
                         }
+                        
                         if (in_array($afilter, array('implode', 'explode', 'date', 'date_i18n', 'get_the_author_meta'))) {
                             $parameters[] = $replaceValue;
                         } else {
@@ -796,51 +855,15 @@ class DCE_Tokens {
         return str_replace('[user', '[author', $txt);
     }
         
-    public static function concatenate($strin1 = '', $string2 = '') {
-        return $strin1.$string2;
+    public static function concatenate($string1 = '', $string2 = '', $before = false) {
+        if ($before) {
+            return $string2.$string1;
+        }
+        return $string1.$string2;
     }
     
-    /*public static function str_translate($value, $lang) {
-        if ($lang == "IT") {
-            $value = str_replace("January", "Gennaio", $value);
-            $value = str_replace("February", "Febbraio", $value);
-            $value = str_replace("March", "Marzo", $value);
-            $value = str_replace("April", "Aprile", $value);
-            $value = str_replace("May", "Maggio", $value);
-            $value = str_replace("June", "Giugno", $value);
-            $value = str_replace("July", "Luglio", $value);
-            $value = str_replace("August", "Agosto", $value);
-            $value = str_replace("September", "Settembre", $value);
-            $value = str_replace("October", "Ottobre", $value);
-            $value = str_replace("November", "Novembre", $value);
-            $value = str_replace("December", "Dicembre", $value);
-            
-            $value = str_replace("Jan", "Gen", $value);
-            $value = str_replace("May", "Mag", $value);
-            $value = str_replace("Jun", "Giu", $value);
-            $value = str_replace("Jul", "Lug", $value);
-            $value = str_replace("Aug", "Ago", $value);
-            $value = str_replace("Sep", "Set", $value);
-            $value = str_replace("Oct", "Ott", $value);
-            $value = str_replace("Dec", "Dic", $value);
-            
-            $value = str_replace("Sunday", "Domenica", $value);
-            $value = str_replace("Monday", "Lunedì", $value);
-            $value = str_replace("Tuesday", "Martedì", $value);
-            $value = str_replace("Wednesday", "Mercoledì", $value);
-            $value = str_replace("Thursday", "Giovedì", $value);
-            $value = str_replace("Friday", "Venerdì", $value);
-            $value = str_replace("Saturday", "Sabato", $value);
-            
-            $value = str_replace("Sun", "Dom", $value);
-            $value = str_replace("Mon", "Lun", $value);
-            $value = str_replace("Tue", "Mar", $value);
-            $value = str_replace("Wed", "Mer", $value);
-            $value = str_replace("Thu", "Gio", $value);
-            $value = str_replace("Fri", "Ven", $value);
-            $value = str_replace("Sat", "Sab", $value);
-        }
-        return $value;
-    }*/
+    public static function sum($num1 , $num2 = 0) {
+        return floatval($num1) + floatval($num2);
+    }
 
 }

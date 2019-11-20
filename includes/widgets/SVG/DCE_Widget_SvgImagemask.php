@@ -3,10 +3,7 @@ namespace DynamicContentForElementor\Widgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
-use Elementor\Scheme_Color;
 use Elementor\Group_Control_Image_Size;
-use Elementor\Group_Control_Border;
-use Elementor\Group_Control_Box_Shadow;
 
 use DynamicContentForElementor\DCE_Helper;
 
@@ -175,7 +172,7 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
             'name' => 'size_masking', // Actually its `image_size`
             'default' => 'thumbnail',
             'condition' => [
-              'mask_image[id]!' => '',
+              'image_masking[id]!' => '',
               'mask_shape_type' => 'image'
             ],
           ]
@@ -306,6 +303,19 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
                             ],
             ]
         );
+        
+        $this->add_control(
+        'mask_output_direct',
+        [
+            'label' => __( 'Directly to element', 'dynamic-content-for-elementor' ),
+            'description' => __('.', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'default' => '',
+            'label_on' => __( 'Yes', 'dynamic-content-for-elementor' ),
+            'label_off' => __( 'No', 'dynamic-content-for-elementor' ),
+            'return_value' => 'yes',
+            ]
+        );
        $this->add_control(
         'note_idclass',
         [
@@ -411,7 +421,9 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
                 }
             <?php } ?>
 
-            <?php if($settings['mask_output'] && $settings['id_svg_class'] != ''){ ?>
+            <?php if($settings['mask_output'] && $settings['id_svg_class'] != ''){
+
+                if(!$settings['mask_output_direct']) { ?>
                 .<?php echo $id_svg_class; ?> svg > image,
                 .<?php echo $id_svg_class; ?> svg > path,
                 .<?php echo $id_svg_class; ?> svg > polyline,
@@ -419,9 +431,13 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
                 .<?php echo $id_svg_class; ?> p,
                 .<?php echo $id_svg_class; ?> .elementor-heading-title,
                 .<?php echo $id_svg_class; ?> .elementor-icon,
-                .<?php echo $id_svg_class; ?> .elementor-button{
+                .<?php echo $id_svg_class; ?> .elementor-button
+                <?php }else{ 
+                    echo '.'.$id_svg_class;
+                } ?>
+                {
                     mask: url(#image-mask-<?php echo $widgetId; ?>);
-
+                    
                 }
                 #dce-svg-<?php echo $widgetId; ?>{
                     position: absolute;
@@ -447,6 +463,7 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
         var viewBoxH = settings.viewbox_height;
         var maxWidth = settings.image_max_width.size;
         var mask_output = settings.mask_output;
+        var mask_output_direct = settings.mask_output_direct;
 
         var mask_shape_type = settings.mask_shape_type;
         var shape_numbers = settings.shape_numbers;
@@ -512,7 +529,9 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
                     max-width: {{maxWidth}}px;
                 }
                 <# } #>
-                <# if( mask_output && id_svg_class != '' ){ #>
+                <# if( mask_output && id_svg_class != '' ){ 
+                    if( mask_output_direct == '' ){
+                    #>
                 .{{id_svg_class}} svg > image,
                 .{{id_svg_class}} svg  path,
                 .{{id_svg_class}} svg polyline,
@@ -521,8 +540,12 @@ class DCE_Widget_SvgImagemask extends DCE_Widget_Prototype {
                 .{{id_svg_class}} .elementor-heading-title,
                 .{{id_svg_class}} .elementor-icon,
                 .{{id_svg_class}} .elementor-button
+                <# }else{ #>
+                .{{id_svg_class}}
+                <# } #>
                 {
                     mask: url(#image-mask-{{idWidget}});
+                    
                 }
                 #dce-svg-{{idWidget}}{
                     position: absolute;

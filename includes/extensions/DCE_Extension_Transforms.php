@@ -19,7 +19,11 @@ class DCE_Extension_Transforms extends DCE_Extension_Prototype {
     public $name = 'Transforms';
 
     public static function get_description() {
-        return __('CSS-Transforms');
+        return __('Apply CSS Transforms to Element');
+    }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/transforms/';
     }
 
     private function add_controls($element, $args) {
@@ -30,10 +34,6 @@ class DCE_Extension_Transforms extends DCE_Extension_Prototype {
                 'enabled_transform', [
             'label' => __('Enabled Transforms', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'default' => '',
-            'label_on' => __('Yes', 'dynamic-content-for-elementor'),
-            'label_off' => __('No', 'dynamic-content-for-elementor'),
-            'return_value' => 'yes',
                 ]
         );
 
@@ -44,7 +44,7 @@ class DCE_Extension_Transforms extends DCE_Extension_Prototype {
             'default' => '',
             'selector' => '{{WRAPPER}} .dce-transforms',
             'condition' => [
-                'enabled_transform' => 'yes',
+                'enabled_transform!' => '',
             ],
                 ]
         );

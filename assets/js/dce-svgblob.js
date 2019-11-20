@@ -10,7 +10,7 @@
         var maxRadius = elementSettings.minmaxRadius.sizes.end;
         var minDuration = elementSettings.minmaxDuration.sizes.start;
         var maxDuration = elementSettings.minmaxDuration.sizes.end;
-        var is_showPoints = Boolean( elementSettings.show_points );
+        var is_showPoints = Boolean( elementSettings.show_points ) || false;
 
         var blob1 = createBlob({
           element: document.querySelector("#path1-"+id_scope),

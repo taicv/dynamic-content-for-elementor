@@ -24,7 +24,11 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
      * @since 1.0.6
      * */
     public static function get_description() {
-        return __('Reveal rules for Widgets');
+        return __('Reveal animation on scroll for Widgets', 'dynamic-content-for-elementor');
+    }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/scroll-reveals/';
     }
 
     public function get_script_depends() {
@@ -155,6 +159,8 @@ class DCE_Extension_Reveal extends DCE_Extension_Prototype {
         //return var_export($widget, true);
         //echo $widget['ID'];
         if ($settings['enabled_reveal']) {
+            
+            $this->_enqueue_alles();
 
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 

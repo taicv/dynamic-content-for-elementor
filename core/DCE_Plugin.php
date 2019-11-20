@@ -67,7 +67,9 @@ class DCE_Plugin {
                 //\Elementor\Plugin::$instance->controls_manager->_clone_controls_manager($controls_manager);
                 \Elementor\Plugin::$instance->controls_manager->set_excluded_extensions($excluded_extensions);
             }
-            //\Elementor\Plugin::$instance->widgets_manager = new DCE_Widgets_Manager();
+                        
+            $_widget_types = array(); //\Elementor\Plugin::$instance->widgets_manager->get_widget_types();
+            //\Elementor\Plugin::$instance->widgets_manager = $this->dce_overrides['dce_widgets_manager']; //new \Elementor\DCE_Widgets_Manager($_widget_types);
         }, 0);
         
         /*global $wp_filter;
@@ -99,7 +101,14 @@ class DCE_Plugin {
      *
      * @access private
      */
-    private function includes() {
+    public function includes() {
+        
+        $traits = glob(DCE_PATH . '/class/trait/DCE_*.php');
+        // include all classes
+        foreach ($traits as $key => $value) {
+            require_once $value;
+        }
+        
         $classes = glob(DCE_PATH . '/class/DCE_*.php');
         // include all classes
         foreach ($classes as $key => $value) {
@@ -125,12 +134,19 @@ class DCE_Plugin {
             } else {
                 $class = '\\Elementor\\' . $name;
             }
-            /*if ($name == 'DCE_Controls_Manager') {
-                $controls_manager = \Elementor\Plugin::$instance->controls_manager;
-                $this->dce_overrides[strtolower($name)] = new $class($controls_manager);
-            } else {*/
-                $this->dce_overrides[strtolower($name)] = new $class();
-            //}
+            
+            switch ($name) {
+                case 'DCE_Widgets_Manager':
+                    //$_widget_types = \Elementor\Plugin::$instance->widgets_manager->get_widget_types();
+                    $this->dce_overrides[strtolower($name)] = new $class(array());
+                    break;
+                case 'DCE_Controls_Manager':
+                    $controls_manager = \Elementor\Plugin::$instance->controls_manager;
+                    $this->dce_overrides[strtolower($name)] = new $class($controls_manager);
+                    break;
+                default:
+                    $this->dce_overrides[strtolower($name)] = new $class();
+            }
         }
         
         

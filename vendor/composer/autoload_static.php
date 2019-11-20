@@ -10,6 +10,7 @@ class ComposerStaticInitf6ad88e2ed4e79522a6e490dcb94f435
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a5f882d89ab791a139cd2d37e50cdd80' => __DIR__ . '/..' . '/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
+        'eb560c198217526cfde8ceb63ae508de' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v4p8.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -41,6 +42,10 @@ class ComposerStaticInitf6ad88e2ed4e79522a6e490dcb94f435
         'D' => 
         array (
             'Dompdf\\' => 7,
+        ),
+        'A' => 
+        array (
+            'Awps\\' => 5,
         ),
     );
 
@@ -89,6 +94,10 @@ class ComposerStaticInitf6ad88e2ed4e79522a6e490dcb94f435
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
+        'Awps\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/awps/font-awesome-php/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -108,25 +117,6 @@ class ComposerStaticInitf6ad88e2ed4e79522a6e490dcb94f435
             'Sabberworm\\CSS' => 
             array (
                 0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
-            ),
-        ),
-        'P' => 
-        array (
-            'Puc_v4p8_' => 
-            array (
-                0 => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker',
-            ),
-            'Puc_v4_' => 
-            array (
-                0 => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker',
-            ),
-            'PucReadmeParser' => 
-            array (
-                0 => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/vendor',
-            ),
-            'Parsedown' => 
-            array (
-                0 => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/vendor',
             ),
         ),
     );

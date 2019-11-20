@@ -1,1023 +1,429 @@
 (function ($) {
-    var getUniqueTarget = function (t) {
-        var idTarget = t.data('id');
-        var wrapAnimationText = '.elementor-element-' + idTarget;
-        return wrapAnimationText;
-    };
-    var effect_1 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        for (var w = 0; w < words.length; w++) {
-            target.find('.ml1 .letters-' + (w + 1)).each(function () {
-                $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-            });
-            //alert(w);
-            sequenza
-                    .add({
-                        targets: getUniqueTarget(target) + ' .ml1 .letters-' + (w + 1) + ' .letter',
-                        scale: [0.3, 1],
-                        opacity: [0, 1],
-                        translateZ: 0,
-                        easing: "easeOutExpo",
-                        duration: 600,
-                        delay: function (el, i) {
-                            return 70 * (i + 1)
-                        }
-                    }).add({
-                targets: getUniqueTarget(target) + ' .ml1.w' + (w + 1) + ' .line',
-                scaleX: [0, 1],
-                opacity: [0.5, 1],
-                easing: "easeOutExpo",
-                duration: 700,
-                offset: '-=875',
-                delay: function (el, i, l) {
-                    return 80 * (l - i);
-                }
-            }).add({
-                targets: getUniqueTarget(target) + ' .ml1.w' + (w + 1),
-                opacity: 0,
-                duration: 1000,
-                easing: "easeOutExpo",
-                delay: 700
-            });
-        }
-    };
-    var effect_2 = function (target, words) {
-        /*target.find('.ml2').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml2 .letter',
-         scale: [4,1],
-         opacity: [0,1],
-         translateZ: 0,
-         easing: "easeOutExpo",
-         duration: 950,
-         delay: function(el, i) {
-         return 70*i;
-         }
-         }).add({
-         targets: '.ml2',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        for (var w = 0; w < words.length; w++) {
-            target.find('.ml2 .letters-' + (w + 1)).each(function () {
-                $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-            });
-
-            sequenza
-                    .add({
-                        targets: getUniqueTarget(target) + ' .ml2 .letters-' + (w + 1) + ' .letter',
-                        scale: [4, 1],
-                        opacity: [0, 1],
-                        translateZ: 0,
-                        easing: "easeOutExpo",
-                        duration: 950,
-                        delay: function (el, i) {
-                            return 70 * i;
-                        }
-                    }).add({
-                targets: getUniqueTarget(target) + ' .ml2.w' + (w + 1),
-                opacity: 0,
-                duration: 1000,
-                easing: "easeOutExpo",
-                delay: 1000
-            });
-        }
-    };
-    var effect_3 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-
-
-        /*target.find('.ml3').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml3 .letter',
-         opacity: [0,1],
-         easing: "easeInOutQuad",
-         duration: 2250,
-         delay: function(el, i) {
-         return 150 * (i+1)
-         }
-         }).add({
-         targets: '.ml3',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-        for (var w = 0; w < words.length; w++) {
-
-            target.find('.ml3 .letters-' + (w + 1)).each(function () {
-                $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-            });
-
-            sequenza.timeline({loop: true})
-                    .add({
-                        targets: getUniqueTarget(target) + ' .ml3 .letter',
-                        opacity: [0, 1],
-                        easing: "easeInOutQuad",
-                        duration: 2250,
-                        delay: function (el, i) {
-                            return 150 * (i + 1)
-                        }
-                    }).add({
-                targets: getUniqueTarget(target) + ' .ml3',
-                opacity: 0,
-                duration: 1000,
-                easing: "easeOutExpo",
-                delay: 1000
-            });
-        }
-    };
-    var effect_4 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*var ml4 = {};
-         ml4.opacityIn = [0,1];
-         ml4.scaleIn = [0.2, 1];
-         ml4.scaleOut = 3;
-         ml4.durationIn = 800;
-         ml4.durationOut = 600;
-         ml4.delay = 500;
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml4 .letters-1',
-         opacity: ml4.opacityIn,
-         scale: ml4.scaleIn,
-         duration: ml4.durationIn
-         }).add({
-         targets: '.ml4 .letters-1',
-         opacity: 0,
-         scale: ml4.scaleOut,
-         duration: ml4.durationOut,
-         easing: "easeInExpo",
-         delay: ml4.delay
-         }).add({
-         targets: '.ml4 .letters-2',
-         opacity: ml4.opacityIn,
-         scale: ml4.scaleIn,
-         duration: ml4.durationIn
-         }).add({
-         targets: '.ml4 .letters-2',
-         opacity: 0,
-         scale: ml4.scaleOut,
-         duration: ml4.durationOut,
-         easing: "easeInExpo",
-         delay: ml4.delay
-         }).add({
-         targets: '.ml4 .letters-3',
-         opacity: ml4.opacityIn,
-         scale: ml4.scaleIn,
-         duration: ml4.durationIn
-         }).add({
-         targets: '.ml4 .letters-3',
-         opacity: 0,
-         scale: ml4.scaleOut,
-         duration: ml4.durationOut,
-         easing: "easeInExpo",
-         delay: ml4.delay
-         }).add({
-         targets: '.ml4',
-         opacity: 0,
-         duration: 500,
-         delay: 500
-         });*/
-
-        var ml4 = {};
-        ml4.opacityIn = [0, 1];
-        ml4.scaleIn = [0.2, 1];
-        ml4.scaleOut = 3;
-        ml4.durationIn = 800;
-        ml4.durationOut = 600;
-        ml4.delay = 500;
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml4 .letters-1',
-                    opacity: ml4.opacityIn,
-                    scale: ml4.scaleIn,
-                    duration: ml4.durationIn
-                }).add({
-            targets: '.ml4 .letters-1',
-            opacity: 0,
-            scale: ml4.scaleOut,
-            duration: ml4.durationOut,
-            easing: "easeInExpo",
-            delay: ml4.delay
-        }).add({
-            targets: '.ml4 .letters-2',
-            opacity: ml4.opacityIn,
-            scale: ml4.scaleIn,
-            duration: ml4.durationIn
-        }).add({
-            targets: '.ml4 .letters-2',
-            opacity: 0,
-            scale: ml4.scaleOut,
-            duration: ml4.durationOut,
-            easing: "easeInExpo",
-            delay: ml4.delay
-        }).add({
-            targets: '.ml4 .letters-3',
-            opacity: ml4.opacityIn,
-            scale: ml4.scaleIn,
-            duration: ml4.durationIn
-        }).add({
-            targets: '.ml4 .letters-3',
-            opacity: 0,
-            scale: ml4.scaleOut,
-            duration: ml4.durationOut,
-            easing: "easeInExpo",
-            delay: ml4.delay
-        }).add({
-            targets: '.ml4',
-            opacity: 0,
-            duration: 500,
-            delay: 500
-        });
-    };
-    var effect_5 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*anime.timeline({loop: true})
-         .add({
-         targets: '.ml5 .line',
-         opacity: [0.5,1],
-         scaleX: [0, 1],
-         easing: "easeInOutExpo",
-         duration: 700
-         }).add({
-         targets: '.ml5 .line',
-         duration: 600,
-         easing: "easeOutExpo",
-         translateY: function(e, i, l) {
-         var offset = -0.625 + 0.625*2*i;
-         return offset + "em";
-         }
-         }).add({
-         targets: '.ml5 .ampersand',
-         opacity: [0,1],
-         scaleY: [0.5, 1],
-         easing: "easeOutExpo",
-         duration: 600,
-         offset: '-=600'
-         }).add({
-         targets: '.ml5 .letters-left',
-         opacity: [0,1],
-         translateX: ["0.5em", 0],
-         easing: "easeOutExpo",
-         duration: 600,
-         offset: '-=300'
-         }).add({
-         targets: '.ml5 .letters-right',
-         opacity: [0,1],
-         translateX: ["-0.5em", 0],
-         easing: "easeOutExpo",
-         duration: 600,
-         offset: '-=600'
-         }).add({
-         targets: '.ml5',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml5 .line',
-                    opacity: [0.5, 1],
-                    scaleX: [0, 1],
-                    easing: "easeInOutExpo",
-                    duration: 700
-                }).add({
-            targets: '.ml5 .line',
-            duration: 600,
-            easing: "easeOutExpo",
-            translateY: function (e, i, l) {
-                var offset = -0.625 + 0.625 * 2 * i;
-                return offset + "em";
-            }
-        }).add({
-            targets: '.ml5 .ampersand',
-            opacity: [0, 1],
-            scaleY: [0.5, 1],
-            easing: "easeOutExpo",
-            duration: 600,
-            offset: '-=600'
-        }).add({
-            targets: '.ml5 .letters-left',
-            opacity: [0, 1],
-            translateX: ["0.5em", 0],
-            easing: "easeOutExpo",
-            duration: 600,
-            offset: '-=300'
-        }).add({
-            targets: '.ml5 .letters-right',
-            opacity: [0, 1],
-            translateX: ["-0.5em", 0],
-            easing: "easeOutExpo",
-            duration: 600,
-            offset: '-=600'
-        }).add({
-            targets: '.ml5',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_6 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml6 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml6 .letter',
-         translateY: ["1.1em", 0],
-         translateZ: 0,
-         duration: 750,
-         delay: function(el, i) {
-         return 50 * i;
-         }
-         }).add({
-         targets: '.ml6',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml6 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml6 .letter',
-                    translateY: ["1.1em", 0],
-                    translateZ: 0,
-                    duration: 750,
-                    delay: function (el, i) {
-                        return 50 * i;
-                    }
-                }).add({
-            targets: '.ml6',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_7 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml7 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml7 .letter',
-         translateY: ["1.1em", 0],
-         translateX: ["0.55em", 0],
-         translateZ: 0,
-         rotateZ: [180, 0],
-         duration: 750,
-         easing: "easeOutExpo",
-         delay: function(el, i) {
-         return 50 * i;
-         }
-         }).add({
-         targets: '.ml7',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml7 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml7 .letter',
-                    translateY: ["1.1em", 0],
-                    translateX: ["0.55em", 0],
-                    translateZ: 0,
-                    rotateZ: [180, 0],
-                    duration: 750,
-                    easing: "easeOutExpo",
-                    delay: function (el, i) {
-                        return 50 * i;
-                    }
-                }).add({
-            targets: '.ml7',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-
-
-    };
-
-    var effect_8 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*anime.timeline({loop: true})
-         .add({
-         targets: '.ml8 .circle-white',
-         scale: [0, 3],
-         opacity: [1, 0],
-         easing: "easeInOutExpo",
-         rotateZ: 360,
-         duration: 1100
-         }).add({
-         targets: '.ml8 .circle-container',
-         scale: [0, 1],
-         duration: 1100,
-         easing: "easeInOutExpo",
-         offset: '-=1000'
-         }).add({
-         targets: '.ml8 .circle-dark',
-         scale: [0, 1],
-         duration: 1100,
-         easing: "easeOutExpo",
-         offset: '-=600'
-         }).add({
-         targets: '.ml8 .letters-left',
-         scale: [0, 1],
-         duration: 1200,
-         offset: '-=550'
-         }).add({
-         targets: '.ml8 .bang',
-         scale: [0, 1],
-         rotateZ: [45, 15],
-         duration: 1200,
-         offset: '-=1000'
-         }).add({
-         targets: '.ml8',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1400
-         });
-         
-         anime({
-         targets: '.ml8 .circle-dark-dashed',
-         rotateZ: 360,
-         duration: 8000,
-         easing: "linear",
-         loop: true
-         });*/
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml8 .circle-white',
-                    scale: [0, 3],
-                    opacity: [1, 0],
-                    easing: "easeInOutExpo",
-                    rotateZ: 360,
-                    duration: 1100
-                }).add({
-            targets: '.ml8 .circle-container',
-            scale: [0, 1],
-            duration: 1100,
-            easing: "easeInOutExpo",
-            offset: '-=1000'
-        }).add({
-            targets: '.ml8 .circle-dark',
-            scale: [0, 1],
-            duration: 1100,
-            easing: "easeOutExpo",
-            offset: '-=600'
-        }).add({
-            targets: '.ml8 .letters-left',
-            scale: [0, 1],
-            duration: 1200,
-            offset: '-=550'
-        }).add({
-            targets: '.ml8 .bang',
-            scale: [0, 1],
-            rotateZ: [45, 15],
-            duration: 1200,
-            offset: '-=1000'
-        }).add({
-            targets: '.ml8',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1400
-        });
-
-        anime({
-            targets: '.ml8 .circle-dark-dashed',
-            rotateZ: 360,
-            duration: 8000,
-            easing: "linear",
-            loop: true
-        });
-    };
-    var effect_9 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml9 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml9 .letter',
-         scale: [0, 1],
-         duration: 1500,
-         elasticity: 600,
-         delay: function(el, i) {
-         return 45 * (i+1)
-         }
-         }).add({
-         targets: '.ml9',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml9 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml9 .letter',
-                    scale: [0, 1],
-                    duration: 1500,
-                    elasticity: 600,
-                    delay: function (el, i) {
-                        return 45 * (i + 1)
-                    }
-                }).add({
-            targets: '.ml9',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_10 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml10 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml10 .letter',
-         rotateY: [-90, 0],
-         duration: 1300,
-         delay: function(el, i) {
-         return 45 * i;
-         }
-         }).add({
-         targets: '.ml10',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml10 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml10 .letter',
-                    rotateY: [-90, 0],
-                    duration: 1300,
-                    delay: function (el, i) {
-                        return 45 * i;
-                    }
-                }).add({
-            targets: '.ml10',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_11 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml11 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml11 .line',
-         scaleY: [0,1],
-         opacity: [0.5,1],
-         easing: "easeOutExpo",
-         duration: 700
-         })
-         .add({
-         targets: '.ml11 .line',
-         translateX: [0,$(".ml11 .letters").width()],
-         easing: "easeOutExpo",
-         duration: 700,
-         delay: 100
-         }).add({
-         targets: '.ml11 .letter',
-         opacity: [0,1],
-         easing: "easeOutExpo",
-         duration: 600,
-         offset: '-=775',
-         delay: function(el, i) {
-         return 34 * (i+1)
-         }
-         }).add({
-         targets: '.ml11',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml11 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml11 .line',
-                    scaleY: [0, 1],
-                    opacity: [0.5, 1],
-                    easing: "easeOutExpo",
-                    duration: 700
-                })
-                .add({
-                    targets: '.ml11 .line',
-                    translateX: [0, $(".ml11 .letters").width()],
-                    easing: "easeOutExpo",
-                    duration: 700,
-                    delay: 100
-                }).add({
-            targets: '.ml11 .letter',
-            opacity: [0, 1],
-            easing: "easeOutExpo",
-            duration: 600,
-            offset: '-=775',
-            delay: function (el, i) {
-                return 34 * (i + 1)
-            }
-        }).add({
-            targets: '.ml11',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_12 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml12').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml12 .letter',
-         translateX: [40,0],
-         translateZ: 0,
-         opacity: [0,1],
-         easing: "easeOutExpo",
-         duration: 1200,
-         delay: function(el, i) {
-         return 500 + 30 * i;
-         }
-         }).add({
-         targets: '.ml12 .letter',
-         translateX: [0,-30],
-         opacity: [1,0],
-         easing: "easeInExpo",
-         duration: 1100,
-         delay: function(el, i) {
-         return 100 + 30 * i;
-         }
-         });*/
-
-        target.find('.ml12').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml12 .letter',
-                    translateX: [40, 0],
-                    translateZ: 0,
-                    opacity: [0, 1],
-                    easing: "easeOutExpo",
-                    duration: 1200,
-                    delay: function (el, i) {
-                        return 500 + 30 * i;
-                    }
-                }).add({
-            targets: '.ml12 .letter',
-            translateX: [0, -30],
-            opacity: [1, 0],
-            easing: "easeInExpo",
-            duration: 1100,
-            delay: function (el, i) {
-                return 100 + 30 * i;
-            }
-        });
-    };
-
-    var effect_13 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-
-        /*target.find('.ml13').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml13 .letter',
-         translateY: [100,0],
-         translateZ: 0,
-         opacity: [0,1],
-         easing: "easeOutExpo",
-         duration: 1400,
-         delay: function(el, i) {
-         return 300 + 30 * i;
-         }
-         }).add({
-         targets: '.ml13 .letter',
-         translateY: [0,-100],
-         opacity: [1,0],
-         easing: "easeInExpo",
-         duration: 1200,
-         delay: function(el, i) {
-         return 100 + 30 * i;
-         }
-         });*/
-
-        target.find('.ml13').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml13 .letter',
-                    translateY: [100, 0],
-                    translateZ: 0,
-                    opacity: [0, 1],
-                    easing: "easeOutExpo",
-                    duration: 1400,
-                    delay: function (el, i) {
-                        return 300 + 30 * i;
-                    }
-                }).add({
-            targets: '.ml13 .letter',
-            translateY: [0, -100],
-            opacity: [1, 0],
-            easing: "easeInExpo",
-            duration: 1200,
-            delay: function (el, i) {
-                return 100 + 30 * i;
-            }
-        });
-    };
-    var effect_14 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml14 .letters').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml14 .line',
-         scaleX: [0,1],
-         opacity: [0.5,1],
-         easing: "easeInOutExpo",
-         duration: 900
-         }).add({
-         targets: '.ml14 .letter',
-         opacity: [0,1],
-         translateX: [40,0],
-         translateZ: 0,
-         scaleX: [0.3, 1],
-         easing: "easeOutExpo",
-         duration: 800,
-         offset: '-=600',
-         delay: function(el, i) {
-         return 150 + 25 * i;
-         }
-         }).add({
-         targets: '.ml14',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml14 .letters').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml14 .line',
-                    scaleX: [0, 1],
-                    opacity: [0.5, 1],
-                    easing: "easeInOutExpo",
-                    duration: 900
-                }).add({
-            targets: '.ml14 .letter',
-            opacity: [0, 1],
-            translateX: [40, 0],
-            translateZ: 0,
-            scaleX: [0.3, 1],
-            easing: "easeOutExpo",
-            duration: 800,
-            offset: '-=600',
-            delay: function (el, i) {
-                return 150 + 25 * i;
-            }
-        }).add({
-            targets: '.ml14',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_15 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*anime.timeline({loop: true})
-         .add({
-         targets: '.ml15 .word',
-         scale: [14,1],
-         opacity: [0,1],
-         easing: "easeOutCirc",
-         duration: 800,
-         delay: function(el, i) {
-         return 800 * i;
-         }
-         }).add({
-         targets: '.ml15',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml15 .word',
-                    scale: [14, 1],
-                    opacity: [0, 1],
-                    easing: "easeOutCirc",
-                    duration: 800,
-                    delay: function (el, i) {
-                        return 800 * i;
-                    }
-                }).add({
-            targets: '.ml15',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-    var effect_16 = function (target, words) {
-        var sequenza = anime.timeline({
-            loop: true
-        });
-        /*target.find('.ml16').each(function(){
-         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-         });
-         
-         anime.timeline({loop: true})
-         .add({
-         targets: '.ml16 .letter',
-         translateY: [-100,0],
-         easing: "easeOutExpo",
-         duration: 1400,
-         delay: function(el, i) {
-         return 30 * i;
-         }
-         }).add({
-         targets: '.ml16',
-         opacity: 0,
-         duration: 1000,
-         easing: "easeOutExpo",
-         delay: 1000
-         });*/
-
-        target.find('.ml16').each(function () {
-            $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-        });
-
-        anime.timeline({loop: true})
-                .add({
-                    targets: '.ml16 .letter',
-                    translateY: [-100, 0],
-                    easing: "easeOutExpo",
-                    duration: 1400,
-                    delay: function (el, i) {
-                        return 30 * i;
-                    }
-                }).add({
-            targets: '.ml16',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
-    };
-
+    
+    
+    function random(min, max){
+        return (Math.random() * (max - min)) + min;
+    }
+    function curve(i){
+        var n = i / numTitleChars * 6.24;
+        return  (Math.cos(n)) * -200;
+    }
     var WidgetElements_AnimateTextHandler = function ($scope, $) {
         //console.log( $scope );
         var elementSettings = get_Dyncontel_ElementSettings($scope);
-        var eff = elementSettings.animate_effect;
-        var target = $scope;
-        var words = elementSettings.words;
+        var id_scope = $scope.attr('data-id');
+        
+        var eff_in = elementSettings.animatetext_animationstyle_in;
+        var eff_out = elementSettings.animatetext_animationstyle_out;
 
-        // -----------------------------
-        if (eff == 1) {
-            effect_1(target, words);
-        } else if (eff == 2) {
-            effect_2(target, words);
-        } else if (eff == 3) {
-            effect_3(target, words);
-        } else if (eff == 4) {
-            effect_4(target, words);
-        } else if (eff == 5) {
-            effect_5(target, words);
-        } else if (eff == 6) {
-            effect_6(target, words);
-        } else if (eff == 7) {
-            effect_7(target, words);
-        } else if (eff == 8) {
-            effect_8(target, words);
-        } else if (eff == 9) {
-            effect_9(target, words);
-        } else if (eff == 10) {
-            effect_10(target, words);
-        } else if (eff == 11) {
-            effect_11(target, words);
-        } else if (eff == 12) {
-            effect_12(target, words);
-        } else if (eff == 13) {
-            effect_13(target, words);
-        } else if (eff == 14) {
-            effect_14(target, words);
-        } else if (eff == 15) {
-            effect_15(target, words);
-        } else if (eff == 16) {
-            effect_16(target, words);
+        var target = $scope.find('.dce-animatetext');
+        var words = elementSettings.words;
+        var type = elementSettings.animatetext_splittype;
+        
+        var repeater_words = elementSettings.words;
+
+        var texts = [];
+        var ids = [];
+        var ciccio = [];
+        if( elementorFrontend.isEditMode()){
+            ciccio = repeater_words.models;
+        }else{
+            ciccio = repeater_words;
+        }
+        $.each(ciccio, function(i, el){
+            var pippo = [];
+            if( elementorFrontend.isEditMode()){
+                pippo = repeater_words.models[i].attributes;
+            }else{
+                pippo = repeater_words[i];
+            }
+            texts.push(pippo.text_word);
+            ids.push(pippo._id);
+        });
+
+        var repeat = texts.length > 1 ? elementSettings.animatetext_repeat : 0;
+
+        // --------- IN
+        var splitOrigin_in = elementSettings.animatetext_splitorigin_in;
+        var speed_in = elementSettings.speed_animation_in.size;
+        var amount_in = elementSettings.amount_speed_in.size;
+        var delaySteps_in = elementSettings.delay_animation_in.size;
+        var anim_easing_in = elementSettings.animFrom_easing_ease_in+'.'+elementSettings.animFrom_easing_in;
+        
+        // --------- OUT
+        var splitOrigin_out = elementSettings.animatetext_splitorigin_out;
+        var speed_out = elementSettings.speed_animation_out.size;
+        var amount_out = elementSettings.amount_speed_out.size;
+        var delaySteps_out = elementSettings.delay_animation_out.size;
+        var anim_easing_out = elementSettings.animFrom_easing_ease_out+'.'+elementSettings.animFrom_easing_out;
+        
+        var splitter;
+        var split;
+        
+        var tl = new TimelineMax({
+                //delay:0.5,
+                //repeatDelay:0.5,
+                repeat: repeat
+            });
+        
+        var active_scrollAnalysi = function($el){
+            if($el){
+                /*var waypoint = new Waypoint({
+                  element: $($el)[0],
+                  handler: function(direction) {
+                    console.log('Scrolled to waypoint!')
+                  }
+                })*/
+                
+                
+                var runAnim = function(dir){
+                    
+                    step = $('#dce-svg-'+id_scope).attr('data-morphid');
+                    //riproduci();
+                    if(dir == 'down'){
+                        
+                        // play  
+                    }else if(dir == 'up'){
+                        // stop
+                    }
+                    $('#dce-svg-'+id_scope).attr('data-morphid',step);
+                }
+                var waypointOptions = {
+                    offset: '100%',
+                    triggerOnce: false
+                };
+                elementorFrontend.waypoint($($el), runAnim, waypointOptions);
+            }
         }
         // -----------------------------
+        var old_count = -1;
+        var count = 0;
+        var changeText = function(){
+            old_count = count;
+            if(count < texts.length-1){
+                count ++;
+            }else{
+                count = 0;
+            }
+            changeAndSplittingText(count, old_count);
+        }
+        //
+        var changeAndSplittingText = function($i, $ii){
+            target.empty().html(texts[$i]);
+            target.removeClass('elementor-repeater-item-'+ids[$ii]).addClass('elementor-repeater-item-'+ids[$i]);
+            //alert(target.html().length);
+            split = new SplitText(target, {
+                type: ['chars','words','lines'],
+                //wordDelimiter: "*"
+              });
+            //alert(type);
+            switch (type) {
+              case 'chars':
+                    splitter = split.chars;
+                break;
+              case 'words':
+                    splitter = split.words;
+                break;
+                
+              case 'lines':
+                    splitter = split.lines;
+                break;
+              default:
+                
+                break;
+            }
+            // --------- STAGGER
+            var staggerOpt_in = {
+                ease: Linear.easeNone,
+                //grid:grid, 
+                axis:null, //'null' 'x' 'y'
+                amount: Math.floor(splitter.length / 2) * (amount_in/100),
+                from: splitOrigin_in,
+            }
+            // --------- STAGGER OUT
+            var staggerOpt_out = {
+                ease: Linear.easeNone,
+                //grid:grid, 
+                axis:null, //'null' 'x' 'y'
+                amount: Math.floor(splitter.length / 2) * (amount_out/100),
+                from: splitOrigin_out,
+            }
+            //alert(eff_in+' '+amount_in+' '+speed_in+' '+anim_easing_in);
+            switch (eff_in) {
+                case 'fading':
+                    //alert(eff_in);
+                    tl.staggerFrom(splitter, speed_in, {
+                        opacity: 0,
+                        stagger: staggerOpt_in,
 
+                        delay: delaySteps_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    });
+
+                    break;
+                case 'from_left':
+                    tl.staggerFrom(splitter, speed_in, {
+                        x: -100,
+                        opacity: 0,
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });
+                    break;
+                    
+                case 'from_right':
+                     tl.staggerFrom(splitter, speed_in, {
+                        x: 100,
+                        opacity: 0,
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });   
+                    break;
+                case 'from_top':
+                    tl.staggerFrom(splitter, speed_in, {
+                        y: -100,
+                        opacity: 0,
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });
+
+                    break;
+                case 'from_bottom':
+                    tl.staggerFrom(splitter, speed_in, {
+                        y: 100,
+                        opacity: 0,
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });  
+                    break;
+                case 'zoom_front':
+                    tl.staggerFrom(splitter, speed_in, {
+                        scale: 1.6,
+                        opacity: 0,
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });    
+                    break;
+                case 'zoom_back':
+                    tl.staggerFrom(splitter, speed_in, {
+                        scale: 0.1,
+                        opacity: 0,
+                        cycle:{
+                            y:[100, -100], 
+                            rotation:[-120, 120]
+                        },
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    });    
+                    break;
+                case 'random_position':
+                    tl.staggerFrom(splitter, speed_in, {
+                        
+                        opacity: 0,
+                        cycle:{
+                            scale: function() { return random(0.1, 3); },
+                            x:function() { return random(-500, 500); },
+                            y:function() { return random(-500, 500); },
+                            z:function() { return random(-500, 500); },
+                            rotation:function() { return random(-120, 120); }
+                        },
+                        delay: delaySteps_in,
+                        stagger: staggerOpt_in,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_in
+                    }); 
+                    /*$(splitter).each(function(i){
+                        TweenMax.from($(this), speed_in, {
+                            opacity: 0,
+                            x: random(-500, 500),
+                            y: random(-500, 500),
+                            z: random(-500, 500),
+                            //scale: random(0.1, 3),
+                            delay: delaySteps_in + (i * .02),
+                            ease: anim_easing_in
+                            //yoyo: true,
+                            //repeat: -1,
+                            //repeatDelay: 3
+                        });
+                    });*/
+                    break;
+                case 'elastic':
+                    tl.staggerFrom(splitter, 1, {
+                        y:100, 
+                        rotation:90, 
+                        opacity:0,
+
+                         stagger: {
+                            ease: Linear.easeNone,
+                            //grid:grid, 
+                            axis:null, //'null' 'x' 'y'
+                            amount: 0.5, //or if you want to make it dynamic, Math.floor(boxes.length / 2) * 0.25
+                            from: splitOrigin,
+                          },
+                        
+
+                        ease:Elastic.easeOut
+                    }, 0.03); 
+                    break;
+                default:
+                
+                    break;
+            }
+            //all'uscita se i testi ripetitori sono == 1 si ferma
+            if(texts.length > 1)
+            switch (eff_out) {
+                case 'fading':
+                    //alert(eff_out);
+                    tl.staggerTo(splitter, speed_out, {
+                        opacity: 0,
+                        //y: 50,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);
+
+                    break;
+                case 'to_left':
+                    tl.staggerTo(splitter, speed_out, {
+                        x: -100,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);
+                    break;
+                    
+                case 'to_right':
+                    tl.staggerTo(splitter, speed_out, {
+                        x: 100,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);   
+                    break;
+                case 'to_top':
+                    tl.staggerTo(splitter, speed_out, {
+                        y: -100,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);
+
+                    break;
+                case 'to_bottom':
+                    tl.staggerTo(splitter, speed_out, {
+                        y: 100,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);    
+                    break;
+                case 'zoom_front':
+                     tl.staggerTo(splitter, speed_out, {
+                        scale: 1.6,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);   
+                    break;
+                case 'zoom_back':
+                     tl.staggerTo(splitter, speed_out, {
+                        scale: 0.1,
+                        opacity: 0,
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText);      
+                    break;
+                case 'random_position':
+                    tl.staggerTo(splitter, speed_out, {
+                        
+                        opacity: 0,
+                        cycle:{
+                            scale: function() { return random(0.1, 3); },
+                            x:function() { return random(-500, 500); },
+                            y:function() { return random(-500, 500); },
+                            z:function() { return random(-500, 500); },
+                            rotation:function() { return random(-120, 120); }
+                        },
+                        delay: delaySteps_out,
+                        stagger: staggerOpt_out,
+                        //ease: Back.easeIn.config(8)
+                        ease: anim_easing_out
+                    },null,null,changeText); 
+
+                    break;
+                case 'elastic':
+                    tl.staggerTo(splitter, 0.5, {
+                        opacity:0, 
+
+                        stagger: {
+                            ease: Linear.easeNone,
+                            //grid:grid, 
+                            axis:null, //'null' 'x' 'y'
+                            amount: 0.5, //or if you want to make it dynamic, Math.floor(boxes.length / 2) * 0.25
+                            from: splitOrigin,
+                          },
+
+                        ease: anim_easing_out
+                    }, 0.08, 2); 
+                    break;
+                default:
+                
+                    break;
+            }
+        }
+
+        
+        
+        // -----------------------------
+        changeAndSplittingText(count, old_count);
+        // -----------------------------
+
+        
+
+       
+
+        // ----------------------------------
+        /*tl.staggerFrom(splitter, 0.8, {
+                ease:Back.easeOut, 
+                x:100, cycle:{y:curve
+            }, 
+            opacity:0}, 0.02)
+        .staggerTo(splitter, 0.8, {
+                ease:Back.easeOut, 
+                cycle:{
+                    y:[100, -100], 
+                    rotation:[-120, 120]
+                }, 
+                opacity:0
+            }, 0.03, "+=1");*/
+        // ----------------------------------
+
+        
     };
     // Make sure you run this code under Elementor..
     $(window).on('elementor/frontend/init', function () {

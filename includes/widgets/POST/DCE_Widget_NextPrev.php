@@ -195,8 +195,8 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                 'label' => __('Invert order', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => 'yes',
-                'label_on' => __('Show', 'dynamic-content-for-elementor'),
-                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
             ]
         );
@@ -330,8 +330,8 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                 'label' => __('Floating', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Show', 'dynamic-content-for-elementor'),
-                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'prefix_class' => 'float',
             ]
@@ -341,8 +341,8 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                 'label' => __('Vertical', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SWITCHER,
                 'default' => '',
-                'label_on' => __('Show', 'dynamic-content-for-elementor'),
-                'label_off' => __('Hide', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
                 'return_value' => 'yes',
                 'prefix_class' => 'vertical',
             ]
@@ -359,7 +359,7 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                 'label' => __('Icon Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 20,
+                    'size' => 30,
                 ],
                 'range' => [
                     'px' => [
@@ -404,7 +404,7 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                 'label' => __('Shift', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 3,
+                    'size' => 0,
                 ],
                 'range' => [
                     'px' => [
@@ -423,10 +423,10 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
 
         $this->add_responsive_control(
             'icon_space_tf', [
-                'label' => __('Block SIze', 'dynamic-content-for-elementor'),
+                'label' => __('Block Size', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
                 'default' => [
-                    'size' => 15,
+                    'size' => 40,
                 ],
                 'range' => [
                     'px' => [
@@ -443,7 +443,7 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
             ]
         );
 
-        $this->add_responsive_control(
+       /* $this->add_responsive_control(
             'icon_verticalalign_tf', [
                 'label' => __('Shift (%)', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SLIDER,
@@ -463,7 +463,7 @@ class DCE_Widget_NextPrev extends DCE_Widget_Prototype {
                     'style_postnav' => 'thumbflip'
                 ]
             ]
-        );
+        );*/
 
         $this->end_controls_section();
 

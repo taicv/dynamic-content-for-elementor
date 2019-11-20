@@ -3,19 +3,11 @@
  * dynamic.ooo
  */
 
-var dce_model_cid = null;
-
-function dce_get_element_id_from_cid(cid) {
-    var iFrameDOM = jQuery("iframe#elementor-preview-iframe").contents();
-    var eid = iFrameDOM.find('.elementor-element[data-model-cid='+cid+']').data('id');
-    return eid;
-}
-
 jQuery(window).on( 'load', function() {
         
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/global', function( $scope ) {
+        /*elementorFrontend.hooks.addAction( 'frontend/element_ready/global', function( $scope ) {
             //console.log( $scope );
-        } );
+        } );*/
         
         elementor.hooks.addAction( 'panel/open_editor/section', function( panel, model, view ) {
             //console.log(model);
@@ -198,19 +190,21 @@ jQuery(window).load(function() {
             }
         });
         
-        jQuery.each(elementorFrontend.config.elements.data, function(cid, element){
-            var eid = dce_get_element_id_from_cid(cid);
-            //console.log('add quick visibility toggle for: '+ cid + ' - ' + eid);
-            if (eid) {
-                // check if element is just hidden
-                if (dce_visibility_is_hidden(cid)) {
-                    //console.log('check hidden for: '+ cid);
-                    dce_navigator_element_toggle(cid);
-                    iFrameDOM.find('.elementor-element[data-id='+eid+']').addClass('dce-visibility-hidden');//.addClass('dce-visibility-hidden');                
-                }
-                update_visibility_trigger(cid, eid);
-            }
-        });
+        if ( window.elementorFrontend ) {
+                jQuery.each(elementorFrontend.config.elements.data, function(cid, element){
+                    var eid = dce_get_element_id_from_cid(cid);
+                    //console.log('add quick visibility toggle for: '+ cid + ' - ' + eid);
+                    if (eid) {
+                        // check if element is just hidden
+                        if (dce_visibility_is_hidden(cid)) {
+                            //console.log('check hidden for: '+ cid);
+                            dce_navigator_element_toggle(cid);
+                            iFrameDOM.find('.elementor-element[data-id='+eid+']').addClass('dce-visibility-hidden');//.addClass('dce-visibility-hidden');                
+                        }
+                        update_visibility_trigger(cid, eid);
+                    }
+                });
+        }
 
         // add context menu item
         jQuery('.elementor-context-menu').each(function(){

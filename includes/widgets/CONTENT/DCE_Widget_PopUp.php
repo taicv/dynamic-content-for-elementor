@@ -53,9 +53,9 @@ class DCE_Widget_PopUp extends DCE_Widget_Prototype {
         return ['dce-jquery-visible', 'dce-popup'];
     }
 
-    /* public function get_style_depends() {
-      return ['elementor-animations', 'dce-modal'];
-      } */
+   public function get_style_depends() {
+      return ['animatecss'];
+      }
 
     static public function get_position() {
         return 5;
@@ -640,22 +640,28 @@ class DCE_Widget_PopUp extends DCE_Widget_Prototype {
             ]
                 ]
         );
+       
         $this->add_control(
-                'open_delay', [
+            'open_delay', [
             'label' => __('Delay', 'dynamic-content-for-elementor'),
-            'type' => Controls_Manager::NUMBER,
-            'default' => 0,
-            'description' => 'Time in MilliSeconds. Leave 0 for no delay. 1000 ms = 1 second.',
-            'frontend_available' => true,
-            'condition' => [
-                'button_purpose!' => 'close'
-            ],
-            'selectors' => [
-                '#dce-popup-{{ID}}-background' => '-webkit-animation-delay: {{SIZE}}ms; animation-delay: {{SIZE}}ms'
-            ],
-                ]
+                'description' => 'Time in MilliSeconds. Leave 0 for no delay. 1000 ms = 1 second.',
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 5000,
+                        'step' => 100
+                    ],
+                ],
+                'frontend_available' => true,
+                'default' => [
+                    'size' => 0,
+                ],
+                'condition' => [
+                    'button_purpose!' => 'close'
+                ],
+            ]
         );
-
         $this->add_control(
                 'title_close_modal', [
             'label' => __('CLOSE Animation', 'dynamic-content-for-elementor'),
@@ -774,7 +780,33 @@ class DCE_Widget_PopUp extends DCE_Widget_Prototype {
                     /* 'default' => [
                       'color' => 'rgba(0,0,0,0.4)'
                       ], */
-                    'selector' => '{{WRAPPER}} .dce-modal-background-layer',
+                    'selector' => '{{WRAPPER}} .dce-modal-background-layer:before, .dce-popup-container-{{ID}} .dce-modal-background-layer:before',
+                    'condition' => [
+                      'background_layer' => 'yes'
+                      ]
+                ]
+        );
+        $this->add_responsive_control(
+                'overlay_opacity', [
+            'label' => __('Opacity', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 1,
+                    'step' => 0.01
+                ],
+            ],
+            'default' => [
+                'size' => '',
+                'unit' => 'px',
+            ],
+            'selectors' => [
+                '.dce-popup-container-{{ID}} .dce-modal-background-layer:before, {{WRAPPER}} .dce-modal-background-layer:before' => 'opacity: {{SIZE}};',
+            ],
+            'condition' => [
+                'background_layer' => 'yes'
+            ]
                 ]
         );
         $this->add_control(
@@ -2160,93 +2192,91 @@ class DCE_Widget_PopUp extends DCE_Widget_Prototype {
 
         //add_action( 'elementor/frontend/before_enqueue_scripts', array($this, 'generate_modals'));
     }
+public function generate_modals() {
+    $settings = $this->get_settings_for_display();
+    // var_dump(\Elementor\Plugin::$instance->editor->is_edit_mode());
+    // var_dump($settings);
+    if ((\Elementor\Plugin::$instance->editor->is_edit_mode() && $settings['show_popup_editor'] && $settings['button_purpose'] != 'close') || (!\Elementor\Plugin::$instance->editor->is_edit_mode() && !$this->checkCookie()) || (!\Elementor\Plugin::$instance->editor->is_edit_mode() && $settings['trigger'] == 'button')) {
+        //var_dump($this->checkCookie());
 
-    public function generate_modals() {
-        $settings = $this->get_settings_for_display();
-        // var_dump(\Elementor\Plugin::$instance->editor->is_edit_mode());
-        // var_dump($settings);
-        if ((\Elementor\Plugin::$instance->editor->is_edit_mode() && $settings['show_popup_editor'] && $settings['button_purpose'] != 'close') || (!\Elementor\Plugin::$instance->editor->is_edit_mode() && !$this->checkCookie()) || (!\Elementor\Plugin::$instance->editor->is_edit_mode() && $settings['trigger'] == 'button')) {
-            //var_dump($this->checkCookie());
+        $infinite = '';
+        //if( $settings['show_popup_editor'] && $settings['playstop_animation'] == 'running' && \Elementor\Plugin::$instance->editor->is_edit_mode() ) $infinite = ' infinite';
+        if ($settings['extend_full_window']) {
+            $fullWindow = ' dce-poup-full-window';
+        } else {
+            $fullWindow = '';
+        }
+        ?>
+        <div class="dce-popup-container dce-popup-container-<?php echo $this->get_id(); ?> dce-popup-<?php echo $settings['trigger'] . $fullWindow; ?>">
 
-            $infinite = '';
-            //if( $settings['show_popup_editor'] && $settings['playstop_animation'] == 'running' && \Elementor\Plugin::$instance->editor->is_edit_mode() ) $infinite = ' infinite';
-            if ($settings['extend_full_window']) {
-                $fullWindow = ' dce-poup-full-window';
-            } else {
-                $fullWindow = '';
-            }
-            ?>
-            <div class="dce-popup-container dce-popup-<?php echo $settings['trigger'] . $fullWindow; ?>">
+                <?php if ($settings['background_layer']) { ?>
+                <div id="dce-popup-<?php echo $this->get_id(); ?>-background" class="animated dce-modal-background-layer<?php if ($settings['background_layer_close']) { ?> dce-modal-background-layer-close<?php } ?> modal-background-layer<?php if (\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> block-i<?php } ?>" data-dismiss="modal" data-target="dce-popup-<?php echo $this->get_id(); ?>"></div>
+        <?php } ?>
 
-                    <?php if ($settings['background_layer']) { ?>
-                    <div id="dce-popup-<?php echo $this->get_id(); ?>-background" class="animated dce-modal-background-layer<?php if ($settings['background_layer_close']) { ?> dce-modal-background-layer-close<?php } ?> modal-background-layer<?php if (\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> block-i<?php } ?>" data-dismiss="modal" data-target="dce-popup-<?php echo $this->get_id(); ?>"></div>
-            <?php } ?>
+            <div id="dce-popup-<?php echo $this->get_id(); ?>"
+                 class="dce-modal<?php if ($settings['esc_hide'] && !\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> modal-hide-esc<?php } ?><?php if ($settings['scroll_hide'] && !\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> modal-hide-on-scroll<?php } ?> modal-<?php echo $settings['modal_align']; ?> modal-<?php echo $settings['modal_valign']; ?> <?php if (\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> block-i<?php } ?>"
+                 tabindex="-1"
+                 role="dialog"
+                 >
 
-                <div id="dce-popup-<?php echo $this->get_id(); ?>"
-                     class="dce-modal<?php if ($settings['esc_hide'] && !\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> modal-hide-esc<?php } ?><?php if ($settings['scroll_hide'] && !\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> modal-hide-on-scroll<?php } ?> modal-<?php echo $settings['modal_align']; ?> modal-<?php echo $settings['modal_valign']; ?> <?php if (\Elementor\Plugin::$instance->editor->is_edit_mode()) { ?> block-i<?php } ?>"
-                     tabindex="-1"
-                     role="dialog"
-                     >
+                <div class="modal-dialog<?php if ($settings['open_animation']) { ?> animated<?php echo $infinite;
+        } ?>" role="document" >
+                    <div class="modal-content">
 
-                    <div class="modal-dialog<?php if ($settings['open_animation']) { ?> animated<?php echo $infinite;
-            } ?>" role="document" >
-                        <div class="modal-content">
+                        <div class="modal-body">
+        <?php
+        if ($settings['template']) {
+            $modal_content = '[dce-elementor-template id="' . $settings['template'] . '" inlinecss="true"]';
+        } else {
+            $modal_content = __($settings['modal_content'], 'dynamic-content-for-elementor' . '_texts');
+        }
 
-                            <div class="modal-body">
-            <?php
-            if ($settings['template']) {
-                $modal_content = '[dce-elementor-template id="' . $settings['template'] . '" inlinecss="true"]';
-            } else {
-                $modal_content = __($settings['modal_content'], 'dynamic-content-for-elementor' . '_texts');
-            }
-
-            $modal_content = do_shortcode($modal_content);
-            $modal_content = \DynamicContentForElementor\DCE_Tokens::do_tokens($modal_content);
-            echo $modal_content;
-            ?>
-                            </div>
-
-            <?php if ($settings['enable_close_button']) { ?>
-                                <button type="button" class="dce-close dce-modal-close close-<?php echo $settings['close_type']; ?> close-<?php echo $settings['close_align']; ?> close-<?php echo $settings['close_valign']; ?>" data-dismiss="modal" aria-label="Close">
-
-                <?php if ($settings['close_type'] == 'text') { ?><span class="dce-button-text"><?php echo __($settings['close_text'], 'dynamic-content-for-elementor' . '_texts'); ?></span><?php } ?>
-
-                    <?php if ($settings['close_type'] == 'icon') { ?><?php if ($settings['close_icon']) { ?><i class="<?php echo esc_attr($settings['close_icon']); ?>" aria-hidden="true"></i><?php } ?><?php } ?>
-
-                    <?php if ($settings['close_type'] == 'image') { ?><?php if ($settings['close_image']['id']) { ?><img class="close-img" aria-hidden="true" src="<?php echo $settings['close_image']['url']; ?>" /><?php } ?><?php } ?>
-
-                <?php if ($settings['close_type'] == 'x') { ?>
-                                        <span class="dce-quit-ics"></span>
-                <?php } ?>
-
-                                </button>
-            <?php } ?>
+        $modal_content = do_shortcode($modal_content);
+        $modal_content = \DynamicContentForElementor\DCE_Tokens::do_tokens($modal_content);
+        echo $modal_content;
+        ?>
                         </div>
+
+        <?php if ($settings['enable_close_button']) { ?>
+                            <button type="button" class="dce-close dce-modal-close close-<?php echo $settings['close_type']; ?> close-<?php echo $settings['close_align']; ?> close-<?php echo $settings['close_valign']; ?>" data-dismiss="modal" aria-label="Close">
+
+            <?php if ($settings['close_type'] == 'text') { ?><span class="dce-button-text"><?php echo __($settings['close_text'], 'dynamic-content-for-elementor' . '_texts'); ?></span><?php } ?>
+
+                <?php if ($settings['close_type'] == 'icon') { ?><?php if ($settings['close_icon']) { ?><i class="<?php echo esc_attr($settings['close_icon']); ?>" aria-hidden="true"></i><?php } ?><?php } ?>
+
+                <?php if ($settings['close_type'] == 'image') { ?><?php if ($settings['close_image']['id']) { ?><img class="close-img" aria-hidden="true" src="<?php echo $settings['close_image']['url']; ?>" /><?php } ?><?php } ?>
+
+            <?php if ($settings['close_type'] == 'x') { ?>
+                                    <span class="dce-quit-ics"></span>
+            <?php } ?>
+
+                            </button>
+        <?php } ?>
                     </div>
                 </div>
-                                <?php /* if ($settings['open_animation']) { ?></div><?php } */ ?>
             </div>
-                                <?php
-                            } else {
-                                //echo 'NO POPUP';
-                            }
-                        }
+                            <?php /* if ($settings['open_animation']) { ?></div><?php } */ ?>
+        </div>
+            <?php
+        } else {
+            //echo 'NO POPUP';
+        }
+    }
 
-                        protected function checkCookie() {
+    protected function checkCookie() {
 
-                            $settings = $this->get_settings_for_display();
-                            if ($settings['always_visible']) {
-                                //var_dump($settings); die();
-                                return false;
-                            }
+        $settings = $this->get_settings_for_display();
+        if ($settings['always_visible']) {
+            //var_dump($settings); die();
+            return false;
+        }
 
-                            $dce_cookie = false;
-                            if (!empty($_COOKIE) && isset($_COOKIE['dce-popup-' . $this->get_id()])) {
-                                $dce_cookie = true;
-                            }
+        $dce_cookie = false;
+        if (!empty($_COOKIE) && isset($_COOKIE['dce-popup-' . $this->get_id()])) {
+            $dce_cookie = true;
+        }
 
-                            return $dce_cookie;
-                        }
+        return $dce_cookie;
+    }
 
-                    }
-                    
+}

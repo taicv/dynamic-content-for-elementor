@@ -201,3 +201,19 @@
 .elementor-panel .elementor-element:hover .icon i[class*="icon-dyn"]:after {
     color: #e52600;
  }
+.elementor-control-title abbr{
+    text-decoration: none;
+}
+.elementor-control-title abbr:after{
+    content: '?';
+    display: inline-block;
+    color: #fff;
+    font-size: 10px;
+    background-color: #C3C3C3;
+    border-radius: 50%;
+    padding: 2px 4px;
+    width: 13px;
+    height: 13px;
+    text-align: center;
+    margin: 0 4px;
+}

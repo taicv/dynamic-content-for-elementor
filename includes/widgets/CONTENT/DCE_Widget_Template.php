@@ -30,7 +30,7 @@ class DCE_Widget_Template extends DCE_Widget_Prototype {
     }
 
     public function get_icon() {
-        return 'icon-dyn-template';
+        return 'icon-dyn-layout';
     }
     public function get_description() {
         return __('Include every element of your site in a template without having to redo it');

@@ -40,11 +40,11 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
     }
 
     public function get_description() {
-        return __('Add a customized field', 'dynamic-content-for-elementor');
+        return __('Display any User field', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {
-        return 'https://www.dynamic.ooo';
+        return 'https://www.dynamic.ooo/widget/user-fields/';
     }
 
     public function get_icon() {
@@ -89,6 +89,8 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 ]
         );
         
+        
+
         $this->add_control(
                 'dce_user_user_id',
                 [
@@ -127,13 +129,36 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                     'default'           => 'display_name',
                 ]
         );
-        
         $this->add_control(
-                'dce_user_array', [
-            'label' => __('Multiple usermeta', 'dynamic-content-for-elementor'),
-            'type' => Controls_Manager::SWITCHER,
-            'description' => __("Enable if user has many usermeta with same meta_key.", 'dynamic-content-for-elementor'),
+            'user_text_before', [
+                'label' => __('Text after', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'default' => '',
+                'separator' => 'before'
+            ]
+        );
+        $this->add_responsive_control(
+            'user_text_before_block', [
+                'label' => __('After - List or Block', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_off' => __('List', 'dynamic-content-for-elementor'),
+                'label_on' => __('Block', 'dynamic-content-for-elementor'),
+                'return_value' => 'block',
+                'selectors' => [
+                    '{{WRAPPER}} .dce-meta-value span.tx-before' => 'display: {{VALUE}};',
+                ],
+                'condition' => [
+                    'acf_text_after!' => '',
                 ]
+            ]
+        );
+        $this->add_control(
+            'dce_user_array', [
+                'label' => __('Multiple usermeta', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'description' => __("Enable if user has many usermeta with same meta_key.", 'dynamic-content-for-elementor'),
+                'separator' => 'before'
+            ]
         );
         $this->add_control(
                 'dce_user_array_filter', [
@@ -605,7 +630,7 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 'label' => __('Link', 'elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
-                    '' => [
+                    'none' => [
                         'title' => __('None', 'dynamic-content-for-elementor'),
                         'icon' => 'fa fa-times',
                     ],
@@ -619,7 +644,7 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                     ],
                 ],
                 'toggle' => false,
-                'default' => '',
+                'default' => 'none',
                 'condition' => [
                     'dce_user_type' => 'text',
                 ],
@@ -1116,8 +1141,7 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 'label' => __('Text Color', 'elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    // Stronger selector to avoid section style from overwriting
-                    '{{WRAPPER}} .elementor-widget-container > *, {{WRAPPER}} .elementor-widget-container a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .dce-meta-value, {{WRAPPER}} .dce-meta-value a' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -1126,11 +1150,10 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 'label' => __('Text Color', 'elementor'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
-                    // Stronger selector to avoid section style from overwriting
-                    '{{WRAPPER}} .elementor-widget-container a:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .dce-meta-value a:hover' => 'color: {{VALUE}};',
                 ],
                 'condition' => [
-                    'dce_user_link!' => ''
+                    'dce_user_link!' => 'none'
                 ]
             ]
         );
@@ -1138,20 +1161,49 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'dce_user_typography',
-            'selector' => '{{WRAPPER}}, {{WRAPPER}} .elementor-widget-container >*',
+            'selector' => '{{WRAPPER}} .dce-meta-value',
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Text_Shadow::get_type(), [
             'name' => 'dce_user_text_shadow',
-            'selector' => '{{WRAPPER}}, {{WRAPPER}} .elementor-widget-container >*',
+            'selector' => '{{WRAPPER}} .dce-meta-value',
                 ]
         );
 
         $this->end_controls_section();
-
-
+        
+        // TEXT BEFORE
+        $this->start_controls_section(
+                'section_style_textbefore',
+                [
+                    'label' => __('Text Before', 'elementor'),
+                    'tab' => Controls_Manager::TAB_STYLE,
+                    'condition' => [
+                        'user_text_before!' => '',
+                    ]
+                ]
+        );
+        $this->add_control(
+            'tx_before_color', [
+                'label' => __('Color', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .dce-meta-value span.tx-before' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .dce-meta-value a span.tx-before' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Typography::get_type(), [
+                'name' => 'typography_tx_before',
+                'label' => __('Typography', 'dynamic-content-for-elementor'),
+                'selector' => '{{WRAPPER}} .dce-meta-value span.tx-before',
+                
+            ]
+        );
+        $this->end_controls_section();
 
         // IMAGE
         $this->start_controls_section(
@@ -1744,6 +1796,10 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 break;
             case 'author':
                 global $authordata;
+                if (!$authordata) {
+                    $post = get_post();
+                    $authordata = get_user_by('ID', $post->post_author);
+                }
                 //var_dump($authordata->ID);
                 $user_id = $authordata->ID; //get_the_author_meta('ID'); $author_id;
                 break;
@@ -1762,50 +1818,48 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
 
         $meta_key = $settings['dce_user_key'];
         $meta_name = DCE_Helper::get_post_meta_name($meta_key);
-        //var_dump(DCE_Helper::is_user_meta($meta_key));
+        
         $meta_values = array();
-        if (DCE_Helper::is_user_meta($meta_key)) {
+        if ($meta_key == 'avatar') {
+            $args = null;
+            if (!empty($settings['dce_user_image_gravatar'])) {
+                $args['default'] = $settings['dce_user_image_gravatar'];
+            }
+            if (!empty($settings['dce_user_image_size_size'])) {
+                if ($settings['dce_user_image_size_size'] == 'custom') {
+                    if (!empty($settings['dce_user_image_size_custom_dimension'])) {
+                        $args['size'] = (int)$settings['dce_user_image_size_custom_dimension']['width'];
+                    }
+                } else {
+                    $image_sizes = DCE_Helper::get_image_sizes();
+                    if (!empty($image_sizes[$settings['dce_user_image_size_size']])) {
+                        $args['size'] = (int)$image_sizes[$settings['dce_user_image_size_size']]['width'];
+                    }
+                }
+            }
+            $meta_values[] = get_avatar_url($user_id, $args);
+
+            if ($settings['dce_user_image_gravatar'] == '404') {
+                $img_content = wp_remote_get(reset($meta_values));
+                if ( is_array( $img_content ) ) {
+                    //var_dump($img_content);
+                    if (wp_remote_retrieve_response_code($img_content) == 404) {
+                        $meta_values = array(''); // to use a fallback if enabled
+                    }
+                }
+            }
+            //var_dump($meta_values);
+        } else if (DCE_Helper::is_user_meta($meta_key)) {
             $meta_values = get_user_meta($user_id, $meta_key);
         } else {
-            if ($meta_key == 'avatar') {
-                $args = null;
-                if (!empty($settings['dce_user_image_gravatar'])) {
-                    $args['default'] = $settings['dce_user_image_gravatar'];
-                }
-                if (!empty($settings['dce_user_image_size_size'])) {
-                    if ($settings['dce_user_image_size_size'] == 'custom') {
-                        if (!empty($settings['dce_user_image_size_custom_dimension'])) {
-                            $args['size'] = (int)$settings['dce_user_image_size_custom_dimension']['width'];
-                        }
-                    } else {
-                        $image_sizes = DCE_Helper::get_image_sizes();
-                        if (!empty($image_sizes[$settings['dce_user_image_size_size']])) {
-                            $args['size'] = (int)$image_sizes[$settings['dce_user_image_size_size']]['width'];
-                        }
-                    }
-                }
-                $meta_values[] = get_avatar_url($user_id, $args);
-                
-                if ($settings['dce_user_image_gravatar'] == '404') {
-                    $img_content = wp_remote_get(reset($meta_values));
-                    if ( is_array( $img_content ) ) {
-                        //var_dump($img_content);
-                        if (wp_remote_retrieve_response_code($img_content) == 404) {
-                            $meta_values = array(''); // to use a fallback if enabled
-                        }
-                    }
-                }
-                //var_dump($meta_values);
-            } else {
-                $user = get_user_by('ID', $user_id);
-                $userdata = (array)\WP_User::get_data_by('ID', $user_id);
-                //var_dump($userdata); return;
-                //var_dump($meta_key);
-                if (isset($userdata[$meta_key])) {
-                    $meta_values[] = $userdata[$meta_key];
-                }
-                //var_dump($meta_values);
+            $user = get_user_by('ID', $user_id);
+            $userdata = (array)\WP_User::get_data_by('ID', $user_id);
+            //var_dump($userdata); return;
+            //var_dump($meta_key);
+            if (isset($userdata[$meta_key])) {
+                $meta_values[] = $userdata[$meta_key];
             }
+            //var_dump($meta_values);
         }
         //var_dump($meta_key);
         /* if (count($meta_value) == 1) {
@@ -2231,7 +2285,7 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                             $meta_html = $meta_html . $settings['dce_user_text_ellipsis'];
                         }
                         
-                        if ($settings['dce_user_link']) {
+                        if ($settings['dce_user_link'] != 'none') {
                             if ($settings['dce_user_link'] == 'user') {
                                 $user_link = get_author_posts_url($user_id);
                                 $this->add_render_attribute( 'user_link', 'href', $user_link );
@@ -2268,6 +2322,9 @@ class DCE_Widget_User extends DCE_Widget_Prototype {
                 }
 
                 echo '<div class="dce-meta-value '.$settings['array_css_classes'].'">';
+                if($settings['user_text_before']){
+                    echo '<span class="tx-before">'.__($settings['user_text_before'], 'dynamic-content-for-elementor'.'_texts').'</span>';
+                }
                 if ($settings['dce_user_tag']) {
                     echo '<' . $settings['dce_user_tag'] . ' class="dce-meta-wrapper">';
                 }

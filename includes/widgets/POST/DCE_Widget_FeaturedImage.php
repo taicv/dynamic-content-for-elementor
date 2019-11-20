@@ -44,6 +44,9 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
     public function get_icon() {
         return 'icon-dyn-image';
     }
+    public function get_dce_style_depends() {
+        return ['dce-featuredImage'];
+    }
     
     static public function get_position() {
         return 3;
@@ -153,47 +156,6 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         );
         $this->end_controls_section();
 
-
-        $this->start_controls_section(
-            'section_placeholder', [
-                'label' => __('Placeholder', 'dynamic-content-for-elementor'),
-            ]
-        );
-        $this->add_control(
-            'use_placeholter', [
-                'label' => __('Use placeholder Image', 'dynamic-content-for-elementor'),
-                'description' => 'Use another image if the featured one does not exist.',
-                'type' => Controls_Manager::CHOOSE,
-                'toggle' => false,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', 'dynamic-content-for-elementor'),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', 'dynamic-content-for-elementor'),
-                        'icon' => 'fa fa-ban',
-                    ]
-                ],
-                //'prefix_class' => 'usebg-',
-                'default' => '0'
-            ]
-
-        );
-        $this->add_control(
-          'custom_placeholder_image',
-          [
-             'label' => __( 'Placeholder Image', 'dynamic-content-for-elementor' ),
-             'type' => Controls_Manager::MEDIA,
-             'default' => [
-                'url' => DCE_Helper::get_placeholder_image_src(),
-             ],
-             'condition' => [
-                    'use_placeholter' => '1',
-                ],
-          ]
-        );
-        $this->end_controls_section();
 
         /* -------------------- Background ------------------ */
         $post_type_object = get_post_type_object(get_post_type());
@@ -351,13 +313,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
             ]
         );
         
-        $this->start_controls_tabs( '_tabs_overlay' );
-        $this->start_controls_tab(
-                '_tab_overlay_normal',
-                [
-                        'label' => __( 'Normal', 'elementor' ),
-                ]
-        );
+        
             $this->add_group_control(
                 Group_Control_Background::get_type(),
                 [
@@ -373,69 +329,20 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
                     'range' => [
                         'px' => [
                             'max' => 1,
-                            'min' => 0.10,
+                            'min' => 0,
                             'step' => 0.01,
                         ],
                     ],
                     'selectors' => [
                         '{{WRAPPER}} .dce-overlay' => 'opacity: {{SIZE}};',
                     ],
+                    'condition' => [
+                        'background_overlay_background' => [ 'classic', 'gradient' ],
+                    ]
                 ]
+                
             );
-        $this->end_controls_tab();
-        $this->start_controls_tab(
-                '_tab_overlay_hover',
-                [
-                        'label' => __( 'Hover', 'elementor' ),
-                        'condition' => [
-                            'link_to' => 'none'
-                        ]
-                ]
-        );
-            $this->add_group_control(
-                Group_Control_Background::get_type(),
-                [
-                    'name' => 'background_overlay_hover',
-                    'types' => [ 'classic', 'gradient' ],
-                    'selector' => '{{WRAPPER}} .dce-overlay:hover',
-                ]
-            );
-            $this->add_control(
-                'opacity_overlay_hover', [
-                    'label' => __('Opacity', 'dynamic-content-for-elementor'),
-                    'type' => Controls_Manager::SLIDER,
-                    'range' => [
-                        'px' => [
-                            'max' => 1,
-                            'min' => 0.10,
-                            'step' => 0.01,
-                        ],
-                    ],
-                    'selectors' => [
-                        '{{WRAPPER}} .dce-overlay:hover' => 'opacity: {{SIZE}};',
-                    ],
-                ]
-            );
-        $this->add_control(
-                'overlay_hover_transition',
-                [
-                        'label' => __( 'Transition Duration', 'elementor' ),
-                        'type' => Controls_Manager::SLIDER,
-                        'range' => [
-                                'px' => [
-                                        'max' => 3,
-                                        'step' => 0.1,
-                                ],
-                        ],
-                        'render_type' => 'ui',
-                        'separator' => 'before',
-                        'selectors' => [
-                                '{{WRAPPER}} > .dce-overlay' => 'transition: all {{overlay_hover_transition.SIZE}}s',
-                        ],
-                ]
-        );
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
+        
         
         
         
@@ -493,6 +400,9 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
                 'label' => __( 'Change background color of overlay', 'dynamic-content-for-elementor' ),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'before',
+                'condition' => [
+                        'background_overlay_background' => [ 'classic', 'gradient' ],
+                    ]
             ]
         );
         $this->add_group_control(
@@ -504,10 +414,32 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
                 'types' => [ 'classic', 'gradient' ],
                 'selector' => '{{WRAPPER}} a:hover .dce-overlay',
                 'condition' => [
+                    'background_overlay_background' => [ 'classic', 'gradient' ],
                     'link_to!' => 'none',
                 ]
             ]
         );
+        $this->add_control(
+                'opacity_overlay_on_hover', [
+                    'label' => __('Overlay Opacity', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::SLIDER,
+                    'range' => [
+                        'px' => [
+                            'max' => 1,
+                            'min' => 0,
+                            'step' => 0.01,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} a:hover .dce-overlay' => 'opacity: {{SIZE}};',
+                    ],
+                    'condition' => [
+                        'background_overlay_background' => [ 'classic', 'gradient' ],
+                        'link_to!' => 'none',
+                    ]
+                ]
+                
+            );
         /*$this->add_control(
             'overlay_hover_color', [
                 'label' => __('Hover Overlay Color', 'dynamic-content-for-elementor'),
@@ -609,7 +541,46 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $this->end_controls_section();
 
 
-        
+        $this->start_controls_section(
+            'section_placeholder', [
+                'label' => __('Placeholder', 'dynamic-content-for-elementor'),
+            ]
+        );
+        $this->add_control(
+            'use_placeholter', [
+                'label' => __('Use placeholder Image', 'dynamic-content-for-elementor'),
+                'description' => 'Use another image if the featured one does not exist.',
+                'type' => Controls_Manager::CHOOSE,
+                'toggle' => false,
+                'options' => [
+                    '1' => [
+                        'title' => __('Yes', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-check',
+                    ],
+                    '0' => [
+                        'title' => __('No', 'dynamic-content-for-elementor'),
+                        'icon' => 'fa fa-ban',
+                    ]
+                ],
+                //'prefix_class' => 'usebg-',
+                'default' => '0'
+            ]
+
+        );
+        $this->add_control(
+          'custom_placeholder_image',
+          [
+             'label' => __( 'Placeholder Image', 'dynamic-content-for-elementor' ),
+             'type' => Controls_Manager::MEDIA,
+             'default' => [
+                'url' => DCE_Helper::get_placeholder_image_src(),
+             ],
+             'condition' => [
+                    'use_placeholter' => '1',
+                ],
+          ]
+        );
+        $this->end_controls_section();
 
 
 
@@ -914,6 +885,7 @@ class DCE_Widget_FeaturedImage extends DCE_Widget_Prototype {
         $settings = $this->get_settings_for_display();
         if ( empty( $settings ) )
             return;
+
         //
         // ------------------------------------------
         $dce_data = DCE_Helper::dce_dynamic_data($settings['other_post_source'],$settings['other_post_parent']);

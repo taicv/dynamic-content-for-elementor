@@ -55,6 +55,12 @@ if (!empty($_GET['dest'])) {
     $dest = 'I';
 }
 
+if (!empty($_GET['styles'])) {
+    $styles = $_GET['styles'];
+} else {
+    $styles = 'elementor';
+}
+
 if (!empty($_GET['converter'])) {
     $converter = $_GET['converter'];
 } else {
@@ -103,33 +109,55 @@ if ($template_id || $post_id) {
     $pdf_html = DCE_Helper::get_dynamic_value($pdf_html);
     //var_dump($pdf_html); die();
 
-    // add CSS
-    $css_id = $template_id ? $template_id : $post_id;
-    $css = DCE_Helper::get_post_css($css_id);
-    // from flex to table
-    $css .= '.elementor-section .elementor-container { display: table !important; width: 100% !important; }';
-    $css .= '.elementor-row { display: table-row !important; }';
-    $css .= '.elementor-column { display: table-cell !important; }';
-    $css .= '.elementor-column-wrap, .elementor-widget-wrap { display: block !important; }';
-    $css = str_replace(':not(.elementor-motion-effects-element-type-background) > .elementor-element-populated', ':not(.elementor-motion-effects-element-type-background)', $css);
-    $css .= '.elementor-column .elementor-widget-image .elementor-image img { max-width: none !important; }';
-    $pdf_html_precss = $pdf_html;
-    if ($pdf_html_precss) {
-        $cssToInlineStyles = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
-        $pdf_html = $cssToInlineStyles->convert(
-            $pdf_html,
-            $css
-        );
-    } 
-    //var_dump($pdf_html); die();
-    if (!$pdf_html) {
-	$pdf_html = $pdf_html_precss;
+    if ($styles != 'unstyled') {
+        // add CSS
+        $css_id = $template_id ? $template_id : $post_id;
+        $css = DCE_Helper::get_post_css($css_id, ($styles == 'all'));
+        // from flex to table
+        $css .= '.elementor-section .elementor-container { display: table !important; width: 100% !important; }';
+        $css .= '.elementor-row { display: table-row !important; }';
+        $css .= '.elementor-column { display: table-cell !important; }';
+        $css .= '.elementor-column-wrap, .elementor-widget-wrap { display: block !important; }';
+        $css = str_replace(':not(.elementor-motion-effects-element-type-background) > .elementor-element-populated', ':not(.elementor-motion-effects-element-type-background)', $css);
+        $css .= '.elementor-column .elementor-widget-image .elementor-image img { max-width: none !important; }';
+        $pdf_html_precss = $pdf_html;
+        if ($pdf_html_precss) {
+            $cssToInlineStyles = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
+            $pdf_html = $cssToInlineStyles->convert(
+                $pdf_html,
+                $css
+            );
+        } 
+        //var_dump($pdf_html); die();
+        if (!$pdf_html) {
+            $pdf_html = $pdf_html_precss;
+        }
     }
     
     if (!$template_id && $pdf_html) {
         //var_dump($container); die();
 
-        /*
+
+        $crawler = new \Symfony\Component\DomCrawler\Crawler($pdf_html);
+        //$crawler = $crawler->filter($settings['tag_id']);
+        // Remove download PDF BUTTON
+        $crawler->filter('.elementor-widget-dce_pdf_button')->each(function (\Symfony\Component\DomCrawler\Crawler $crawler) {
+            foreach ($crawler as $node) {
+                $node->parentNode->removeChild($node);
+            }
+        });
+        $pdf_html = $crawler->html();
+        //var_dump($pdf_html); die();
+        
+        /*$crawler = new \Symfony\Component\DomCrawler\Crawler($pdf_html);
+        // Fetch only wanted block
+        $tmp = $crawler->filter($container)->each(function (\Symfony\Component\DomCrawler\Crawler $node, $i) {
+            return $node->html();
+        });
+        //var_dump($tmp); die();
+        $pdf_html = implode('', $tmp);*/
+        
+        
 	$dom = new \PHPHtmlParser\Dom;
 	$dom->load($pdf_html);
 	$dom_elements = $dom->find($container);
@@ -144,22 +172,8 @@ if ($template_id || $post_id) {
             }
         }
         $pdf_html = $tmp;
-        */
-	
-
-        $crawler = new \Symfony\Component\DomCrawler\Crawler($pdf_html);
-        //$crawler = $crawler->filter($settings['tag_id']);
-        // Remove download PDF BUTTON
-        $crawler->filter('.elementor-widget-dce_pdf_button')->each(function (\Symfony\Component\DomCrawler\Crawler $crawler) {
-            foreach ($crawler as $node) {
-                $node->parentNode->removeChild($node);
-            }
-        });
-        // Fetch only wanted block
-        $tmp = $crawler->filter($container)->each(function (\Symfony\Component\DomCrawler\Crawler $node, $i) {
-            return $node->html();
-        });
-        $pdf_html = implode('', $tmp);
+        
+        
     }
 
     if (!$pdf_html) {
@@ -270,7 +284,14 @@ if ($template_id || $post_id) {
             break;
         
         case 'browser':
-            echo '<html><head><title>'.$title.'</title></head><body>'.$pdf_html.'<script>window.print();</script></body></html>';
+            echo '<html><head><title>'.$title.'</title></head><body>'.$pdf_html.'
+            <script>// Printer Settings Default off
+                //user_pref("print.print_footerleft", "");
+                //user_pref("print.print_footerright", "");
+                //user_pref("print.print_headerleft", "");
+                //user_pref("print.print_headerright", "");
+                window.print();
+            </script></body></html>';
             break;
     }
     die();

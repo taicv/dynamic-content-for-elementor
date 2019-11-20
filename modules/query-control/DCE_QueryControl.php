@@ -57,6 +57,20 @@ class DCE_QueryControl extends Module {
 		];
 	}
         
+        protected function get_options( $data ) {
+		$results = [];
+                $fields = \DynamicContentForElementor\DCE_Helper::get_options($data['q']);
+                if (!empty($fields)) {
+                    foreach ( $fields as $field_key => $field_name ) {
+                        $results[] = [
+                            'id' 	=> $field_key,
+                            'text' 	=> $field_name,
+                        ];
+                    }
+                }
+		return $results;
+	}
+        
 	protected function get_fields( $data ) {
 		$results = [];
                 if ($data['object_type'] == 'any') {

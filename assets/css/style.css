@@ -1,6 +1,23 @@
 /**************************/
 /* Css of Dynamic Content */
 /*************************/
+/* ---------- FORMS ---------- */
+
+button[disabled], html input[disabled] {
+    cursor: default;
+    opacity: 0.4;
+}
+
+
+.dce-form-step-bnt-prev, .dce-form-step-bnt-next{
+  width: 50%;
+}
+/* ---------- Enchanted Form  ---------- */
+
+
+
+
+
 
 
 /* ---------- Visibility ---------- */
@@ -74,6 +91,14 @@
 
 
 /* ---------- Helpers ------------ */ 
+.dce-block {
+    display: block;
+    width: 100%;
+}
+.dce-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
 .in_linea{
   display: inline-block !important;
 }
@@ -93,7 +118,10 @@
 .visible, .visible *{
   display: block !important;
 }
-
+.dce-flexbox{
+  display: flex;
+  align-items: center;
+}
 /* --------------------------------------- */
 
 body:not(.elementor-editor-active) .disattivo{
@@ -216,22 +244,28 @@ body.dce-inertiaScroll {
   bottom: 0;
 }*/
 /*Content-scroll*/
-.dce-inertiaScroll #wrap {  
+/*.dce-inertiaScroll #wrapper-sito {  
   backface-visibility: hidden;
   transform-style: preserve-3d;
+  transform: translate3d(0,0,0);
+  will-change: transform;
+}*/
+.inertia-scroll{
+  z-index: 1000000000;
 }
-
-
+/*.elementor-2 .elementor-section-wrap{
+ display: flex;
+}*/
 .dce-scrolling .scroll-direction-horizontal.elementor-2760 section.elementor-element{
   
 }
 
 
-.trace{
+.trace-test{
   position: fixed;
   top: 80px;
   left: 80px;
-  z-index: 1000;
+  z-index: 10000000000000000;
   background-color: #FFF;
   border: 1px solid #ccc;
 }
@@ -2671,7 +2705,24 @@ html.swup-enabled.is-animating #footer {
 .dce-acf-repeater-masonry .dce-acf-repeater-item{
   float: left;
 }
+/**************** WEB-GL ******************/
+.dce-container-bgcanvas{
+    position: relative;
+    height: 500px;
+}
 
+.dce-container-bgcanvas .scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dce-container-bgcanvas .scene canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 /**************** ELEMENTOR PRO FORM bugfix ******************/
 .elementor-widget-form .elementor-field-type-acceptance .elementor-field-subgroup .elementor-field-option input, 
 .elementor-widget-form .elementor-field-type-acceptance .elementor-field-subgroup .elementor-field-option label, 
@@ -2682,3 +2733,29 @@ html.swup-enabled.is-animating #footer {
 	display: inline-block;
 }
 
+.elementor-field-group .elementor-select-wrapper::after {
+    content: "\e92a";
+    font-family: eicons;
+    font-size: 15px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 10px;
+    pointer-events: none;
+}
+
+.elementor-field-input-wrapper { 
+    position: relative; 
+    display: block; 
+    flex-basis: 100%; 
+    max-width: 100%; 
+}
+.elementor-field-group .dce-toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+}

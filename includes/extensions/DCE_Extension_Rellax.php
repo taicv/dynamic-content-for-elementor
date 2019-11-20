@@ -32,10 +32,14 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
     );
 
     public static function get_description() {
-        return __('Rellax rules for Widgets and Rows');
+        return __('Rellax Parallax rules for Widgets and Rows', 'dynamic-content-for-elementor');
     }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/rellax-parallax/';
+    }    
 
-    public function get_script_depends() {
+    public function get_script_depends() {        
         return ['dce-rellaxjs-lib','dce-rellax'];
     }
 
@@ -173,6 +177,8 @@ class DCE_Extension_Rellax extends DCE_Extension_Prototype {
         //return var_export($widget, true);
         //echo $widget['ID'];
         if (isset($settings['enabled_rellax']) && $settings['enabled_rellax'] == 'yes') {
+            
+            $this->_enqueue_alles();
 
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 

@@ -64,30 +64,34 @@ class DCE_TemplateSystem {
     }
 
     public function init() {
-
-        $this->options = get_option(DCE_OPTIONS);
-
-        // Setup
-        add_action('init', array($this, 'dce_setup'));
+        
         add_action('elementor/init', array($this, 'dce_elementor_init'));
 
-        if (!is_admin()) {
-            add_filter('the_content', array($this, 'dce_filter_the_content_in_the_main_loop'), 999999);
-        }
-
-        // usa il gancio all'interno di DCE > template > archive.php
-        add_action('dce_before_content_inner', array($this, 'dce_add_template_before_content'));
-        add_action('dce_after_content_inner', array($this, 'dce_add_template_after_content'));
-        // manage template fulwidth
-        $this->dce_template_init();
-
-        if (!is_admin()) { // necessary, if remove it will work also in admin result
-            // per fare che la pagina dell'autore usi il loop su tutti i tipi non solo i post..
-            add_action('pre_get_posts', array($this, 'enfold_customization_author_archives'));
-        }
+        $this->options = get_option(DCE_OPTIONS);
+        $dce_template_disable = get_option('dce_template_disable');
         
-        DCE_Metabox::initTemplateSystem();
+        if (!$dce_template_disable) {
+            
+            // Setup
+            add_action('init', array($this, 'dce_setup'));            
+            
+            if (!is_admin()) {
+                add_filter('the_content', array($this, 'dce_filter_the_content_in_the_main_loop'), 999999);
+            }
 
+            // usa il gancio all'interno di DCE > template > archive.php
+            add_action('dce_before_content_inner', array($this, 'dce_add_template_before_content'));
+            add_action('dce_after_content_inner', array($this, 'dce_add_template_after_content'));
+            // manage template fulwidth
+            $this->dce_template_init();
+
+            if (!is_admin()) { // necessary, if remove it will work also in admin result
+                // per fare che la pagina dell'autore usi il loop su tutti i tipi non solo i post..
+                add_action('pre_get_posts', array($this, 'enfold_customization_author_archives'));
+            }
+
+            DCE_Metabox::initTemplateSystem();
+        }
     }
 
     /**
@@ -219,6 +223,7 @@ class DCE_TemplateSystem {
                 'id' => '',
                 'post_id' => '',
                 'author_id' => '',
+                'user_id' => '',
                 'inlinecss' => false,
             ),
             $atts,
@@ -235,6 +240,12 @@ class DCE_TemplateSystem {
                 $original_author = $authordata;
                 $authordata = get_user_by('ID', $atts['author_id']);
             }
+            if (!empty($atts['user_id'])) {
+                global $user;
+                global $current_user;
+                $original_user = $current_user;
+                $user = $current_user = get_user_by('ID', $atts['user_id']);
+            }
             //echo '..................... Inline CSS ...................';
             //var_dump($atts['inlinecss']);
             $inlinecss = ($atts['inlinecss'] == 'true');
@@ -247,6 +258,10 @@ class DCE_TemplateSystem {
             }
             if (!empty($atts['author_id'])) {
                 $authordata = $original_author;
+            }
+            if (!empty($atts['user_id'])) {
+                $user = $original_user;
+                $current_user = $original_user;
             }
             return $pagina_temlate;
         }
@@ -279,9 +294,9 @@ class DCE_TemplateSystem {
     }
 
     public function enfold_customization_author_archives($query) {
-        if ($query->is_author) {
+        if ($query->is_author && $query->post_type == 'post') {
             $query->set('post_type', 'any');
-            $query->set('posts_per_page', 200);
+            $query->set('posts_per_page', -1); //200);
         }
         remove_action('pre_get_posts', 'enfold_customization_author_archives');
     }
@@ -504,8 +519,10 @@ class DCE_TemplateSystem {
                     $aTaxName = $aTaxo->taxonomy;
                     if (isset($this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) 
                         && $this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) {
-                        $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
-                        break;
+                        if (!get_page_template_slug()) {
+                            $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                            break;
+                        }
                     }
                 }
             }
@@ -515,7 +532,9 @@ class DCE_TemplateSystem {
             foreach ($typesRegistered as $chiave) {
                 if (isset($post->post_type) && $post->post_type == $chiave && $chiave != 'product') {
                     if (isset($this->options['dyncontel_field_single' . $chiave . '_blank']) && $this->options['dyncontel_field_single' . $chiave . '_blank']) {
-                        $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                        if (!get_page_template_slug()) {
+                            $my_template = ELEMENTOR_PATH . 'modules/page-templates/templates/header-footer.php';
+                        }
                     }
                 }
             }
@@ -556,9 +575,9 @@ class DCE_TemplateSystem {
             // In caso di SINGLE Wooc
             if (is_product()) {
                 if (isset($this->options['dyncontel_field_singleproduct_blank']) && $this->options['dyncontel_field_singleproduct_blank']) {
-
-                    $my_template = DCE_PATH . '/template/woocommerce.php';
-
+                    if (!get_page_template_slug()) {
+                        $my_template = DCE_PATH . '/template/woocommerce.php';
+                    }
                     //$my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
                     //wc_get_template( 'single-product.php' );
                     //$my_template = '';
@@ -574,10 +593,11 @@ class DCE_TemplateSystem {
                     isset($this->options['dyncontel_field_archiveproduct']) && $this->options['dyncontel_field_archiveproduct'] &&
                     isset($this->options['dyncontel_field_archiveproduct_blank']) && $this->options['dyncontel_field_archiveproduct_blank']
                 ) {
-                    if (!is_404()) {
-                        $my_template = DCE_PATH . '/template/archive.php';
+                    if (!get_page_template_slug()) {
+                        if (!is_404()) {
+                            $my_template = DCE_PATH . '/template/archive.php';
+                        }
                     }
-
                     //$my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
                     //$my_template = '';
                 }
@@ -592,7 +612,9 @@ class DCE_TemplateSystem {
         //var_dump($single_template); die();
         if (is_attachment()) {
             if (isset($this->options['dyncontel_field_singleattachment_blank']) && $this->options['dyncontel_field_singleattachment_blank']) {
-                $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                if (!get_page_template_slug()) {
+                    $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                }
             }
         }
         // -------------------------------------------------------- SEARCH
@@ -623,7 +645,9 @@ class DCE_TemplateSystem {
             // La home page
             if (is_page()) {
                 if (isset($this->options['dyncontel_field_singlepage_blank']) && $this->options['dyncontel_field_singlepage_blank']) {
-                    $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                    if (!get_page_template_slug()) {
+                        $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
+                    }
                 }
             }
         }

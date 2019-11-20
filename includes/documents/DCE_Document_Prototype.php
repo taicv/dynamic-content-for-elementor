@@ -137,11 +137,20 @@ class DCE_Document_Prototype {
 	 * @since 0.5.8
 	 * @access public
 	 */
-	final public function enqueue_scripts() {
-		foreach ( $this->get_script_depends() as $script ) {
-			wp_enqueue_script( $script );
-		}
-	}
+        final public function enqueue_scripts() {    
+            if (\DynamicContentForElementor\DCE_Helper::is_edit_mode()) {
+                $this->_enqueue_scripts();
+            }
+        }
+        
+        public function _enqueue_scripts() {    
+            $scripts = $this->get_script_depends();
+            if (!empty($scripts)) {                
+                foreach ($scripts as $script) {
+                    wp_enqueue_script($script);
+                }
+            }
+        }
 
 	/**
 	 * Retrieve style dependencies.
@@ -176,11 +185,26 @@ class DCE_Document_Prototype {
 	 * @since 0.5.8
 	 * @access public
 	 */
-	final public function enqueue_styles() {
-		foreach ( $this->get_style_depends() as $style ) {
-			wp_enqueue_style( $style );
-		}
-	}
+        final public function enqueue_styles() {    
+            if (\DynamicContentForElementor\DCE_Helper::is_edit_mode()) {
+                $this->_enqueue_styles();
+            }
+        }
+        
+        public function _enqueue_styles() {    
+            $styles = $this->get_style_depends();
+            if (!empty($styles)) {
+                foreach ($styles as $style) {
+                    wp_enqueue_style( $style );
+                }
+            }
+        }
+        
+        
+        public function _enqueue_alles() {    
+            $this->_enqueue_styles();
+            $this->_enqueue_scripts();
+        }
 
 	/**
 	 * Add Actions

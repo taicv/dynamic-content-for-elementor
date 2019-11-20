@@ -1,25 +1,8 @@
 ;( function( $ ) {
     var WidgetElementsPopupHandler = function( $scope, $ ) {
 
-
-        var get_dce_ElementSettings = function( $element ) {
-            var elementSettings = {},
-                modelCID = $element.data( 'model-cid' );
-
-            if ( elementorFrontend.isEditMode() && modelCID ) {
-                var settings = elementorFrontend.config.elements.data[ modelCID ],
-                    settingsKeys = elementorFrontend.config.elements.keys[ settings.attributes.widgetType || settings.attributes.elType ];
-
-                $.each( settings.getActiveControls(), function( controlKey ) {
-                    if ( -1 !== settingsKeys.indexOf( controlKey ) ) {
-                        elementSettings[ controlKey ] = settings.attributes[ controlKey ];
-                    }
-                } );
-            } else {
-                elementSettings = $element.data('settings') || {};
-            }
-            return elementSettings;
-        }
+        var dce_popup_settings = get_Dyncontel_ElementSettings( $scope );
+        var id_scope = $scope.attr('data-id');
         //
 
         function dce_getCookie(cname) {
@@ -50,16 +33,18 @@
 
 
         function dce_show_modal(id_modal) {
-            var dce_popup_settings = get_dce_ElementSettings( $scope ); //$('#'+id_modal).closest('.elementor-element').data('settings');
+             //$('#'+id_modal).closest('.elementor-element').data('settings');
 
             //console.log('show modal: '+id_modal);
             var open_delay = 0;
-            if (dce_popup_settings.open_delay) {
-                open_delay = dce_popup_settings.open_delay;
+            if (dce_popup_settings.open_delay.size) {
+                open_delay = dce_popup_settings.open_delay.size;
+
             }
+            //alert(dce_popup_settings.open_delay+' '+open_delay);
             setTimeout(function(){
 
-                push_actions();
+                
 
                 //aggiungo al body la classe aperto
                 if (!elementorFrontend.isEditMode()) {
@@ -77,7 +62,7 @@
         }
 
         function dce_hide_modal(id_modal) {
-            var dce_popup_settings = get_dce_ElementSettings( $scope ); //$('#'+id_modal).closest('.elementor-element').data('settings');
+             //$('#'+id_modal).closest('.elementor-element').data('settings');
             // set cookie
             console.log('set cookie for: '+id_modal);
             if (!dce_popup_settings.always_visible) {
@@ -131,13 +116,11 @@
 
 
 
-        var elementSettings = get_dce_ElementSettings( $scope );
 
 
         //var dce_popup_settings = $(this).closest('.elementor-element').data('settings');
-        var modal = $scope.find('.dce-popup-container');
+        var modal = $scope.find('.dce-popup-container-'+id_scope);
 
-        //alert('... '+elementSettings);
         function push_actions() {
             /*if( typeof elementSettings.enabled_push !== 'undefined' &&  elementSettings.enabled_push){
                 //alert(elementSettings.enabled_push);
@@ -156,7 +139,7 @@
             }
 
         }
-
+        push_actions();
 
 
 
@@ -165,7 +148,7 @@
 
         // ON LOAD
         $('.dce-popup-onload').each(function(){
-            var dce_popup_settings = get_dce_ElementSettings( $scope ); //$(this).closest('.elementor-element').data('settings');
+             //$(this).closest('.elementor-element').data('settings');
             var id_modal = $(this).find('.dce-modal').attr('id');
             //console.log('trigger onload for: '+id_modal);
             // read cookie
@@ -181,10 +164,9 @@
         });
 
         // BUTTON
-        $(document).on('click', '.dce-button-open-modal, .dce-button-next-modal', function() {
+        $scope.on('click', '.dce-button-open-modal, .dce-button-next-modal', function() {
             var id_modal = $(this).data('target')
             //console.log('trigger click btn for: '+id_modal);
-            //alert(id_modal);
             dce_show_modal(id_modal);
         });
 
@@ -192,7 +174,7 @@
         // WIDGET
         $('.dce-popup-widget').each(function(){
             var id_modal = $(this).find('.dce-modal').attr('id');
-            var dce_popup_settings = get_dce_ElementSettings( $scope ); //$(this).closest('.elementor-element').data('settings');
+             //$(this).closest('.elementor-element').data('settings');
             var cookie_popup = dce_getCookie(id_modal);
 
             if (dce_popup_settings.always_visible) {
@@ -222,7 +204,7 @@
         if ($('.dce-popup-scroll').length) {
             $(window).on('scroll', function(){
                 $('.dce-popup-scroll').each(function(){
-                    var dce_popup_settings = get_dce_ElementSettings( $scope ); //$(this).closest('.elementor-element').data('settings');
+                     //$(this).closest('.elementor-element').data('settings');
                     if ($(window).scrollTop() > dce_popup_settings.scroll_display_displacement) {
                         $(this).removeClass('dce-popup-scroll');
                         var id_modal = $(this).find('.dce-modal').attr('id');

@@ -1,10 +1,251 @@
 ;
 ( function( $ ) {
-	
+	//--------------------------
+	var smoothScroll = null; 
+	const math = {
+		lerp: (a, b, n) => {
+			return (1 - n) * a + n * b;
+		},
+		norm: (value, min, max) => {
+		  	return (value - min) / (max - min);
+		}
+	}
+
+	const config = {
+	  height: window.innerHeight,
+	  width: window.innerWidth
+	}
+
+	class Smooth {
+	  constructor() {
+	    this.bindMethods();
+
+	    this.data = {
+	      ease: coefSpeed_inertiaScroll || 0.05,
+	      current: 0,
+	      last: 0
+	    }
+	    /*this.bounds = {
+	      elem: 0,
+	      content: 0,
+	      width: 0,
+	      max: 0,
+	      min: 0
+	    }*/
+	    
+	    this.dom = {
+	      el: main,
+	      content: mainWrap
+	    }
+
+	    this.rAF = null;
+
+	    this.init();
+	  }
+
+	  bindMethods() {
+	    ['scroll', 'run', 'resize']
+	    .forEach((fn) => this[fn] = this[fn].bind(this))
+	  }
+
+	  setStyles() {
+	    Object.assign(this.dom.el.style, {
+	      position: 'fixed',
+	      top: 0,
+	      left: 0,
+	      height: '100%',
+	      width: '100%',
+	      overflow: 'hidden'        
+	    }); 
+	  }
+
+	  setWidth() {
+	  	heightAadminBar = 0;
+		if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
+	          heightAadminBar = 45; //$('.admin-bar').height();
+	    }
+	    var larghezza = window.innerWidth;
+	    var altezza = this.dom.el.offsetHeight+heightAadminBar;
+
+
+	    // Total Length 
+	    var larghezzaTotale = (this.dom.el.offsetHeight)+(larghezza * (sectionsAvailable.length));
+	    
+	    //alert(larghezzaTotale);
+	   
+	    // set height of body
+	    var altezza = larghezzaTotale-this.dom.el.offsetWidth;
+	    sizeTotalScroll = altezza;
+	    document.body.style.height = `${altezza}px`;
+
+	    var l = larghezza * (sectionsAvailable.length);
+	    // the wrapper ...
+	    wrapperSezioni.width(`${l}px`);
+	    // the setion
+	    sectionsAvailable.each(function(i,el){
+	    	//alert(i);
+	    	$(this).width(larghezza);
+	    });
+
+		
+
+	    /*sectionsAvailable.each(function(i,el){
+	    	el.css({
+		      position: 'absolute',
+		      top: 0,
+		      left: larghezza*i,
+		      height: '100%',
+		      width: larghezza+'px',
+		      overflow: 'hidden'        
+	    	});
+	    });*/
+	  }
+
+	  
+	  setHeight() {
+	  	heightAadminBar = 0;
+		if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
+	          heightAadminBar = 45; //$('.admin-bar').height();
+	    }
+	    var altezza = this.dom.content.offsetHeight-heightAadminBar;
+	    sizeTotalScroll = altezza;
+	    document.body.style.height = `${altezza}px`
+	  }
+	  
+
+	  resize() {
+	    if(directionScroll == 'vertical'){
+			this.setHeight();
+	    }else if(directionScroll == 'horizontal'){
+	    	this.setWidth();
+	    }
+	    
+	    this.scroll();
+	  }
+
+	  preload() {
+	    imagesLoaded(this.dom.content, (instance) => {
+	      	if(directionScroll == 'vertical'){
+				this.setHeight();
+		    }else if(directionScroll == 'horizontal'){
+		    	this.setWidth();
+		    }
+	    });
+	  }
+
+	  scroll() {
+	    this.data.current = window.scrollY;
+	  }
+
+	  run() {
+	    this.data.last = math.lerp(this.data.last, this.data.current, this.data.ease);
+	    this.data.last = Math.floor(this.data.last * 100) / 100;
+
+	    if (this.data.last < .1) {
+	      this.data.last = 0;
+	    }
+	    
+	    const skewVal = skew_inertiaScroll;
+	    const scaleVal = bounce_inertiaScroll;
+	    const diff = this.data.current - this.data.last;
+	    const acc = diff / config.width;
+	    const velo =+ acc;
+	    const bounce = 1 - Math.abs(velo * scaleVal)
+	    const skew = velo * (skewVal); //16; //7.5
+	    
+	    //
+	    var percentOfScroll = (this.data.current/sizeTotalScroll)*100;
+		//
+	    if(directionScroll == 'vertical'){
+			var verticalmovement = this.data.last;
+	    	this.dom.content.style.transform = `translate3d(0, -${verticalmovement}px, 0) skewY(${skew}deg) scaleY(${bounce})`;
+	    	/*sectionsAvailable.each(function(){
+	        	$(this).css('transform', 'scale('+scale+')');
+	        });*/
+	    	this.dom.content.style.transformOrigin = `50% ${percentOfScroll}% 0`;
+	    }else if(directionScroll == 'horizontal'){
+	    	var horizontalmovement = this.data.last;
+	    	this.dom.content.style.transform = `translate3d(-${horizontalmovement}px, 0, 0) skewX(${skew}deg) scaleY(${bounce})`;
+	    	/*sectionsAvailable.each(function(){
+	        	$(this).css('transform', 'scale('+scale+')');
+	        });*/
+	    	this.dom.content.style.transformOrigin = `${percentOfScroll}% 50% 0`;
+	    }
+	   
+	    //$('.trace-test').text(percentOfScroll);
+	    
+	    this.requestAnimationFrame();
+	  }
+
+	  on() { 
+	    this.setStyles();
+	    if(directionScroll == 'vertical'){
+			this.setHeight();
+	    }else if(directionScroll == 'horizontal'){
+	    	this.setWidth();
+	    }
+	    this.addEvents();
+
+	    this.requestAnimationFrame();
+	  }
+
+	  off() {
+
+	    this.cancelAnimationFrame();
+
+	    this.removeEvents();
+	  }
+
+	  requestAnimationFrame() {
+	    this.rAF = requestAnimationFrame(this.run);
+	  }
+
+	  cancelAnimationFrame() {
+	    cancelAnimationFrame(this.rAF);
+	  }
+
+	  destroy() {
+	    document.body.style.height = '';
+
+	    this.data = null;
+
+	    this.removeEvents();
+	    this.cancelAnimationFrame();
+	  }
+
+	  resize() {
+	    if(directionScroll == 'vertical'){
+			this.setHeight();
+	    }else if(directionScroll == 'horizontal'){
+	    	this.setWidth();
+	    }
+	  }
+
+	  addEvents() {
+	    window.addEventListener('resize', this.resize, { passive: true });
+	    window.addEventListener('scroll', this.scroll, { passive: true });
+	  }
+
+	  removeEvents() {
+	    window.removeEventListener('resize', this.resize, { passive: true });
+	    window.removeEventListener('scroll', this.scroll, { passive: true });
+	  }
+
+	  init() {
+	    this.preload();
+	    this.on();
+	  }
+	}
+
+
 	// Vars  ----------------------------------------
 	var settings_page = {};
     var sectionsAvailable = [];
     var sezioni = '';
+    var wrapperSezioni = null;
+
+    var heightAadminBar = 0;
+    var sizeTotalScroll = 0;
 
     is_pageScroll = false;
 	// ********* Scrollify
@@ -62,7 +303,9 @@
 	// Versione 2
 	const body = document.body;
 	var main = {};
-	
+	var mainWrap = {};
+	var skew_inertiaScroll = 20;
+	var bounce_inertiaScroll = 0;
 	
 	let sx = 0;
 	let sy = 0;
@@ -95,7 +338,9 @@
     	if(!$target_sections) $target_sections = '';
 
     	sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
-    	
+    	wrapperSezioni = $($target_sections + '.elementor > .elementor-inner > .elementor-section-wrap');
+
+
     	// Class direction
     	$($target_sections).addClass('scroll-direction-'+settings_page.directionScroll);
     	/*if( settings_page.directionScroll == 'vertical' ){
@@ -273,6 +518,7 @@
 
         sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;
         sectionsAvailable = $(sezioni);
+        wrapperSezioni = $($target_sections + '.elementor > .elementor-inner > .elementor-section-wrap');
 
         // Class direction
         $($target_sections).addClass('scroll-direction-' + settings_page.directionScroll);
@@ -283,6 +529,8 @@
 
         if (animationType.length)
             animationType_string = animationType.join(' ');
+
+
         // configure
         var xx = 0;
         if(settings_page.remove_first_scrollEffects) xx = 1;
@@ -370,26 +618,28 @@
         //if(settings_page.enable_scrollify) handleScrollify (settings_page.enable_scrollify);
         is_scrollEffects = true;
 	}
-	var init_InertiaScroll = function($dir) {
-		//alert($dir);
-		main = document.querySelector(settings_page.scroll_viewport) || document.querySelector('#outer-wrap');
 
-		$('body').addClass('dce-inertiaScroll dce-scrolling');
-		//$('body').prepend('<div class="trace"></div>');
+
+	var init_InertiaScroll = function() {
+		//alert(settings_page.scroll_viewport);
 		
+
+
 		if( settings_page.custom_class_section ){
     		$customClass = settings_page.custom_class_section;
     	}else{
     		$customClass = 'elementor-section';
     	}
 
-
-    	// DIRECTIONS
-    	if(typeof(settings_page.directionScroll) !== 'undefined') directionScroll = settings_page.directionScroll || $dir;
-    	if( typeof($dir) !== 'undefined' && ($dir == 'horizontal' || $dir == 'vertical')) directionScroll = $dir;
-
     	// SPEED
     	if(typeof(settings_page.coefSpeed_inertiaScroll.size) !== 'undefined') coefSpeed_inertiaScroll = Number(settings_page.coefSpeed_inertiaScroll.size);
+    	// SKEW
+    	if(typeof(settings_page.skew_inertiaScroll.size) !== 'undefined') skew_inertiaScroll = Number(settings_page.skew_inertiaScroll.size);
+    	// BOUNCE
+    	if(typeof(settings_page.bounce_inertiaScroll.size) !== 'undefined') bounce_inertiaScroll = Number(settings_page.bounce_inertiaScroll.size);
+    	// DIRECTIONS
+    	if(typeof(settings_page.directionScroll) !== 'undefined') directionScroll = settings_page.directionScroll || 'vertical';
+    	
 
     	//$target_sections = settings_page.scroll_target+' ';
     	$target_sections = '.elementor-'+currentPostId; //settings_page.scroll_id_page;
@@ -398,68 +648,38 @@
     	// Get the section widgets of frst level in content-page
 		sezioni = $target_sections + '.elementor > .elementor-inner > .elementor-section-wrap > .' + $customClass;    	
 		sectionsAvailable = $(sezioni);
+		wrapperSezioni = $($target_sections + '.elementor > .elementor-inner > .elementor-section-wrap');
 
+		// qui definisco il wrapper ed il subWrapper
+		
+		if($('.elementor-template-canvas').length){
+			main = document.querySelector($target_sections);
+			mainWrap = document.querySelector($target_sections + '.elementor > .elementor-inner > .elementor-section-wrap');
+		}else{
+			main = document.querySelector(settings_page.scroll_viewport) || document.querySelector('#outer-wrap');
+			mainWrap = document.querySelector(settings_page.scroll_contentScroll) || document.querySelector('#wrap');
+		}
+		// per distribuire le section orizzontalmente
+		if(directionScroll == 'horizontal'){
+	    	wrapperSezioni.css('display','flex');
+	    }
+		
 		// Class direction
 		$($target_sections).addClass('scroll-direction-'+directionScroll);
 
 		// configure
 		sectionsAvailable.addClass('inertia-scroll');
 
-		$scrollContent = settings_page.scroll_contentScroll;
-		//if(settings_page.scroll_target) $scrollContent = settings_page.scroll_target;
+
+		// ---------
 		
-		// ************		
-		
-		heightAadminBar = 0;
-		if ( $('body').is('.admin-bar') && !elementorFrontend.isEditMode()) {
-	          heightAadminBar = 32;
-	    }
-		// ------------------------
-		var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		var cfc = h/w;
-		
-		
-		if( directionScroll == 'vertical' ) {
-			body.style.height = (main.clientHeight-heightAadminBar) + 'px';
-			main.style.width = '100%';
-		}else if( directionScroll == 'horizontal' ){
-	  		var totalWidth = 0;
-		 	var completeWidth = 0;
-		 	var count = 0;
-
-			sectionsAvailable.each(function(i, el){
-			  	//alert($(el).width());
-			  	completeWidth += $(el).width();
-
-			  	if( count > 0 ) totalWidth += $(el).width();
-			  	
-			  	$(el).css({'position':'absolute','width':'100%','height':'100vh','left':(i*100)+'vw'});
-			  	$(el).css({'float':'left','width':(100/sectionsAvailable.length)+'%','height':'100vh'});
-			  	 
-			  	count++;
-			});
-
-			main.style.width = completeWidth;
-			
-			//totalWidth += h;
-			
-		    body.style.height = totalWidth + "px";
-		  }
-
-		main.style.position = 'fixed';
-		
-		main.style.top = 0;
-		main.style.left = 0;
-
-		window.addEventListener("resize", onResize);
-		document.addEventListener("scroll", onScroll); 
-		//requestAnimationFrame(render);
-
-		requestId = window.requestAnimationFrame(render);
 		//
+		if(smoothScroll) smoothScroll.destroy();
+		smoothScroll = new Smooth();
+
 		is_inertiaScroll = true;
 	}
+	
 
 
 
@@ -469,9 +689,7 @@
        		handlescroll_viewport ('yes');
 		}
 	}
-	// UTIL Srollify ----------------------------------------
-
-
+	
 	// UTIL ScrollEffects ----------------------------------------
     function removeScrollEffects() {
         //$('.elementor-'+settings_page.scrollEffects_id_page).removeClass('dce-pageScroll-element');
@@ -510,74 +728,32 @@
     }
     // UTIL Inertia ----------------------------------------
     function removeInertiaScroll(){
+
 		$('body').removeClass('dce-inertiaScroll');
 		if(sectionsAvailable.length) sectionsAvailable.removeClass('inertia-scroll');
 		
-		
-		//TweenMax.kill( scroller.target );
-		/*TweenMax.set(scroller.target, {clearProps:"all"});
-		TweenMax.set(scroller.viewport, {clearProps:"all"});
 		sectionsAvailable.each(function(i, el){
-				  	 TweenMax.set(el, {clearProps:"all"});
-				});
-		scroller = {
-		  endY: 0,
-		  y: 0,
-		  resizeRequest: 1,
-		  scrollRequest: 0,
-		};*/
+			//alert(i);
+		 	$(this).removeAttr('style');
+		});
+		wrapperSezioni.removeAttr('style');
 		
-		sectionsAvailable.each(function(i, el){
-				  	 $(el).removeAttr('style');
-				});
-
-		if (requestId) {
+		/*if (requestId) {
 	       window.cancelAnimationFrame(requestId);
 	       
 	       requestId = undefined;
-	    }
-		window.removeEventListener("resize", onResize);
-		document.removeEventListener("scroll", onScroll);
-
+	    }*/
+		smoothScroll.destroy();
+		//smoothScroll = null;
 		is_inertiaScroll = false;
 		
-		$(main).removeAttr('style').css('transform','translate(0,0)');
+		$(main).removeAttr('style');//.css('transform','translate(0,0)');
+		$(mainWrap).removeAttr('style');//.css('transform','translate(0,0)');
 
-	}
-	// EVENTS - Util InertiaScroll
-	function onScroll() {
-	  // We only update the scroll position variables
-	  sx = window.pageXOffset;
-	  sy = window.pageYOffset;
-	}
-	function onResize() {
-		body.style.height = main.clientHeight + 'px';
-		  if (!requestId) {
-		    requestId = requestAnimationFrame(render);
-		  }
-	}
 
-	function render() {
-
-	  dx = lerp(dx, sx, coefSpeed_inertiaScroll);
-	  dy = lerp(dy, sy, coefSpeed_inertiaScroll);
-	  
-	  dx = Math.floor(dx * 100) / 100;
-	  dy = Math.floor(dy * 100) / 100;
-	  
-	  // Finally we translate our container to its new positions.
-	  // Don't forget to add a minus sign because the container need to move in 
-	  // the opposite direction of the window scroll.
-	  main.style.transform = `translate(-${dx}px, -${dy}px)`;
-	  
-	  // And we loop again.
-	  requestId = window.requestAnimationFrame(render);
+		//console.log(mainWrap);
 	}
-
-	// This is our Linear Interpolation method.
-	function lerp(a, b, n) {
-	  return (1 - n) * a + n * b;
-	}
+	
 
 	// Change CallBack - - - - - - - - - - - - - - - - - - - - - - - - -
 	function handlescroll_viewport ( newValue ) {
@@ -714,24 +890,39 @@
 	// Change CallBack INERTIA-SCROLL - - - - - - - - - - - - - - - - - - - - - - - - -
 	function handleInertiaScroll ( newValue ) {
 
-		//elementor.reloadPreview();
-
+		// elementor.reloadPreview();
+		// alert(direction);
 		if(newValue){
 			// SI
 			if(is_inertiaScroll){
 				removeInertiaScroll();
 			}
-
 			setTimeout(function(){
-				if( settings_page.enable_inertiaScroll ) init_InertiaScroll(newValue);	
+				if( settings_page.enable_inertiaScroll ) init_InertiaScroll();	
 			},100);
 		}else{
 			// NO
 			removeInertiaScroll();
-			
 		}
 	}
+	function handleInertiaScroll_direction ( newValue ) {
 
+		directionScroll = newValue;
+		
+		if(newValue){
+			// SI
+			// alert(is_inertiaScroll);
+			if(is_inertiaScroll){
+				removeInertiaScroll();
+			}
+			setTimeout(function(){
+				if( settings_page.enable_inertiaScroll ) init_InertiaScroll();	
+			},100);
+		}else{
+			// NO
+			removeInertiaScroll();
+		}
+	}
 
 	$( window ).on( 'elementor/frontend/init', function() {
 		
@@ -756,6 +947,7 @@
 
 			var deviceMode = $('body').attr('data-elementor-device-mode');
 
+
             if (is_enable_scrollEffects && is_enable_dceScrolling && $.inArray(deviceMode,responsive_scrollEffects) >= 0) {
                     init_ScrollEffects();
                 }
@@ -764,6 +956,7 @@
 				}
 			
 			if( is_enable_inertiaScroll && is_enable_dceScrolling && $.inArray(deviceMode,responsive_inertiaScroll) >= 0){
+
 					init_InertiaScroll(); 
 			}
 
@@ -798,10 +991,12 @@
 
                 // InertiaScroll
 				elementor.settings.page.addChangeCallback( 'enable_inertiaScroll', handleInertiaScroll );
-				elementor.settings.page.addChangeCallback( 'directionScroll', handleInertiaScroll );
-				//elementor.settings.page.addChangeCallback( 'scroll_target', handleInertiaScroll );
+				elementor.settings.page.addChangeCallback( 'directionScroll', handleInertiaScroll_direction );
+
+				// elementor.settings.page.addChangeCallback( 'scroll_target', handleInertiaScroll );
 				elementor.settings.page.addChangeCallback( 'coefSpeed_inertiaScroll', handleInertiaScroll );
-				
+				elementor.settings.page.addChangeCallback( 'skew_inertiaScroll', handleInertiaScroll );
+				elementor.settings.page.addChangeCallback( 'bounce_inertiaScroll', handleInertiaScroll );
 
 			}
 			

@@ -25,7 +25,7 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
     }
 
     static public function is_enabled() {
-        return false;
+        return true;
     }
 
     public function get_title() {
@@ -33,7 +33,15 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
     }
 
     public function get_icon() {
-        return 'eicon-barcode';
+        return 'icon-dyn-qrcode';
+    }
+    
+    public function get_description() {
+        return __('Quick creation for 1D e 2D barcodes, like EAN e QRCode', 'dynamic-content-for-elementor');
+    }
+
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/qr-and-bars-code/';
     }
 
     /**
@@ -113,7 +121,7 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
                         ],
                     ],
                     'label_block' => true,
-                    'default' => '1d',
+                    'default' => '2d',
                     'toggle' => false,
                 ]
         );
@@ -228,6 +236,66 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
 
         $this->end_controls_section();
         
+        $this->start_controls_section(
+			'section_style_code',
+			[
+				'label' => __( 'Code', 'elementor' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+        $this->add_responsive_control(
+                'align',
+                [
+                    'label' => __('Alignment', 'elementor'),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'left' => [
+                            'title' => __('Left', 'elementor'),
+                            'icon' => 'eicon-text-align-left',
+                        ],
+                        'center' => [
+                            'title' => __('Center', 'elementor'),
+                            'icon' => 'eicon-text-align-center',
+                        ],
+                        'right' => [
+                            'title' => __('Right', 'elementor'),
+                            'icon' => 'eicon-text-align-right',
+                        ],
+                        'justify' => [
+                            'title' => __('Justified', 'elementor'),
+                            'icon' => 'eicon-text-align-justify',
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}}' => 'text-align: {{VALUE}};',
+                    ],
+                ]
+        );
+        $this->add_control(
+                'dce_code_color',
+                [
+                    'label' => __('Color', 'elementor'),
+                    'type' => Controls_Manager::COLOR,
+                    'render_type' => 'template',
+                    'selectors' => [
+                        '{{WRAPPER}} .dce-barcode-svg #elements' => 'fill: {{VALUE}} !important;',
+                        '{{WRAPPER}} .dce-barcode-html > div' => 'background-color: {{VALUE}} !important;',
+                    ],
+                ]
+        );
+       /* $this->add_control(
+                'border_radius',
+                [
+                    'label' => __('Border Radius', 'elementor'),
+                    'type' => Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%'],
+                    'selectors' => [
+                        '{{WRAPPER}} .dce-barcode-png, .dce-barcode-svg, .dce-barcode-html > div' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]
+        );*/
+        $this->end_controls_section();
+        
         
         $this->start_controls_section(
 			'section_style_image',
@@ -301,103 +369,6 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
 				],
 			]
 		);
-
-		$this->add_control(
-			'separator_panel_style',
-			[
-				'type' => Controls_Manager::DIVIDER,
-				'style' => 'thick',
-			]
-		);
-
-		$this->start_controls_tabs( 'image_effects' );
-
-		$this->start_controls_tab( 'normal',
-			[
-				'label' => __( 'Normal', 'elementor' ),
-			]
-		);
-
-		$this->add_control(
-			'opacity',
-			[
-				'label' => __( 'Opacity', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'max' => 1,
-						'min' => 0.10,
-						'step' => 0.01,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .dce-barcode' => 'opacity: {{SIZE}};',
-				],
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab( 'hover',
-			[
-				'label' => __( 'Hover', 'elementor' ),
-			]
-		);
-
-		$this->add_control(
-			'opacity_hover',
-			[
-				'label' => __( 'Opacity', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'max' => 1,
-						'min' => 0.10,
-						'step' => 0.01,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .dce-barcode' => 'opacity: {{SIZE}};',
-				],
-			]
-		);
-        /*
-		$this->add_group_control(
-			Group_Control_Css_Filter::get_type(),
-			[
-				'name' => 'css_filters_hover',
-				'selector' => '{{WRAPPER}} .dce-barcode:hover',
-			]
-		);*/
-
-		$this->add_control(
-			'background_hover_transition',
-			[
-				'label' => __( 'Transition Duration', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'max' => 3,
-						'step' => 0.1,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .dce-barcode' => 'transition-duration: {{SIZE}}s',
-				],
-			]
-		);
-
-		$this->add_control(
-			'hover_animation',
-			[
-				'label' => __( 'Hover Animation', 'elementor' ),
-				'type' => Controls_Manager::HOVER_ANIMATION,
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
@@ -479,21 +450,34 @@ class DCE_Widget_BarCode extends DCE_Widget_Prototype {
                 //var_dump($barcode->{$render}());
                 $cols = (empty($settings['dce_barcode_cols'])) ? null : $settings['dce_barcode_cols'];
                 $rows = (empty($settings['dce_barcode_rows'])) ? null : $settings['dce_barcode_rows'];
+                
+                $color = 'black';
+                if ($settings['dce_code_color']) {
+                    $color = $settings['dce_code_color'];
+                }
+                if ($settings['dce_barcode_render'] == 'PngData') {
+                    if ($settings['dce_code_color']) {
+                        $color = sscanf($settings['dce_code_color'], "#%02x%02x%02x");
+                        //var_dump($color);
+                    } else {
+                        $color = array(0,0,0);
+                    }
+                }
                 if ($cols) {
                     if ($cols && $rows) {
-                        $result = $barcode->{$render}($cols,$rows);
+                        $result = $barcode->{$render}($cols, $rows, $color);
                     } else {
-                        $result = $barcode->{$render}($cols);
+                        $result = $barcode->{$render}($cols, 10, $color);
                     }
                 }  else {
-                    $result = $barcode->{$render}();
+                    $result = $barcode->{$render}(10, 10, $color);
                 }
                 if ($settings['dce_barcode_render'] == 'PngData') {
                     $result = '<img class="dce-barcode dce-barcode-png" src="data:image/png;base64,'.base64_encode($result).'">';
                 }
                 if ($settings['dce_barcode_render'] == 'SVGcode') {
-                    //$result = str_replace('<svg ', '<svg class="dce-barcode dce-barcode-svg" ', $result);
-                    $result = '<div class="dce-barcode dce-barcode-svg" '.substr($result, 5);
+                    $result = str_replace('<svg ', '<svg class="dce-barcode dce-barcode-svg" ', $result);
+                    //$result = '<div class="dce-barcode dce-barcode-svg" '.substr($result, 5);
                 }
                 if ($settings['dce_barcode_render'] == 'HTML') {
                     $result = '<div class="dce-barcode dce-barcode-html" '.substr($result, 5);

@@ -127,33 +127,51 @@ class DCE_Extensions {
         if (DCE_Helper::is_plugin_active('elementor-pro')) {
             add_action( 'elementor_pro/init', function() {
                 $excluded_extensions = DCE_Extensions::get_excluded_extensions();
-                
+                $DCE_Extension_Form_Message = $DCE_Extension_Form_Email = false;
                 $form_extensions = DCE_Extensions::get_form_extensions();
                 foreach($form_extensions as $akey => $a_form_ext) {
                     $exc_ext = !isset($excluded_extensions[$a_form_ext]);
                     //var_dump($token_ext);
-                    $a_form_ext_class = DCE_Extensions::$namespace.$a_form_ext;
+                    $a_form_ext_class = DCE_Extensions::$namespace.$a_form_ext;                    
                     if ($exc_ext) {
                         // Instantiate the action class
                         $extensions[$akey] = new $a_form_ext_class();
                         
-                        if ($a_form_ext == 'DCE_Extension_Form_Visibility') {
+                        if (!$extensions[$akey]->has_action) {
+                            continue;
+                        }                        
+                        if ($a_form_ext == 'DCE_Extension_Form_Email') {
+                            $DCE_Extension_Form_Email = true;
+                            continue;
+                        }
+                        if ($a_form_ext == 'DCE_Extension_Form_Message') {
+                            $DCE_Extension_Form_Message = true;
                             continue;
                         }
                         // Register the action with form widget
                         \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $extensions[$akey]->get_name(), $extensions[$akey] );
-                    
-                        // Add specific Template Type
-                        if ($a_form_ext == 'DCE_Extension_Form_Email') {
-                            // Add Email Template Type
-                            include_once( DCE_PATH .'modules/theme-builder/documents/DCE_Email.php' );
-                            $dce_email = '\ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email';
-                            \Elementor\Plugin::instance()->documents->register_document_type( $dce_email::get_name_static(), \ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::get_class_full_name() );
-                            \Elementor\TemplateLibrary\Source_Local::add_template_type( \ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::get_name_static() );
-                            add_filter( 'elementor_pro/editor/localize_settings', '\ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::dce_add_more_types' );
-                        }
                     }
                 }
+                
+                if ($DCE_Extension_Form_Email) {
+                    $akey = 'dce_extension_form_email';
+                    if (isset($extensions[$akey])) {
+                        \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $extensions[$akey]->get_name(), $extensions[$akey] );
+                        $extensions[$akey]::add_dce_email_template_type(); // Add specific Template Type
+                    }
+                }
+                if ($DCE_Extension_Form_Message) {
+                    $akey = 'dce_extension_form_message';
+                    if (isset($extensions[$akey])) {
+                        \ElementorPro\Plugin::instance()->modules_manager->get_modules( 'forms' )->add_form_action( $extensions[$akey]->get_name(), $extensions[$akey] );
+                    }
+                }
+                /*
+                $form_module = \ElementorPro\Modules\Forms\Module::instance();
+                $actions = $form_module->get_form_actions();
+                //var_dump($actions); die();
+                */
+                
             });
         }
         

@@ -837,7 +837,7 @@ class DCE_Widget_ReadMore extends DCE_Widget_Prototype {
             $html .= sprintf('<%1$s id="dce-readmore-'.$this->get_id().'" class="dce-btn-readmore%2$s%3$s%4$s">%5$s</%s>', $html_tag, $animation_class, $effect_class, $icon_class, $title);
         }
         $scriptLetters = '';
-        if( $settings['style_effect'] == 'nina' || $settings['style_effect'] == 'nanuk'){
+        if( $settings['style_effect'] == 'button--nina' || $settings['style_effect'] == 'button--nanuk'){
             $scriptLetters = '<script>jQuery(".button--nina > span, .button--nanuk > span").each(function(){
                         jQuery(this).html(jQuery(this).text().replace(/([^\x00-\x80]|\w)/g, "<span>$&</span>"));
                     });</script>';

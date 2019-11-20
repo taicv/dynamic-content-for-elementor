@@ -15,17 +15,12 @@ class DCE_Assets {
     public static $styles = array(
         'dce-style' => '/assets/css/style.css',
         'dce-style-base' => '/assets/css/base.css',
-        'dce-photoSwipe_default'=>'/assets/lib/photoSwipe/photoswipe.min.css',
-        'dce-photoSwipe_skin'=>'/assets/lib/photoSwipe/default-skin/default-skin.min.css',
-        
         'dce-acf' => '/assets/css/elements-acf.css',
         'dce-acfSlider' => '/assets/css/elements-acfSlider.css',
         'dce-acfGallery' => '/assets/css/elements-acfGallery.css',
         'dce-acfRepeater' => '/assets/css/elements-acfRepeater.css',
-
         'dce-pods' => '/assets/css/elements-pods.css',
         'dce-pods-gallery' => '/assets/css/dce-pods-gallery.css',
-
         //'dce-acfGooglemap'=>'/assets/css/elements-googleMap.css',
         'dce-dynamicPosts' => '/assets/css/elements-dynamicPosts.css',
         'dce-dynamicPosts_slick' => '/assets/css/elements-dynamicPosts_slick.css',
@@ -46,23 +41,24 @@ class DCE_Assets {
         'dce-threesixtySlider' => '/assets/css/elements-threesixtySlider.css',
         'dce-twentytwenty' => '/assets/css/elements-twentytwenty.css',
         'dce-bubbles' => '/assets/css/elements-bubbles.css',
-        'dce-justifiedGallery' => '/assets/lib/justifiedGallery/css/justifiedGallery.css',
         'dce-parallax' => '/assets/css/elements-parallax.css',
         'dce-filebrowser' => '/assets/css/elements-filebrowser.css',
         'dce-animatetext' => '/assets/css/elements-animateText.css',
         'dce-dualView' => '/assets/css/elements-dualView.css',
         'dce-modal' => '/assets/css/dce-modal.css',
         'dce-woocommerce' => '/assets/css/dce-woocommerce.css',
-
-        'dce-file-icon'=>'/assets/css/file-icon-vivid.min.css',
-
+    );
+    public static $vendorsCss = array(
+        'dce-photoSwipe_default' => '/assets/lib/photoSwipe/photoswipe.min.css',
+        'dce-photoSwipe_skin' => '/assets/lib/photoSwipe/default-skin/default-skin.min.css',
+        'dce-justifiedGallery' => '/assets/lib/justifiedGallery/css/justifiedGallery.min.css',
+        'dce-file-icon' => '/assets/lib/file-icon/file-icon-vivid.min.css',
         'animatecss' => '/assets/lib/animate/animate.min.css',
-        
         'datatables' => '/assets/lib/datatables/datatables.min.css',
     );
-    public static $minifyCss = 'assets/css/dce-all.min.css';
+    public static $minifyCss = 'assets/css/dce-frontend.min.css';
 
-    public static $vendors = array(
+    public static $vendorsJs = array(
         'datatables' => '/assets/lib/datatables/datatables.min.js',
         // -----------------------------------------------------------
         // Widgets Libs
@@ -94,10 +90,31 @@ class DCE_Assets {
         'dce-aframe' => '/assets/lib/aframe/aframe-v0.8.2.min.js',
         'dce-revealFx' => '/assets/lib/reveal/revealFx.js',
 
+        // ---------------- WEB-GL
+        'dce-threejs-lib' => 'https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js', //'/assets/lib/threejs/three.min.js',
+        'dce-threejs-EffectComposer' =>  '/assets/lib/threejs/postprocessing/EffectComposer.js',
+        'dce-threejs-RenderPass' =>  '/assets/lib/threejs/postprocessing/RenderPass.js',
+        'dce-threejs-ShaderPass' =>  '/assets/lib/threejs/postprocessing/ShaderPass.js',
+        'dce-threejs-BloomPass' =>  '/assets/lib/threejs/postprocessing/BloomPass.js',
+        'dce-threejs-FilmPass' =>  '/assets/lib/threejs/postprocessing/FilmPass.js',
+        'dce-threejs-HalftonePass' =>  '/assets/lib/threejs/postprocessing/HalftonePass.js',
+        'dce-threejs-DotScreenPass' =>  '/assets/lib/threejs/postprocessing/DotScreenPass.js',
+        'dce-threejs-GlitchPass' =>  '/assets/lib/threejs/postprocessing/GlitchPass.js',
 
-        //'threejs' => '/assets/lib/threejs/three.min.js',
+        'dce-threejs-CopyShader' =>  '/assets/lib/threejs/shaders/CopyShader.js',
+        'dce-threejs-HalftoneShader' =>  '/assets/lib/threejs/shaders/HalftoneShader.js',
+        'dce-threejs-RGBShiftShader' =>  '/assets/lib/threejs/shaders/RGBShiftShader.js',
+        'dce-threejs-DotScreenShader' =>  '/assets/lib/threejs/shaders/DotScreenShader.js',
+        'dce-threejs-ConvolutionShader' =>  '/assets/lib/threejs/shaders/ConvolutionShader.js',
+        'dce-threejs-FilmShader' =>  '/assets/lib/threejs/shaders/FilmShader.js',
+        'dce-threejs-DotScreenShader' =>  '/assets/lib/threejs/shaders/DotScreenShader.js',
+        'dce-threejs-ColorifyShader' =>  '/assets/lib/threejs/shaders/ColorifyShader.js',
+        'dce-threejs-VignetteShader' =>  '/assets/lib/threejs/shaders/VignetteShader.js',
+        'dce-threejs-DigitalGlitch' =>  '/assets/lib/threejs/shaders/DigitalGlitch.js',
+
         //'data-gui' => '/assets/lib/threejs/libs/dat.gui.min.js',
         //'displacement-distortion' => '/assets/lib/threejs/displacement_distortion.js',
+
 
         //'dce-charming-lib' => '/assets/lib/charming/charming.min.js',
         //'dce-pagepiling-lib' => '/assets/lib/pagepiling/jquery.pagepiling.min.js',
@@ -111,32 +128,30 @@ class DCE_Assets {
         'dce-timelineMax-lib' => '/assets/lib/greensock/TimelineMax.min.js',
 
         'dce-morphSVG-lib' => '/assets/lib/greensock/plugins/MorphSVGPlugin.min.js',
+        'dce-splitText-lib' => '/assets/lib/greensock/utils/SplitText.min.js',
+        'dce-textPlugin-lib' => '/assets/lib/greensock/plugins/TextPlugin.min.js',
         'dce-svgdraw-lib' => '/assets/lib/greensock/plugins/DrawSVGPlugin.min.js',
         //'dce-attr-lib' => 'https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/plugins/AttrPlugin.min.js',
 
         // -----------------------------------------------------------
         // Extension Advanced
-        'dce-rellaxjs-lib' => '/assets/lib/rellax/rellax.min.js',
-        'dce-rellax' => '/assets/js/elements-rellax.js',
-
-
+        'dce-rellaxjs-lib' => '/assets/lib/rellax/rellax.min.js',        
         // -----------------------------------------------------------
         // Document
         
         'scrollify' => '/assets/lib/scrollify/jquery.scrollify.js',
         'inertiaScroll' => '/assets/lib/inertiaScroll/jquery-inertiaScroll.js',
-        'dce-lax-lib' => '/assets/lib/lax/lax.min.js',
-        'dce-scrolling' => '/assets/js/elements-documentScrolling.js',
+        'dce-lax-lib' => '/assets/lib/lax/lax.min.js',        
         //'dce-swup' => '/assets/js/global-swup.js',
 
 
         // -----------------------------------------------------------
         // Global Settings
+        // TESTS for Smooth Transition of pages .... NOT WORK!!!!!!
         //'dce-animsition-lib' => '/assets/lib/animsition/js/animsition.min.js',
         // 'dce-animsition' => '/assets/js/global-animsition.js',
 
         //'ajaxify' => '/assets/lib/ajaxify/ajaxify.min.js',
-
 
         // 'dce-barbajs-lib' => '/assets/lib/barbajs/barba.min.js',
         // 'dce-barbajs' => '/assets/js/global-barbajs.js',
@@ -152,8 +167,13 @@ class DCE_Assets {
 
     );
     public static $scripts = array(
+        
+        'dce-main' => 'assets/js/main.js',
+        'dce-ajaxmodal' => 'assets/js/ajaxmodal.js',
         'dce-settings' => '/assets/js/dce-settings.js',
-        //'dce-animatetext' => '/assets/js/elements-animateText.js',
+        'dce-animatetext' => '/assets/js/elements-animateText.js',
+
+        'dce-bgcanvas' => '/assets/js/dce-bgcanvas.js',
 
         'dce-reveal' => '/assets/js/elements-reveal.js',
 
@@ -180,6 +200,7 @@ class DCE_Assets {
         'dce-nextPrev' => '/assets/js/dce-nextprev.js',
         //'dce-youtube' => '/assets/js/dce-youtube.js',
 
+        'dce-rellax' => '/assets/js/elements-rellax.js',
 
         //'dce-dualView' => '/assets/js/elements-dualView.js',
 
@@ -188,12 +209,14 @@ class DCE_Assets {
         'dce-svgfe' => '/assets/js/dce-svgfe.js',
         'dce-svgblob' => '/assets/js/dce-svgblob.js',
         // 'dce-distortion' => '/assets/js/elements-distortion.js',
+        
+        'dce-scrolling' => '/assets/js/elements-documentScrolling.js',
 
         //'dce-poster-slider' => '/assets/js/poster-slider.js',
         //'dce-fullpage' => '/assets/js/elements-fullpage.js',
         //'dce-pagepiling' => '/assets/js/elements-pagepiling.js',
     );
-    public static $minifyJs = 'assets/js/dce-all.min.js';
+    public static $minifyJs = 'assets/js/dce-frontend.min.js';
 
     public function __construct() {
         $this->init();
@@ -216,8 +239,6 @@ class DCE_Assets {
                 $theme_version = OCEANWP_THEME_VERSION;
                 wp_enqueue_script('oceanwp-main', $dir . 'main.min.js', array('jquery'), $theme_version, true);
             }
-            wp_enqueue_script('dce-main', DCE_URL . 'assets/js/main.js', array('jquery'), DCE_VERSION, true);
-            wp_enqueue_script('dce-ajaxmodal', DCE_URL . 'assets/js/ajaxmodal.js', array('jquery'), DCE_VERSION, true);
         });
 
         //
@@ -256,7 +277,7 @@ class DCE_Assets {
     }
 
     static public function dce_frontend_enqueue_style() {
-
+        // @FISH
         if (file_exists(DCE_PATH . self::$minifyCss) && !WP_DEBUG) {
             //echo 'css minimizzato'; die();
             wp_enqueue_style('dce-all-css');
@@ -274,6 +295,7 @@ class DCE_Assets {
         //
         //wp_enqueue_style('dce-file-icon');
         //wp_enqueue_style('dce-pageanimations');
+        /*
         if ( DCE_Helper::is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
             wp_enqueue_style('woocommerce-layout');
             wp_enqueue_style('woocommerce-smallscreen');
@@ -281,6 +303,7 @@ class DCE_Assets {
             wp_enqueue_style('woocommerce_prettyPhoto_css');
             //wp_enqueue_script('oceanwp-woocommerce');
         }
+        */
     }
 
     public function regenerate_style($cache = false) {
@@ -350,47 +373,65 @@ class DCE_Assets {
 
     public function dce_frontend_register_style() {
 
-        if (WP_DEBUG) {
-            foreach (self::$styles as $key => $value) {
-                wp_register_style($key, plugins_url($value, DCE__FILE__));
+        foreach (self::$styles as $key => $value) {
+            if (!WP_DEBUG) {
+                $value = str_replace('assets/css/', 'assets/css/min/', $value);
+                $pieces = explode('.', $value);
+                $ext = array_pop($pieces);
+                if ($ext == 'css') {
+                    $value = implode('.', $pieces) . '.min.css';
+                }
             }
-        } else {
+            wp_register_style($key, plugins_url($value, DCE__FILE__));
+        }   
+        
+        if (!WP_DEBUG) {
             if (!file_exists(DCE_PATH . self::$minifyCss)) {
                 $this->regenerate_style();
             }
             wp_register_style('dce-all-css', DCE_URL . self::$minifyCss);
         }
-        // @Marco, perchè?
-        /*
-        wp_register_style('dce-photoSwipe_default', plugins_url('/assets/lib/photoSwipe/photoswipe.min.css', DCE__FILE__));
-        wp_register_style('dce-photoSwipe_skin', plugins_url('/assets/lib/photoSwipe/default-skin/default-skin.min.css', DCE__FILE__));
-        wp_register_style('dce-file-icon', plugins_url('/assets/css/file-icon-vivid.min.css', DCE__FILE__));
-        */
+        
+        foreach (self::$vendorsCss as $key => $value) {
+            /*if (substr($value, 0, 4) != 'http') {
+                $value = plugins_url($value, DCE__FILE__);
+            }*/
+            wp_register_style($key, plugins_url($value, DCE__FILE__));
+        }
+        
     }
 
     public function dce_frontend_register_script() {
         $dce_apis = self::get_dce_apis();
-        if (WP_DEBUG) {
-            foreach (self::$scripts as $key => $value) {
-                // setting configurated api key
-                if (!empty($dce_apis)) {
-                    foreach ($dce_apis as $api_key => $api_value) {
-                        $value = str_replace($api_key, $api_value, $value);
-                    }
+        foreach (self::$scripts as $key => $value) {
+            // setting configurated api key
+            if (!empty($dce_apis)) {
+                foreach ($dce_apis as $api_key => $api_value) {
+                    $value = str_replace($api_key, $api_value, $value);
                 }
-                if (substr($value, 0, 4) != 'http') {
-                    $value = plugins_url($value, DCE__FILE__);
-                }
-                wp_register_script($key, $value);
             }
-        } else {
+            if (!WP_DEBUG) {
+                $value = str_replace('assets/js/', 'assets/js/min/', $value);
+                $pieces = explode('.', $value);
+                $ext = array_pop($pieces);
+                if ($ext == 'js') {
+                    $value = implode('.', $pieces) . '.min.js';
+                }
+            }
+            if (substr($value, 0, 4) != 'http') {
+                $value = plugins_url($value, DCE__FILE__);
+            }
+            wp_register_script($key, $value);
+        }
+        
+        if (!WP_DEBUG) {
             if (!file_exists(DCE_PATH . self::$minifyJs)) {
                 $this->regenerate_script();
             }
             wp_register_script('dce-all-js', DCE_URL . self::$minifyJs);
         }
 
-        foreach (self::$vendors as $key => $value) {
+        foreach (self::$vendorsJs as $key => $value) {
             // setting configurated api key
             if (!empty($dce_apis)) {
                 foreach ($dce_apis as $api_key => $api_value) {
@@ -578,16 +619,10 @@ class DCE_Assets {
         );
         wp_enqueue_script('dce-script-editor');
 
-        //$active_extension = DCE_Extensions::get_active_extensions();
-        $excluded_extensions = json_decode(get_option(SL_PRODUCT_ID . '_excluded_extensions', '[]'), true);
-        //var_dump($excluded_extensions); die();
-        if (!isset($excluded_extensions['DCE_Extension_Visibility'])) {
-            wp_register_script(
-                    'dce-script-editor-visibility', plugins_url('/assets/js/dce-editor-visibility.js', DCE__FILE__), [], DCE_VERSION
-            );
-            wp_enqueue_script('dce-script-editor-visibility');
-        }
-
+        wp_register_script(
+                'dce-script-editor-activate', plugins_url('/assets/js/dce-editor-activate.js', DCE__FILE__), [], DCE_VERSION
+        );
+        wp_enqueue_script('dce-script-editor-activate');
         //
         $this->dce_wc_enqueue_scripts();
     }

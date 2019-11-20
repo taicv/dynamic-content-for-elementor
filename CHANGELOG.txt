@@ -1,6 +1,40 @@
+19/11/2019
+1.7.1
+ - New: Dynamic Tag Token Wizard mode
+ - New: Extension Enchanted Editor
+ - New: Extension Steps for Elementor Pro Form
+ - Add: ACF Repeater Widget add tab [link] ACF Repeater Url
+ - Add: Views Widget filter by meta array subfield
+ - Add: support for MU Plugins
+ - Add: Template System can be disabled
+ - Add: Document Horizontal Inertia
+ - Optimization: minifyed Css and more lightweight
+ - Optimization: Widget FeaturedImage
+ - Optimization: Widget TitlePost
+ - Fix: DynamicPosts Query of filters by masonry grig render
+ - Fix: DymamicPosts Include/Exclude Terms
+ - Fix: Minor fixes
+
+27/10/2019
+1.7.0
+ - New: Animated Text
+ - New: Extension Enchanted for Elementor Pro Form
+ - New: Widget Button PDF
+ - New: Widget Barcode & QrCode
+ - New: Widget Add to Calendar
+ - New: Token variable System
+ - Add: Dynamic Posts Include/Exclude for Terms
+ - Add: Dynamic Posts Date Filter (Past, Future, Today, Yesterday from post date or meta value)
+ - Add: Multiple conditions to Conditional Fields for Elementor PRO Form
+ - Add: AutoLogin and update User for Save Data for Elementor PRO Form
+ - Add: Add to Favorites Button: Hide Button for NON Logged Users and Cookie counter
+ - Fix: Acf Justyfier gallery
+ - Fix: Modals delay enter animation
+ - Fix: Minor fixes
+
 12/10/2019
 1.6.0.1
- - Minor fixes
+ - Fix: Minor fixes
  - Out of Beta
 
 06/10/2019
@@ -25,9 +59,9 @@
  - New: Control Ajax Select2 in Elementor Settings
  - New: Document Navigation Snap Scroll style
  - Add: Views Widget now also list User and Term objects
- - Add: Term variable in Tokens
- - Add: Wp_Query variable in Tokens
- - Add: Author variable in Tokens
+ - Add: Token variable Term
+ - Add: Token variable Wp_Query
+ - Add: Token varable Author
  - Add: Group By option in Views Widget
  - Add: Ignore Posts option in Views Widget
  - Add: Post selection for Visibility Extension
@@ -42,7 +76,7 @@
 
 20/07/2019
 1.5.3
- - New: Tokens type Date ([date], [date|Y m d], [date:+1 mounth|d-m-Y]
+ - New: Token varable Date ([date], [date|Y m d], [date:+1 mounth|d-m-Y]
  - New: PODS Gallery Widget
  - Add: Pagination options on Views Widget
  - Add: Period trigger on Visibility extension

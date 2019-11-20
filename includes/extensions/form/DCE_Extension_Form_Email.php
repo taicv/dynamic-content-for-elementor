@@ -49,6 +49,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
         public $name = 'Form Email';
         public static $depended_plugins = ['elementor-pro'];
         public static $docs = 'https://www.dynamic.ooo';
+        public $has_action = true;
 
         static public function is_enabled() {
             return _dce_extension_form_email('enabled');
@@ -124,7 +125,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             $repeater_fields->add_control(
                     'dce_form_email_condition_field', [
                 'label' => __('Condition', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::TEXT,
+                'type' => Controls_Manager::SELECT,
                 'description' => __('Write here the ID of the form field to check, or leave empty to always send this email', 'dynamic-content-for-elementor'),
                     ]
             );
@@ -386,6 +387,14 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 'description' => __('Send all Email you need', 'dynamic-content-for-elementor'),
                     ]
             );
+            
+            $widget->add_control(
+                    'dce_form_email_help', [
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'separator' => 'before',
+                    ]
+            );
 
             $widget->end_controls_section();
         }
@@ -489,19 +498,14 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             }
                         }
 
-                        $email_reply_to = '';
+                        $headers = sprintf('From: %s <%s>' . "\r\n", $email_fields['dce_form_email_from_name'], $email_fields['dce_form_email_from']);
+                        
                         if (!empty($email_fields['dce_form_email_reply_to'])) {
-                            $sent_data = $record->get('sent_data');
-                            foreach ($record->get('fields') as $field_index => $field) {
-                                if ($field_index === $email_fields['dce_form_email_reply_to'] && !empty($sent_data[$field_index]) && is_email($sent_data[$field_index])) {
-                                    $email_reply_to = $sent_data[$field_index];
-                                    break;
-                                }
+                            if (filter_var($email_fields['dce_form_email_reply_to'], FILTER_VALIDATE_EMAIL)) { // control if is a valid email
+                                $headers .= sprintf('Reply-To: %s' . "\r\n", $email_fields['dce_form_email_reply_to']);
                             }
                         }
-
-                        $headers = sprintf('From: %s <%s>' . "\r\n", $email_fields['dce_form_email_from_name'], $email_fields['dce_form_email_from']);
-                        $headers .= sprintf('Reply-To: %s' . "\r\n", $email_reply_to);
+                        
 
                         if ($send_html) {
                             $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
@@ -670,7 +674,18 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             }
             return $formatted;
         }
+        
+        public static function add_dce_email_template_type() {
+            // Add Email Template Type
+            include_once( DCE_PATH .'modules/theme-builder/documents/DCE_Email.php' );
+            $dce_email = '\ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email';
+            \Elementor\Plugin::instance()->documents->register_document_type( $dce_email::get_name_static(), \ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::get_class_full_name() );
+            \Elementor\TemplateLibrary\Source_Local::add_template_type( \ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::get_name_static() );
+            add_filter( 'elementor_pro/editor/localize_settings', '\ElementorPro\Modules\ThemeBuilder\Documents\DCE_Email::dce_add_more_types' );
+        }
 
     }
+    
+    
 
 }

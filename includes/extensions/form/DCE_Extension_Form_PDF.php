@@ -48,6 +48,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
 
         public $name = 'Form PDF';
         public static $depended_plugins = ['elementor-pro'];
+        public $has_action = true;
 
         static public function is_enabled() {
             return _dce_extension_form_pdf('enabled');
@@ -222,11 +223,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             
             $widget->add_control(
                     'dce_form_pdf_help', [
-                    'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
-                    'separator' => 'before',
-                        ]
-                );
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'separator' => 'before',
+                    ]
+            );
 
             $widget->end_controls_section();
         }
@@ -278,7 +279,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             $pdf_name = $settings['dce_form_pdf_name'] . '.pdf';            
             $dce_form['pdf']['path'] = $pdf_dir . $pdf_name;
             $dce_form['pdf']['url'] = $pdf_url . $pdf_name;
-            
+            //var_dump($dce_form); die();
             $pdf_html = do_shortcode('[dce-elementor-template id="' . $settings['dce_form_pdf_template'] . '"]');
             $pdf_html = DCE_Helper::get_dynamic_value($pdf_html, $fields);
             
@@ -333,6 +334,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             $dompdf = new \Dompdf\Dompdf($options);
             $dompdf->setHttpContext($context);
             $dompdf->loadHtml($pdf_html);
+            //echo $pdf_html; die();
             $dompdf->set_option('isRemoteEnabled', TRUE);
             $dompdf->set_option('isHtml5ParserEnabled', true);
             // (Optional) Setup the paper size and orientation
@@ -343,7 +345,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             //$dompdf->stream();
             $output = $dompdf->output();
             if (!file_put_contents($pdf_dir . $pdf_name, $output)) {
-                $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SERVER_ERROR, $settings));
+                $ajax_handler->add_error_message(__('Error generating PDF', 'dynamic-content-for-elementor'));
             }
             
             if ($settings['dce_form_pdf_save']) {
@@ -395,7 +397,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         }
                     }
                 } else {
-                    $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SERVER_ERROR, $settings));
+                    $ajax_handler->add_error_message(__('Error saving PDF as Media', 'dynamic-content-for-elementor'));
                 }
             }
         }

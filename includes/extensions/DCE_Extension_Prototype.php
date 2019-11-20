@@ -117,10 +117,19 @@ class DCE_Extension_Prototype {
     public function get_script_depends() {
         return $this->depended_scripts;
     }
+    
+    final public function enqueue_scripts() {    
+        if (\DynamicContentForElementor\DCE_Helper::is_edit_mode()) {
+            $this->_enqueue_scripts();
+        }
+    }
 
-    final public function enqueue_scripts() {
-        foreach ($this->get_script_depends() as $script) {
-            wp_enqueue_script($script);
+    public function _enqueue_scripts() {    
+        $scripts = $this->get_script_depends();
+        if (!empty($scripts)) {                
+            foreach ($scripts as $script) {
+                wp_enqueue_script($script);
+            }
         }
     }
 
@@ -132,17 +141,36 @@ class DCE_Extension_Prototype {
         return '';
     }
 
-    final public function enqueue_styles() {
-        foreach ($this->get_style_depends() as $style) {
-            wp_enqueue_style($style);
+    final public function enqueue_styles() {    
+        if (\DynamicContentForElementor\DCE_Helper::is_edit_mode()) {
+            $this->_enqueue_styles();
         }
+    }
+
+    public function _enqueue_styles() {    
+        $styles = $this->get_style_depends();
+        if (!empty($styles)) {
+            foreach ($styles as $style) {
+                wp_enqueue_style( $style );
+            }
+        }
+    }
+
+
+    public function _enqueue_alles() {    
+        $this->_enqueue_styles();
+        $this->_enqueue_scripts();
     }
 
     public final function add_common_sections($element, $args) {
         $low_name = strtolower($this->name);
+        $low_name = str_replace(' ', '_', $low_name);
         $section_name = 'dce_section_' . $low_name . '_advanced';
 
-        if ($low_name == 'tokens' || substr($low_name,0,4) == 'form') {
+        if (!$this->is_common()) {
+            //return false;
+        }
+        if ($low_name == 'tokens' || $low_name == 'enchanted_editor' || substr($low_name,0,4) == 'form') {
             // no need settings
             return false;
         }
@@ -208,6 +236,9 @@ class DCE_Extension_Prototype {
                         break;
                     case 'tags':
                         $icon = 'question-circle-o';
+                        break;
+                    case 'archive':
+                        $icon = 'puzzle-piece';
                         break;
                     case 'random':
                         $icon = 'random';
@@ -287,4 +318,8 @@ class DCE_Extension_Prototype {
         }
     }
     
+    
+    public function is_common() {
+        return $this->is_common;
+    }
 }

@@ -49,6 +49,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
         public $name = 'Form Export';
         public static $depended_plugins = ['elementor-pro'];
         public static $docs = 'https://www.dynamic.ooo';
+        public $has_action = true;
 
         static public function is_enabled() {
             return _dce_extension_form_export('enabled');
@@ -231,7 +232,13 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     ]
             );
             
-            
+            $widget->add_control(
+                    'dce_form_export_help', [
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'separator' => 'before',
+                    ]
+            );
 
             $widget->end_controls_section();
         }

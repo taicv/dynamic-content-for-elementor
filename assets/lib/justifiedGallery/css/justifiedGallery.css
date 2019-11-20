@@ -34,7 +34,7 @@
 .justified-gallery > div > a > svg,
 .justified-gallery > figure > a > svg,
 .justified-gallery > figure > div > a > img, 
-  .justified-gallery > figure > div a > img{
+.justified-gallery > figure > div > img{
   position: absolute;
   top: 50%;
   left: 50%;

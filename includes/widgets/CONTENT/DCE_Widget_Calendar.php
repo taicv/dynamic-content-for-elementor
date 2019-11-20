@@ -26,7 +26,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
     }
 
     static public function is_enabled() {
-        return false;
+        return true;
     }
 
     public function get_title() {
@@ -34,7 +34,15 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
     }
 
     public function get_icon() {
-        return 'eicon-calendar';
+        return 'icon-dyn-buttoncalendar';
+    }
+    
+    public function get_description() {
+        return __('Add current event to your personal calendar', 'dynamic-content-for-elementor');
+    }
+
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/button-calendar/';
     }
 
     /**
@@ -209,6 +217,22 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                     'selectors' => [
                         '{{WRAPPER}} .elementor-button .elementor-align-icon-right' => 'margin-left: {{SIZE}}{{UNIT}};',
                         '{{WRAPPER}} .elementor-button .elementor-align-icon-left' => 'margin-right: {{SIZE}}{{UNIT}};',
+                    ],
+                ]
+        );
+        $this->add_control(
+                'icon_size',
+                [
+                    'label' => __('Icon Size', 'elementor'),
+                    'type' => Controls_Manager::SLIDER,
+                    'range' => [
+                        'px' => [
+                            'min' => 10,
+                            'max' => 60,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .elementor-button .elementor-button-icon' => 'font-size: {{SIZE}}{{UNIT}};',
                     ],
                 ]
         );
@@ -414,7 +438,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
         $this->add_control(
                 'dce_calendar_format',
                 [
-                    'label' => __('Dimension', 'dynamic-content-for-elementor'),
+                    'label' => __('Type', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         'gcalendar' => [
@@ -440,12 +464,37 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                 'label_block' => true,
                 ]
         );
+        
+        $this->add_control(
+                'dce_calendar_datetime_format',
+                [
+                    'label' => __('Datetime Field', 'dynamic-content-for-elementor'),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'picker' => [
+                            'title' => __('Static Datetime Picker', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-calendar-plus-o',
+                        ],
+                        'string' => [
+                            'title' => __('Dynamic String', 'dynamic-content-for-elementor'),
+                            'icon' => 'fa fa-i-cursor',
+                        ],
+                    ],
+                    'label_block' => true,
+                    'default' => 'string',
+                    'toggle' => false,
+                ]
+        );
+        
         // datetime start
         $this->add_control(
                 'dce_calendar_datetime_start', [
                 'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DATE_TIME,
                 'label_block' => true,
+                'condition' => [
+                    'dce_calendar_datetime_format' => 'picker',
+                ]
                 ]
         );
         // datetime end
@@ -454,8 +503,36 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                 'label' => __('DateTime End', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::DATE_TIME,
                 'label_block' => true,
+                'condition' => [
+                    'dce_calendar_datetime_format' => 'picker',
+                ]
                 ]
         );
+        // datetime start
+        $this->add_control(
+                'dce_calendar_datetime_start_string', [
+                'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'placeholder' => 'YYYY-mm-dd HH:ii',
+                'label_block' => true,
+                'condition' => [
+                    'dce_calendar_datetime_format' => 'string',
+                ]
+                ]
+        );
+        // datetime end
+        $this->add_control(
+                'dce_calendar_datetime_end_string', [
+                'label' => __('DateTime End', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'label_block' => true,
+                'placeholder' => 'YYYY-mm-dd HH:ii',
+                'condition' => [
+                    'dce_calendar_datetime_format' => 'string',
+                ]
+                ]
+        );
+        
         // description
         $this->add_control(
                 'dce_calendar_description', [
@@ -495,10 +572,13 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                 if ($settings['dce_calendar_title']) $cal_url .= '&text='.urlencode($settings['dce_calendar_title']);
                 if ($settings['dce_calendar_description']) $cal_url .= '&details='.urlencode($settings['dce_calendar_description']);
                 if ($settings['dce_calendar_location']) $cal_url .= '&location='.urlencode($settings['dce_calendar_location']);
-                if ($settings['dce_calendar_datetime_start']) {
-                    $cal_url .= '&dates='.urlencode(date('Ymd\\THi00\\Z',strtotime($settings['dce_calendar_datetime_start'])));
-                    if ($settings['dce_calendar_datetime_start']) {
-                        $cal_url .= '%2F'.urlencode(date('Ymd\\THi00\\Z',strtotime($settings['dce_calendar_datetime_end'])));
+                
+                $start = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_start'] : $settings['dce_calendar_datetime_start_string'];
+                $end = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_end'] : $settings['dce_calendar_datetime_end_string'];
+                if ($start) {
+                    $cal_url .= '&dates='.urlencode(date('Ymd\\THi00\\Z',strtotime($start)));
+                    if ($end) {
+                        $cal_url .= '%2F'.urlencode(date('Ymd\\THi00\\Z',strtotime($end)));
                     }
                 }
                 //$cal_url .= '&action=TEMPLATE';
@@ -563,7 +643,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
 
         $this->add_render_attribute([
             'content-wrapper' => [
-                'class' => 'elementor-button-content-wrapper',
+                'class' => ['elementor-button-content-wrapper','dce-flexbox'],
             ],
             'icon-align' => [
                 'class' => [

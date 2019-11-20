@@ -76,7 +76,6 @@
   z-index: 10;
 }
 .elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-previous{
- 
   -moz-transform: rotate(-90deg) translateX(-50%);
   -webkit-transform: rotate(-90deg) translateX(-50%);
   -ms-transform: rotate(-90deg) translateX(-50%);
@@ -88,7 +87,6 @@
   transform-origin: 0 0;
 }
 .elementor-widget-dyncontel-post-nextprev.verticalyes nav.post-navigation .nav-next{
-  
   -moz-transform: rotate(-90deg) translateX(100%);
   -webkit-transform: rotate(-90deg) translateX(100%);
   -ms-transform: rotate(-90deg) translateX(100%);
@@ -114,7 +112,7 @@
   top: 50%;
   display: block;
   outline: none;
-  text-align: left;
+  
   z-index: 1000;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -122,10 +120,12 @@
 
 .elementor-widget-dyncontel-post-nextprev nav .nav-previous a {
   left: 0;
+  text-align: left;
 }
 
 .elementor-widget-dyncontel-post-nextprev nav .nav-next a {
   right: 0;
+  text-align: right;
 }
 
 .elementor-widget-dyncontel-post-nextprev nav a svg {

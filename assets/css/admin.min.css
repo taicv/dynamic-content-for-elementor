@@ -237,7 +237,8 @@ body.admin_page_dce_info {
     border-left-color: #f0ad4e;
 }
 .dce-generic-notice {
-    display: block;
+    display: flex;
+    align-items: center;
 }
 
 /* Admin Info */
@@ -303,7 +304,17 @@ body.admin_page_dce_info {
   display: block;
 }
 
-
+/* API 3 parte */
+.dce-apis{
+  padding: 7px;
+  background-color: #f5f5f5 !important;
+}
+.dce-apis-gmaps{
+  width: 100%;
+}
+.dce-apis-gmaps-note{
+  padding: 8px 0;
+}
 /* visibility */
 .dce-visibility-warning {
     background-color: #e52600;
@@ -851,4 +862,11 @@ body.admin_page_dce_info {
 }
 .grid-page.grid-col-md-6 .item-page{
   flex-basis: 16.6%;
+}
+
+.dce-nav-menus-template .dce-radio-container input:checked ~ .dce-radio-checkmark.dce-radio-checkmark-disable {
+    background-color: #999;
+}
+.dce-disabled {
+    opacity: 0.5;
 }

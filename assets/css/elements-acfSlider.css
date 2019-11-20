@@ -26,14 +26,12 @@
     margin: 0 auto;
 }
 
-/* Alignment */
+
 .dynamic_acfslider .wrap-item-acfslider{
-  overflow: hidden;
   position: relative;
-}
-.dynamic_acfslider .wrap-item-acfslider{
   display: block;
 }
+/* Alignment */
 .align-center .wrap-item-acfslider{
   margin: 0 auto;
 }
@@ -98,6 +96,7 @@
   padding: 0;
   /* Fix of Webkit flickering */
   z-index: 1;
+  /*overflow: visible;*/
 }
 
 /* ----------------- */
@@ -156,6 +155,8 @@
   -o-transition-property: transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
+
+  overflow: visible;
 }
 
 /*.dynamic_acfslider .dyncontel-post-item .dyncontel-wrapper{

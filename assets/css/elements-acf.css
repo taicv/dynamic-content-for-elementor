@@ -106,7 +106,7 @@
 .elementor-widget-dyncontel-acf.align-dce-justify .acf-bg-image{
   display: inline;
 }
-.elementor .elementor-widget.elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acfimage-bg{
+.elementor-widget.elementor-widget-dyncontel-acf .dynamic-content-for-elementor-acfimage-bg{
   width: 100%;
   display: inline-block;
   margin-bottom: -5px;
@@ -134,5 +134,9 @@
 }
 .elementor-widget-dyncontel-acf.align-dce-justify .dynamic-content-for-elementor-acf{
   display: block;
-  text-align: center;
+}
+.elementor-widget-dyncontel-acf.hyphens-yes .dynamic-content-for-elementor-acf{
+  -webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
 }

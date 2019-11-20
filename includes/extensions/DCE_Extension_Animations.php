@@ -23,6 +23,10 @@ class DCE_Extension_Animations extends DCE_Extension_Prototype {
     public static function get_description() {
         return __('Predefined CSS-Animations with keyframe.');
     }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/loop-animations/';
+    }
 
     private function add_controls($element, $args) {
 

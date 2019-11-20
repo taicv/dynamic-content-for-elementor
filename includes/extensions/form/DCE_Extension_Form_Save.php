@@ -49,6 +49,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
         public $name = 'Form Save';
         public static $depended_plugins = ['elementor-pro'];
         public static $docs = 'https://www.dynamic.ooo/widget/save-elementor-pro-form/';
+        public $has_action = true;
 
         static public function is_enabled() {
             return _dce_extension_form_save('enabled');
@@ -155,6 +156,21 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             );
 
             $widget->add_control(
+                    'dce_form_save_ignore_empty', [
+                'label' => __('Ignore empty fields', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'description' => __('Do not save the field if his value is empty to limit db size consuption', 'dynamic-content-for-elementor'),
+                    ]
+            );
+            $widget->add_control(
+                    'dce_form_save_file', [
+                'label' => __('Save files as Media', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'description' => __('Create a Media and save his ID instead the URL', 'dynamic-content-for-elementor'),
+                    ]
+            );
+
+            $widget->add_control(
                     'dce_form_save_type_post_title', [
                 'label' => __('Post Title', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
@@ -180,7 +196,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     'dce_form_save_type_post_type', [
                 'label' => __('Post Type', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
-                'options' => $post_types + array('dce_elementor_from' => __('Default', 'dynamic-content-for-elementor')),
+                'options' => $post_types + array('dce_elementor_form' => __('Default', 'dynamic-content-for-elementor')),
                 'default' => 'dce_elementor_from',
                 'condition' => [
                     'dce_form_save_type' => 'post',
@@ -209,13 +225,23 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 ],
                     ]
             );
+            $widget->add_control(
+                    'dce_form_save_parent', [
+                'label' => __('Current Post as Parent', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'condition' => [
+                    'dce_form_save_type' => 'post',
+                ],
+                    ]
+            );
+            
 
             $widget->add_control(
                     'dce_form_save_type_user_username', [
                 'label' => __('UserName Field', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::TEXT,
                 //'default' => 'user_'.time(),
-                'description' => __('Use field Shortcode for UserName', 'dynamic-content-for-elementor') . '<br>' . __('or leave empty for rand value', 'dynamic-content-for-elementor'),
+                'description' => __('Use field Shortcode for UserName', 'dynamic-content-for-elementor') . '<br>' . __(' or leave empty for rand value', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'dce_form_save_type' => 'user',
                 ],
@@ -233,11 +259,43 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     ]
             );
             $widget->add_control(
+                    'dce_form_save_type_user_pass', [
+                'label' => __('User Password Field', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::TEXT,
+                'default' => '[field id="user_pass"]',
+                'description' => __('Use field Shortcode for Password', 'dynamic-content-for-elementor'),
+                'condition' => [
+                    'dce_form_save_type' => 'user',
+                ],
+                    ]
+            );
+
+            $widget->add_control(
                     'dce_form_save_type_user_role', [
                 'label' => __('User Role', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::SELECT2,
                 'options' => $roles,
                 'default' => 'subscriber',
+                'condition' => [
+                    'dce_form_save_type' => 'user',
+                ],
+                    ]
+            );
+            $widget->add_control(
+                    'dce_form_save_type_user_login', [
+                'label' => __('Auto Login', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'description' => __('The new User will be automatically logged in and his data will be available when the next page is loaded', 'dynamic-content-for-elementor'),
+                'condition' => [
+                    'dce_form_save_type' => 'user',
+                ],
+                    ]
+            );
+            $widget->add_control(
+                    'dce_form_save_override', [
+                'label' => __('Update existent datas', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'description' => __('If the user is logged in, all data will be associated to him and all previous data will be overwritten', 'dynamic-content-for-elementor'),
                 'condition' => [
                     'dce_form_save_type' => 'user',
                 ],
@@ -277,6 +335,14 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 ],
                     ]
             );
+            
+            $widget->add_control(
+                    'dce_form_save_help', [
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'separator' => 'before',
+                    ]
+            );
 
             $widget->end_controls_section();
         }
@@ -297,7 +363,6 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             $settings = DCE_Helper::get_dynamic_value($settings, $fields);
 
             $this->dce_elementor_form_save($fields, $settings, $ajax_handler);
-            
         }
 
         /**
@@ -334,6 +399,18 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                   $record = $form_record; */
             }
 
+            if ($settings['dce_form_save_ignore_empty']) {
+                $tmp = array();
+                if (!empty($fields) && is_array($fields)) {
+                    foreach ($fields as $akey => $adata) {
+                        if ($adata != '') {
+                            $tmp[$akey] = $adata;
+                        }
+                    }
+                }
+                $fields = $tmp;
+            }
+
             if (is_object($record)) {
                 $fields['form_name'] = $record->get_form_settings('form_name');
             } else {
@@ -355,6 +432,9 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         'post_type' => $settings['dce_form_save_type_post_type'],
                         'post_content' => $settings['dce_form_save_type_post_content'],
                     );
+                    if ($settings['dce_form_save_parent']) {
+                        $db_ins['post_parent'] = $fields['submitted_on_id'];
+                    }
                     $obj_id = wp_insert_post($db_ins);
                     break;
                 case 'user':
@@ -363,20 +443,44 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         $settings['dce_form_save_type_user_username'] = 'user_' . time();
                     }
                     $settings['dce_form_save_type_user_email'] = DCE_Helper::get_dynamic_value($settings['dce_form_save_type_user_email'], $fields);
-
+                    $settings['dce_form_save_type_user_pass'] = $settings['dce_form_save_type_user_pass'] ? DCE_Helper::get_dynamic_value($settings['dce_form_save_type_user_pass'], $fields) : wp_generate_password();
                     $user_email_exist = get_user_by('email', $settings['dce_form_save_type_user_email']);
                     $user_login_exist = get_user_by('login', $settings['dce_form_save_type_user_username']);
-                    if ($user_email_exist || $user_login_exist) {
-                        $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SUBSCRIBER_ALREADY_EXISTS, $settings));
-                        return false;
+
+                    $db_ins = array();
+                    if (!empty($fields) && is_array($fields)) {
+                        foreach ($fields as $akey => $adata) {
+                            if (DCE_Helper::is_userdata($akey)) {
+                                //if ($akey == 'user_pass')  $adata = wp_hash_password($adata);
+                                $db_ins[$akey] = $adata;
+                                unset($fields[$akey]);
+                            }
+                        }
+                    }
+                    $user_id = get_current_user_id();
+                    if (!$user_id || !$settings['dce_form_save_override']) {
+                        if ($user_email_exist || $user_login_exist) {
+                            $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SUBSCRIBER_ALREADY_EXISTS, $settings));
+                            return false;
+                        }
+                        //$obj_id = wp_create_user($settings['dce_form_save_type_user_username'],$settings['dce_form_save_type_user_pass'],$settings['dce_form_save_type_user_email']);
+                        //$db_ins['ID'] = $obj_id;
+                        $db_ins['user_login'] = $settings['dce_form_save_type_user_username'];
+                        $db_ins['user_email'] = $settings['dce_form_save_type_user_email'];
+                        $db_ins['role'] = $settings['dce_form_save_type_user_role'];
+                        $obj_id = wp_insert_user($db_ins);
+                    } else {
+                        if (($user_email_exist && $user_email_exist->ID != $user_id) || ($user_login_exist && $user_login_exist->ID != $user_id)) {
+                            $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SUBSCRIBER_ALREADY_EXISTS, $settings));
+                            return false;
+                        }
+                        $db_ins['ID'] = $user_id;
+                        $obj_id = wp_update_user($db_ins);
+                    }
+                    if (is_wp_error($obj_id)) {
+                        $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SERVER_ERROR, $settings));
                     }
 
-                    $db_ins = array(
-                        'user_login' => $settings['dce_form_save_type_user_username'],
-                        'user_email' => $settings['dce_form_save_type_user_email'],
-                        'role' => $settings['dce_form_save_type_user_role'],
-                    );
-                    $obj_id = wp_insert_user($db_ins);
                     break;
                 case 'term':
                     $db_ins = array(
@@ -391,6 +495,40 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             }
 
             if ($obj_id) {
+                
+                if ($settings['dce_form_save_file']) {
+                    if (!empty($fields) && is_array($fields)) {
+                        foreach ($fields as $akey => $adata) {
+                            if (filter_var($adata, FILTER_VALIDATE_URL)) {
+                                //$adata = str_replace(get_bloginfo('url'), WP, $value);
+                                $filename = substr(get_home_path(),0,-1).wp_make_link_relative($adata);
+                                if (is_file($filename)) {
+                                    // Check the type of file. We'll use this as the 'post_mime_type'.
+                                    $filetype = wp_check_filetype( basename( $filename ), null );
+                                    $fileinfo = pathinfo($filename);
+                                    // Prepare an array of post data for the attachment.
+                                    $attachment = array(
+                                            'guid'           => $adata, 
+                                            'post_mime_type' => $filetype['type'],
+                                            'post_status'    => 'inherit',
+                                            'post_title' => $fileinfo['filename'],
+                                            'post_parent' => $obj_id,
+                                            //'post_content' => '',
+                                    );
+                                    // Insert the attachment.
+                                    $attach_id = wp_insert_attachment( $attachment, $filename, $parent_post_id );
+                                    // Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+                                    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+                                    // Generate the metadata for the attachment, and update the database record.
+                                    $attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
+                                    wp_update_attachment_metadata( $attach_id, $attach_data );
+                                    $fields[$akey] = $attach_id;
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 if (!empty($fields) && is_array($fields)) {
                     foreach ($fields as $akey => $adata) {
                         //update_post_meta( $obj_id, $akey, $adata );
@@ -400,6 +538,16 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 }
             } else {
                 $ajax_handler->add_error_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::get_default_message(\ElementorPro\Modules\Forms\Classes\Ajax_Handler::SERVER_ERROR, $settings));
+            }
+
+            if ($settings['dce_form_save_type'] == 'user') {
+                if (!$user_id) {
+                    if ($settings['dce_form_save_type_user_login']) {
+                        $user = wp_signon(array('user_login' => $db_ins['user_email'], 'user_password' => $db_ins['user_pass']));
+                        //var_dump($user); die();
+                        //wp_signon(array('user_login' => $db_ins['user_login'], 'user_password' => $db_ins['user_pass']));
+                    }
+                }
             }
         }
 

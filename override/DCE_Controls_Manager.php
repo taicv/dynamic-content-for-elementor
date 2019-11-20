@@ -59,12 +59,27 @@ class DCE_Controls_Manager extends Controls_Manager {
 
         $exc_ext_token = !isset($this->excluded_extensions['DCE_Extension_Tokens']);
         $exc_ext_form_visibility = !isset($this->excluded_extensions['DCE_Extension_Form_Visibility']);
+        $exc_ext_form_step = !isset($this->excluded_extensions['DCE_Extension_Form_Step']);
+        $exc_ext_form_enchanted = !isset($this->excluded_extensions['DCE_Extension_Form_Enchanted']);
+        $exc_ext_form_message = !isset($this->excluded_extensions['DCE_Extension_Form_Message']);
 
-        if ($exc_ext_form_visibility) {
-            // add Visibility to Form Fields
-            if ($element->get_name() == 'form') {
-                if (\DynamicContentForElementor\DCE_Helper::is_plugin_active('elementor-pro')) {
+        if ($element->get_name() == 'form') {
+            if (\DynamicContentForElementor\DCE_Helper::is_plugin_active('elementor-pro')) {
+                if ($exc_ext_form_visibility) {
+                    // add Visibility to Form Fields
                     $control_data = \DynamicContentForElementor\Extensions\DCE_Extension_Form_Visibility::_add_form_fields_visibility($element, $control_id, $control_data, $options);
+                }
+                if ($exc_ext_form_step) {
+                    // add Steps to Form Fields
+                    $control_data = \DynamicContentForElementor\Extensions\DCE_Extension_Form_Step::_add_form_steps($element, $control_id, $control_data, $options);
+                }
+                if ($exc_ext_form_enchanted) {
+                    // add Enchanted to Form Fields
+                    $control_data = \DynamicContentForElementor\Extensions\DCE_Extension_Form_Enchanted::_add_to_form($element, $control_id, $control_data, $options);
+                }
+                if ($exc_ext_form_message) {
+                    // add Message to Form Fields
+                    $control_data = \DynamicContentForElementor\Extensions\DCE_Extension_Form_Message::_add_to_form($element, $control_id, $control_data, $options);
                 }
             }
         }

@@ -115,6 +115,7 @@ class DCE_Settings {
         }
         
         DCE_License::dce_active_domain_check();
+        DCE_License::dce_expired_license_notice();
 
         // show error/update messages
         settings_errors('dce_messages');
@@ -464,12 +465,13 @@ class DCE_Settings {
                 </thead>
                 <tbody>
                     <tr>
-                        <td> &nbsp; &nbsp;
+                        <td>  &nbsp;
 
                             <label style="font-weight: bold;" for="dce-apis-gmaps">
-                                Google Maps :
+                                Google <i>"Maps JavaScript API"</i> key:
                             </label>
                             <input class="dce-apis dce-apis-gmaps" type="text" name="dce-apis[dce_api_gmaps]" id="dce-apis-gmaps" value="<?php echo (isset($dce_apis['dce_api_gmaps'])) ? $dce_apis['dce_api_gmaps'] : ''; ?>">
+                            <div class="dce-apis-gmaps-note">&nbsp;To learn more about the API-KEY for googleMap <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">see here</a></div>
                         </td>
                     </tr>
 
@@ -838,6 +840,7 @@ class DCE_Settings {
         if (isset($_POST['action']) && $_POST['action'] == 'update') {
             //var_dump($_POST[$dce_option]);
             update_option(DCE_OPTIONS, $_POST[DCE_OPTIONS]);
+            update_option('dce_template_disable', $_POST['dce_template_disable']);
             $this->options = $_POST[DCE_OPTIONS];
             DCE_Notice::dce_admin_notice__success(__('Your preferences have been saved.', 'dynamic-content-for-elementor'));
         }
@@ -913,6 +916,7 @@ class DCE_Settings {
         $dceTemplate['other-pages']['options'][$chiave] = __('User', 'dynamic-content-for-elementor');
         $dceTemplate['other-pages']['templates'][$chiave]['archive'] = __('Archive', 'dynamic-content-for-elementor');
 
+        $dce_template_disable = get_option('dce_template_disable');
         ?>
 
         <div class="dce-nav-menus-template nav-menus-php">
@@ -921,8 +925,22 @@ class DCE_Settings {
                     <div id="menu-settings-column" class="metabox-holder">
                         <div class="clear"></div>
                         <div id="side-sortables" class="accordion-container">
+                            <div id="dce_template_disabler" class="text-center column-posts wp-tab-active">
+                                <h2 class="text-red red"><?php _e('DCE Template System', 'dynamic-content-for-elementor'); ?></h2>
+                                <label class="dce-radio-container dce-radio-container-template" onclick="jQuery(this).closest('.accordion-container').find('.accordion-section').addClass('open').removeClass('dce-disabled'); jQuery('#menu-management-liquid').removeClass('dce-disabled');">
+                                    <input value="0" type="radio"<?php if (!$dce_template_disable) { ?> checked="checked"<?php } ?> name="dce_template_disable">
+                                    <span class="dce-radio-checkmark"></span>
+                                    <span class="dce-radio-label"><b><span class="dashicons dashicons-controls-play"></span> <?php _e('Enable', 'dynamic-content-for-elementor'); ?></b></span>
+                                </label>
+                                <label class="dce-radio-container dce-radio-container-template" onclick="jQuery(this).closest('.accordion-container').find('.accordion-section').removeClass('open').addClass('dce-disabled'); jQuery('#menu-management-liquid').addClass('dce-disabled');">
+                                    <input value="1" type="radio"<?php if ($dce_template_disable) { ?> checked="checked"<?php } ?> name="dce_template_disable">
+                                    <span class="dce-radio-checkmark dce-radio-checkmark-disable"></span>
+                                    <span class="dce-radio-label"><b><span class="dashicons dashicons-controls-pause"></span> <?php _e('Disable', 'dynamic-content-for-elementor'); ?></b></span>
+                                </label>
+                                <br><br>
+                                <hr class="mb-0" style="margin-bottom: 0;">
+                            </div>
                             <ul class="outer-border">
-
                                 <?php
                                 $k = 0;
                                 foreach ($dceTemplate as $tkey => $tvalue) {
@@ -1380,7 +1398,14 @@ class DCE_Settings {
                 }
                 jQuery(this).closest('.dce-template-main-content').find('.dce-template-page-content').attr('class', 'dce-template-page-content dce-template-page-content-'+value);
             });
+            
+            <?php if ($dce_template_disable) { ?>
+                jQuery('#menu-management-liquid').addClass('dce-disabled');
+                jQuery('#menu-settings-column .accordion-section').removeClass('open').addClass('dce-disabled');;
+            <?php } ?>
         });
+        
+        
         </script>
 
         <?php

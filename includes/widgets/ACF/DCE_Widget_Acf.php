@@ -26,12 +26,6 @@ if (!defined('ABSPATH')) {
  */
 class DCE_Widget_Acf extends DCE_Widget_Prototype {
 
-    private $idACF = "";
-    private $settings = [];
-    private $acfContents = [];
-    //private $acfFields = $this->get_acf_field();
-
-
     public function get_name() {
         return 'dyncontel-acf';
     }
@@ -107,6 +101,17 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             'default' => 'text',
             ]
         );
+        
+        $this->add_control(
+            'acf_dynamic', [
+                'label' => __('Enable Shortcodes', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'condition' => [
+                    'acf_type' => ['text', 'textarea', 'wysiwyg'],
+                ]
+            ]
+        );
+        
         $this->add_control(
             'acf_text_before', [
                 'label' => __('Text before', 'dynamic-content-for-elementor'),
@@ -569,6 +574,18 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
                 /*'condition' => [
                    'acf_type!' => 'empty',
                 ],*/
+            ]
+        );
+        $this->add_control(
+            'hyphens', [
+                'label' => __('Hyphens', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_off' => __('No', 'dynamic-content-for-elementor'),
+                'label_on' => __('Yes', 'dynamic-content-for-elementor'),
+                'prefix_class' => 'hyphens-',
+                'condition' => [
+                    'align' => 'justify',
+                ]
             ]
         );
         $this->end_controls_section();
@@ -1659,6 +1676,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         $settings = $this->get_settings_for_display();
         if ( empty( $settings ) )
             return;
+
         // ------------------------------------------
         $dce_data = DCE_Helper::dce_dynamic_data($settings['other_post_source']);
         $id_page = $dce_data['id'];
@@ -1752,19 +1770,33 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             //if($typeField == 'select' && is_array($acfResult)) $acfResult = $acfResult['label'];
 
             // Default ;-)
-            if( $type_page == 'elementor_library' )
-                if( $acfResult == '' && $typeField == 'text' ) { 
-                    $acfResult = 'This is a ACF text';
-                }else if( $acfResult == '' && $typeField == 'textarea' ){
+            //var_dump($acfResult);
+            //var_dump($dce_data['global_id']);
+            //var_dump($_GET['post']);
+            $dataACFieldPost = DCE_Helper::get_acf_field_post($idFields);
+            
+            /*
+            $parentID = $dataACFieldPost->post_parent;
+            $field_settings = DCE_Helper::get_acf_field_settings($parentID);
+            */
+
+            //if(isset($field_settings['type'])) var_dump($field_settings['type']);
+            
+
+            $elibpost = isset($_GET['post']) ? $_GET['post'] : 0;
+            //var_dump($field_settings['type']);
+            if( \Elementor\Plugin::$instance->editor->is_edit_mode() && get_post_type($elibpost) == 'elementor_library' && (isset($field_settings['type']) && $field_settings['type'] != 'repeater'))
+                if( !$acfResult && $typeField == 'text' ) { 
+                    $acfResult = 'This is a ACF text '.$idFields;
+                }else if( !$acfResult && $typeField == 'textarea' ){
                     $acfResult = 'This is a textarea. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla placerat faucibus ultrices. Proin tristique augue turpis.';
-                }else if( $acfResult == '' && $typeField == 'select' ){
+                }else if( !$acfResult && $typeField == 'select' ){
                     $acfResult = 'SelectField';
-                }else if( $acfResult == '' && $typeField == 'wysiwyg' ){
+                }else if( !$acfResult && $typeField == 'wysiwyg' ){
                     $acfResult = 'This is a wysiwyg text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla placerat faucibus ultrices. Proin tristique augue turpis. Phasellus accumsan nunc dui, eget mollis nibh fringilla at. Aliquam ante enim, mattis vel mi porttitor, efficitur dapibus turpis. Donec quis ipsum nisl. Sed elit sem, lobortis id erat et, tristique dignissim nisi. Donec egestas nunc tellus, sed vestibulum ex finibus sed.';
-                }else if( $acfResult == '' && $typeField == 'number' ){
+                }else if( !$acfResult && $typeField == 'number' ){
                     $acfResult = '3';
                 }
-
         
         }else if( $typeField == 'url' || 
                   $typeField == 'file'){
@@ -2013,7 +2045,7 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
             case 'acf_url' :
                 //echo get_field( $settings['acf_field_url'] , $id_page);
                 if ( !empty( $settings['acf_field_url'] ) ) {
-                    $link = esc_url( get_field( $settings['acf_field_url'] , $id_page) );
+                    $link = esc_url( DCE_Helper::get_acffield_filtred($settings['acf_field_url'], $id_page) );
                     //$link = get_post_meta( $id_page, $settings['acf_field_url'], true );      
                     $target = $settings['acf_field_url_target'] ? 'target="_blank"' : '';
                 } else {
@@ -2044,9 +2076,11 @@ class DCE_Widget_Acf extends DCE_Widget_Prototype {
         // ------------------------
         if( $acfResult != '' || $typeField == 'empty'){
             
-            //$acfResult = do_shortcode($acfResult); // if text contain an extra shortcode
-            $acfResult = \DynamicContentForElementor\DCE_Tokens::do_tokens($acfResult); // if text contain tokens
-
+            if ($settings['acf_dynamic']) {
+                //$acfResult = do_shortcode($acfResult); // if text contain an extra shortcode
+                $acfResult = DCE_Helper::get_dynamic_value($acfResult); // if text contain tokens
+            }
+            
             if($typeField != 'empty') $acfResult = '<div class="edc-acf">'.$acfResult.'</div>';
             $tagField = 'div';
             if($settings['html_tag']) $tagField = $settings['html_tag'];

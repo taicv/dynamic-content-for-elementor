@@ -46,7 +46,11 @@ class DCE_Widget_Title extends DCE_Widget_Prototype {
     static public function get_position() {
         return 1;
     }
-
+    
+    public function get_dce_style_depends() {
+        return ['dce-style'];
+    }
+    
     protected function _register_controls() {
 
         $post_type_object = get_post_type_object(get_post_type());

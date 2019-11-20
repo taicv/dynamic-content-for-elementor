@@ -31,10 +31,14 @@ class DCE_Extension_Tokens extends DCE_Extension_Prototype {
         return true;
     }
 
-    protected $is_common = true;
+    private $is_common = true;
 
     public static function get_description() {
-        return __('Add support for Tokens in every Text and Textarea settings');
+        return __('Add support for Tokens in Dynamic Tag for Text, Number and Textarea settings');
+    }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/dynamic-tag-token/';
     }
     
     public function init($param = null) {
@@ -155,11 +159,13 @@ class DCE_Extension_Tokens extends DCE_Extension_Prototype {
     }
     
     public static function _add_dynamic_tags($control_data) {
-        foreach ($control_data as $key => $acontrol) {
-            if ($key != 'dynamic') {
-                if (is_array($acontrol)) {
-                    $control_data[$key] = self::_add_dynamic_tags($acontrol);
-                }         
+        if (!empty($control_data)) {
+            foreach ($control_data as $key => $acontrol) {
+                if ($key != 'dynamic') {
+                    if (is_array($acontrol)) {
+                        $control_data[$key] = self::_add_dynamic_tags($acontrol);
+                    }         
+                }
             }
         }
         if (isset($control_data['type'])) {

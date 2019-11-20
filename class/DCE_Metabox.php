@@ -253,8 +253,10 @@ class DCE_Metabox {
             ?>
         </select>
         <br>
-        <label><?php _e('Blocks'); ?></label>
+        <label><?php _e('Blocks/Canvas'); ?></label>
         <select class="js-dce-select" id="dynamic_content_block" name="dynamic_content_block"> <!--Supplement an id here instead of using 'name' 'dyncontel_field_archive'.$chiave -->
+            <?php //echo '<label for="dct_use_canvas"><input type="checkbox" value="1" name="dce_use_canvans" id="dce_use_canvas"' . ($dyncontel_elementor_templates_parent ? ' checked' : '') . '>Use Canvas</label>' ?>;
+            }
         <?php
         foreach ($templates as $key => $value) {
             //echo "{$key} => {$value} ";
