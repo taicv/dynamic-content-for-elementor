@@ -501,7 +501,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         foreach ($fields as $akey => $adata) {
                             if (filter_var($adata, FILTER_VALIDATE_URL)) {
                                 //$adata = str_replace(get_bloginfo('url'), WP, $value);
-                                $filename = substr(get_home_path(),0,-1).wp_make_link_relative($adata);
+                                $filename = DCE_Helper::url_to_path($adata);
                                 if (is_file($filename)) {
                                     // Check the type of file. We'll use this as the 'post_mime_type'.
                                     $filetype = wp_check_filetype( basename( $filename ), null );

@@ -45,7 +45,7 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
     }
 
     public function get_script_depends() {
-        return ['dce-google-maps', 'dce-googlemaps-api'];
+        return ['dce-google-maps', 'dce-googlemaps-markerclusterer', 'dce-googlemaps-api'];
     }
 
     static public function get_position() {
@@ -533,6 +533,14 @@ class DCE_Widget_GoogleMaps extends DCE_Widget_Prototype {
         $this->add_control(
                 'fullscreenControl', [
             'label' => __('Full Screen Control', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
+            'default' => 'yes',
+            'frontend_available' => true,
+                ]
+        );
+        $this->add_control(
+                'markerclustererControl', [
+            'label' => __('Marker Clusterer', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
             'frontend_available' => true,

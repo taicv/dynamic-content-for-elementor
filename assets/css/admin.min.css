@@ -693,7 +693,8 @@ body.admin_page_dce_info {
     position: absolute;
     border: 1px solid #888;
 }
-.dce-nav-menus-template .dce-template-content-template .dce-template-page-content {
+.dce-nav-menus-template .dce-template-content-template .dce-template-page-content,
+.dce-nav-menus-template .dce-template-content-template .dce-template-page-content:after {
     background-color: #008ec2;
     transition: 0.3s all;
 }
@@ -790,6 +791,10 @@ body.admin_page_dce_info {
     width: 42px;
     height: 19px;
 }
+.dce-nav-menus-template .dce-template-content-original.dce-template-content-canvas::after {
+    display: none;
+}
+
 .dce-nav-menus-template .dce-template-content-original .dce-template-page-content-full::after {
     content: '';
     position: absolute;

@@ -377,6 +377,16 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 ],
                     ]
             );
+            $repeater_fields->add_control(
+                    'dce_form_email_attachments',
+                    [
+                        'label' => __('Add Upload files as Attachments', 'dynamic-content-for-elementor'),
+                        'type' => \Elementor\Controls_Manager::SWITCHER,
+                        'description' => __('Send all Uploaded Files as Email Attachments', 'dynamic-content-for-elementor'),
+                        'separator' => 'before',
+                    ]
+            );
+            
 
             $widget->add_control(
                     'dce_form_email_repeater', [
@@ -437,13 +447,13 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
 
         function dce_elementor_form_email($fields, $settings = null, $ajax_handler = null, $record = null) {
 
-            foreach ($settings['dce_form_email_repeater'] as $amail) {
+            foreach ($settings['dce_form_email_repeater'] as $mkey => $amail) {
 
                 if ($amail['dce_form_email_enable']) {
 
 
                     $condition_satisfy = true;
-                    if ($amail['dce_form_email_condition_field']) {
+                    if (!empty($amail['dce_form_email_condition_field'])) {
                         switch ($amail['dce_form_email_condition_status']) {
                             case 'empty':
                                 if (!empty($fields[$amail['dce_form_email_condition_field']])) {
@@ -477,6 +487,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
 
                         $send_html = 'plain' !== $amail['dce_form_email_content_type'];
                         $line_break = $send_html ? '<br>' : "\n";
+                        $attachments = array();
 
                         $email_fields = [
                             'dce_form_email_to' => get_option('admin_email'),
@@ -554,8 +565,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                 $author = ' author_id="' . $current_user_id . '"';
                             }
 
+                            
                             $dce_form_email_content = do_shortcode('[dce-elementor-template id="' . $amail['dce_form_email_content_template'] . '"' . $inline . $author . ']');
                             //$dce_form_email_content = DCE_Tokens::replace_form_tokens($dce_form_email_content);
+                            $attachments = $this->get_email_attachments($dce_form_email_content, $fields, $amail);
+                            $dce_form_email_content = $this->remove_attachment_tokens($dce_form_email_content, $fields);
                             $dce_form_email_content = DCE_Helper::get_dynamic_value($dce_form_email_content, $fields);
 
                             if ($amail['dce_form_email_content_template_style']) {
@@ -595,25 +609,18 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                 }
                             }
                         } else {
+                            $settings_raw = $record->get('form_settings');
                             // from message textarea with dynamic token
-                            $dce_form_email_content = $this->replace_content_shortcodes($email_fields['dce_form_email_content'], $record, $line_break);
+                            $dce_form_email_content = $settings_raw['dce_form_email_repeater'][$mkey]['dce_form_email_content'];
+                            $attachments = $this->get_email_attachments($dce_form_email_content, $fields, $amail);
+                            $dce_form_email_content = $this->remove_attachment_tokens($dce_form_email_content, $fields);
+                            $dce_form_email_content = $this->replace_content_shortcodes($dce_form_email_content, $record, $line_break);
+                            $dce_form_email_content = DCE_Helper::get_dynamic_value($dce_form_email_content, $fields);
                             $dce_form_email_content = apply_filters('elementor_pro/forms/wp_mail_message', $dce_form_email_content);
-                        }
+                        }     
                         
-                        $attachments = array();
-                        $pdf_attachment = '<!--[dce_form_pdf:attachment]-->';
-                        $pos_pdf_token = strpos($dce_form_email_content, $pdf_attachment);
-                        if ($pos_pdf_token !== false) {
-                            // add PDF as attachment
-                            global $dce_form;
-                            if (isset($dce_form['pdf']) && isset($dce_form['pdf']['path'])) {
-                                $pdf_path = $dce_form['pdf']['path'];
-                                $attachments[] = $pdf_path;
-                            }
-                        }
-
                         $email_sent = wp_mail($email_fields['dce_form_email_to'], $email_fields['dce_form_email_subject'], $dce_form_email_content, $headers . $cc_header . $bcc_header, $attachments);
-
+                        
                         /* if (!empty($email_fields['dce_form_email_to_bcc'])) {
                           $bcc_emails = explode(',', $email_fields['dce_form_email_to_bcc']);
                           foreach ($bcc_emails as $bcc_email) {
@@ -641,6 +648,65 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 }
             }
         }
+        
+        public function remove_attachment_tokens($dce_form_email_content, $fields) {
+            $attachments_tokens = explode(':attachment]', $dce_form_email_content);
+            foreach ($attachments_tokens as $akey => $avalue) {
+                $pieces = explode('[form:', $avalue);
+                if (count($pieces) > 2) {
+                    $field = end($pieces);
+                    if (isset($fields[$field])) {
+                        $dce_form_email_content = str_replace('[form:'.$field.':attachment]', '', $dce_form_email_content);
+                    }
+                }
+            }
+            return $dce_form_email_content;
+        }
+        
+        public function get_email_attachments($dce_form_email_content, $fields, $amail) {
+            $attachments = array();
+            $pdf_attachment = '<!--[dce_form_pdf:attachment]-->';
+            $pos_pdf_token = strpos($dce_form_email_content, $pdf_attachment);
+            if ($pos_pdf_token !== false) {
+                // add PDF as attachment
+                global $dce_form;
+                if (isset($dce_form['pdf']) && isset($dce_form['pdf']['path'])) {
+                    $pdf_path = $dce_form['pdf']['path'];
+                    $attachments[] = $pdf_path;
+                }
+                $dce_form_email_content = str_replace($pdf_attachment, '', $dce_form_email_content);
+            }
+
+            $attachments_tokens = explode(':attachment]', $dce_form_email_content);
+            foreach ($attachments_tokens as $akey => $avalue) {
+                $pieces = explode('[form:', $avalue);
+                if (count($pieces) > 1) {
+                    $field = end($pieces);
+                    if (isset($fields[$field])) {
+                        $file_path = DCE_Helper::url_to_path($fields[$field]);
+                        if (is_file($file_path)) {
+                            $attachments[] = $file_path;
+                        }
+                    }
+                }
+            }
+            if ($amail['dce_form_email_attachments']) {                
+                if (!empty($fields) && is_array($fields)) {
+                    foreach ($fields as $akey => $adata) {
+                        if (filter_var($adata, FILTER_VALIDATE_URL)) {
+                            //$adata = str_replace(get_bloginfo('url'), WP, $value);
+                            $file_path = DCE_Helper::url_to_path($adata);
+                            if (is_file($file_path)) {
+                                if (!in_array($file_path, $attachments)) {
+                                    $attachments[] = $file_path;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return $attachments;
+        }
 
         /**
          * @param string      $email_content
@@ -648,8 +714,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
          *
          * @return string
          */
-        public function replace_content_shortcodes($email_content, $record, $line_break) {
-            $email_content = DCE_Helper::get_dynamic_value($email_content);
+        public function replace_content_shortcodes($email_content, $record, $line_break) {            
             $all_fields_shortcode = '[all-fields]';
             if (false !== strpos($email_content, $all_fields_shortcode)) {
                 $text = '';

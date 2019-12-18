@@ -218,10 +218,10 @@
                     tl.staggerFrom(splitter, speed_in, {
                         scale: 0.1,
                         opacity: 0,
-                        cycle:{
+                        /*cycle:{
                             y:[100, -100], 
                             rotation:[-120, 120]
-                        },
+                        },*/
                         delay: delaySteps_in,
                         stagger: staggerOpt_in,
                         //ease: Back.easeIn.config(8)

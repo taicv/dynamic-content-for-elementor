@@ -176,7 +176,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     // add custom js
                     ?>
                     <script>
-                        jQuery(document).ready(function(){
+                        //jQuery(document).ready(function(){
+                        window.addEventListener('load', (event) => {
                         <?php
                         if (!empty($settings['form_fields'])) {
                             $conditions = array();

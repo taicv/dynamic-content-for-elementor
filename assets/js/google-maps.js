@@ -73,7 +73,11 @@ var isAdminBar = false,
 
         function fireMap(elements_map, mapParams_map) {
             map = new google.maps.Map(elements_map, mapParams_map);
-
+            
+            // Create an array of alphabetical characters used to label the markers.
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var markers = [];
+            
             var mapDataType = elementSettingsMap.map_data_type;
             //alert(mapDataType);
             
@@ -101,20 +105,24 @@ var isAdminBar = false,
                         map.panTo(latLng); //Make map global
                         //alert(address_list[i]['postlink']);
 
-                        var marker = new google.maps.Marker({
-                            position: latLng,
-                            map: map,
-                            icon: address_list[i]['marker'],
-                            animation: google.maps.Animation.DROP, //.DROP.BOUNCE,
-                        });
+                        //var markers = locations.map(function(location, i) {
+                            //return new google.maps.Marker({
+                            var marker = new google.maps.Marker({
+                                position: latLng,
+                                map: map,
+                                icon: address_list[i]['marker'],
+                                animation: google.maps.Animation.DROP, //.DROP.BOUNCE,
+                                //label: labels[i % labels.length],
+                            });
+                        //});
                         //console.log(marker);
+                        markers.push(marker);
+                        
                         //
                         bounds.extend(marker.position);
                         //
 
                         if (elementSettingsMap.enable_infoWindow) {
-
-
 
                             google.maps.event.addListener(marker, 'click', (function (marker, k) {
                                 //
@@ -145,6 +153,11 @@ var isAdminBar = false,
                     }
                     //alert(address_list[i]['marker']);
                     //alert('query');
+                }
+                if( elementSettingsMap.markerclustererControl ){
+                // Add a marker clusterer to manage the markers.
+                var markerCluster = new MarkerClusterer(map, markers,
+                    {imagePath: '/wp-content/plugins/dynamic-content-for-elementor/assets/lib/gmap/markerclusterer/img/m'});
                 }
 
             } else {
@@ -226,8 +239,6 @@ var isAdminBar = false,
                     objMarker['icon'] = image;
                 }
                 var marker = new google.maps.Marker(objMarker);
-
-
 
                 var infoWindowMap = new google.maps.InfoWindow({
                     content: locations[0].infoWindow,

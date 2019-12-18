@@ -135,7 +135,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             $widget->add_control(
                     'dce_form_export_method',
                     [
-                        'label' => __('Method (GET or POST)', 'dynamic-content-for-elementor'),
+                        'label' => __('Method (GET, POST or HEAD)', 'dynamic-content-for-elementor'),
                         'type' => \Elementor\Controls_Manager::CHOOSE,
                         'options' => [
                             'get' => [
@@ -145,6 +145,10 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             'post' => [
                                 'title' => __('POST', 'dynamic-content-for-elementor'),
                                 'icon' => 'fa fa-square-o',
+                            ],
+                            'head' => [
+                                'title' => __('HEAD', 'dynamic-content-for-elementor'),
+                                'icon' => 'fa fa-circle-o',
                             ],
                         ],
                         'default' => 'get',
@@ -197,7 +201,34 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 'label' => __('Exported Arguments list', 'dynamic-content-for-elementor'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $repeater_fields->get_controls(),
-                'title_field' => '{{{ dce_form_export_field_key }}}',
+                //'title_field' => '{{{ dce_form_export_field_key }}}',
+                'title_field' => '{{{ dce_form_export_field_key }}} = {{{ dce_form_export_field_value }}}',
+                'prevent_empty' => false,
+                    ]
+            );
+            
+            $repeater_headers = new \Elementor\Repeater();
+            $repeater_headers->add_control(
+                    'dce_form_export_header_key', [
+                'label' => __('Header Key', 'dynamic-content-for-elementor'),
+                'placeholder' => 'Content-Type',                        
+                'type' => Controls_Manager::TEXT,
+                    ]
+            );
+            $repeater_headers->add_control(
+                    'dce_form_export_header_value', [
+                'label' => __('Header Value', 'dynamic-content-for-elementor'),
+                'placeholder' => 'application/json',
+                'type' => Controls_Manager::TEXT,
+                    ]
+            );
+            $widget->add_control(
+                    'dce_form_export_headers', [
+                'label' => __('Add Headers', 'dynamic-content-for-elementor'),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater_headers->get_controls(),
+                'title_field' => '{{{ dce_form_export_header_key }}}: {{{ dce_form_export_header_value }}}',
+                'default' => [ ['dce_form_export_header_key' => 'Connection', 'dce_form_export_header_value' => 'keep-alive']],
                 'prevent_empty' => false,
                     ]
             );
@@ -308,8 +339,10 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         $exp_url = implode('/', $pieces);
                     }
                     if ($settings['dce_form_export_method'] == 'get') {
-                        foreach ($export_data as $akey => $avalue) {
-                            $exp_url = add_query_arg($akey, $avalue, $exp_url);
+                        if (!empty($export_data)) {
+                            foreach ($export_data as $akey => $avalue) {
+                                $exp_url = add_query_arg($akey, $avalue, $exp_url);
+                            }
                         }
                         /* $args = array(
                           'timeout'     => 5,
@@ -344,6 +377,15 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                          * body: null, 
                          * cookies: array() */
                     }
+                    
+                    if (!empty($settings['dce_form_export_headers'])) {
+                        foreach ($settings['dce_form_export_headers'] as $akey => $adata) {
+                            // TOKENIZE parameters repeater
+                            $pvalue = DCE_Helper::get_dynamic_value($adata['dce_form_export_header_value'], $fields);
+                            $args['headers'][$adata['dce_form_export_header_key']] = $pvalue;
+                        }
+                    }
+                    
                     //$ajax_handler->add_error_message($exp_url);
                     //var_dump($exp_url); die();
                     if (!$settings['dce_form_export_ssl']) {

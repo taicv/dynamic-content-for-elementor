@@ -23,7 +23,7 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
     }
     
     static public function is_enabled() {
-        return false;
+        return true;
     }
 
     public function get_title() {
@@ -33,6 +33,15 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
     public function get_icon() {
         return 'icon-dyn-canvas';
     }
+    
+    public function get_docs() {
+        return 'https://www.dynamic.ooo/widget/webgl-background-canvas/';
+    }
+    
+    public function get_description() {
+        return __('Easily integrate in your site WebGL with Canvas for Shader effects', 'dynamic-content-for-elementor');
+    }
+    
     public function get_script_depends() {
         return [    'dce-threejs-lib',
 
@@ -45,6 +54,8 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                     'dce-threejs-DotScreenPass',
                     'dce-threejs-GlitchPass',
 
+                    'dce-threejs-AsciiEffect',
+
                     'dce-threejs-CopyShader',
                     'dce-threejs-HalftoneShader',
                     'dce-threejs-RGBShiftShader',
@@ -54,6 +65,10 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                     'dce-threejs-ColorifyShader',
                     'dce-threejs-VignetteShader',
                     'dce-threejs-DigitalGlitch',
+                    'dce-threejs-PixelShader',
+                    'dce-threejs-LuminosityShader',
+                    'dce-threejs-SobelOperatorShader',
+
 
                     'dce-tweenMax-lib',
                     'dce-timelineMax-lib' ];
@@ -108,7 +123,7 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'mobile_default' => [
                     'unit' => 'px',
                 ],
-                'template_mode' => 'template',
+                'render_type' => 'template',
                 'size_units' => [ 'px', '%', 'vh'],
                 'separator' => 'after',
                 'range' => [
@@ -338,8 +353,30 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'separator' => 'before',
             ]
         );
-        // ----------- sepia
         $this->add_control(
+            'postprocessing_rgbshift_amount', 
+            [
+                'label' => __('Amount', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'frontend_available' => true,
+                'label_block' => false,
+                'default' => [
+                    'size' => 15,
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => 1,
+                        'max' => 30,
+                        'step' => 0.001
+                    ]
+                ],
+                'condition' => [
+                    'postprocessing_rgbShiftShader!' => ''
+                ],
+            ]
+        );
+        // ----------- sepia
+        /*$this->add_control(
             'postprocessing_sepia',
             [
                 'label' => '<b>'.__( 'Sepia', 'dynamic-content-for-elementor' ).'</b>',
@@ -350,9 +387,22 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'frontend_available' => true,
                 'separator' => 'before',
             ]
-        );
+        );*/
+        // ----------- sepia
+        /*$this->add_control(
+            'postprocessing_sobel',
+            [
+                'label' => '<b>'.__( 'Sobel', 'dynamic-content-for-elementor' ).'</b>',
+                'type' => Controls_Manager::SWITCHER,
+                'default' => '',
+                'return_value' => 'yes',
+                //'render_type' => 'template',
+                'frontend_available' => true,
+                'separator' => 'before',
+            ]
+        );*/
         // ----------- colorify
-        $this->add_control(
+        /*$this->add_control(
             'postprocessing_colorify',
             [
                 'label' => '<b>'.__( 'Colorify', 'dynamic-content-for-elementor' ).'</b>',
@@ -363,9 +413,9 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'frontend_available' => true,
                 'separator' => 'before',
             ]
-        );
+        );*/
         // ----------- vignette
-        $this->add_control(
+        /*$this->add_control(
             'postprocessing_vignette',
             [
                 'label' => '<b>'.__( 'Vignette', 'dynamic-content-for-elementor' ).'</b>',
@@ -376,7 +426,7 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'frontend_available' => true,
                 'separator' => 'before',
             ]
-        );
+        );*/
         // ----------- glitch
         $this->add_control(
             'postprocessing_glitch',
@@ -403,8 +453,52 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'separator' => 'before',
             ]
         );
-        // ----------- bloom
         $this->add_control(
+            'postprocessing_dot_scale', 
+            [
+                'label' => __('Dot Scale', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'frontend_available' => true,
+                'label_block' => false,
+                'default' => [
+                    'size' => 1,
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => 0.1,
+                        'max' => 10,
+                        'step' => 0.1
+                    ]
+                ],
+                'condition' => [
+                    'postprocessing_dot!' => ''
+                ],
+            ]
+        );
+        $this->add_control(
+            'postprocessing_dot_angle', 
+            [
+                'label' => __('Dot Angle', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'frontend_available' => true,
+                'label_block' => false,
+                'default' => [
+                    'size' => 0.5,
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => -1,
+                        'max' => 1,
+                        'step' => 0.01
+                    ]
+                ],
+                'condition' => [
+                    'postprocessing_dot!' => ''
+                ],
+            ]
+        );
+        // ----------- bloom
+        /*$this->add_control(
             'postprocessing_bloom',
             [
                 'label' => '<b>'.__( 'Bloom', 'dynamic-content-for-elementor' ).'</b>',
@@ -415,9 +509,9 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'frontend_available' => true,
                 'separator' => 'before',
             ]
-        );
+        );*/
         // ----------- afterimage
-        $this->add_control(
+       /* $this->add_control(
             'postprocessing_afterimage',
             [
                 'label' => '<b>'.__( 'After Image', 'dynamic-content-for-elementor' ).'</b>',
@@ -428,7 +522,7 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 'frontend_available' => true,
                 'separator' => 'before',
             ]
-        );
+        );*/
         // ----------- pixels
         $this->add_control(
             'postprocessing_pixels',
@@ -440,6 +534,28 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
                 //'render_type' => 'template',
                 'frontend_available' => true,
                 'separator' => 'before',
+            ]
+        );
+        $this->add_control(
+            'postprocessing_pixels_size', 
+            [
+                'label' => __('Pixels Size', 'dynamic-content-for-elementor'),
+                'type' => Controls_Manager::SLIDER,
+                'frontend_available' => true,
+                'label_block' => false,
+                'default' => [
+                    'size' => 16,
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => 1,
+                        'max' => 100,
+                        'step' => 1
+                    ]
+                ],
+                'condition' => [
+                    'postprocessing_pixels!' => ''
+                ],
             ]
         );
         /*$this->add_control(
@@ -465,7 +581,7 @@ class DCE_Widget_BgCanvas extends DCE_Widget_Prototype {
 
         $image_url = Group_Control_Image_Size::get_attachment_image_src($settings['bgcanvas_image']['id'], 'image', $settings);
         ?>
-        <video id="video" class="" crossOrigin="anonymous" autoplay="" muted="" playsinline="" loop src="/video/marketing.mp4" width="1280" height="720" style="display:none"></video>
+        <!-- <video id="video" class="" crossOrigin="anonymous" autoplay="" muted="" playsinline="" loop src="/video/marketing.mp4" width="1280" height="720" style="display:none"></video> -->
         <!-- <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
             <source src="textures/sintel.ogv" type='video/ogg; codecs="theora, vorbis"'>
             <source src="textures/sintel.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>

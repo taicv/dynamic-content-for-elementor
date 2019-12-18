@@ -813,25 +813,26 @@ trait DCE_Trait_Meta {
         //$field_type = $field_settings['type'];
         //var_dump(self::get_acf_field_post($idField));
         //var_dump($idField);
-        //var_dump($dataACField);
+        //var_dump($id_page);
+        //var_dump($dataACFieldPost);
 
         // VOGLIO CAPIRE IL TIPO DEL GENITORE
 
         if($dataACFieldPost){ 
             $parentID = $dataACFieldPost->post_parent;
-            $field_settings = self::get_acf_field_settings($parentID);
-
-            if( isset($field_settings['type']) && $field_settings['type'] == 'repeater' ){
-                //echo $idField;
-                //var_dump(acf_get_loop('previous'));
+            $parent_settings = self::get_acf_field_settings($parentID);
+            
+            if( isset($parent_settings['type']) && $parent_settings['type'] == 'repeater' ){
+                $parent_post = get_post($parentID);
+                $row = acf_get_loop('active');               
+                if (!$row) {
+                    if (have_rows($parent_post->post_excerpt, $id_page)) {
+                        the_row();
+                    }
+                }
                 return get_sub_field($idField); 
             }
         }
-        //var_dump($field_settings);
-        //post_parent
-        
-       
-        //var_dump($is_sub_f);
 
         $theField = get_field( $idField, $id_page, $format);
         

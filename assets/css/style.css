@@ -12,6 +12,18 @@ button[disabled], html input[disabled] {
 .dce-form-step-bnt-prev, .dce-form-step-bnt-next{
   width: 50%;
 }
+
+.elementor-field-input-description{
+    padding: 5px 5px 0 5px;
+}
+.elementor-field-label-description[title]{
+  border-bottom: none !important;
+}
+/*.elementor-field-label-description::after{
+    position: absolute;
+    top: 0.18em;
+    left: -1.5em;
+}*/
 /* ---------- Enchanted Form  ---------- */
 
 
@@ -99,28 +111,36 @@ button[disabled], html input[disabled] {
     display: flex;
     flex-wrap: wrap;
 }
-.in_linea{
+.in_linea {
   display: inline-block !important;
 }
-.float{
+.float {
   float: left !important;
 }
 .maschera{
   overflow: hidden !important;
 }
-.blocco-lista{
+.blocco-lista {
     max-width: 400px;
     margin: 0 auto ;
 }
-.mask{
+.mask {
   overflow: hidden;
 }
-.visible, .visible *{
+.visible, .visible * {
   display: block !important;
 }
-.dce-flexbox{
+.dce-flexbox {
   display: flex;
   align-items: center;
+}
+.dce-absolute {
+    position: absolute;
+}
+.dce-offscreen {
+    position: absolute;
+    left: -999em;
+    display: block !important;
 }
 /* --------------------------------------- */
 
@@ -2758,4 +2778,12 @@ html.swup-enabled.is-animating #footer {
     cursor: pointer;
     top: 50%;
     transform: translateY(-50%);
+}
+
+
+.elementor-widget-dce-copy-to-clipboard .elementor-button .elementor-button-text:empty {
+  display: none;
+}
+.elementor-widget-dce-copy-to-clipboard .elementor-button {
+  border: none;
 }

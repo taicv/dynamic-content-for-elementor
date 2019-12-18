@@ -217,3 +217,37 @@
     text-align: center;
     margin: 0 4px;
 }
+
+.elementor-control-type-tab.elementor-control-form_fields_enchanted_tab{
+    width: 12em;
+}
+
+/**********************/
+#dce_copy_paste {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 20px;
+    border-top: 1px solid #e52600;
+}
+#dce_copy_paste p {
+    margin-bottom: 5px;
+}
+#dce_copy_paste__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: inherit; 
+}
+#dce_copy_paste__textarea {
+    height: 40px;
+}
+#dce_copy_paste__btn {
+    position: absolute;
+    right: 10px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -17,7 +17,7 @@ if (!defined('ABSPATH'))
 class DCE_Extension_Reveal extends DCE_Extension_Prototype {
 
     public $name = 'Reveal';
-
+    public $has_controls = true;
     /**
      * Reveal: magic for parallax
      *

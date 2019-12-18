@@ -269,7 +269,20 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
         }
 
         function dce_elementor_form_pdf($fields, $settings = null, $ajax_handler = null) {
-            global $dce_form;
+            global $dce_form, $post;
+            
+            if (empty($settings['dce_form_pdf_template'])) {
+                $ajax_handler->add_error_message(__('Error: PDF Template not found or not setted', 'dynamic-content-for-elementor'));
+                return;
+            }
+            // verify Template 
+            $template = get_post($settings['dce_form_pdf_template']);
+            if (!$template || $template->post_type != 'elementor_library') {
+                $ajax_handler->add_error_message(__('Error: PDF Template not setted correctly', 'dynamic-content-for-elementor'));
+                return;
+            }
+            
+            $post = get_post($fields['submitted_on_id']); // to retrive dynamic data from post where the form was submitted
             
             $pdf_folder = '/' . $settings['dce_form_pdf_folder'] . '/';
 

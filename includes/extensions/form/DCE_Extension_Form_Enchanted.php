@@ -4,6 +4,7 @@ namespace DynamicContentForElementor\Extensions;
 
 use Elementor\Controls_Manager;
 use Elementor\Controls_Stack;
+use Elementor\Group_Control_Typography;
 use DynamicContentForElementor\DCE_Helper;
 
 if (!defined('ABSPATH'))
@@ -130,12 +131,20 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     [],
                     '4.0.6-rc.1'
             );
+            
+            wp_register_style(
+                    'font-awesome',
+                    ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/',
+                    [],
+                    '4.7.0'
+		);
         }
 
         public function _render_form($content, $widget) {
             $new_content = $content;
             if ($widget->get_name() == 'form') {
                 $new_content = self::_add_icon($new_content, $widget);
+                $new_content = self::_add_description($new_content, $widget);
                 $new_content = self::_add_select2($new_content, $widget);
                 $new_content = self::_add_password_visibility($new_content, $widget);
                 $new_content = self::_add_inline_align($new_content, $widget);
@@ -201,10 +210,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 }
             }
             if ($has_select2) {
+                wp_enqueue_style('font-awesome');
                 //$add_js .= "alert('psw');".PHP_EOL;
                 $add_js .= "jQuery('.elementor-element-" . $widget->get_id() . " .dce-form-password-toggle').each(function() {" . PHP_EOL;
                 $add_js .= "jQuery(this).wrap('<div class=\"elementor-field-input-wrapper elementor-field-input-wrapper-" . $afield['custom_id'] . "\"></div>');";
-                $add_js .= "jQuery(this).parent().append('<span class=\"fa fa-fw fa-eye-slash field-icon dce-toggle-password\"></span>');";
+                $add_js .= "jQuery(this).parent().append('<span class=\"fa far fa-eye-slash field-icon dce-toggle-password\"></span>');";
                 $add_js .= "jQuery(this).next('.dce-toggle-password').on('click', function(){ "
                         . "var input_psw = jQuery(this).prev(); "
                         . "if (input_psw.attr('type') == 'password') { "
@@ -245,6 +255,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             foreach ($settings['form_fields'] as $key => $afield) {
                 //if ($afield["field_type"] == 'select') {
                 if (!empty($afield['field_icon'])) {
+                    wp_enqueue_style('font-awesome');
                     //var_dump($afield['field_icon']);
                     $fa_classes = explode(' ', $afield['field_icon']['value']);
                     $fa_family = reset($fa_classes);
@@ -254,7 +265,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     $fa_unicode = $icons_fa->getIconUnicode($fa_class);
                     switch ($fa_family) {
                         case 'far':
-                            //$fa_unicode = $icons_far->getIconUnicode($fa_class);
+                            //$fa_unicode = $icons_far->getIconUnicode($fa_class);                            
                             break;
                         case 'fas':
                             $fa_weight = 900;
@@ -288,11 +299,55 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
             return $new_content;
         }
 
+        public static function _add_description($content, $widget) {
+            $new_content = $content;
+            $settings = $widget->get_settings_for_display();
+            $add_css = '<style>.elementor-element.elementor-element-' . $widget->get_id() . ' .elementor-field-group { align-self: flex-start; }</style>';
+            $add_js = '<script>jQuery(document).ready(function(){' . PHP_EOL;
+            $has_description = false;
+            foreach ($settings['form_fields'] as $key => $afield) {
+                if (!empty($afield['field_description']) && $afield['field_description_position'] != 'no-description') {
+                    $has_description = true;
+                    $field_description = str_replace("'", "\\'", $afield['field_description']);
+                    $field_description = preg_replace('/\s+/', ' ', trim($field_description));
+                    if ($afield['field_description_position'] == 'elementor-field-label') {
+                        $add_js .= "jQuery('.elementor-element-" . $widget->get_id() . " .elementor-field-group-" . $afield['custom_id'] . " .elementor-field-label').wrap('<abbr class=\"elementor-field-label-description elementor-field-label-description-" . $afield['custom_id'] . "\" title=\"".$field_description."\"></abbr>');";
+                        //$add_css = '<style>.elementor-element-' . $widget->get_id() . ' </style>';
+                    }
+                    if ($afield['field_description_position'] == 'elementor-field') {
+                        //$add_js .= "alert('#form-field-".$afield['custom_id']."');";
+                        $add_js .= "jQuery('.elementor-element-" . $widget->get_id() . " .elementor-field-group-" . $afield['custom_id'] . "').append('<div class=\"elementor-field-input-description elementor-field-input-description-" . $afield['custom_id'] . "\">".$field_description."</div>');";
+                    }
+                }
+                //}
+            }
+            $add_js .= '});</script>' . PHP_EOL;
+            if ($has_description) {
+                return $new_content . $add_css . $add_js;
+            }
+            return $new_content;
+        }
+        
         public static function _add_to_form(Controls_Stack $element, $control_id, $control_data, $options = []) {
+            
+            if ($element->get_name() == 'form' && $control_id == 'form_fields') {
+                $control_data['fields']['form_fields_enchanted_tab'] = array(
+                        "type" => "tab",
+                        "tab" => "enchanted",
+                        "label" => '<i class="fa fa-magic" aria-hidden="true"></i>', //__('Enchanted', 'dynamic-content-for-elementor'),
+                        "tabs_wrapper" => "form_fields_tabs",
+                        "name" => "form_fields_enchanted_tab",
+                        'condition' => [
+                            'field_type!' => 'step',
+                        ],
+                    );
+            }
+            
             $control_data = self::_add_form_select2($element, $control_id, $control_data, $options);
             $control_data = self::_add_form_password_visibility($element, $control_id, $control_data, $options);            
             $control_data = self::_add_form_inline_align($element, $control_id, $control_data, $options);
             $control_data = self::_add_form_icon($element, $control_id, $control_data, $options);
+            $control_data = self::_add_form_description($element, $control_id, $control_data, $options);
             $control_data = self::_add_form_btn_style($element, $control_id, $control_data, $options);
             return $control_data;
         }
@@ -317,7 +372,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             ],
                         ],
                         "tabs_wrapper" => "form_fields_tabs",
-                        "tab" => "content",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
                     );
                 }
 
@@ -383,7 +439,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             ],
                         ],
                         "tabs_wrapper" => "form_fields_tabs",
-                        "tab" => "content",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
                     );
                 }
                 /*
@@ -437,7 +494,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         'toggle' => false,
                         'default' => 'no-icon',
                         "tabs_wrapper" => "form_fields_tabs",
-                        "tab" => "content",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
                     );
                     $control_data['fields']['field_icon'] = array(
                         'name' => 'field_icon',
@@ -449,7 +507,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             'field_icon_position!' => 'no-icon',
                         ],
                         "tabs_wrapper" => "form_fields_tabs",
-                        "tab" => "content",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
                     );
                 }
                 
@@ -475,6 +534,112 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                 'selectors' => [
                                         '{{WRAPPER}} .elementor-field-label:before' => 'color: {{VALUE}};',
                                 ],
+                            ]
+                    );
+                }
+                
+            }
+
+            return $control_data;
+        }
+        
+        public static function _add_form_description(Controls_Stack $element, $control_id, $control_data, $options = []) {
+
+            if ($element->get_name() == 'form') {
+
+                if ($control_id == 'form_fields') {
+                    $control_data['fields']['field_description_position'] = array(
+                        'name' => 'field_description_position',
+                        'label' => __('Description', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::CHOOSE,
+                        'options' => [
+                            'no-description' => [
+                                'title' => __('No Description', 'dynamic-content-for-elementor'),
+                                'icon' => 'fa fa-times',
+                            ],
+                            'elementor-field-label' => [
+                                'title' => __('On Label', 'dynamic-content-for-elementor'),
+                                'icon' => 'fa fa-tag',
+                            ],
+                            'elementor-field' => [
+                                'title' => __('Below Input', 'dynamic-content-for-elementor'),
+                                'icon' => 'fa fa-square-o',
+                            ]
+                        ],
+                        'toggle' => false,
+                        'default' => 'no-description',
+                        "tabs_wrapper" => "form_fields_tabs",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
+                    );
+                    $control_data['fields']['field_description'] = array(
+                        'name' => 'field_description',
+                        'label' => __('Description HTML', 'elementor'),
+                        'type' => Controls_Manager::TEXTAREA,
+                        'label_block' => true,
+                        'fa4compatibility' => 'icon',
+                        'condition' => [
+                            'field_description_position!' => 'no-description',
+                        ],
+                        "tabs_wrapper" => "form_fields_tabs",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
+                    );
+                }
+                
+                if ($control_id == 'field_background_color') {
+                    $element->add_control(
+			'field_description_color',
+                            [
+                                'label' => __( 'Description Color', 'elementor-pro' ),
+                                'type' => Controls_Manager::COLOR,
+                                'selectors' => [
+                                        '{{WRAPPER}} .elementor-field-input-description' => 'color: {{VALUE}};',
+                                ],
+                                'separator' => 'before',
+                            ]
+                    );
+                    $element->add_group_control(
+                            Group_Control_Typography::get_type(), [
+                        'name' => 'field_description_typography',
+                        'label' => __('Typography', 'dynamic-content-for-elementor'),
+                        'selector' => '{{WRAPPER}} .elementor-field-input-description',
+                            ]
+                    );
+                /*}
+                if ($control_id == 'mark_required_color') {*/
+                    $element->add_control(
+			'label_description_color',
+                            [
+                                'label' => __( 'Label Description Color', 'elementor-pro' ),
+                                'type' => Controls_Manager::COLOR,
+                                'selectors' => [
+                                        '{{WRAPPER}} .elementor-field-label-description:after' => "
+                                            content: '?';
+                                            display: inline-block;
+                                            border-radius: 50%;
+                                            padding: 2px 0;
+                                            height: 1.2em;
+                                            line-height: 1;
+                                            font-size: 80%;
+                                            width: 1.2em;
+                                            text-align: center;
+                                            margin-left: 0.2em;
+                                            color: {{VALUE}};",
+                                ],
+                                'separator' => 'before',
+                                'default' => '#ffffff',
+                            ]
+                    );
+                    $element->add_control(
+			'label_description_bgcolor',
+                            [
+                                'label' => __( 'Label Description Background Color', 'elementor-pro' ),
+                                'type' => Controls_Manager::COLOR,
+                                'selectors' => [
+                                        '{{WRAPPER}} .elementor-field-label-description:after' => 'background-color: {{VALUE}};',
+                                ],
+                                'default' => '#666666',
                             ]
                     );
                 }
@@ -529,7 +694,8 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             'inline_list!' => '',
                         ],
                         "tabs_wrapper" => "form_fields_tabs",
-                        "tab" => "content",
+                        "inner_tab" => "form_fields_enchanted_tab",
+                        "tab" => "enchanted",
                     );
                 }
             }

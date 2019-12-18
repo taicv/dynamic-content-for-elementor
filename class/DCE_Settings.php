@@ -926,7 +926,7 @@ class DCE_Settings {
                         <div class="clear"></div>
                         <div id="side-sortables" class="accordion-container">
                             <div id="dce_template_disabler" class="text-center column-posts wp-tab-active">
-                                <h2 class="text-red red"><?php _e('DCE Template System', 'dynamic-content-for-elementor'); ?></h2>
+                                <br><?php /*<h2 class="text-red red"><?php _e('DCE Template System', 'dynamic-content-for-elementor'); ?></h2> */ ?>
                                 <label class="dce-radio-container dce-radio-container-template" onclick="jQuery(this).closest('.accordion-container').find('.accordion-section').addClass('open').removeClass('dce-disabled'); jQuery('#menu-management-liquid').removeClass('dce-disabled');">
                                     <input value="0" type="radio"<?php if (!$dce_template_disable) { ?> checked="checked"<?php } ?> name="dce_template_disable">
                                     <span class="dce-radio-checkmark"></span>
@@ -1135,7 +1135,11 @@ class DCE_Settings {
                                                                     $template = 'original';
                                                                     if ($skey == 'single') {
                                                                         if (isset($this->options[$dce_key.'_blank']) && $this->options[$dce_key.'_blank']) {
-                                                                            $template = 'full';
+                                                                            if ($this->options[$dce_key.'_blank'] == 'canvas') {
+                                                                                $template = 'canvas';
+                                                                            } else {
+                                                                                $template = 'full';
+                                                                            }
                                                                         }
                                                                     } else {
                                                                         if ((isset($this->options[$dce_key]) && $this->options[$dce_key])) {
@@ -1157,7 +1161,7 @@ class DCE_Settings {
                                                                     //var_dump($this->options[$dce_key]);
                                                                     //var_dump($template);
                                                                     ?>
-                                                                    <div class="dce-template-page dce-template-content-<?php echo (isset($this->options[$dce_key]) && $this->options[$dce_key]) ? 'template' : 'original'; ?>">
+                                                                    <div class="dce-template-page dce-template-content-<?php echo (isset($this->options[$dce_key]) && $this->options[$dce_key]) ? 'template' : 'original'; ?> dce-template-content-<?php echo $template; ?>">
                                                                         <div class="dce-template-page-content dce-template-page-content-<?php echo $template; ?>">
                                                                             <span class="dce-template-page-content-preview"></span>
                                                                             <span class="dce-template-page-content-preview"></span>
@@ -1174,7 +1178,31 @@ class DCE_Settings {
                                                                         <br><br>
                                                                         <?php
                                                                         $dce_key = 'dyncontel_field_' . $skey . ($tkey == 'taxonomies' ? '_taxonomy_' : '') . $chiave;
-                                                                        $this->_dce_settings_select_template_blank($dce_key);
+                                                                        //$this->_dce_settings_select_template_blank($dce_key);
+                                                                        
+                                                                        $dce_tkey = $dce_key . '_blank';
+                                                                        $dce_template = isset($this->options[$dce_tkey]) ? $this->options[$dce_tkey] : false;
+                                                                        //var_dump($dce_template);
+                                                                        ?>
+                                                                        <div class="dce-template-single-type">
+                                                                            <h4><?php _e('Layout', 'dynamic-content-for-elementor'); ?></h4>
+                                                                            <label class="dce-radio-container dce-radio-container-template">
+                                                                                <input value="0" type="radio"<?php if (!$dce_template || $dce_template == '0') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
+                                                                                <span class="dce-radio-checkmark"></span>
+                                                                                <span class="dce-radio-label"><?php _e('Default', 'dynamic-content-for-elementor'); ?></span>
+                                                                            </label>
+                                                                            <label class="dce-radio-container dce-radio-container-template">
+                                                                                <input value="header-footer" type="radio"<?php if ($dce_template == '1' || $dce_template == 'header-footer') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
+                                                                                <span class="dce-radio-checkmark"></span>
+                                                                                <span class="dce-radio-label"><?php _e('Full-Width', 'dynamic-content-for-elementor'); ?></span>
+                                                                            </label>
+                                                                            <label class="dce-radio-container dce-radio-container-template">
+                                                                                <input value="canvas" type="radio"<?php if ($dce_template == 'canvas') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
+                                                                                <span class="dce-radio-checkmark"></span>
+                                                                                <span class="dce-radio-label"><?php _e('Canvas', 'dynamic-content-for-elementor'); ?></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <?php
                                                                     }
                                                                     if ($skey == 'archive') {
                                                                         ?>
@@ -1202,7 +1230,12 @@ class DCE_Settings {
                                                                                 <input value="blocks" type="radio"<?php if ($dce_template == 'blocks') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
                                                                                 <span class="dce-radio-label"><?php _e('Blocks', 'dynamic-content-for-elementor'); ?></span>
-                                                                            </label>--><label class="dce-radio-container dce-radio-container-template">
+                                                                            </label>-->
+                                                                            <label class="dce-radio-container dce-radio-container-template">
+                                                                                <input value="canvas" type="radio"<?php if (!$dce_template || $dce_template == 'canvas') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
+                                                                                <span class="dce-radio-checkmark"></span>
+                                                                                <span class="dce-radio-label"><?php _e('Canvas', 'dynamic-content-for-elementor'); ?></span>
+                                                                            </label><label class="dce-radio-container dce-radio-container-template">
                                                                                 <input value="boxed" type="radio"<?php if ($dce_template == 'boxed') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
                                                                                 <span class="dce-radio-label"><?php _e('Boxed', 'dynamic-content-for-elementor'); ?></span>
@@ -1210,10 +1243,6 @@ class DCE_Settings {
                                                                                 <input value="blank" type="radio"<?php if ($dce_template == 'blank') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
                                                                                 <span class="dce-radio-checkmark"></span>
                                                                                 <span class="dce-radio-label"><?php _e('Full-Width', 'dynamic-content-for-elementor'); ?></span>
-                                                                            </label><label class="dce-radio-container dce-radio-container-template">
-                                                                                <input value="canvas" type="radio"<?php if (!$dce_template || $dce_template == 'canvas') { ?> checked="checked"<?php } ?> name="<?php echo DCE_OPTIONS; ?>[<?php echo $dce_tkey; ?>]">
-                                                                                <span class="dce-radio-checkmark"></span>
-                                                                                <span class="dce-radio-label"><?php _e('Canvas', 'dynamic-content-for-elementor'); ?></span>
                                                                             </label>
 
                                                                             <br><br>
@@ -1367,6 +1396,10 @@ class DCE_Settings {
                     jQuery(this).closest('.dce-template-main-content').find('.dce-template-page-content').attr('class', 'dce-template-page-content dce-template-page-content-original');
                 }
             });
+            
+            
+            
+            
 
             jQuery('.dce-template-before .dce-select-template, .dce-template-after .dce-select-template').on('change', function(){
                 if (jQuery(this).val() > 0) {
@@ -1398,6 +1431,31 @@ class DCE_Settings {
                 }
                 jQuery(this).closest('.dce-template-main-content').find('.dce-template-page-content').attr('class', 'dce-template-page-content dce-template-page-content-'+value);
             });
+            
+            jQuery('.dce-template-post-body-single .dce-radio-container-template').on('click', function(){
+                var value = jQuery(this).find('input[type=radio]').val();
+                console.log(value);
+                if (value && value != 'canvas') {
+                    jQuery(this).closest('.dce-template-main').find('.dce-template-single-blocks').removeClass('hidden');
+                } else {
+                    jQuery(this).closest('.dce-template-main').find('.dce-template-single-blocks').addClass('hidden');
+                }
+                if (!value || value == '0') {
+                    value = 'original';
+                }
+                if (value == 'header-footer' || value == 1 || value == '1') {
+                    value = 'full';
+                }
+                if (value == 'canvas' || value == 2 || value == '2') {
+                    value = 'canvas';
+                }
+                jQuery(this).closest('.dce-template-main-content').find('.dce-template-page-content').attr('class', 'dce-template-page-content dce-template-page-content-'+value);
+                
+                jQuery(this).closest('.dce-template-main-content').find('.dce-template-page').removeClass('dce-template-content-canvas').removeClass('dce-template-content-default').removeClass('dce-template-content-full');
+                if (value != 'original') {
+                    jQuery(this).closest('.dce-template-main-content').find('.dce-template-page').addClass('dce-template-content-'+value);
+                }
+            });            
             
             <?php if ($dce_template_disable) { ?>
                 jQuery('#menu-management-liquid').addClass('dce-disabled');

@@ -56,7 +56,7 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
- 
+
 .icon-dyn-listsingle:before { content: '\e800'; } /* '' */
 .icon-dyn-360:before { content: '\e801'; } /* '' */
 .icon-dyn-acffields:before { content: '\e802'; } /* '' */
@@ -148,7 +148,10 @@
 .icon-dyn-svgfe:before { content: '\e858'; } /* '' */
 .icon-dyn-svgtextpath:before { content: '\e859'; } /* '' */
 .icon-dyn-buttonpdf:before { content: '\e85a'; } /* '' */
-.icon-dyn-title-taxonomy:before { content: '\e85d'; } /* '' */
 .icon-dyn-buttoncalendar:before { content: '\e85b'; } /* '' */
+.icon-dyn-curtains:before { content: '\e85c'; } /* '' */
+.icon-dyn-title-taxonomy:before { content: '\e85d'; } /* '' */
 .icon-dyn-qrcode:before { content: '\e85e'; } /* '' */
 .icon-dyn-canvas:before { content: '\e85f'; } /* '' */
+.icon-dyn-plane:before { content: '\e860'; } /* '' */
+.icon-dyn-buttoncopy:before { content: '\e861'; } /* '' */

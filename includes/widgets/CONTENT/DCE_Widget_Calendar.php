@@ -36,7 +36,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
     public function get_icon() {
         return 'icon-dyn-buttoncalendar';
     }
-    
+
     public function get_description() {
         return __('Add current event to your personal calendar', 'dynamic-content-for-elementor');
     }
@@ -54,7 +54,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
      * @access protected
      */
     protected function _register_controls() {
-        
+
         $this->start_controls_section(
                 'section_button',
                 [
@@ -421,16 +421,16 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
         );
 
         $this->end_controls_section();
-        
-        
-        
+
+
+
         $this->start_controls_section(
                 'section_calendar',
                 [
                     'label' => __('Calendar', 'elementor'),
                 ]
         );
-        
+
         $format = array(
             'gcalendar' => 'Google Calendar',
             'ics' => 'ICS (iCal, Outlook, etc)',
@@ -455,16 +455,16 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                     'toggle' => false,
                 ]
         );
-        
+
         // title
         $this->add_control(
                 'dce_calendar_title', [
-                'label' => __('Title', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => true,
+            'label' => __('Title', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'label_block' => true,
                 ]
         );
-        
+
         $this->add_control(
                 'dce_calendar_datetime_format',
                 [
@@ -485,73 +485,73 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
                     'toggle' => false,
                 ]
         );
-        
+
         // datetime start
         $this->add_control(
                 'dce_calendar_datetime_start', [
-                'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::DATE_TIME,
-                'label_block' => true,
-                'condition' => [
-                    'dce_calendar_datetime_format' => 'picker',
-                ]
+            'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::DATE_TIME,
+            'label_block' => true,
+            'condition' => [
+                'dce_calendar_datetime_format' => 'picker',
+            ]
                 ]
         );
         // datetime end
         $this->add_control(
                 'dce_calendar_datetime_end', [
-                'label' => __('DateTime End', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::DATE_TIME,
-                'label_block' => true,
-                'condition' => [
-                    'dce_calendar_datetime_format' => 'picker',
-                ]
+            'label' => __('DateTime End', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::DATE_TIME,
+            'label_block' => true,
+            'condition' => [
+                'dce_calendar_datetime_format' => 'picker',
+            ]
                 ]
         );
         // datetime start
         $this->add_control(
                 'dce_calendar_datetime_start_string', [
-                'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::TEXT,
-                'placeholder' => 'YYYY-mm-dd HH:ii',
-                'label_block' => true,
-                'condition' => [
-                    'dce_calendar_datetime_format' => 'string',
-                ]
+            'label' => __('DateTime Start', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => 'YYYY-mm-dd HH:ii',
+            'label_block' => true,
+            'condition' => [
+                'dce_calendar_datetime_format' => 'string',
+            ]
                 ]
         );
         // datetime end
         $this->add_control(
                 'dce_calendar_datetime_end_string', [
-                'label' => __('DateTime End', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => true,
-                'placeholder' => 'YYYY-mm-dd HH:ii',
-                'condition' => [
-                    'dce_calendar_datetime_format' => 'string',
-                ]
+            'label' => __('DateTime End', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'label_block' => true,
+            'placeholder' => 'YYYY-mm-dd HH:ii',
+            'condition' => [
+                'dce_calendar_datetime_format' => 'string',
+            ]
                 ]
         );
-        
+
         // description
         $this->add_control(
                 'dce_calendar_description', [
-                'label' => __('Description', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::WYSIWYG,
+            'label' => __('Description', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::WYSIWYG,
                 ]
         );
         // location
         $this->add_control(
                 'dce_calendar_location', [
-                'label' => __('Location', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => true,
+            'label' => __('Location', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::TEXT,
+            'label_block' => true,
                 ]
         );
-        
+
         $this->end_controls_section();
     }
-    
+
     /**
      * Render button widget output on the frontend.
      *
@@ -562,32 +562,35 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
      */
     protected function render() {
         $settings = $this->get_settings_for_display();
-        
+
         if ($settings['dce_calendar_format'] == 'ics') {
             $cal_url = DCE_URL . 'assets/ics.php';
             $cal_url .= '?post_id=' . get_the_ID();
             $cal_url .= '&element_id=' . $this->get_id();
         } else {
             $cal_url = "https://www.google.com/calendar/render?action=TEMPLATE";
-                if ($settings['dce_calendar_title']) $cal_url .= '&text='.urlencode($settings['dce_calendar_title']);
-                if ($settings['dce_calendar_description']) $cal_url .= '&details='.urlencode($settings['dce_calendar_description']);
-                if ($settings['dce_calendar_location']) $cal_url .= '&location='.urlencode($settings['dce_calendar_location']);
-                
-                $start = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_start'] : $settings['dce_calendar_datetime_start_string'];
-                $end = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_end'] : $settings['dce_calendar_datetime_end_string'];
-                if ($start) {
-                    $cal_url .= '&dates='.urlencode(date('Ymd\\THi00\\Z',strtotime($start)));
-                    if ($end) {
-                        $cal_url .= '%2F'.urlencode(date('Ymd\\THi00\\Z',strtotime($end)));
-                    }
+            if ($settings['dce_calendar_title'])
+                $cal_url .= '&text=' . urlencode($settings['dce_calendar_title']);
+            if ($settings['dce_calendar_description'])
+                $cal_url .= '&details=' . urlencode($settings['dce_calendar_description']);
+            if ($settings['dce_calendar_location'])
+                $cal_url .= '&location=' . urlencode($settings['dce_calendar_location']);
+
+            $start = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_start'] : $settings['dce_calendar_datetime_start_string'];
+            $end = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_end'] : $settings['dce_calendar_datetime_end_string'];
+            if ($start) {
+                $cal_url .= '&dates=' . urlencode(date('Ymd\\THi00\\Z', strtotime($start)));
+                if ($end) {
+                    $cal_url .= '%2F' . urlencode(date('Ymd\\THi00\\Z', strtotime($end)));
                 }
-                //$cal_url .= '&action=TEMPLATE';
-                //$cal_url .= '&trp=false';
-                //$cal_url .= '&sf=true';
-                //$cal_url .= '&sprop=';
-                //$cal_url .= '&sprop=name:';
+            }
+            //$cal_url .= '&action=TEMPLATE';
+            //$cal_url .= '&trp=false';
+            //$cal_url .= '&sf=true';
+            //$cal_url .= '&sprop=';
+            //$cal_url .= '&sprop=name:';
         }
-        
+
 
         $this->add_render_attribute('wrapper', 'class', 'elementor-button-wrapper');
 
@@ -643,7 +646,7 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
 
         $this->add_render_attribute([
             'content-wrapper' => [
-                'class' => ['elementor-button-content-wrapper','dce-flexbox'],
+                'class' => ['elementor-button-content-wrapper', 'dce-flexbox'],
             ],
             'icon-align' => [
                 'class' => [
@@ -659,17 +662,17 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
         $this->add_inline_editing_attributes('text', 'none');
         ?>
         <span <?php echo $this->get_render_attribute_string('content-wrapper'); ?>>
-        <?php if (!empty($settings['icon']) || !empty($settings['selected_icon']['value'])) : ?>
+                <?php if (!empty($settings['icon']) || !empty($settings['selected_icon']['value'])) : ?>
                 <span <?php echo $this->get_render_attribute_string('icon-align'); ?>>
-                <?php
-                if ($is_new || $migrated) :
-                    Icons_Manager::render_icon($settings['selected_icon'], ['aria-hidden' => 'true']);
-                else :
-                    ?>
+                    <?php
+                    if ($is_new || $migrated) :
+                        Icons_Manager::render_icon($settings['selected_icon'], ['aria-hidden' => 'true']);
+                    else :
+                        ?>
                         <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
-                    <?php endif; ?>
+            <?php endif; ?>
                 </span>
-                <?php endif; ?>
+        <?php endif; ?>
             <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
         </span>
         <?php
@@ -678,6 +681,5 @@ class DCE_Widget_Calendar extends DCE_Widget_Prototype {
     public function on_import($element) {
         return Icons_Manager::on_import_migration($element, 'icon', 'selected_icon');
     }
-
 
 }

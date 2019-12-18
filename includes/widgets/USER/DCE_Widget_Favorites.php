@@ -45,14 +45,6 @@ class DCE_Widget_Favorites extends DCE_Widget_Prototype {
         return 'icon-dyn-like';
     }
 
-    static public function get_position() {
-        return 2;
-    }
-    
-    public function get_style_depends() {
-      return ['elementor-animations', 'dce-modal'];
-    }
-
     protected function _register_controls() {
 
         $this->start_controls_section(

@@ -24,6 +24,8 @@ class DCE_Extension_Prototype {
         return true;
     }
 
+    public $has_controls = false;
+    
     private $is_common = true;
 
     private $depended_scripts = [];
@@ -161,16 +163,22 @@ class DCE_Extension_Prototype {
         $this->_enqueue_styles();
         $this->_enqueue_scripts();
     }
-
-    public final function add_common_sections($element, $args) {
+    
+    public function get_low_name() {
         $low_name = strtolower($this->name);
         $low_name = str_replace(' ', '_', $low_name);
+        return $low_name;
+    }
+
+    public final function add_common_sections($element, $args) {
+        $low_name = $this->get_low_name();
         $section_name = 'dce_section_' . $low_name . '_advanced';
 
         if (!$this->is_common()) {
             //return false;
         }
-        if ($low_name == 'tokens' || $low_name == 'enchanted_editor' || substr($low_name,0,4) == 'form') {
+        
+        if (!$this->has_controls) {
             // no need settings
             return false;
         }
@@ -183,104 +191,17 @@ class DCE_Extension_Prototype {
             return false;
         }
         
-        if ($low_name == 'visibility') {
-            
-            \Elementor\Controls_Manager::add_tab(
-                    'dce_'.$low_name,
-                    __( $this->name, 'dynamic-content-for-elementor' )
-            );
-            
-            $element->start_controls_section(
-                $section_name, [
-                    'tab' => 'dce_'.$low_name,
-                    'label' => '<span class="color-dce icon icon-dyn-logo-dce pull-right ml-1"></span> '.__($this->name, 'dynamic-content-for-elementor'),
-                ]
-            );
-            $element->end_controls_section();
-            
-            foreach (DCE_Extension_Visibility::$tabs as $tkey => $tlabel) {
-                $section_name = 'dce_section_'.$low_name.'_'.$tkey;
-                
-                $condition = [
-                                'enabled_'.$low_name.'!' => '',
-                                'dce_'.$low_name.'_hidden' => '',
-                                'dce_'.$low_name.'_mode' => 'quick',
-                            ];
-                if ($tkey == 'fallback') {
-                    $condition = ['enabled_'.$low_name.'!' => ''];
-                }
-                if ($tkey == 'repeater') {
-                    $condition = [
-                                'enabled_'.$low_name.'!' => '',
-                                'dce_'.$low_name.'_hidden' => '',
-                                'dce_'.$low_name.'_mode' => 'advanced',
-                            ];
-                }
-                
-                $icon = '';
-                switch ($tkey) {
-                    case 'user':
-                        $icon = 'user-o';
-                        break;
-                    case 'datetime':
-                        $icon = 'calendar';
-                        break;
-                    case 'device':
-                        $icon = 'mobile';
-                        break;
-                    case 'post':
-                        $icon = 'file-text-o';
-                        break;
-                    case 'context':
-                        $icon = 'crosshairs';
-                        break;
-                    case 'tags':
-                        $icon = 'question-circle-o';
-                        break;
-                    case 'archive':
-                        $icon = 'puzzle-piece';
-                        break;
-                    case 'random':
-                        $icon = 'random';
-                        break;
-                    case 'custom':
-                        $icon = 'code';
-                        break;
-                    case 'events':
-                        $icon = 'hand-pointer-o';
-                        break;
-                    case 'fallback':
-                        $icon = 'life-ring';
-                        break;
-                    case 'advanced':
-                        $icon = 'cogs';
-                        break;
-                    default:
-                        $icon = 'cog';
-                }
-                if ($icon) {
-                    $icon = '<i class="fa fa-'.$icon.' pull-right ml-1" aria-hidden="true"></i>';
-                }
-                
-                $element->start_controls_section(
-                    $section_name, [
-                        'tab' => 'dce_'.$low_name,
-                        'label' => $icon.__($tlabel, 'dynamic-content-for-elementor'),
-                        'condition' => $condition,
-                    ]
-                );
-                $element->end_controls_section();
-            }
-            
-        } else {
-            $element->start_controls_section(
-                $section_name, [
-                    'tab' => Controls_Manager::TAB_ADVANCED,
-                    'label' => __($this->name, 'dynamic-content-for-elementor'),
-                ]
-            );
-            $element->end_controls_section();
-        }
+        $this->get_control_section($section_name, $element);
+    }
+    
+    public function get_control_section($section_name, $element) {
+        $element->start_controls_section(
+            $section_name, [
+                'tab' => Controls_Manager::TAB_ADVANCED,
+                'label' => __($this->name, 'dynamic-content-for-elementor'),
+            ]
+        );
+        $element->end_controls_section();
     }
 
     public function add_common_sections_actions() {

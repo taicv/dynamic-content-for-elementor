@@ -151,22 +151,22 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 ],
                     ]
             );
-            
+
             $widget->add_control(
-                'dce_form_message_text_floating',
-                [
-                    'label' => __('Floating message', 'dynamic-content-for-elementor'),
-                    'type' => Controls_Manager::SWITCHER,
-                    'selectors' => [
-                        '{{WRAPPER}} .elementor-message' => 'position: fixed; display: block; z-index: 100; bottom: 0;',
-                    ],
-                    'condition' => [
-                        'dce_form_message_type' => 'text',
-                    ],
-                ]
+                    'dce_form_message_text_floating',
+                    [
+                        'label' => __('Floating message', 'dynamic-content-for-elementor'),
+                        'type' => Controls_Manager::SWITCHER,
+                        'selectors' => [
+                            '{{WRAPPER}} .elementor-message' => 'position: fixed; display: block; z-index: 100; bottom: 0;',
+                        ],
+                        'condition' => [
+                            'dce_form_message_type' => 'text',
+                        ],
+                    ]
             );
             $widget->add_control(
-                'dce_form_message_text_floating_align', [
+                    'dce_form_message_text_floating_align', [
                 'label' => __('Floationg Position', 'dynamic-content-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
@@ -174,10 +174,10 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         'title' => __('Left', 'dynamic-content-for-elementor'),
                         'icon' => 'eicon-h-align-left',
                     ],
-                    /*'center' => [
-                        'title' => __('Center', 'dynamic-content-for-elementor'),
-                        'icon' => 'eicon-h-align-center',
-                    ],*/
+                    /* 'center' => [
+                      'title' => __('Center', 'dynamic-content-for-elementor'),
+                      'icon' => 'eicon-h-align-center',
+                      ], */
                     'right' => [
                         'title' => __('Right', 'dynamic-content-for-elementor'),
                         'icon' => 'eicon-h-align-right',
@@ -238,11 +238,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         ],
                     ]
             );
-            
+
             $widget->add_control(
                     'dce_form_message_close', [
                 'label' => __('Add close button to message', 'dynamic-content-for-elementor'),
-                'type' => Controls_Manager::SWITCHER,                        
+                'type' => Controls_Manager::SWITCHER,
                     ]
             );
             $widget->add_control(
@@ -265,9 +265,9 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 ],
                 'toggle' => false,
                 'default' => 'right',
-                        'condition' => [
-                            'dce_form_message_close!' => '',
-                        ]
+                'condition' => [
+                    'dce_form_message_close!' => '',
+                ]
                     ]
             );
 
@@ -277,11 +277,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 'type' => Controls_Manager::SWITCHER,
                     ]
             );
-            
+
             $widget->add_control(
                     'dce_form_message_help', [
                 'type' => \Elementor\Controls_Manager::RAW_HTML,
-                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="'.$this->get_docs().'" target="_blank">'.__( 'Need Help', 'elementor' ).' <i class="eicon-help-o"></i></a></div>',
+                'raw' => '<div id="elementor-panel__editor__help" class="p-0"><a id="elementor-panel__editor__help__link" href="' . $this->get_docs() . '" target="_blank">' . __('Need Help', 'elementor') . ' <i class="eicon-help-o"></i></a></div>',
                 'separator' => 'before',
                     ]
             );
@@ -326,7 +326,9 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
         }
 
         function dce_elementor_form_message($fields, $settings = null, $ajax_handler = null) {
-            
+
+            $element_id = $settings['id'];
+
             $message_html = '';
             if ($settings['dce_form_message_type'] == 'template') {
                 if (!empty($settings['dce_form_message_template'])) {
@@ -341,38 +343,37 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                     $dce_short .= ']';
 
                     $message_html = do_shortcode($dce_short);
-                    $message_html = '</div><div class="elementor-message-dce" role="alert">'.$message_html;
-                    $message_html .= '<style>.elementor-form .elementor-message {display: none !important;}</style>';
+                    $message_html = '</div><div class="elementor-message-dce" role="alert">' . $message_html;
+                    $message_html .= '<style>.elementor-element-' . $element_id . ' .elementor-form .elementor-message {display: none !important;}</style>';
                 }
             } else {
                 $message_html = $settings['dce_form_message_text'];
                 $message_html .= '<style>.elementor-form .elementor-message{position: relative;}.elementor-form .elementor-message::before{float: left;}</style>';
             }
-            
+
             if ($settings['dce_form_message_close']) {
                 $message_html .= '<div class="elementor-message-btn-dismiss" onClick="jQuery(this).parent().fadeOut();"><i class="eicon-editor-close" aria-hidden="true"></i></div>';
             }
-            
+
             if ($settings['dce_form_message_hide']) {
-                $message_html .= '<style>.elementor-form-fields-wrapper {display: none !important;}</style>';
+                $message_html .= '<style>.elementor-element-' . $element_id . ' .elementor-form-fields-wrapper {display: none !important;}</style>';
             }
-            
+
             $message_html = DCE_Helper::get_dynamic_value($message_html, $fields);
-            
+
             //$ajax_handler->add_success_message($message_html);
             //$ajax_handler->messages['success'] = array($message_html);
             //$ajax_handler->is_success = true;
-            if ( $ajax_handler->is_success ) {
-                wp_send_json_success( [
+            if ($ajax_handler->is_success) {
+                wp_send_json_success([
                     'message' => $message_html,
                     'data' => $ajax_handler->data,
-                ] );
+                ]);
                 die();
             }
-            $ajax_handler->add_error_message($message_html);  
+            $ajax_handler->add_error_message($message_html);
         }
-        
-        
+
         public static function _add_to_form(Controls_Stack $element, $control_id, $control_data, $options = []) {
             if ($control_id == 'success_message_color') {
                 $element->add_control(
@@ -384,15 +385,15 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         ]
                 );
                 $element->add_group_control(
-                    Group_Control_Background::get_type(),
-                    [
-                        'name' => 'success_message_bgcolor',
-                        'types' => ['classic', 'gradient'],
-                        'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success',
-                    ]
+                        Group_Control_Background::get_type(),
+                        [
+                            'name' => 'success_message_bgcolor',
+                            'types' => ['classic', 'gradient'],
+                            'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success',
+                        ]
                 );
                 $element->add_group_control(
-                    Group_Control_Border::get_type(), [
+                        Group_Control_Border::get_type(), [
                     'name' => 'success_message_border',
                     'selector' => '{{WRAPPER}} .elementor-message.elementor-message-success',
                         ]
@@ -408,7 +409,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             ],
                         ]
                 );
-                $element->add_control(
+                $element->add_responsive_control(
                         'success_message_padding',
                         [
                             'label' => __('Padding', 'elementor-pro'),
@@ -417,6 +418,54 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             'selectors' => [
                                 '{{WRAPPER}} .elementor-message.elementor-message-success' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
+                        ]
+                );
+                $element->add_responsive_control(
+                        'success_message_margin',
+                        [
+                            'label' => __('Margin', 'elementor-pro'),
+                            'type' => Controls_Manager::DIMENSIONS,
+                            'size_units' => ['px', 'em', '%'],
+                            'selectors' => [
+                                '{{WRAPPER}} .elementor-message.elementor-message-success' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                            ]
+                        ]
+                );
+                $element->add_responsive_control(
+                        'success_message_width',
+                        [
+                            'label' => __('Width', 'elementor'),
+                            'type' => Controls_Manager::SLIDER,
+                            'default' => [
+                                'unit' => '%',
+                            ],
+                            'tablet_default' => [
+                                'unit' => '%',
+                            ],
+                            'mobile_default' => [
+                                'unit' => '%',
+                            ],
+                            'size_units' => ['%', 'px', 'vw'],
+                            'range' => [
+                                '%' => [
+                                    'min' => 1,
+                                    'max' => 100,
+                                ],
+                                'px' => [
+                                    'min' => 1,
+                                    'max' => 1000,
+                                ],
+                                'vw' => [
+                                    'min' => 1,
+                                    'max' => 100,
+                                ],
+                            ],
+                            'selectors' => [
+                                '{{WRAPPER}} .elementor-message.elementor-message-success' => 'width: {{SIZE}}{{UNIT}};',
+                            ],
+                            'condition' => [
+                                'dce_form_message_text_floating!' => '',
+                            ]
                         ]
                 );
             }
@@ -430,15 +479,15 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         ]
                 );
                 $element->add_group_control(
-                    Group_Control_Background::get_type(),
-                    [
-                        'name' => 'error_message_bgcolor',
-                        'types' => ['classic', 'gradient'],
-                        'selector' => '{{WRAPPER}} .elementor-message.elementor-message-error',
-                    ]
+                        Group_Control_Background::get_type(),
+                        [
+                            'name' => 'error_message_bgcolor',
+                            'types' => ['classic', 'gradient'],
+                            'selector' => '{{WRAPPER}} .elementor-message.elementor-message-error',
+                        ]
                 );
                 $element->add_group_control(
-                    Group_Control_Border::get_type(), [
+                        Group_Control_Border::get_type(), [
                     'name' => 'error_message_border',
                     'selector' => '{{WRAPPER}} .elementor-message.elementor-message-error',
                         ]
@@ -454,7 +503,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             ],
                         ]
                 );
-                $element->add_control(
+                $element->add_responsive_control(
                         'error_message_padding',
                         [
                             'label' => __('Padding', 'elementor-pro'),
@@ -463,6 +512,54 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                             'selectors' => [
                                 '{{WRAPPER}} .elementor-message.elementor-message-error' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
+                        ]
+                );
+                $element->add_responsive_control(
+                        'error_message_margin',
+                        [
+                            'label' => __('Margin', 'elementor-pro'),
+                            'type' => Controls_Manager::DIMENSIONS,
+                            'size_units' => ['px', 'em', '%'],
+                            'selectors' => [
+                                '{{WRAPPER}} .elementor-message.elementor-message-error' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                            ]
+                        ]
+                );
+                $element->add_responsive_control(
+                        'error_message_width',
+                        [
+                            'label' => __('Width', 'elementor'),
+                            'type' => Controls_Manager::SLIDER,
+                            'default' => [
+                                'unit' => '%',
+                            ],
+                            'tablet_default' => [
+                                'unit' => '%',
+                            ],
+                            'mobile_default' => [
+                                'unit' => '%',
+                            ],
+                            'size_units' => ['%', 'px', 'vw'],
+                            'range' => [
+                                '%' => [
+                                    'min' => 1,
+                                    'max' => 100,
+                                ],
+                                'px' => [
+                                    'min' => 1,
+                                    'max' => 1000,
+                                ],
+                                'vw' => [
+                                    'min' => 1,
+                                    'max' => 100,
+                                ],
+                            ],
+                            'selectors' => [
+                                '{{WRAPPER}} .elementor-message.elementor-message-error' => 'width: {{SIZE}}{{UNIT}};',
+                            ],
+                            'condition' => [
+                                'dce_form_message_text_floating!' => '',
+                            ]
                         ]
                 );
             }
@@ -476,17 +573,16 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         ]
                 );
                 $element->add_group_control(
-                    Group_Control_Background::get_type(),
-                    [
-                        'name' => 'inline_message_bgcolor',
-                        'types' => ['classic', 'gradient'],
-                        'selector' => '{{WRAPPER}} .elementor-message.elementor-help-inline',
-                    ]
+                        Group_Control_Background::get_type(),
+                        [
+                            'name' => 'inline_message_bgcolor',
+                            'types' => ['classic', 'gradient'],
+                            'selector' => '{{WRAPPER}} .elementor-message.elementor-help-inline',
+                        ]
                 );
             }
             return $control_data;
         }
-        
 
     }
 

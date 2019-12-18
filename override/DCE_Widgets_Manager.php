@@ -33,7 +33,7 @@ class DCE_Widgets_Manager extends Widgets_Manager {
 	 * @since 1.0.0
 	 * @access public
 	*/
-	public function __construct($_widget_types) {
+	public function __construct($_widget_types = null) {
 		$this->_widget_types = $_widget_types;
                 
                 if (!class_exists('\\Elementor\\Widget_Base')) {

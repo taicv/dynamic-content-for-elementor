@@ -25,17 +25,16 @@ trait DCE_Trait_Plugin {
         return self::check_plugin($plugin, $mu_plugins);
     }
     public static function is_plugin_active_for_local($plugin) {
-        if (is_multisite())
-            return false;
         $active_plugins = get_option('active_plugins', array());
         return self::check_plugin($plugin, $active_plugins);
     }
     public static function is_plugin_active_for_network($plugin) {
-        if (!is_multisite())
-            return false;
         $active_plugins = get_site_option('active_sitewide_plugins');
-        $active_plugins = array_keys($active_plugins);
-        return self::check_plugin($plugin, $active_plugins);
+        if (!empty($active_plugins)) {
+            $active_plugins = array_keys($active_plugins);
+            return self::check_plugin($plugin, $active_plugins);
+        }
+        return false;
     }
     public static function check_plugin($plugin, $active_plugins = array()) {
         if (in_array($plugin, (array) $active_plugins)) {

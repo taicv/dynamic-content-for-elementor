@@ -37,7 +37,7 @@ class DCE_Widget_Relationship extends DCE_Widget_Prototype {
     }
 
     public function get_description() {
-        return __('Display related posts easily selected, also in reverse mode.', 'dynamic-content-for-elementor');
+        return __('Display related posts easily selected, also in reverse mode', 'dynamic-content-for-elementor');
     }
 
     public function get_docs() {

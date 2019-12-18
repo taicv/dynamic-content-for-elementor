@@ -14,7 +14,7 @@
  * Plugin Name:       Dynamic Content for Elementor
  * Plugin URI:        https://www.dynamic.ooo/
  * Description:       Improve your website’s potential through additional widgets, expanding Elementor’s functionality. New creative widgets, every and each of them with the purpose of building pages with amazing contents.
- * Version:           1.7.1
+ * Version:           1.8.1.1
  * Author:            Dynamic.ooo
  * Author URI:        https://www.dynamic.ooo/
  * Text Domain:       dynamic-content-for-elementor
@@ -36,29 +36,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Dynamic Content for Elementor incorporates code from:
- * - A-Frame, Copyright © 2015-2017 A-Frame authors, License: MIT, https://aframe.io
- * - animate.css, Copyright (c) 2019 Daniel Eden, License: MIT, https://daneden.github.io/animate.css/
- * - Anime.js, Copyright (c) 2019 Julian Garnier, License: MIT, http://animejs.com/
+ * - A-Frame, Copyright (c) 2015-2017 A-Frame authors, License: MIT, https://aframe.io
+ * - Animate.css, Copyright (c) 2019 Daniel Eden, License: MIT, https://daneden.github.io/animate.css/
  * - Animsition, Copyright (c) 2013-2015 blivesta, License: MIT, http://git.blivesta.com/animsition/
- * - diamonds.js, Copyright (c) 2013 mqchen, License: MIT, https://github.com/mqchen/jquery.diamonds.js/
+ * - Clipboard.js, Copyright (c) 2019 Zeno Rocha, License: MIT, https://zenorocha.mit-license.org/
+ * - Diamonds.js, Copyright (c) 2013 mqchen, License: MIT, https://github.com/mqchen/jquery.diamonds.js/
+ * - GSAP, GreenSock files are subject to their own license (https://greensock.com/standard-license) and you can ONLY use the bonus files as a part of Dynamic Content for Elementor
  * - HoneyCombs, License: GPL v3, https://github.com/nasirkhan/honeycombs
- * - infiniteScroll, License: GPL v3, https://infinite-scroll.com/
+ * - InfiniteScroll, License: GPL v3, https://infinite-scroll.com/
  * - Isotope, GPL v3, http://isotope.metafizzy.co
- * - Parallax.js, Copyright (C) 2014 Matthew Wagerfield - @wagerfield, License: MIT, https://github.com/wagerfield/parallax
+ * - justifiedGallery, Copyright (c) 2019 Miro Mannino, License: MIT, http://miromannino.github.io/Justified-Gallery/
+ * - Parallax.js, Copyright (c) 2014 Matthew Wagerfield - @wagerfield, License: MIT, https://github.com/wagerfield/parallax
  * - PhotoSwipe, Copyright (c) 2014-2019 Dmitry Semenov, http://dimsemenov.com, License: MIT, http://photoswipe.com
  * - Rellax, Copyright (c) 2016 Dixon & Moe, License: MIT, https://dixonandmoe.com/rellax/
- * - revealjs.com, Copyright (C) 2018 Hakim El Hattab (http://hakim.se) and reveal.js contributors, License: MIT, https://revealjs.com
+ * - Revealjs.com, Copyright (c) 2018 Hakim El Hattab (http://hakim.se) and reveal.js contributors, License: MIT, https://revealjs.com
  * - Scrollify.js, Copyright (c) 2017 Luke Haas, License: MIT, https://projects.lukehaas.me/scrollify/examples/pagination
  * - Slick, Copyright (c) 2013-2016, License: MIT, http://kenwheeler.github.io/slick/
- * - Swiper.js, 2019 © Swiper by Vladimir Kharlampidi from iDangero.us, License: MIT, https://idangero.us/swiper/
- * - Swup, Copyright (c) 2017 Georgy Marchuk, License: MIT, https://github.com/gmrchk/swup
+ * - Swiper.js, 2019 (c) Swiper by Vladimir Kharlampidi from iDangero.us, License: MIT, https://idangero.us/swiper/
  * - Three Sixty Image slider, Copyright 2013 Gaurav Jassal, License: MIT, http://github.com/vml-webdev/threesixty-slider.git
  * - Tilt.js, Copyright (c) 2017 Gijs Rogé, License: MIT, https://gijsroge.github.io/tilt.js/
  * - Slick, Copyright (c) 2013-2016, License: MIT, http://kenwheeler.github.io
+ * - SVG File Icons, Copyright (c) 2018 Daniel M. Hendricks, License: MIT, https://fileicons.org/
+ * - THREEJS, Copyright (c) 2010-2019 three.js authors, License: MIT, https://github.com/mrdoob/three.js/blob/dev/LICENSE
  * - TwentyTwenty, Copyright 2018 zurb, License: MIT, https://zurb.com/playground/twentytwenty
- * - Velocity.js, © 2014 Julian Shapiro, License: MIT, http://velocityjs.org
- * - WOW.js, Copyright (c) 2016 Thomas Grainger, License: MIT, https://wowjs.uk/
- * - GSAP, GreenSock files are subject to their own license (https://greensock.com/standard-license) and you can ONLY use the bonus files as a part of Dynamic Content for Elementor
+ * - Velocity.js, Copyright (c) 2014 Julian Shapiro, License: MIT, http://velocityjs.org
+ * - WOW.js, Copyright (c) 2016 Thomas Grainger, License: MIT, https://wowjs.uk/  
  */
 
 // If this file is called directly, abort.
@@ -73,12 +75,14 @@ define('DCE__FILE__', __FILE__);
 define('DCE_URL', plugins_url('/', __FILE__));
 define('DCE_PATH', plugin_dir_path(__FILE__));
 define('DCE_PLUGIN_BASE', plugin_basename(DCE__FILE__));
-define('DCE_VERSION', '1.7.1');
+define('DCE_VERSION', '1.8.1.1');
 define('DCE_ELEMENTOR_VERSION_REQUIRED', '2.6.0');
 define('DCE_ELEMENTOR_PRO_VERSION_REQUIRED', '2.6.0');
 define('DCE_PHP_VERSION_REQUIRED', '7.1');
 define('DCE_TEXTDOMAIN', 'dynamic-content-for-elementor');
 define('DCE_OPTIONS', 'dyncontel_options');
+define('DCE_BACKUP_PATH', ABSPATH.'wp-content/backup');
+define('DCE_BACKUP_URL', site_url().'/wp-content/backup');
 
 /* ***********************LICENSE***************************** */
 require_once( __DIR__ . '/class/DCE_Notice.php' );
@@ -111,20 +115,10 @@ function dce_load() {
 
     // Require the main plugin file
     require_once( __DIR__ . '/core/DCE_Plugin.php' );
-    $dce_plugin = new DynamicContentForElementor\DCE_Plugin();
+    $dce_plugin = new \DynamicContentForElementor\DCE_Plugin();
 
-    // Verify updates
-    $info = 'https://shop.dynamic.ooo/dce/info.php?s=' . SL_INSTANCE . '&v=' . DCE_VERSION;
-    //var_dump($info);
-    if (get_option('dce_beta', false)) {
-        $info .= '&beta=true';
-    }
-    //require_once( __DIR__ . '/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php' );
-    $myUpdateChecker = \Puc_v4p8_Factory::buildUpdateChecker(
-        $info,
-        __FILE__,
-        'dynamic-content-for-elementor'
-    );
+    \DynamicContentForElementor\DCE_License::do_rollback();
+    \DynamicContentForElementor\DCE_License::check_for_updates(__FILE__);
 }
 
 /**

@@ -17,9 +17,9 @@ if (!defined('ABSPATH'))
 class DCE_Extension_Animations extends DCE_Extension_Prototype {
     
     public $name = 'Animations';
-
+    public $has_controls = true;
     protected $is_common = true;
-
+    
     public static function get_description() {
         return __('Predefined CSS-Animations with keyframe.');
     }

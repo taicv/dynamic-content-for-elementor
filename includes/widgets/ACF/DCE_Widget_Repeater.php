@@ -39,6 +39,10 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
     public function get_icon() {
         return 'icon-dyn-repeater';
     }
+    
+    public function get_description() {
+        return __('Take advantage of the power and flexibility of ACF Repeaters in a easy way', 'dynamic-content-for-elementor');
+    }
 
     public function get_script_depends() {
         return ['imagesloaded', 'swiper', 'jquery-masonry', 'wow', 'dce-acf_repeater'];
@@ -2068,8 +2072,10 @@ class DCE_Widget_Repeater extends DCE_Widget_Prototype {
                                                 //var_dump($row_fields[$acfitem['dce_acf_repeater_acfield_link']]);
                                                 //echo DCE_Helper::get_acf_field_settings($acfitem['dce_acf_repeater_acfield_link']);
                                                 $targetLink = '';
-                                                if(!empty($row_fields[$acfitem['dce_acf_repeater_target_link']])) $targetLink = ' target="_blank"';
-                                                $value = '<a href="'.$row_fields[$acfitem['dce_acf_repeater_acfield_link']].'"'.$targetLink.' >'.$value.'</a>';
+                                                if (!empty($acfitem['dce_acf_repeater_target_link'])) {
+                                                    $targetLink = ' target="_blank"';
+                                                }
+                                                $value = '<a href="'.$row_fields[$acfitem['dce_acf_repeater_acfield_link']].'"'.$targetLink.'>'.$value.'</a>';
                                             }
                                             
                                             switch ($settings['dce_acf_repeater_format']) {

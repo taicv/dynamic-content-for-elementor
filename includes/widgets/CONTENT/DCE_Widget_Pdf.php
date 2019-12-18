@@ -36,7 +36,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
     public function get_icon() {
         return 'icon-dyn-buttonpdf';
     }
-    
+
     public function get_description() {
         return __('Export your content in PDF, generate them dynamically and stylized', 'dynamic-content-for-elementor');
     }
@@ -537,7 +537,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
             'size_units' => ['px', '%', 'em'],
                 ]
         );
-        
+
         $this->add_control(
                 'dce_pdf_button_styles', [
             'label' => __('Use Styles', 'dynamic-content-for-elementor'),
@@ -560,7 +560,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
             'default' => 'elementor',
                 ]
         );
-        
+
         $this->add_control(
                 'dce_pdf_button_converter', [
             'label' => __('Converter', 'dynamic-content-for-elementor'),
@@ -601,13 +601,13 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
 
         $pdf_url = DCE_URL . 'assets/pdf.php';
         $pdf_url .= '?post_id=' . get_the_ID();
-        if ($settings['dce_pdf_button_body'] == 'template') { 
+        if ($settings['dce_pdf_button_body'] == 'template') {
             $pdf_url .= '&template_id=' . $settings['dce_pdf_button_template'];
-        } else { 
+        } else {
             $pdf_url .= '&container=' . urlencode($settings['dce_pdf_button_container']);
         }
         $pdf_url .= '&styles=' . $settings['dce_pdf_button_styles'];
-        
+
         $pdf_url .= '&title=' . $settings['dce_pdf_button_title'];
         $pdf_url .= '&size=' . $settings['dce_pdf_button_size'];
         $pdf_url .= '&orientation=' . $settings['dce_pdf_button_orientation'];
@@ -615,8 +615,8 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
             $pdf_url .= '&margin=' . urlencode($settings['dce_pdf_button_margin']['top'] . $settings['dce_pdf_button_margin']['unit'] . ' ' . $settings['dce_pdf_button_margin']['right'] . $settings['dce_pdf_button_margin']['unit'] . ' ' . $settings['dce_pdf_button_margin']['bottom'] . $settings['dce_pdf_button_margin']['unit'] . ' ' . $settings['dce_pdf_button_margin']['left'] . $settings['dce_pdf_button_margin']['unit']);
         }
         $pdf_url .= '&converter=' . $settings['dce_pdf_button_converter'];
-        
-        if ($settings['download']) { 
+
+        if ($settings['download']) {
             $pdf_url .= '&dest=F';
         }
 
@@ -656,7 +656,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
         ?>
         <div <?php echo $this->get_render_attribute_string('wrapper'); ?>>
             <a <?php echo $this->get_render_attribute_string('button'); ?>>
-        <?php $this->render_text(); ?>
+                <?php $this->render_text(); ?>
             </a>
         </div>
         <?php
@@ -685,7 +685,7 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
 
         $this->add_render_attribute([
             'content-wrapper' => [
-                'class' => ['elementor-button-content-wrapper','dce-flexbox'],
+                'class' => ['elementor-button-content-wrapper', 'dce-flex'],
             ],
             'icon-align' => [
                 'class' => [
@@ -701,17 +701,17 @@ class DCE_Widget_Pdf extends DCE_Widget_Prototype {
         $this->add_inline_editing_attributes('text', 'none');
         ?>
         <span <?php echo $this->get_render_attribute_string('content-wrapper'); ?>>
-        <?php if (!empty($settings['icon']) || !empty($settings['selected_icon']['value'])) : ?>
+            <?php if (!empty($settings['icon']) || !empty($settings['selected_icon']['value'])) : ?>
                 <span <?php echo $this->get_render_attribute_string('icon-align'); ?>>
-                <?php
-                if ($is_new || $migrated) :
-                    Icons_Manager::render_icon($settings['selected_icon'], ['aria-hidden' => 'true']);
-                else :
-                    ?>
+                    <?php
+                    if ($is_new || $migrated) :
+                        Icons_Manager::render_icon($settings['selected_icon'], ['aria-hidden' => 'true']);
+                    else :
+                        ?>
                         <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                     <?php endif; ?>
                 </span>
-                <?php endif; ?>
+            <?php endif; ?>
             <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
         </span>
         <?php

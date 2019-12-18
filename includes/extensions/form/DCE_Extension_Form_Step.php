@@ -779,7 +779,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                 $bar .= '<ol class="dce-form-progressbar">';
                 foreach ($steps as $key => $astep) {
                     $bar .= '<li id="dce-form-step-' . $astep['custom_id'] . '-progressbar" class="dce-form-step-progressbar' . (!$key ? ' dce-step-active-progressbar' : '') . '">';
-                    $bar .= '<a class="elementor-button elementor-size-' . $settings['dce_step_progressbar_size'] . '" href="#" data-target="' . $astep['custom_id'] . '">';
+                    $bar .= '<a class="elementor-button elementor-button-progressbar elementor-size-' . $settings['dce_step_progressbar_size'] . '" href="#" data-target="' . $astep['custom_id'] . '">';
                     $bar .= $astep['field_label'];
                     $bar .= '</a>';
                     $bar .= '</li>';
@@ -834,7 +834,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                         if (!width) {
                                             width = 100;
                                         }
-                                        jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper').append('<fieldset id="dce-form-step-' + afield.custom_id + '" data-custom_id="' + afield.custom_id + '" class="dce-form-step elementor-column elementor-col-' + width + '"></fieldset>');
+                                        jQuery('.elementor-element-' + form_id + ' .elementor-form > .elementor-form-fields-wrapper').append('<fieldset id="dce-form-step-' + afield.custom_id + '" data-custom_id="' + afield.custom_id + '" class="dce-form-step elementor-column elementor-col-' + width + '"></fieldset>');
                                         if (!step_last) {
                                             // first step
                                             jQuery('#dce-form-step-' + afield.custom_id).addClass('dce-step-active');
@@ -860,7 +860,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                             }
                                             ?>
                                             // prev
-                                            jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + afield.custom_id).append('<div class="elementor-field-group elementor-column elementor-col-50 dce-form-step-bnt-prev"><button type="button" class="<?php echo $btn_class; ?>elementor-button dce-step-elementor-button elementor-size-<?php echo $settings['dce_step_button_size']; ?>" data-target="' + step_last.custom_id + '"><span><span class="elementor-button-text">' + step_last.dce_step_prev + '</span></span></button></div>');
+                                            jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + afield.custom_id).append('<div class="elementor-field-group elementor-column elementor-col-50 dce-form-step-bnt-prev"><button type="button" class="<?php echo $btn_class; ?>elementor-button dce-step-elementor-button elementor-button-prev elementor-size-<?php echo $settings['dce_step_button_size']; ?>" data-target="' + step_last.custom_id + '"><span><span class="elementor-button-text">' + step_last.dce_step_prev + '</span></span></button></div>');
                                             // first prev empty
                                             //alert('#dce-form-step-'+step_last.custom_id);
                                             if (jQuery('#dce-form-step-'+step_last.custom_id).hasClass('dce-step-active')) {                                                
@@ -870,9 +870,11 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                                 jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + step_last.custom_id + ' .dce-form-step-bnt-prev').appendTo('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + step_last.custom_id);
                                             }
                                             // next
-                                            jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + step_last.custom_id).append('<div class="elementor-field-group elementor-column elementor-col-50 dce-form-step-bnt-next"><button type="button" class="<?php echo $btn_class; ?>elementor-button dce-step-elementor-button elementor-size-<?php echo $settings['dce_step_button_size']; ?>" data-target="' + afield.custom_id + '"><span><span class="elementor-button-text">' + step_last.dce_step_next + '</span></span></button></div>');
+                                            jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + step_last.custom_id).append('<div class="elementor-field-group elementor-column elementor-col-50 dce-form-step-bnt-next"><button type="button" class="<?php echo $btn_class; ?>elementor-button dce-step-elementor-button elementor-button-next elementor-size-<?php echo $settings['dce_step_button_size']; ?>" data-target="' + afield.custom_id + '"><span><span class="elementor-button-text">' + step_last.dce_step_next + '</span></span></button></div>');
                                             
                                         <?php } ?>
+                                        // bugfix for flex on Chrome    
+                                        jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper #dce-form-step-' + step_last.custom_id).wrapInner('<div class="elementor-form-fields-wrapper elementor-form-fields-wrapper-' + step_last.custom_id+' elementor-labels-above elementor-column elementor-col-100"></div>');
                                     }
                                     if (afield.field_type == 'step') {
                                         step_last = afield;
@@ -894,15 +896,15 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                         jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper .elementor-field-group.elementor-field-type-submit').appendTo('#dce-form-step-' + step_last.custom_id + ' .dce-form-step-bnt-next');
                                         //jQuery('.elementor-element-'+form_id+' .elementor-form-fields-wrapper .elementor-field-group.elementor-field-type-submit').addClass('elementor-col-50');
                     <?php } else { ?>
-                                        jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper .elementor-field-group.elementor-field-type-submit').appendTo('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper');
+                                        jQuery('.elementor-element-' + form_id + ' .elementor-form-fields-wrapper .elementor-field-group.elementor-field-type-submit').appendTo('.elementor-element-' + form_id + ' .elementor-form > .elementor-form-fields-wrapper');
                     <?php } ?>
                                 }
 
-                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-bnt-prev .elementor-button').on('click', function () {
+                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-bnt-prev .elementor-button-prev').on('click', function () {
                                     var target = jQuery(this).attr('data-target');
                                     dce_show_step_<?php echo $widget->get_id(); ?>(target);
                                 });
-                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-bnt-next .elementor-button').on('click', function () {
+                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-bnt-next .elementor-button-next').on('click', function () {
                                     var target = jQuery(this).attr('data-target');
                                     var step = jQuery(this).closest('.dce-form-step');
                                     var next = dce_validate_step(step);
@@ -913,7 +915,7 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                                         //jQuery(this).closest('form').submit();
                                     }
                                 });
-                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-progressbar .elementor-button').on('click', function () {
+                                jQuery('.elementor-element-' + form_id + ' .dce-form-step-progressbar .elementor-button-progressbar').on('click', function () {
                                     var target = jQuery(this).attr('data-target');
                                     var next = true;
                                     jQuery(this).closest('.dce-form-step-progressbar').prevAll().each(function () {
@@ -952,6 +954,16 @@ if (!DCE_Helper::is_plugin_active('elementor-pro')) {
                         }
                     </script>
                     <style>
+                        .elementor-form-fields-wrapper.elementor-labels-above > .dce-form-step > .elementor-field-group .elementor-field-subgroup, 
+                        .elementor-form-fields-wrapper.elementor-labels-above > .dce-form-step > .elementor-field-group > .elementor-select-wrapper, 
+                        .elementor-form-fields-wrapper.elementor-labels-above > .dce-form-step > .elementor-field-group > input, 
+                        .elementor-form-fields-wrapper.elementor-labels-above > .dce-form-step > .elementor-field-group > textarea
+                         {
+                            -webkit-flex-basis: 100%;
+                            -ms-flex-preferred-size: 100%;
+                            flex-basis: 100%;
+                            max-width: 100%;
+                        }
                         .elementor-element-<?php echo $widget->get_id(); ?> .dce-form-step {
                             flex-wrap: wrap;                            
                             max-width: 100%;                            

@@ -17,7 +17,7 @@ if (!defined('ABSPATH'))
 class DCE_Extension_Transforms extends DCE_Extension_Prototype {
 
     public $name = 'Transforms';
-
+    public $has_controls = true;
     public static function get_description() {
         return __('Apply CSS Transforms to Element');
     }

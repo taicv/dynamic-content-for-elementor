@@ -217,7 +217,7 @@ class DCE_Widget_AnimateText extends DCE_Widget_Prototype {
                     //'jumping' => __('Jumping', 'dynamic-content-for-elementor'),
                     //'reveals' => __('Reveals', 'dynamic-content-for-elementor'),
 
-                    'elastic' => __('Elastic', 'dynamic-content-for-elementor'),
+                    //'elastic' => __('Elastic', 'dynamic-content-for-elementor'),
                     'random_position' => __('Random position', 'dynamic-content-for-elementor'),
                     'from_bottom' => __('From Bottom', 'dynamic-content-for-elementor'),
 

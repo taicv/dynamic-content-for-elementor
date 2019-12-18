@@ -92,6 +92,9 @@ class DCE_Assets {
 
         // ---------------- WEB-GL
         'dce-threejs-lib' => 'https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js', //'/assets/lib/threejs/three.min.js',
+        
+        'dce-threejs-figure' => '/assets/lib/threejs/figure.js',
+
         'dce-threejs-EffectComposer' =>  '/assets/lib/threejs/postprocessing/EffectComposer.js',
         'dce-threejs-RenderPass' =>  '/assets/lib/threejs/postprocessing/RenderPass.js',
         'dce-threejs-ShaderPass' =>  '/assets/lib/threejs/postprocessing/ShaderPass.js',
@@ -111,6 +114,11 @@ class DCE_Assets {
         'dce-threejs-ColorifyShader' =>  '/assets/lib/threejs/shaders/ColorifyShader.js',
         'dce-threejs-VignetteShader' =>  '/assets/lib/threejs/shaders/VignetteShader.js',
         'dce-threejs-DigitalGlitch' =>  '/assets/lib/threejs/shaders/DigitalGlitch.js',
+        'dce-threejs-PixelShader' =>  '/assets/lib/threejs/shaders/PixelShader.js',
+        'dce-threejs-LuminosityShader' =>  '/assets/lib/threejs/shaders/LuminosityShader.js',
+        'dce-threejs-SobelOperatorShader' =>  '/assets/lib/threejs/shaders/SobelOperatorShader.js',
+
+        'dce-threejs-AsciiEffect' =>  '/assets/lib/threejs/effects/AsciiEffect.js',
 
         //'data-gui' => '/assets/lib/threejs/libs/dat.gui.min.js',
         //'displacement-distortion' => '/assets/lib/threejs/displacement_distortion.js',
@@ -135,7 +143,9 @@ class DCE_Assets {
 
         // -----------------------------------------------------------
         // Extension Advanced
-        'dce-rellaxjs-lib' => '/assets/lib/rellax/rellax.min.js',        
+        'dce-rellaxjs-lib' => '/assets/lib/rellax/rellax.min.js',     
+        
+        'dce-clipboard-js' => '/assets/lib/clipboard.js/clipboard.min.js',
         // -----------------------------------------------------------
         // Document
         
@@ -163,6 +173,7 @@ class DCE_Assets {
 
 
         'dce-googlemaps-api' => 'https://maps.googleapis.com/maps/api/js?key=dce_api_gmaps',
+        'dce-googlemaps-markerclusterer' => 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js',
         'dce-google-maps' => '/assets/js/google-maps.js',
 
     );
@@ -618,7 +629,7 @@ class DCE_Assets {
                 'dce-script-editor', plugins_url('/assets/js/dce-editor.js', DCE__FILE__), [], DCE_VERSION
         );
         wp_enqueue_script('dce-script-editor');
-
+        
         wp_register_script(
                 'dce-script-editor-activate', plugins_url('/assets/js/dce-editor-activate.js', DCE__FILE__), [], DCE_VERSION
         );

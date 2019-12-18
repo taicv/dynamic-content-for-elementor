@@ -509,7 +509,7 @@ class DCE_TemplateSystem {
         global $post;
         global $global_ID;
         //
-        if (is_singular()) {
+        if (is_singular() && !get_page_template_slug()) {
 
 
             // 2 - verifico se una tassonomia associata ha il blank
@@ -517,12 +517,11 @@ class DCE_TemplateSystem {
             if (!empty($postTaxonomyes)) {
                 foreach ($postTaxonomyes as $tKey => $aTaxo) {
                     $aTaxName = $aTaxo->taxonomy;
-                    if (isset($this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) 
-                        && $this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) {
-                        if (!get_page_template_slug()) {
-                            $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
-                            break;
-                        }
+                    if (isset($this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) && $this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank']) {
+                        $_blank = $this->options['dyncontel_field_single_taxonomy_' . $aTaxName . '_blank'];
+                        if ($_blank == 1 || $_blank == '1') { $_blank = 'header-footer'; } // retrocompatibility
+                        $my_template = ELEMENTOR_PATH . '/modules/page-templates/templates/'.$_blank.'.php';
+                        break;
                     }
                 }
             }
@@ -532,9 +531,10 @@ class DCE_TemplateSystem {
             foreach ($typesRegistered as $chiave) {
                 if (isset($post->post_type) && $post->post_type == $chiave && $chiave != 'product') {
                     if (isset($this->options['dyncontel_field_single' . $chiave . '_blank']) && $this->options['dyncontel_field_single' . $chiave . '_blank']) {
-                        if (!get_page_template_slug()) {
-                            $my_template = ELEMENTOR_PATH . 'modules/page-templates/templates/header-footer.php';
-                        }
+                        $_blank = $this->options['dyncontel_field_single' . $chiave . '_blank'];
+                        if ($_blank == 1 || $_blank == '1') { $_blank = 'header-footer'; } // retrocompatibility
+                        $my_template = ELEMENTOR_PATH . 'modules/page-templates/templates/'.$_blank.'.php';
+                        break;
                     }
                 }
             }
@@ -610,11 +610,11 @@ class DCE_TemplateSystem {
         }
         // -------------------------------------------------------- ATTACHMENTS
         //var_dump($single_template); die();
-        if (is_attachment()) {
+        if (is_attachment() && !get_page_template_slug()) {
             if (isset($this->options['dyncontel_field_singleattachment_blank']) && $this->options['dyncontel_field_singleattachment_blank']) {
-                if (!get_page_template_slug()) {
-                    $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
-                }
+                $_blank = $this->options['dyncontel_field_singleattachment_blank'];
+                if ($_blank == 1 || $_blank == '1') { $_blank = 'header-footer'; } // retrocompatibility
+                $my_template = ELEMENTOR_PATH . 'modules/page-templates/templates/'.$_blank.'.php';
             }
         }
         // -------------------------------------------------------- SEARCH
@@ -643,11 +643,11 @@ class DCE_TemplateSystem {
             }
 
             // La home page
-            if (is_page()) {
+            if (is_page() && !get_page_template_slug()) {
                 if (isset($this->options['dyncontel_field_singlepage_blank']) && $this->options['dyncontel_field_singlepage_blank']) {
-                    if (!get_page_template_slug()) {
-                        $my_template = DCE_PATH . '/../elementor/modules/page-templates/templates/header-footer.php';
-                    }
+                    $_blank = $this->options['dyncontel_field_singlepage_blank'];
+                    if ($_blank == 1 || $_blank == '1') { $_blank = 'header-footer'; } // retrocompatibility
+                    $my_template = ELEMENTOR_PATH . 'modules/page-templates/templates/'.$_blank.'.php';
                 }
             }
         }

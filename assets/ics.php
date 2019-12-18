@@ -35,7 +35,8 @@ if ($element_id && $post_id) {
     $start = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_start'] : $settings['dce_calendar_datetime_start_string'];
     $end = ($settings['dce_calendar_datetime_format'] != 'string') ? $settings['dce_calendar_datetime_end'] : $settings['dce_calendar_datetime_end_string'];
     
-    header('Content-type: text/calendar; charset=utf-8');
+    header('Content-Type: text/calendar; charset=utf-8');
+    //header('Content-Type: application/octet-stream');
     header("Content-Transfer-Encoding: Binary");
     header('Content-Description: File Transfer');
     header('Expires: 0');
@@ -44,6 +45,7 @@ if ($element_id && $post_id) {
     
     //header('Content-Disposition: inline; filename="'.$post->post_name.'.ics"');
     header('Content-Disposition: attachment; filename="'.$post->post_name.'.ics"');
+    //ob_start();
 ?>BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Dynamic.ooo//NONSGML DCE Calendar//EN
@@ -59,7 +61,7 @@ LOCATION:<?php echo !empty($settings['dce_calendar_location']) ? $settings['dce_
 UID:<?php echo md5($settings['dce_calendar_title']); ?> 
 END:VEVENT
 END:VCALENDAR<?php
-    die();
+    //die();
+} else {
+    echo 'ERROR';
 }
-
-echo 'ERROR';

@@ -148,7 +148,7 @@ trait DCE_Trait_Form {
                 } else {
                     $str .= $value;
                 }
-                if ($i < count($arr)) {
+                if ($i < count($arr)-1) {
                     $str .= PHP_EOL;
                 }
                 $i++;

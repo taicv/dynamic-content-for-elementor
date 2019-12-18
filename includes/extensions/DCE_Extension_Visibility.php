@@ -18,6 +18,7 @@ if (!defined('ABSPATH'))
 class DCE_Extension_Visibility extends DCE_Extension_Prototype {
 
     public $name = 'Visibility';
+    public $has_controls = true;
     public $common_sections_actions = array(
         array(
             'element' => 'common',
@@ -91,6 +92,8 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
      * @access private
      */
     protected function add_actions() {
+        
+        // TODO/FIX: Error: Routes: `panel/editor/dce_visibility` not found.
         
         add_action('elementor/editor/after_enqueue_scripts', function() {
             wp_register_script(
@@ -201,6 +204,98 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
         //addAction( "elementor/frontend/column/before_render", 'filterSectionContentBefore', 10, 1 );
         //addAction( "elementor/frontend/column/after_render", 'filterSectionContentAfter', 10, 1 );
     }
+    
+    public function get_control_section($section_name, $element) {
+            $low_name = $this->get_low_name();
+            
+            \Elementor\Controls_Manager::add_tab(
+                    'dce_'.$low_name,
+                    __( $this->name, 'dynamic-content-for-elementor' )
+            );
+            
+            $element->start_controls_section(
+                $section_name, [
+                    'tab' => 'dce_'.$low_name,
+                    'label' => '<span class="color-dce icon icon-dyn-logo-dce pull-right ml-1"></span> '.__($this->name, 'dynamic-content-for-elementor'),
+                ]
+            );
+            $element->end_controls_section();
+            
+            foreach (DCE_Extension_Visibility::$tabs as $tkey => $tlabel) {
+                $section_name = 'dce_section_'.$low_name.'_'.$tkey;
+                
+                $condition = [
+                                'enabled_'.$low_name.'!' => '',
+                                'dce_'.$low_name.'_hidden' => '',
+                                'dce_'.$low_name.'_mode' => 'quick',
+                            ];
+                if ($tkey == 'fallback') {
+                    $condition = ['enabled_'.$low_name.'!' => ''];
+                }
+                if ($tkey == 'repeater') {
+                    $condition = [
+                                'enabled_'.$low_name.'!' => '',
+                                'dce_'.$low_name.'_hidden' => '',
+                                'dce_'.$low_name.'_mode' => 'advanced',
+                            ];
+                }
+                
+                $icon = '';
+                switch ($tkey) {
+                    case 'user':
+                        $icon = 'user-o';
+                        break;
+                    case 'datetime':
+                        $icon = 'calendar';
+                        break;
+                    case 'device':
+                        $icon = 'mobile';
+                        break;
+                    case 'post':
+                        $icon = 'file-text-o';
+                        break;
+                    case 'context':
+                        $icon = 'crosshairs';
+                        break;
+                    case 'tags':
+                        $icon = 'question-circle-o';
+                        break;
+                    case 'archive':
+                        $icon = 'puzzle-piece';
+                        break;
+                    case 'random':
+                        $icon = 'random';
+                        break;
+                    case 'custom':
+                        $icon = 'code';
+                        break;
+                    case 'events':
+                        $icon = 'hand-pointer-o';
+                        break;
+                    case 'fallback':
+                        $icon = 'life-ring';
+                        break;
+                    case 'advanced':
+                        $icon = 'cogs';
+                        break;
+                    default:
+                        $icon = 'cog';
+                }
+                if ($icon) {
+                    $icon = '<i class="fa fa-'.$icon.' pull-right ml-1" aria-hidden="true"></i>';
+                }
+                
+                $element->start_controls_section(
+                    $section_name, [
+                        'tab' => 'dce_'.$low_name,
+                        'label' => $icon.__($tlabel, 'dynamic-content-for-elementor'),
+                        'condition' => $condition,
+                    ]
+                );
+                $element->end_controls_section();
+            }
+            
+        }
 
     /**
      * Add Controls
@@ -2376,17 +2471,12 @@ class DCE_Extension_Visibility extends DCE_Extension_Prototype {
                         }
                     }
 
-                    // user
-                    if (isset($settings['dce_visibility_users']) && $settings['dce_visibility_users'] && $settings['dce_visibility_users'] != '1') {
+                    // user                    
+                    if (isset($settings['dce_visibility_users']) && $settings['dce_visibility_users']) {
                         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                             $conditions['dce_visibility_users'] = __('Specific User', 'dynamic-content-for-elementor');
                         }
-                        $users = $settings['dce_visibility_users'];
-                        if ($users) {
-                            $users = explode(',', $users);
-                            $users = array_map('trim', $users);
-                            $users = array_filter($users);
-                        }
+                        $users = DCE_Helper::str_to_array(',', $settings['dce_visibility_users']);
                         $is_user = false;
                         if (!empty($users)) {
                             $current_user = wp_get_current_user();

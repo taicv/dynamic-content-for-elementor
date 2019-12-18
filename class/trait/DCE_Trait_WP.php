@@ -959,7 +959,7 @@ trait DCE_Trait_WP {
             //'elementor-icons-css' => ELEMENTOR_ASSETS_PATH . 'lib/eicons/css/elementor-icons.min.css',
             'elementor-common-css' => ELEMENTOR_ASSETS_PATH . 'css/common.min.css',
             //'elementor-animations-css' => ELEMENTOR_ASSETS_PATH . 'lib/animations/animations.min.css',
-            'dce-frontend-css' => DCE_PATH . 'assets/css/dce-all.min.css',
+            'dce-frontend-css' => DCE_PATH . DCE_Assets::$minifyCss,
             
         );
         if ($theme) {

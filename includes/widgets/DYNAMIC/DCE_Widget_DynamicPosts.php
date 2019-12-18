@@ -302,6 +302,9 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
             'default' => '',
             'description' => __('Filter results by selected taxonomy', 'dynamic-content-for-elementor'),
             'label_block' => true,
+            'condition' => [
+                                /*'terms_from_acf' => ''*/
+                            ],
                 ]
         );
         /* $this->add_control(
@@ -318,19 +321,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
           ],
           ]
           ); */
-        $this->add_control(
-                'category', [
-            'label' => __('Terms ID', 'dynamic-content-for-elementor'),
-            'description' => __('Comma separated list of category ids', 'dynamic-content-for-elementor'),
-            'type' => Controls_Manager::HIDDEN,
-            'default' => '', //do_shortcode('[product_cat_id]'),
-            'label_block' => true,
-            'separator' => 'before',
-            'condition' => [
-                'taxonomy!' => '',
-            ],
-                ]
-        );
+        
 
 
 
@@ -373,7 +364,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                             'condition' => [
                                 'taxonomy' => $tkey,
                                 'terms_current_post' => '',
-                                'terms_from_acf' => ''
+                                //'terms_from_acf' => ''
                             ],
                         ]
                 );
@@ -395,10 +386,12 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                         ]
                     ],
                     'toggle' => false,
-                    'separator' => 'after',
+                    
                     'default' => 'OR',
                     'condition' => [
-                        'taxonomy!' => ''
+                        'taxonomy!' => '',
+                        'terms_current_post' => '',
+                        //'terms_from_acf' => ''
                     ]
                 ]
         );
@@ -420,7 +413,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                             'condition' => [
                                 'taxonomy' => $tkey,
                                 'terms_current_post' => '',
-                                'terms_from_acf' => ''
+                                //'terms_from_acf' => ''
                             ],
                         ]
                 );
@@ -432,26 +425,28 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                     'label' => __('<b>Exclude</b> Combination', 'dynamic-content-for-elementor'),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
-                        'AND' => [
+                        'OR' => [
                             'title' => __('AND', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle',
                         ],
-                        'OR' => [
+                        'AND' => [
                             'title' => __('OR', 'dynamic-content-for-elementor'),
                             'icon' => 'fa fa-circle-o',
                         ]
                     ],
                     'toggle' => false,
-                    'default' => 'AND',
+                    'default' => 'OR',
                     'condition' => [
-                        'taxonomy!' => ''
+                        'taxonomy!' => '',
+                        'terms_current_post' => '',
+                        //'terms_from_acf' => ''
                     ]
                 ]
         );
         $this->add_control(
                 'terms_current_post', [
-            'label' => __('Use Dynamic Current Post Terms', 'dynamic-content-for-elementor'),
-            'type' => Controls_Manager::HIDDEN, //SWITCHER,
+            'label' => __('Dynamic Current Post Terms', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::SWITCHER,
             'description' => __('Filter results by taxonomy terms associated to current post', 'dynamic-content-for-elementor'),
             'separator' => 'before',
 
@@ -465,14 +460,15 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 'terms_from_acf', [
             'label' => __('Use ACF Taxonomy', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'description' => __('The results of the filter for taxonomy terms indicated in the ACF Taxonomy type field', 'dynamic-content-for-elementor'),
+            'description' => __('The results of the filter for taxonomy terms indicated in the ACF Taxonomy type field. If the ACF Taxonomy value in the post is set, it will ignore the previously defined include / exclude filters.', 'dynamic-content-for-elementor'),
             'separator' => 'before',
             'condition' => [
-                'taxonomy' => '',
+                
                 'terms_current_post' => ''
             ],
                 ]
         );
+        // ACF Taxomomy ---------------------
         $this->add_control(
                 'acf_taxonomy', [
             'label' => __('Taxonomy (ACF)', 'dynamic-content-for-elementor'),
@@ -485,6 +481,22 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
             ],
                 ]
         );
+
+        $this->add_control(
+                'category', [
+            'label' => __('Terms ID', 'dynamic-content-for-elementor'),
+            'description' => __('Comma separated list of category ids', 'dynamic-content-for-elementor'),
+            'type' => Controls_Manager::HIDDEN,
+            'default' => '', //do_shortcode('[product_cat_id]'),
+            'label_block' => true,
+            'separator' => 'before',
+            'condition' => [
+                'taxonomy!' => '',
+            ],
+                ]
+        );
+
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -3241,7 +3253,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .dce-acfposts_image a' => 'max-width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .dce-acfposts_image img' => 'max-width: {{SIZE}}{{UNIT}};',
             ],
             'condition' => [
                 'show_image' => '1',
@@ -3378,7 +3390,6 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 'only_parent_metadata', [
             'label' => __('Only parent items', 'dynamic-content-for-elementor'),
             'type' => Controls_Manager::SWITCHER,
-            'default' => 'yes',
             'condition' => [
                 'show_metadata' => '1',
             ]
@@ -7442,13 +7453,17 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
             
 
             /* INCLUDED */
-            // Nuovo! BUG!!!
-            //$terms_query = $settings['terms_' . $settings['taxonomy']];
-            // Vecchio!
-            $terms_query = $this->get_terms_query($settings, $id_page);
+            // Nuovo! 
+            if(!empty($settings['terms_' . $settings['taxonomy']])){
+                $terms_query = $settings['terms_' . $settings['taxonomy']];
+            }
+            
 
+            if (is_array($terms_query) && !empty($terms_query)) {
 
-            if (is_array($terms_query)) {
+                // metodo per recuperare i termini 
+                $terms_query = $this->get_terms_query($settings, $id_page);
+
                 //var_dump($terms_query);
                 $taxquery = array();
 
@@ -7507,6 +7522,31 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
         }
         //echo $settings['taxonomy'];
         //
+        // Qui voglio elaborare la cosa in base alla ACF taxonomy che usa la lista dei termini associati nel post specifico
+        if($settings['terms_from_acf'] && $settings['acf_taxonomy']){
+
+            $acfterm = get_field($settings['acf_taxonomy'], $id_page);
+
+            $terms_query = array();
+            if ($acfterm) {
+
+                foreach ($acfterm as $term) {
+                    //$term = get_term($term);
+                    $terms_query[] = $term;
+                }
+            
+
+                $taxquery = array(
+                    array(
+                        'taxonomy' => $settings['taxonomy'],
+                        'field' => 'id',
+                        'terms' => $terms_query,
+                    )
+                );
+
+
+            }
+        }
 
 
         if ($settings['query_type'] == 'specific_posts') {
@@ -7577,7 +7617,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
             //var_dump($taxonomy_list);
 
 
-
+            if(!empty($taxonomy_list)){
             foreach ($taxonomy_list as $tax) {
                 //echo $tax."<br />";
                 //var_dump(get_post_taxonomies( $id_page ));
@@ -7654,8 +7694,14 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                   'terms' => $lista_dei_termini
                   );
                   } */
+                }
             }
-            
+
+
+
+
+
+
             // Se la taxQuery dynamica non da risultati uso quella statica.
             if(!$array_taxquery) $array_taxquery = $taxquery;
             //var_dump($array_taxquery);
@@ -7695,7 +7741,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 } else if ($settings['child_source']) {
                     $args['post_parent'] = $id_page;
                 } else {
-                    $args['post_parent'] = $settings['specific_page_parent'];
+                    $args['post_parent'] =  DCE_Helper::get_rev_ID($settings['specific_page_parent'],$type_page);
                 }
             }
             if ($settings['post_offset']) {
@@ -7749,7 +7795,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 } else if ($settings['child_source']) {
                     $args['post_parent'] = $id_page;
                 } else {
-                    $args['post_parent'] = $settings['specific_page_parent'];
+                    $args['post_parent'] = DCE_Helper::get_rev_ID($settings['specific_page_parent'],$type_page);
                 }
             }
             if ($settings['post_offset']) {
@@ -7906,22 +7952,22 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 $args_filters['taxonomy'] = $settings['filters_taxonomy'];
                 $args_filters['hide_empty'] = $settings['filter_hide_empty'] ? false : true;
 
-                $args_filters['tax_query'] = $taxquery;
+                //$args_filters['tax_query'] = $taxquery;
 
-                $args_filters['include'] = $terms_query;
-                $args_filters['exclude'] = $terms_query_exclued;
+                //$args_filters['include'] = $terms_query;
+                //$args_filters['exclude'] = $terms_query_exclued;
                 //$args_filters['offset'] = $offset;
 
                 // -------- Questa parte è stata aggiungere per gestire i filtri in base ai post restituito ed eviare filtri vuoti.
                 //var_dump($taxquery);
-                $args_posts = $args_filters;
+                $args_posts = $args;
                 $args_posts['fields'] = 'ids';
 
                 $someposts = get_posts($args_posts);
                 $args_filters['object_ids'] = $someposts;
                 // -------------------------------------------------------------------
 
-
+                //var_dump($args_posts);
 
                 if ($settings['filters_taxonomy_first_level_terms']) {
                     $include_terms = array(); //'all';
@@ -9109,6 +9155,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
 
         if ($settings['taxonomy']) {
 
+            // per la retrocompatibilità con il vecchio category
             if ($settings['category'] != '') {
                 $terms_query = explode(',', $settings['category']);
             }
@@ -9155,19 +9202,7 @@ class DCE_Widget_DynamicPosts extends DCE_Widget_Prototype {
                 }
             }
 
-            if ($settings['terms_from_acf']) {
-
-                $acfterm = get_field($settings['acf_taxonomy'], $id_page);
-                //var_dump($acfterm);
-                $terms_query = array();
-                if ($acfterm) {
-
-                    foreach ($acfterm as $term) {
-                        //$term = get_term($term);
-                        $terms_query[] = $term;
-                    }
-                }
-            }
+            
         }
         //var_dump($terms_query);
         return $terms_query;

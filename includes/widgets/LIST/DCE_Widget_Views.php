@@ -110,7 +110,7 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
         );
         $this->end_controls_section();
 
-//* SELECT *//
+        //* SELECT *//
         $this->start_controls_section(
                 'section_select', [
             'label' => __('Select', 'dynamic-content-for-elementor'),
@@ -3204,11 +3204,17 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
             $settings = $this->get_settings_for_display(null, true); // not parsed because token need to be valued on loop
         }
 
-        global $wpdb, $post, $authordata, $wp_query, $in_the_loop;
+        global $wpdb, $post, $user, $authordata, $current_user, $wp_query, $in_the_loop;
         $original_post = $post;
-        $original_user = $authordata;
-        $original_query = $wp_query;
-        $original_loop = $in_the_loop;
+        $original_user = $user;
+        $original_current_user = $current_user;
+        $original_authordata = $authordata;
+        // $original_query = $wp_query; // not working for objects
+        $original_queried_object = $wp_query->queried_object;
+        $original_queried_object_id = $wp_query->queried_object_id;
+        $original_loop = $in_the_loop;              
+        
+        //var_dump($wp_query->queried_object_id);
 
         $wrapper_class = 'dce-view-' . $settings['dce_views_style_format'] . ' ' . $settings['dce_views_style_wrapper_class'];
         $element_class = 'dce-view-' . $settings['dce_views_style_format'] . '-element ' . $settings['dce_views_style_entrance_animation'] . ' ' . $settings['dce_views_style_element_class'];
@@ -3307,12 +3313,12 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
                 switch ($settings['dce_views_object']) {
                     case 'post':
                         //$the_query->the_post();
-                        $post = $dce_obj; //get_post();
-                        $dce_obj_id = $post->ID;
+                        $post = $wp_query->queried_object = $dce_obj; //get_post();                       
+                        $dce_obj_id = $wp_query->queried_object_id = $post->ID;
                         break;
                     case 'user':
-                        $authordata = $dce_obj;
-                        $dce_obj_id = $authordata->ID;
+                        $current_user = $user = $authordata = $wp_query->queried_object = $dce_obj;
+                        $dce_obj_id = $wp_query->queried_object_id = $authordata->ID;
                         break;
                     case 'term':
                         $dce_obj_id = $dce_obj->term_id;
@@ -3351,7 +3357,7 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
                             case 'table':
                                 echo '<tr class="' . $element_class . $element_class_obj . '">';
                                 foreach ($settings['dce_views_select_fields'] as $key => $afield) {
-                                    echo '<td class="dce-view-field-' . $afield['dce_views_select_field'] . ' ' . $afield['dce_views_select_class_wrapper'] . '"><div class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj_id, $afield, $settings) . '</div></td>';
+                                    echo '<td class="dce-view-field-' . $afield['dce_views_select_field'] . ' ' . $afield['dce_views_select_class_wrapper'] . '"><div class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj, $dce_obj_id, $afield, $settings) . '</div></td>';
                                 }
                                 echo '</tr>';
                                 break;
@@ -3377,7 +3383,7 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
                                     } else {
                                         echo '<div';
                                     }
-                                    echo ' class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj_id, $afield, $settings) . '</div>';
+                                    echo ' class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj, $dce_obj_id, $afield, $settings) . '</div>';
                                     if ($afield['dce_views_select_label'] && $afield['dce_views_select_label_inline']) {
                                         echo '</span>';
                                     } else {
@@ -3409,7 +3415,7 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
                                     } else {
                                         echo '<div';
                                     }
-                                    echo ' class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj_id, $afield, $settings) . '</div>';
+                                    echo ' class="dce-view-field-value ' . $afield['dce_views_select_class_value'] . '">' . $this->get_field_value($dce_obj, $dce_obj_id, $afield, $settings) . '</div>';
                                     if ($afield['dce_views_select_label'] && $afield['dce_views_select_label_inline']) {
                                         echo '</span>';
                                     } else {
@@ -3520,6 +3526,13 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
 
             //$in_the_loop = false;
             //$wp_query->in_the_loop = $in_the_loop;
+            $wp_query->queried_object = $original_queried_object;
+            $wp_query->queried_object_id = $original_queried_object_id;
+            $post = $original_post;
+            $user = $original_user;
+            $current_user = $original_current_user;
+            $authordata = $original_authordata;
+            //var_dump($wp_query->queried_object_id);
 
             if ($settings['dce_views_object'] == 'post') {
                 /* Restore original Post Data */
@@ -4905,26 +4918,30 @@ class DCE_Widget_Views extends DCE_Widget_Prototype {
         return $obj_ids;
     }
 
-    public function get_field_value($dce_obj_id, $afield, $settings = null) {
+    public function get_field_value($dce_obj, $dce_obj_id, $afield, $settings = null) {
         if (!$settings) {
             $settings = $this->get_settings_for_display();
         }
         $get_value = 'get_' . $settings['dce_views_object'] . '_value';
         $field_value = DCE_Helper::{$get_value}($dce_obj_id, $afield['dce_views_select_field']);
+        
+        if ($afield['dce_views_select_render'] == 'rewrite' && $afield['dce_views_select_rewrite']) {
+            $field_value_rewrite = $afield['dce_views_select_rewrite'];
+            $field_value_rewrite = DCE_Tokens::replace_var_tokens($field_value_rewrite, 'field', $field_value);
+            $field_value_rewrite = DCE_Tokens::replace_var_tokens($field_value_rewrite, $settings['dce_views_object'], $dce_obj);
+            $field_value_rewrite = DCE_Tokens::replace_var_tokens($field_value_rewrite, 'object', $dce_obj);
+            /*if ($settings['dce_views_object'] == 'user') {
+                $field_value_rewrite = DCE_Tokens::user_to_author($field_value_rewrite);
+            }*/
+            $field_value_rewrite = DCE_Helper::get_dynamic_value($field_value_rewrite);
+            $field_value = $field_value_rewrite;
+        }
+            
         if ($field_value) {
-            if ($afield['dce_views_select_render'] == 'rewrite' && $afield['dce_views_select_rewrite']) {
-                $field_value = DCE_Tokens::replace_var_tokens($afield['dce_views_select_rewrite'], 'field', $field_value);
-
-                if ($settings['dce_views_object'] == 'user') {
-                    $field_value = DCE_Tokens::user_to_author($field_value);
-                }
-                $field_value = DCE_Tokens::do_tokens($field_value);
-            }
             if (!empty($afield['dce_views_select_link'])) {
                 $get_link = 'get_' . $settings['dce_views_object'] . '_link';
                 $field_value = '<a href="' . DCE_Helper::{$get_link}($dce_obj_id) . '">' . $field_value . '</a>';
             }
-
             if ($afield['dce_views_select_render'] == 'auto' && $afield['dce_views_select_tag']) {
                 $field_value = '<' . $afield['dce_views_select_tag'] . '>' . $field_value . '</' . $afield['dce_views_select_tag'] . '>';
             }

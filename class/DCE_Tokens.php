@@ -21,6 +21,7 @@ class DCE_Tokens {
         $text = self::replace_author_tokens($text);
         $text = self::replace_user_tokens($text);
         $text = self::replace_post_tokens($text);
+        
         $text = self::replace_form_tokens($text);
         $text = self::replace_wp_query_tokens($text);
         //$text = self::replace_var_tokens($text);
@@ -28,6 +29,11 @@ class DCE_Tokens {
         $text = self::replace_option_tokens($text);
         $text = self::replace_system_tokens($text);
         $text = self::replace_comment_tokens($text);
+        
+        if (DCE_Helper::is_plugin_active('woocommerce')) {
+            //$text = self::replace_product_tokens($text);
+        }
+        
         return $text;
     }
     
@@ -69,7 +75,34 @@ class DCE_Tokens {
                 $text = self::replace_tokens_with_his_name($text, 'form');
             }
         } else {
+            $text = self::replace_content_shortcodes($text, '[form:all-fields]', $dce_form);
             $text = self::replace_var_tokens($text, 'form', $dce_form);
+        }
+        return $text;
+    }
+    
+    static public function replace_content_shortcodes($text, $all_fields_shortcode, $record, $line_break = '<br>') {
+        if (false !== strpos($text, $all_fields_shortcode)) {
+            $fields = '';
+            foreach ($record as $fkey => $fvalue) {
+                if (is_array($fvalue)) {
+                    switch ($fkey) {
+                        case 'pdf':
+                            $fvalue = $fvalue['url'];
+                            break;
+                        default: 
+                            $fvalue = var_export($fvalue, 1);
+                    }
+                }
+                $formatted = '';
+                if (!empty($fkey)) {
+                    $formatted = sprintf('<b>%s:</b> %s', $fkey, $fvalue);
+                } elseif (!empty($fvalue)) {
+                    $formatted = sprintf('%s', $fvalue);
+                }
+                $fields .= $formatted . $line_break;
+            }
+            $text = str_replace($all_fields_shortcode, $fields, $text);
         }
         return $text;
     }
@@ -216,10 +249,13 @@ class DCE_Tokens {
                     $metaKey = explode(':', $metaName);
                     $field = array_shift($metaKey);
                     $metaValue = '';
-                    if ($post_id) {
+                    if ($post_id) {                        
                         $metaValue = DCE_Helper::get_post_value($post_id, $field, $single);
+                        /*if (!$metaValue) {
+                            $metaValue = self::check_array_value($current_post, $field);
+                        }*/
                     }
-
+                    
                     $replaceValue = self::check_array_value($metaValue, $metaKey);
                     //$checkValue = eval($replaceValue);
                     if (count($altriPezzi) == 2) {
@@ -229,6 +265,81 @@ class DCE_Tokens {
                     $replaceValue = self::value_or_fallback($replaceValue, $fallback);
                     
                     $text = str_replace('[post:' . $metaParams . ']', $replaceValue, $text);
+                }
+            }
+        }
+        return $text;
+    }
+    
+    static public function replace_product_tokens($text) {
+        global $product;
+        $current_post_id = $post_id = get_the_ID();
+        $current_post = wc_get_product();
+        //var_dump($current_post); die();
+        /*if ($current_post) {
+            $current_post_id = $post_id = $current_post->ID;
+        }*/
+        // post field
+        $pezzi = explode('[product:', $text);
+        if (count($pezzi) > 1) {
+            foreach ($pezzi as $key => $avalue) {
+                $filters = array();
+                if ($key) {
+                    $metaTmp = explode(']', $avalue);
+                    $metaParams = reset($metaTmp);
+
+                    // GET FALLBACK
+                    $morePezzi = explode('?', $metaParams, 2);
+                    $fallback = '';
+                    if (count($morePezzi) == 2) {
+                        $fallback = end($morePezzi);
+                    }
+                    $pezzoTmp = reset($morePezzi);
+
+                    // GET FILTERS or ID
+                    $single = null;
+                    $altriPezzi = explode('|', $pezzoTmp, 2);
+                    if (count($altriPezzi) == 2) {
+                        $filtersTmp = explode('|', end($altriPezzi));
+                        foreach ($filtersTmp as $afilter) {
+                            if (is_numeric($afilter) && intval($afilter) > 0) {
+                                $post_id = intval($afilter);
+                            }
+                            if ($afilter == 'single') {
+                                $single = true;
+                            }
+                            if ($afilter == 'multiple') {
+                                $single = false;
+                            }
+                        }
+                    }
+
+                    $metaName = reset($altriPezzi);
+
+                    // GET SUB ARRAY
+                    $metaKey = explode(':', $metaName);
+                    $field = array_shift($metaKey);
+                    
+                    $metaValue = '';
+                    if ($post_id) {                        
+                        switch ($field) {
+                            default:  
+                                $metaValue = DCE_Helper::get_post_value($post_id, $field, $single);
+                                if (!$metaValue) {
+                                    $metaValue = self::check_array_value($current_post, $field);
+                                }
+                        }
+                    }
+                    
+                    $replaceValue = self::check_array_value($metaValue, $metaKey);
+                    //$checkValue = eval($replaceValue);
+                    if (count($altriPezzi) == 2) {
+                        // APPLY FILTERS
+                        $replaceValue = self::apply_filters($replaceValue, end($altriPezzi), $post_id, $field);
+                    }
+                    $replaceValue = self::value_or_fallback($replaceValue, $fallback);
+                    
+                    $text = str_replace('[product:' . $metaParams . ']', $replaceValue, $text);
                 }
             }
         }
@@ -362,6 +473,7 @@ class DCE_Tokens {
 
     static public function replace_var_tokens($text, $var_name, $var_value) {
         $current_post_id = $post_id = get_the_ID();
+        $var_value_original = $var_value;
         if (is_object($var_value)) {
             $var_value = get_object_vars($var_value);
         } else {
@@ -382,6 +494,29 @@ class DCE_Tokens {
 
                     $subfield = '';
                     if (substr($metaParams, 0, 1) == ':') {
+                        if (is_object($var_value_original)) {
+                            //var_dump(get_class($var_value_original));
+                            switch(get_class($var_value_original)) {
+                                case 'WP_User':
+                                    if ($var_name == 'user' || $var_name == 'object') {
+                                        $text = str_replace('['.$var_name . $metaParams . ']', '[user' . $metaParams . ']', $text);
+                                        return self::replace_user_tokens($text);
+                                    }
+                                    break;
+                                case 'WP_Post':
+                                    if ($var_name == 'post' || $var_name == 'object') {
+                                        $text = str_replace('['.$var_nam . $metaParams . ']', '[post' . $metaParams . ']', $text);
+                                        return self::replace_post_tokens($text);    
+                                    }
+                                    break;
+                                case 'WP_Term':
+                                    if ($var_name == 'term' || $var_name == 'object') {
+                                        $text = str_replace('['.$var_name . $metaParams . ']', '[term' . $metaParams . ']', $text);
+                                        return self::replace_term_tokens($text);    
+                                    }
+                                    break;
+                            }
+                        }
                         $metaParams = substr($metaParams, 1);
                         $subfield = ':';
                     }

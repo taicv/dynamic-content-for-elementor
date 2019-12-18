@@ -16,7 +16,7 @@ if (!defined('ABSPATH'))
 class DCE_Extension_Rellax extends DCE_Extension_Prototype {
 
     public $name = 'Rellax';
-    
+    public $has_controls = true;
     public $common_sections_actions = array(
         array(
             'element' => 'common',

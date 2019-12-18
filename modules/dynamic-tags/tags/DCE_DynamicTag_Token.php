@@ -331,8 +331,15 @@ class DCE_DynamicTag_Token extends Tag {
         } else {
             $token = $settings['dce_token'];
         }
+        
+        $value = \DynamicContentForElementor\DCE_Helper::get_dynamic_value($token);
+        
+        if ( empty( $value ) && $this->get_settings( 'fallback' ) ) {
+                $value = $this->get_settings( 'fallback' );
+                $value = \DynamicContentForElementor\DCE_Helper::get_dynamic_value($value);
+        }
         //echo \DynamicContentForElementor\DCE_Tokens::do_tokens($settings['dce_token']);
-        echo \DynamicContentForElementor\DCE_Helper::get_dynamic_value($token);
+        echo $value;
     }
 
 }

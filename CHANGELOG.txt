@@ -1,3 +1,23 @@
+04/12/2019
+1.8.1
+ - New: Copy Paste Cross-site interface working on All browser
+ - Tweak: ACF Repeater in Template Preview
+ - Add: ACF Map Marker Clustering
+ - Add: form Upload fields as Attachments on Dynamic Email
+ - Fix: Minor fixes
+
+29/11/2019
+1.8.0
+ - New: Copy & Paste across different site domains
+ - New: Copy to Clipboard Widget
+ - New: WebGL BG Canvas Widget
+ - New: Easy Rollback to previous version after plugin update
+ - New: Force Full-Width or Canvas Template to Single Page from Dynamic Template System
+ - Add: Description on Fields in Enchanted Form for Elementor PRO Form
+ - UX: new Enchanted Form setting Tab
+ - Update: Vendors
+ - Fix: Minor fixes
+
 19/11/2019
 1.7.1
  - New: Dynamic Tag Token Wizard mode

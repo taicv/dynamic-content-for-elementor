@@ -1,5 +1,5 @@
 (function ($) {
-    var WidgetElements_SvgFilterEffectsHandler = function ($scope, $) {
+    var WidgetElements_BGCanvasHandler = function ($scope, $) {
         var elementSettings = get_Dyncontel_ElementSettings($scope);
         var id_scope = $scope.attr('data-id');
 
@@ -56,7 +56,9 @@
             this.renderPass = null;
             this.copyPass = null;
             
-
+             //Effect
+            this.effectAscii = null;
+            this.effectSobel = null;
             // Render Time
             this.clock = null;
             this.delta = 0.01;
@@ -95,6 +97,19 @@
 
             this.el.appendChild(this.renderer.domElement);
 
+            // ---------------- Ascii
+            var filter_ascii = Boolean(elementSettings.postprocessing_ascii);
+            if(filter_ascii){
+              this.effectAscii = new THREE.AsciiEffect( this.renderer, ' .:-+*=%@#', { invert: true } );
+              this.effectAscii.setSize( this.container.width(), this.container.height() );
+              this.effectAscii.domElement.style.color = 'white';
+              this.effectAscii.domElement.style.backgroundColor = 'black';
+
+              this.el.appendChild( this.effectAscii.domElement );
+            }else{
+              this.el.appendChild(this.renderer.domElement);
+            }
+
             this.scene = new THREE.Scene();
             this.clock = new THREE.Clock(true);
           }
@@ -105,6 +120,7 @@
 
             this.texture = loader.load(this.image, texture => {
               this.mat.uniforms.uTextureSize.value.set(texture.image.width, texture.image.height);
+              console.log(this.texture);
             });
 
             // --------
@@ -119,18 +135,22 @@
           }
 
           createMesh() {
+
             this.mat = new THREE.ShaderMaterial({
               uniforms: {
                 uScreenSize: { type: 'v2', value: new THREE.Vector2(this.container.width(), this.container.height()) },
+                //uScreenSize: { type: 'v2', value: new THREE.Vector2(500, 500) },
                 uTextureSize: { type: 'v2', value: new THREE.Vector2(1, 1) },
                 width: { type: 'f', value: this.container.width() },
                 height: { type: 'f', value: this.container.height() },
-                texture: { type: 't', value: this.texture } },
+                texture: { type: 't', value: this.texture } 
+              },
 
 
               transparent: true,
               vertexShader: this.vert,
-              fragmentShader: this.frag });
+              fragmentShader: this.frag 
+            });
 
 
             const geometry = new THREE.PlaneBufferGeometry(
@@ -141,6 +161,7 @@
 
             const mesh = new THREE.Mesh(geometry, this.mat);
             mesh.scale.set(this.container.width(), this.container.height(), 1);
+            //mesh.scale.set(500, 500, 1);
             this.mesh = mesh;
 
             this.scene.add(mesh);
@@ -213,7 +234,8 @@
             var postprocessing_bloom = Boolean(elementSettings.postprocessing_bloom);
             var postprocessing_afterimage = Boolean(elementSettings.postprocessing_afterimage);
             var postprocessing_pixels = Boolean(elementSettings.postprocessing_pixels);
-            
+            var postprocessing_sobel = Boolean(elementSettings.postprocessing_sobel);
+
             // ---------------- Halftone
             if( postprocessing_halftone ){
               var params = {
@@ -230,10 +252,26 @@
               };
               var halftonePass = new THREE.HalftonePass( this.container.width(), this.container.height(), params );
             }
+            if( postprocessing_rgbShiftShader ){
 
+              var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+              rgbEffect.uniforms[ 'amount' ].value = Number(elementSettings.postprocessing_rgbshift_amount.size)/100 || 0.015;
+              rgbEffect.renderToScreen = true;
+            }
             // ---------------- Bloom
-            var effectBloom = new THREE.BloomPass( 0.5 );
+            if( postprocessing_bloom ){
+              var effectBloom = new THREE.BloomPass( 0.5 );
+            }
+            // ---------------- Bloom
+            if( postprocessing_sobel ){
+              var effectGrayScale = new THREE.ShaderPass( THREE.LuminosityShader );
+             
 
+              this.effectSobel = new THREE.ShaderPass( THREE.SobelOperatorShader );
+              this.effectSobel.uniforms[ 'resolution' ].value.x = this.container.width() * window.devicePixelRatio;
+              this.effectSobel.uniforms[ 'resolution' ].value.y = this.container.height() * window.devicePixelRatio;
+              
+            }
             // ---------------- Film
             if( postprocessing_film ){
               var effectFilm = new THREE.FilmPass(); //noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale
@@ -244,36 +282,48 @@
             }
 
             // ---------------- DotScreen
-            var effectDotScreen = new THREE.DotScreenPass( new THREE.Vector2( 0, 0 ), 0.5, 0.8 );
-
+            if( postprocessing_dot ){
+              var effectDotScreen = new THREE.DotScreenPass( new THREE.Vector2( 0, 0 ), 0.5, 0.8 );
+              effectDotScreen.uniforms[ "scale" ].value = Number(elementSettings.postprocessing_dot_scale.size) || 1;
+              effectDotScreen.uniforms[ "angle" ].value = Number(elementSettings.postprocessing_dot_angle.size) || 0.5;
+            }
             // ---------------- Colors
-            var effectColorify1 = new THREE.ShaderPass( THREE.ColorifyShader );
-            var effectColorify2 = new THREE.ShaderPass( THREE.ColorifyShader );
-            effectColorify1.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.8, 0.8 ) );
-            effectColorify2.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.75, 0.5 ) );
-
+            if( postprocessing_colorify ){
+              var effectColorify1 = new THREE.ShaderPass( THREE.ColorifyShader );
+              var effectColorify2 = new THREE.ShaderPass( THREE.ColorifyShader );
+              effectColorify1.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.8, 0.8 ) );
+              effectColorify2.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.75, 0.5 ) );
+            }
             // ---------------- Vignette
-            var effectVignette = new THREE.ShaderPass( THREE.VignetteShader );
-            effectVignette.uniforms[ "offset" ].value = 0.95;
-            effectVignette.uniforms[ "darkness" ].value = 1.6;
+            if( postprocessing_vignette ){
+              var effectVignette = new THREE.ShaderPass( THREE.VignetteShader );
+              effectVignette.uniforms[ "offset" ].value = 0.95;
+              effectVignette.uniforms[ "darkness" ].value = 1.6;
+            }
+            // ---------------- Glitch
+            if(postprocessing_glitch){
+              /*var glitchDtSize = 100,
+              glitchDelay = 1,
+              glitchAmplification = .5;
+              var glitch = new THREE.GlitchPass(glitchDtSize, glitchDelay, glitchAmplification);
+              glitch.renderToScreen = true;*/
 
-            /*
-            var glitchDtSize = 100,
-            glitchDelay = 1,
-            glitchAmplification = .5;
-            var glitch = new THREE.GlitchPass(glitchDtSize, glitchDelay, glitchAmplification);
-            glitch.renderToScreen = true;
-            */
-            var glitchPass = new THREE.GlitchPass(64);
-            glitchPass.renderToScreen = true;
-            //glitchPass.goWild = true;
-            glitchPass.uniforms[ 'byp' ].value = 0.9;
-            // glitchPass.uniforms[ 'amount' ].value = Math.random() / 100;
-            // glitchPass.uniforms[ 'seed' ].value = 1;
-            // glitchPass.uniforms[ 'byp' ].value = 2;
-            // glitchPass.uniforms[ 'seed_x' ].value = THREE.Math.randFloat( - 3, 3 );
+              var glitchPass = new THREE.GlitchPass(64);
+              glitchPass.renderToScreen = true;
 
-
+              // glitchPass.goWild = true;
+              // glitchPass.uniforms[ 'byp' ].value = 0.9;
+              // glitchPass.uniforms[ 'amount' ].value = Math.random() / 100;
+              // glitchPass.uniforms[ 'seed' ].value = 1;
+              // glitchPass.uniforms[ 'byp' ].value = 2;
+              // glitchPass.uniforms[ 'seed_x' ].value = THREE.Math.randFloat( - 3, 3 );
+            }
+            if( postprocessing_pixels ){
+              var pixelPass = new THREE.ShaderPass( THREE.PixelShader );
+              pixelPass.uniforms[ "resolution" ].value = new THREE.Vector2( this.container.width(), this.container.height() );
+              pixelPass.uniforms[ "resolution" ].value.multiplyScalar( window.devicePixelRatio );
+              pixelPass.uniforms[ "pixelSize" ].value =  elementSettings.postprocessing_pixels_size.size || 16;
+            }
 
             this.composer.addPass( this.renderPass );
             //
@@ -282,21 +332,30 @@
             //this.composer.addPass( effectVignette );
             //this.composer.addPass( effectColorify1 );
             //this.composer.addPass( effectColorify2 );
-            //this.composer.addPass( glitchPass );
+            //
 
-
-
-
-            if( postprocessing_halftone ){
-                this.composer.addPass( halftonePass );
+            if( postprocessing_dot ){
+              this.composer.addPass( effectDotScreen );
             }
-
-            
+            if(postprocessing_rgbShiftShader){
+              this.composer.addPass( rgbEffect );
+            }
+            if( postprocessing_halftone ){
+              this.composer.addPass( halftonePass );
+            }
+            if(postprocessing_glitch){
+              this.composer.addPass( glitchPass );
+            }
             if( postprocessing_film ) {
-                this.composer.addPass( effectFilm );
+              this.composer.addPass( effectFilm );
             } 
-
-
+            if(postprocessing_pixels){
+              this.composer.addPass( pixelPass );
+            }
+            if(postprocessing_sobel){
+              this.composer.addPass( effectGrayScale );
+              this.composer.addPass( this.effectSobel );
+            }
 
           }
           /*inArray(needle, haystack) {
@@ -315,6 +374,11 @@
             var delta = this.clock.getDelta();
             this.renderer.render(this.scene, this.camera);
             this.composer.render(this.delta);
+
+            //effects
+            if(this.effectAscii) this.effectAscii.render( this.scene, this.camera );
+
+            
           }
 
           init() {
@@ -340,6 +404,14 @@
 
             this.renderer.setSize(this.container.width(), this.container.height());
             this.composer.setSize( this.container.width(), this.container.height() );
+
+            // effects
+            if(this.effectAscii) this.effectAscii.setSize( this.container.width(), this.container.height() );
+
+            if(this.effectSobel){
+              this.effectSobel.uniforms[ 'resolution' ].value.x = this.container.width() * window.devicePixelRatio;
+              this.effectSobel.uniforms[ 'resolution' ].value.y = this.container.height() * window.devicePixelRatio;
+            }
           }
 
         } // end class Scene
@@ -349,6 +421,6 @@
     };
 
     $(window).on('elementor/frontend/init', function () {
-        elementorFrontend.hooks.addAction('frontend/element_ready/dyncontel-bgcanvas.default', WidgetElements_SvgFilterEffectsHandler);
+        elementorFrontend.hooks.addAction('frontend/element_ready/dyncontel-bgcanvas.default', WidgetElements_BGCanvasHandler);
     });
 })(jQuery);

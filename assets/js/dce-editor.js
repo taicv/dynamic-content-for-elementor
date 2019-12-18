@@ -3,6 +3,15 @@
  * dynamic.ooo
  */
 
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -175,79 +184,6 @@ jQuery(document).ready(function() {
             //alert( runAnimation );
         });
 });
-
-/*
-// DYNAMIC TAGS with TOKENS support
-jQuery(document).ready(function() {
-    //var global = __webpack_require__(5);
-    //var $JSON = global.JSON;
-    //var _stringify = $JSON && $JSON.stringify;
-
-    jQuery(document).on('change','textarea.elementor-control-tag-area, .elementor-control-tag-area[type="text"], .elementor-control-tag-area.elementor-input',function(){
-        var cid = dce_model_cid;
-        var eid = dce_get_element_id_from_cid(cid);
-        var tagValue = jQuery(this).val();
-        var tokens = tagValue.match(/\[(.*?)\]/);
-        if (tokens) {
-            var settingKey = dce_get_setting_name(jQuery(this));
-            //var settingValue = '[dce-token value="' + tokens.shift() + '"]';
-            var tokenValue = tokens.shift();
-            tokenValue = eid;
-            tagSettings  = { 'eid': eid, 'cid': cid, 'dynamic': 'ooo'},
-            tagSettings['name'] = settingKey;
-            tagSettings['sub'] = jQuery(this).data('setting');
-            //tagSettings['value'] = tagValue;
-            //console.log(tagSettings);
-            tagSettings = encodeURIComponent(JSON.stringify(tagSettings) || {});
-            var settingValue = '[elementor-tag id="' + eid + '" name="dce-token" settings="'+ tagSettings +'"]';
-
-            var dynamicSettings = {};
-            if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__) {
-               dynamicSettings = elementorFrontend.config.elements.data[cid].attributes.__dynamic__;
-            }
-            var newSetting = {
-                'dynamic': 'ooo',
-                //settingKey: { settingValue },
-            };
-            newSetting[settingKey] = settingValue;
-            jQuery.extend(dynamicSettings, newSetting);
-            elementorFrontend.config.elements.data[cid].attributes.__dynamic__ = dynamicSettings;
-
-            var dynamicActive = {};
-            if (elementorFrontend.config.elements.data[cid].attributes.dynamic) {
-               dynamicActive = elementorFrontend.config.elements.data[cid].attributes.dynamic;
-            }
-            newActive = { 'active': true };
-            jQuery.extend(dynamicActive, newActive);
-            elementorFrontend.config.elements.data[cid].attributes.dynamic = dynamicActive;
-            //elementor.reloadPreview();
-        }
-        console.log(elementorFrontend.config.elements.data[cid].attributes);
-    });
-
-});
-*/
-/*jQuery(window).on( 'load', function() {
-    setInterval(function(){
-        jQuery('.elementor-control-dynamic.elementor-control-dynamic-value').each(function(){
-            var tagInput = jQuery(this).find('.elementor-control-tag-area').first();
-            var settingKey = tagInput.data('setting');
-            //var cid = tagInput.attr('id').split('-').pop();
-            var cid = dce_model_cid;
-            //console.log(cid);
-            if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__) {
-                if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__.dynamic) {
-                    if (elementorFrontend.config.elements.data[cid].attributes.__dynamic__.dynamic = 'ooo') {
-                        //console.log(settingKey);
-                        tagInput.show();
-                        jQuery(this).find('.elementor-dynamic-cover').hide();
-                    }
-                }
-            }
-        });
-    }, 1000);
-});*/
-
 
 // FILEBROWSER
 jQuery(window).on( 'load', function() {
